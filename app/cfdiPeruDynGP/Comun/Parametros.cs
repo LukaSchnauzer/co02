@@ -81,7 +81,7 @@ namespace Comun
         private string _emailAdjImprm = "na";   //default no aplica
         private string _imprimeEnImpresora;
         private string _nombreImpresora;
-        private string _archivoConfiguracion= "ParametrosCfdiPERU.xml";
+        private string _archivoConfiguracion= "ParametrosCfdiCOLOMBIA.xml";
         private XmlDocument listaParametros;
         public Parametros()
         {
