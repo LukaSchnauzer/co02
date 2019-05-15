@@ -2,14 +2,14 @@
 <listaParametros>
   <servidor>10.1.1.22</servidor>
   <seguridadIntegrada>0</seguridadIntegrada>
-  <usuariosql>sa</usuariosql>
-  <passwordsql>sa22</passwordsql>
-  <compannia bd="PER10">
+  <usuariosql>FECOL1</usuariosql>
+  <passwordsql>fecol1</passwordsql>
+  <compannia bd="COL10">
     <URLArchivoXSD>NA</URLArchivoXSD>
     <URLArchivoXSLT>NA</URLArchivoXSLT>
     <URLConsulta>NA</URLConsulta>
     <PAC>
-      <urlWebService>http://demoint.thefactoryhka.com.pe/Service.svc?wsdl</urlWebService>
+      <urlWebService>http://int.thefactoryhka.com.pe/Service.svc?wsdl</urlWebService>
     </PAC>
     <reporteador>na</reporteador>
 	<reporteExtensiones>

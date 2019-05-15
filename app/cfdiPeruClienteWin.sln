@@ -19,6 +19,8 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "cfdiPeruWinSetup", "cfdiPer
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cfdiPeruDFactureUbl21", "cfdiPeruDFactureUbl21\cfdiPeruDFactureUbl21.csproj", "{E7057C8D-CD27-42D9-B19C-1B4330FC0C2D}"
 EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "cfdiColombiaSqlSetup", "cfdiColombiaSqlSetup\cfdiColombiaSqlSetup.wixproj", "{DA470DE4-D87B-452B-9EA1-487C5AA493AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,12 @@ Global
 		{E7057C8D-CD27-42D9-B19C-1B4330FC0C2D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E7057C8D-CD27-42D9-B19C-1B4330FC0C2D}.Release|x86.ActiveCfg = Release|Any CPU
 		{E7057C8D-CD27-42D9-B19C-1B4330FC0C2D}.Release|x86.Build.0 = Release|Any CPU
+		{DA470DE4-D87B-452B-9EA1-487C5AA493AB}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{DA470DE4-D87B-452B-9EA1-487C5AA493AB}.Debug|x86.ActiveCfg = Debug|x86
+		{DA470DE4-D87B-452B-9EA1-487C5AA493AB}.Debug|x86.Build.0 = Debug|x86
+		{DA470DE4-D87B-452B-9EA1-487C5AA493AB}.Release|Any CPU.ActiveCfg = Release|x86
+		{DA470DE4-D87B-452B-9EA1-487C5AA493AB}.Release|x86.ActiveCfg = Release|x86
+		{DA470DE4-D87B-452B-9EA1-487C5AA493AB}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
