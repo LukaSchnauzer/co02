@@ -9,7 +9,7 @@
     <URLArchivoXSLT>NA</URLArchivoXSLT>
     <URLConsulta>NA</URLConsulta>
     <PAC>
-      <urlWebService>http://int.thefactoryhka.com.pe/Service.svc?wsdl</urlWebService>
+      <urlWebService>http://demoemision.thefactoryhka.com.co/ws/obj/v1.1/Service.svc?wsdl </urlWebService>
     </PAC>
     <reporteador>na</reporteador>
 	<reporteExtensiones>
