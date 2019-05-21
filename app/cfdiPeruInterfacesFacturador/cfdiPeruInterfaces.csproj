@@ -42,11 +42,6 @@
     <Compile Include="ICfdiPeru.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="OpenInvoicePeru.Comun.Dto">
-      <HintPath>..\..\..\pe02\app\OpenInvoicePeru.Comun.Dto\bin\Debug\OpenInvoicePeru.Comun.Dto.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\cfdiEntidadesGP\cfdiEntidadesGP.csproj">
       <Project>{4954c962-f4d6-4c0c-91dd-18a690e326cd}</Project>
       <Name>cfdiEntidadesGP</Name>
