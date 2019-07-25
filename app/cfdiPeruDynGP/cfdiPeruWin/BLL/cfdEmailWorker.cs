@@ -4,9 +4,10 @@ using System.Text;
 using System.ComponentModel;
 
 using Comun;
-using cfdiPeru;
+//using cfdiPeru;
 using EMailManejador;
 using MaquinaDeEstados;
+using cfdiColombia;
 
 namespace cfd.FacturaElectronica
 {

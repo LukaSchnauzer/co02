@@ -69,7 +69,7 @@ namespace MaquinaDeEstados
         /// <param name="tipoDoc">Tipo de documento</param>
         /// <param name="accion">Proceso que inicia el cambio de estado</param>
         /// <param name="eBinarioActual">Cadena de 6 bits de derecha a izquierda. Indican los estados del documento.</param>
-        /// <param name="eBaseNuevo">Estado base al que se requiere cambiar</param>
+        /// <param name="eBaseNuevo">Estado baseal que se requiere cambiar</param>
         /// <param name="compania">Parámetros de la compañía</param>
         /// <returns>True si valida la transición. Cambia el atributo eBinarioNuevo: cadena de 6 bits que indica el nuevo estado del documento</returns>
         public bool ValidaTransicion(string tipoDoc, string accion, string eBinarioActual)
@@ -124,7 +124,7 @@ namespace MaquinaDeEstados
 
             if (tipoDoc.Equals("FACTURA") && accion.Equals("BAJA"))
             {
-                if (_Compania.emite == emitido(eBinarioActual) && !SunatRechazaComprobanteOAceptaBaja(eBinarioActual) && !SunatRechazaBaja(eBinarioActual) && !BajaSolicitada(eBinarioActual))
+                if (_Compania.emite == emitido(eBinarioActual) && !DianRechazaComprobanteOAceptaBaja(eBinarioActual) && !DianRechazaBaja(eBinarioActual) && !BajaSolicitada(eBinarioActual))
                 {
                     _eBinarioNuevo = Utiles.Izquierda(eBinarioActual, 2) + "1" + Utiles.Derecha(eBinarioActual, 3); //baja solicitada
                     _eBinarioNuevo = "0" + Utiles.Derecha(_eBinarioNuevo, 5);
@@ -138,14 +138,14 @@ namespace MaquinaDeEstados
 
             if (tipoDoc.Equals("FACTURA") && accion.Equals("CONSULTA STATUS"))
             {
-                if (_Compania.emite == emitido(eBinarioActual) && !SunatRechazaComprobanteOAceptaBaja(eBinarioActual) && !BajaSolicitada(eBinarioActual) && !SunatAceptaComprobante(eBinarioActual) && !SunatRechazaBaja(eBinarioActual) )
+                if (_Compania.emite == emitido(eBinarioActual) && !DianRechazaComprobanteOAceptaBaja(eBinarioActual) && !BajaSolicitada(eBinarioActual) && !DianAceptaComprobante(eBinarioActual) && !DianRechazaBaja(eBinarioActual) )
                 {
                     _eBinarioNuevo = Utiles.Izquierda(eBinarioActual, 1) + "1" + Utiles.Derecha(_eBinarioNuevo, 4);     //doc aceptado por sunat
                     eBinActualConError = Utiles.Izquierda(eBinarioActual, 4) + "1" + Utiles.Derecha(_eBinarioNuevo, 1); //doc rechazado
                     nodoDestinoStatusBase = !nodoDestinoAceptado ? "rechazo_sunat" : "acepta_sunat";
                     return true;
                 }
-                else if (_Compania.emite == emitido(eBinarioActual) && !SunatRechazaComprobanteOAceptaBaja(eBinarioActual) && BajaSolicitada(eBinarioActual) && SunatAceptaComprobante(eBinarioActual) && !SunatRechazaBaja(eBinarioActual))
+                else if (_Compania.emite == emitido(eBinarioActual) && !DianRechazaComprobanteOAceptaBaja(eBinarioActual) && BajaSolicitada(eBinarioActual) && DianAceptaComprobante(eBinarioActual) && !DianRechazaBaja(eBinarioActual))
                 {
                     _eBinarioNuevo = Utiles.Izquierda(eBinarioActual, 4) + "1" + Utiles.Derecha(_eBinarioNuevo, 1);         //baja aceptada
                     eBinActualConError = "1" + Utiles.Derecha(_eBinarioNuevo, 5);                                           //baja rechazada
@@ -167,7 +167,7 @@ namespace MaquinaDeEstados
                 //    return true;
                 //}
                 //else 
-                if (_Compania.emite == emitido(eBinarioActual) && !SunatRechazaComprobanteOAceptaBaja(eBinarioActual) && !SunatRechazaBaja(eBinarioActual) && !BajaSolicitada(eBinarioActual))
+                if (_Compania.emite == emitido(eBinarioActual) && !DianRechazaComprobanteOAceptaBaja(eBinarioActual) && !DianRechazaBaja(eBinarioActual) && !BajaSolicitada(eBinarioActual))
                 {
                     _eBinarioNuevo = Utiles.Izquierda(eBinarioActual, 4) + "0" + Utiles.Derecha(_eBinarioNuevo, 1);     //doc aceptado
                     _eBinarioNuevo = "0" + Utiles.Derecha(_eBinarioNuevo, 5);
@@ -330,7 +330,7 @@ namespace MaquinaDeEstados
             if (tipoDoc.Equals("FACTURA") && accion.Equals("DAR DE BAJA"))
             {
                 if (eBaseNuevo.Equals("baja solicitada"))
-                    if (_Compania.emite == emitido(eBinarioActual) && !SunatRechazaComprobanteOAceptaBaja(eBinarioActual) && !SunatRechazaBaja(eBinarioActual) && !BajaSolicitada(eBinarioActual))
+                    if (_Compania.emite == emitido(eBinarioActual) && !DianRechazaComprobanteOAceptaBaja(eBinarioActual) && !DianRechazaBaja(eBinarioActual) && !BajaSolicitada(eBinarioActual))
                     {
                         _eBinarioNuevo = Utiles.Izquierda(eBinarioActual, 2) + "1" + Utiles.Derecha(eBinarioActual, 3); //baja solicitada
                         _eBinarioNuevo = "0" + Utiles.Derecha(_eBinarioNuevo, 5);
@@ -344,7 +344,7 @@ namespace MaquinaDeEstados
             if (tipoDoc.Equals("FACTURA") && accion.Equals("CONSULTA CDR"))
             {
                 if (eBaseNuevo.Equals("consulta a la sunat"))
-                    if (_Compania.emite == emitido(eBinarioActual) && !SunatRechazaComprobanteOAceptaBaja(eBinarioActual) && BajaSolicitada(eBinarioActual) && !SunatRechazaBaja(eBinarioActual))
+                    if (_Compania.emite == emitido(eBinarioActual) && !DianRechazaComprobanteOAceptaBaja(eBinarioActual) && BajaSolicitada(eBinarioActual) && !DianRechazaBaja(eBinarioActual))
                     {
                         _eBinarioNuevo = Utiles.Izquierda(eBinarioActual, 4) + "1" + Utiles.Derecha(_eBinarioNuevo, 1);     //baja aceptada
                         _eBinarioNuevo = "0" + Utiles.Derecha(_eBinarioNuevo, 5);
@@ -358,14 +358,14 @@ namespace MaquinaDeEstados
 
             if (tipoDoc.Equals("FACTURA") && accion.Equals("CONSULTA STATUS"))
             {
-                if (_Compania.emite == emitido(eBinarioActual) && !SunatRechazaComprobanteOAceptaBaja(eBinarioActual) && !BajaSolicitada(eBinarioActual) && !SunatAceptaComprobante(eBinarioActual) && !SunatRechazaBaja(eBinarioActual))
+                if (_Compania.emite == emitido(eBinarioActual) && !DianRechazaComprobanteOAceptaBaja(eBinarioActual) && !BajaSolicitada(eBinarioActual) && !DianAceptaComprobante(eBinarioActual) && !DianRechazaBaja(eBinarioActual))
                 {
                     _eBinarioNuevo = Utiles.Izquierda(eBinarioActual, 1) + "1" + Utiles.Derecha(_eBinarioNuevo, 4);     //doc aceptado por sunat
                     eBinActualConError = Utiles.Izquierda(eBinarioActual, 4) + "1" + Utiles.Derecha(_eBinarioNuevo, 1); //doc rechazado
                     nodoDestinoStatusBase = !nodoDestinoAceptado ? "rechazo_sunat" : "acepta_sunat";
                     return true;
                 }
-                else if (_Compania.emite == emitido(eBinarioActual) && !SunatRechazaComprobanteOAceptaBaja(eBinarioActual) && BajaSolicitada(eBinarioActual) && !SunatAceptaComprobante(eBinarioActual) && !SunatRechazaBaja(eBinarioActual))
+                else if (_Compania.emite == emitido(eBinarioActual) && !DianRechazaComprobanteOAceptaBaja(eBinarioActual) && BajaSolicitada(eBinarioActual) && !DianAceptaComprobante(eBinarioActual) && !DianRechazaBaja(eBinarioActual))
                 {
                     _eBinarioNuevo = "1" + Utiles.Derecha(_eBinarioNuevo, 5);                                           //baja rechazada
                     eBinActualConError = Utiles.Izquierda(eBinarioActual, 4) + "1" + Utiles.Derecha(_eBinarioNuevo, 1); //baja aceptada
@@ -432,17 +432,17 @@ namespace MaquinaDeEstados
                         eBaseDescripcion += "Pdf no impreso. ";
 
                 if (_Compania.envia)
-                    if (SunatAceptaComprobante(eBinario))
+                    if (DianAceptaComprobante(eBinario))
                         eBaseDescripcion += "Aceptado Sunat. ";
 
                 if (_Compania.publica)
                     if (BajaSolicitada(eBinario))
                         eBaseDescripcion += "Baja solicitada. ";
 
-                if (SunatRechazaComprobanteOAceptaBaja(eBinario))
+                if (DianRechazaComprobanteOAceptaBaja(eBinario))
                     eBaseDescripcion += "Anulado Sunat. ";
 
-                if (SunatRechazaBaja(eBinario))
+                if (DianRechazaBaja(eBinario))
                     eBaseDescripcion += "Baja rechazada Sunat. ";
             }
             else
@@ -453,7 +453,7 @@ namespace MaquinaDeEstados
                     else
                         eBaseDescripcion += "Xml no emitido. ";
 
-                if (SunatRechazaComprobanteOAceptaBaja(eBinario))
+                if (DianRechazaComprobanteOAceptaBaja(eBinario))
                     eBaseDescripcion += "Aceptado Sunat. ";
 
                 if (_Compania.imprime)
@@ -474,7 +474,7 @@ namespace MaquinaDeEstados
                 //    else
                 //        eBase += "E-mail no enviado. ";
 
-                if (SunatRechazaBaja(eBinario))
+                if (DianRechazaBaja(eBinario))
                     eBaseDescripcion += "Rechazado Sunat. ";
             }
 
@@ -485,10 +485,16 @@ namespace MaquinaDeEstados
         {
             return Utiles.Derecha(eBinario, 1).Equals("1");
         }
-        private bool SunatRechazaComprobanteOAceptaBaja(string eBinario)
+
+        private bool DianRechazaComprobanteOAceptaBaja(string eBinario)
         {
-            return Utiles.Derecha(eBinario, 2)[0].Equals('1');
+        return Utiles.Derecha(eBinario, 2)[0].Equals('1');
         }
+        //private bool SunatRechazaComprobanteOAceptaBaja(string eBinario)
+        //{
+        //return Utiles.Derecha(eBinario, 2)[0].Equals('1');
+        //}
+
         //private bool AceptaSunat(string eBinario)
         //{
         //    return Utiles.Derecha(eBinario, 2)[0].Equals('1');
@@ -502,14 +508,22 @@ namespace MaquinaDeEstados
         {
             return Utiles.Derecha(eBinario, 4)[0].Equals('1');
         }
-        public bool SunatAceptaComprobante(string eBinario)
+        public bool DianAceptaComprobante(string eBinario)
         {
-            return Utiles.Derecha(eBinario, 5)[0].Equals('1');
+        return Utiles.Derecha(eBinario, 5)[0].Equals('1');
         }
-        private bool SunatRechazaBaja(string eBinario)
+        //public bool SunatAceptaComprobante(string eBinario)
+        //{
+        //return Utiles.Derecha(eBinario, 5)[0].Equals('1');
+        //}
+        private bool DianRechazaBaja(string eBinario)
         {
             return Utiles.Derecha(eBinario, 6)[0].Equals('1');
         }
+        //private bool SunatRechazaBaja(string eBinario)
+        //{
+        //return Utiles.Derecha(eBinario, 6)[0].Equals('1');
+        //}
 
     }
 }

@@ -1,4 +1,4 @@
-﻿using cfdiPeru;
+﻿//using cfdiPeru;
 using Comun;
 using MaquinaDeEstados;
 using System;
@@ -10,8 +10,9 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using cfdiPeruInterfaces;
+using cfdiColombiaInterfaces;
 using System.Xml.Linq;
+using cfdiColombia;
 
 namespace cfd.FacturaElectronica
 {
@@ -82,13 +83,15 @@ namespace cfd.FacturaElectronica
                     String accion = "EMITE XML Y PDF";
                     try
                     {
-                        if (trxVenta.Estado.Equals("no emitido") &&
-                            maquina.ValidaTransicion(_Param.tipoDoc, accion, trxVenta.EstadoActual) &&
-                            trxVenta.EstadoContabilizado.Equals("contabilizado"))
+                        if (//trxVenta.Estado.Equals("no emitido") &&
+                            //maquina.ValidaTransicion(_Param.tipoDoc, accion, trxVenta.EstadoActual) &&
+                            //trxVenta.EstadoContabilizado.Equals("contabilizado")//
+                            1==1)                           
+
                         { 
                             if (trxVenta.Voidstts == 0)  //documento no anulado
                             {
-                                trxVenta.ArmarDocElectronico(leyendas);
+                                trxVenta.ArmarDocElectronico(leyendas);                                
                                 String[] serieCorrelativo = trxVenta.DocGP.DocVenta.idDocumento.Split(new char[] { '-' });
                                 string nombreArchivo = Utiles.FormatoNombreArchivo(trxVenta.Docid + trxVenta.Sopnumbe + "_" + trxVenta.s_CUSTNMBR, trxVenta.s_NombreCliente, 20) + "_" + accion.Substring(0, 2);
                                 //validaciones

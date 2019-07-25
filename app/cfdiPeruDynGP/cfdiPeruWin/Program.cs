@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace cfdiPeru
+//namespace cfdiPeru
+namespace cfdiColombia
 {
     static class Program
     {

@@ -4,7 +4,8 @@ using System.Text;
 using Comun;
 using System.Security.Principal;
 
-namespace cfdiPeru
+//namespace cfdiPeru
+namespace cfdiColombia
 {
     class ConexionDB
     {

@@ -5,7 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace cfdiPeruInterfaces
+//namespace cfdiPeruInterfaces
+namespace cfdiColombiaInterfaces
 {
     public interface ICfdiMetodosWebService
     {

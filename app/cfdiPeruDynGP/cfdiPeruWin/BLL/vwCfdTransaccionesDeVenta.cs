@@ -6,8 +6,11 @@ using Comun;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Linq;
+//using cfdiColomiba;
+using cfdiColombia;
 
-namespace cfdiPeru
+//namespace cfdiPeru
+namespace cfdiColombia
 {
     class vwCfdTransaccionesDeVenta : vwCfdiTransaccionesDeVenta
     {

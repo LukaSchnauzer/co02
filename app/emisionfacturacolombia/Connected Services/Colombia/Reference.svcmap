@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="b0e8a50c-5070-4724-afe2-b3d603077a5f" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://demoemision.thefactoryhka.com.co/ws/obj/v1.1/Service.svc?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Service.xsd" MetadataType="Schema" ID="3bcdf474-61a3-40f0-b711-97444e4580e1" SourceId="1" SourceUrl="http://demoemision.thefactoryhka.com.co/ws/obj/v1.1/Service.svc?xsd=xsd3" />
+    <MetadataFile FileName="Service1.xsd" MetadataType="Schema" ID="175c88f7-6f61-4f1a-a3c1-f686e2663964" SourceId="1" SourceUrl="http://demoemision.thefactoryhka.com.co/ws/obj/v1.1/Service.svc?xsd=xsd1" />
+    <MetadataFile FileName="Service2.xsd" MetadataType="Schema" ID="c2519501-4c80-407d-990d-305874f2a21b" SourceId="1" SourceUrl="http://demoemision.thefactoryhka.com.co/ws/obj/v1.1/Service.svc?xsd=xsd0" />
+    <MetadataFile FileName="Service3.xsd" MetadataType="Schema" ID="f69c64d1-03bd-4da1-8c3f-4673b8908f82" SourceId="1" SourceUrl="http://demoemision.thefactoryhka.com.co/ws/obj/v1.1/Service.svc?xsd=xsd4" />
+    <MetadataFile FileName="Service4.xsd" MetadataType="Schema" ID="e63dbdde-f3bd-475d-975e-6e945b28cd01" SourceId="1" SourceUrl="http://demoemision.thefactoryhka.com.co/ws/obj/v1.1/Service.svc?xsd=xsd2" />
+    <MetadataFile FileName="Service.wsdl" MetadataType="Wsdl" ID="16da1fa6-4ddf-4d93-b6ca-e341a6eb0045" SourceId="1" SourceUrl="http://demoemision.thefactoryhka.com.co/ws/obj/v1.1/Service.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
