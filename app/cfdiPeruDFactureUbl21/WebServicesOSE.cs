@@ -1,5 +1,6 @@
 ﻿using cfdiEntidadesGP;
-using cfdiPeruInterfaces;
+//using cfdiPeruInterfaces;
+using cfdiColombiaInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,8 @@ using cfdiPeruDFactureUbl21.DFactureUbl21;
 using System.Xml.Linq;
 //using System.Xml;
 
-namespace cfdiPeruOperadorServiciosElectronicos
+//namespace cfdiPeruOperadorServiciosElectronicos
+namespace cfdiColombiaOperadorServiciosElectronicos
 {
     public class WebServicesOSE : ICfdiMetodosWebService
     {
@@ -21,6 +23,7 @@ namespace cfdiPeruOperadorServiciosElectronicos
 
         public WebServicesOSE(string URLwebServPAC)
         {
+            //crea un direccion unica de red donde un clinte puede comunicarse con un servicio endpoint
             ServicioWS.Endpoint.Address = new System.ServiceModel.EndpointAddress(URLwebServPAC) ;
         }
 
@@ -197,7 +200,7 @@ namespace cfdiPeruOperadorServiciosElectronicos
                 producto.codigoPLU = producto_gp.ITEMNMBR;
                 producto.codigoPLUSunat = producto_gp.claveProdSunat.Trim();
                 producto.descripcion = producto_gp.ITEMDESC;
-                producto.montoTotalImpuestoItem = producto_gp.montoIva.ToString("0.00");
+                //producto.montoTotalImpuestoItem = producto_gp.montoIva.ToString("0.00");
                 producto.precioVentaUnitarioItem = producto_gp.precioUniConIva.ToString();
                 producto.unidadMedida = producto_gp.udemSunat;
                 producto.valorReferencialUnitario = producto_gp.precioUniConIva.ToString();
@@ -225,26 +228,26 @@ namespace cfdiPeruOperadorServiciosElectronicos
                 switch (producto_gp.tipoAfectacion.ToString().Trim())
                 {
                     case "20":
-                        producto.IGV.baseImponible = producto_gp.montoImponibleExonera.ToString("0.00");
+                        //producto.IGV.baseImponible = producto_gp.montoImponibleExonera.ToString("0.00");
                         break;
                     case "21":
-                        producto.IGV.baseImponible = producto_gp.montoImponibleGratuito.ToString("0.00");
+                        //producto.IGV.baseImponible = producto_gp.montoImponibleGratuito.ToString("0.00");
                         break;
                     case "30":
-                        producto.IGV.baseImponible = producto_gp.montoImponibleInafecto.ToString("0.00");
+                       // producto.IGV.baseImponible = producto_gp.montoImponibleInafecto.ToString("0.00");
                         break;
                     case "35":
-                        producto.IGV.baseImponible = producto_gp.montoImponibleInafecto.ToString("0.00");
+                        //producto.IGV.baseImponible = producto_gp.montoImponibleInafecto.ToString("0.00");
                         break;
                     case "40":
-                        producto.IGV.baseImponible = producto_gp.montoImponibleExporta.ToString("0.00");
+                        //producto.IGV.baseImponible = producto_gp.montoImponibleExporta.ToString("0.00");
                         break;
                     default:
-                        producto.IGV.baseImponible = producto_gp.montoImponibleIva.ToString("0.00");
+                        //producto.IGV.baseImponible = producto_gp.montoImponibleIva.ToString("0.00");
                         break;
                 }
 
-                producto.IGV.monto = producto_gp.montoIva.ToString("0.00");
+                //producto.IGV.monto = producto_gp.montoIva.ToString("0.00");
                 producto.IGV.tipo = producto_gp.tipoAfectacion.ToString().Trim();
 
                 if (!string.IsNullOrEmpty(documentoGP.DocVenta.infoRelNotasCodigoTipoNota))
@@ -256,7 +259,7 @@ namespace cfdiPeruOperadorServiciosElectronicos
                     producto.IGV.porcentaje = string.Format("{0,8:0.00}", producto_gp.porcentajeIva * 100).Trim();
                 }
                 {
-
+                    /*
                     debug_xml = debug_xml + "   <IGV>\r\n";
                     debug_xml = debug_xml + "       <baseImponible>" + producto.IGV.baseImponible + "\r\n";
                     debug_xml = debug_xml + "           <baseImponibleIVA>" + producto_gp.montoImponibleIva.ToString("0.00") + "\r\n";
@@ -267,6 +270,7 @@ namespace cfdiPeruOperadorServiciosElectronicos
                     debug_xml = debug_xml + "       <porcentaje>" + producto.IGV.porcentaje + "\r\n";
                     debug_xml = debug_xml + "       <monto>" + producto.IGV.monto + "\r\n";
                     debug_xml = debug_xml + "       <tipo>" + producto.IGV.tipo + "\r\n";
+                */
                 }
 
                 //SECCION PRODUCTO DESCUENTO

@@ -189,13 +189,13 @@
       <Project>{4954c962-f4d6-4c0c-91dd-18a690e326cd}</Project>
       <Name>cfdiEntidadesGP</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\cfdiPeruDFactureUbl21\cfdiPeruDFactureUbl21.csproj">
-      <Project>{e7057c8d-cd27-42d9-b19c-1b4330fc0c2d}</Project>
-      <Name>cfdiPeruDFactureUbl21</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\cfdiPeruInterfacesFacturador\cfdiPeruInterfaces.csproj">
+    <ProjectReference Include="..\..\cfdiPeruInterfacesFacturador\cfdiColombiaInterfaces.csproj">
       <Project>{32e2bbb0-c891-4b06-8dec-7075d00cac71}</Project>
-      <Name>cfdiPeruInterfaces</Name>
+      <Name>cfdiColombiaInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\emisionfacturacolombia\emisionfacturacolombia.csproj">
+      <Project>{4881bf40-9ec6-4135-b841-0991920174b3}</Project>
+      <Name>emisionfacturacolombia</Name>
     </ProjectReference>
     <ProjectReference Include="..\Comun\Comun.csproj">
       <Project>{d43004bd-e235-41be-b272-a05fc4fb9a96}</Project>

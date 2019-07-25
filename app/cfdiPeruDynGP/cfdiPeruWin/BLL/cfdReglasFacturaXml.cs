@@ -8,7 +8,8 @@ using System.Security.AccessControl;
 
 //using Encriptador;
 using MyGeneration.dOOdads;
-using cfdiPeru;
+//using cfdiPeru;
+using cfdiColombia;
 using Comun;
 //using Reporteador;
 using MaquinaDeEstados;

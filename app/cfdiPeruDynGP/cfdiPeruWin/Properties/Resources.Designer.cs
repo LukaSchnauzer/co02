@@ -8,9 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace cfdiPeru.Properties {
-    using System;
-    
+//namespace cfdiPeru.Properties {
+namespace cfdiColombia.Properties{
+    using System;    
     
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.

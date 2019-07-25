@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2011
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29001.49
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cfdiPeruWin", "cfdiPeruDynGP\cfdiPeruWin\cfdiPeruWin.csproj", "{355BFAC1-5E11-452B-ACD1-E29D96F11B12}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cfdiColombiaWin", "cfdiPeruDynGP\cfdiPeruWin\cfdiColombiaWin.csproj", "{355BFAC1-5E11-452B-ACD1-E29D96F11B12}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cfdiEntidadesGP", "cfdiEntidadesGP\cfdiEntidadesGP.csproj", "{4954C962-F4D6-4C0C-91DD-18A690E326CD}"
 EndProject
@@ -13,13 +13,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EMailManejador", "cfdiPeruD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaquinaDeEstados", "cfdiPeruDynGP\MaquinaDeEstados\MaquinaDeEstados.csproj", "{3325D053-41AA-48A1-9166-11DC6AFEA8D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cfdiPeruInterfaces", "cfdiPeruInterfacesFacturador\cfdiPeruInterfaces.csproj", "{32E2BBB0-C891-4B06-8DEC-7075D00CAC71}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cfdiColombiaInterfaces", "cfdiPeruInterfacesFacturador\cfdiColombiaInterfaces.csproj", "{32E2BBB0-C891-4B06-8DEC-7075D00CAC71}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "cfdiPeruWinSetup", "cfdiPeruWinSetup\cfdiPeruWinSetup.vdproj", "{4CDD495F-C05E-4535-A7D8-E21BE1C3C218}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cfdiPeruDFactureUbl21", "cfdiPeruDFactureUbl21\cfdiPeruDFactureUbl21.csproj", "{E7057C8D-CD27-42D9-B19C-1B4330FC0C2D}"
-EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "cfdiColombiaSqlSetup", "cfdiColombiaSqlSetup\cfdiColombiaSqlSetup.wixproj", "{DA470DE4-D87B-452B-9EA1-487C5AA493AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "emisionfacturacolombia", "emisionfacturacolombia\emisionfacturacolombia.csproj", "{4881BF40-9EC6-4135-B841-0991920174B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,24 +73,14 @@ Global
 		{32E2BBB0-C891-4B06-8DEC-7075D00CAC71}.Release|Any CPU.Build.0 = Release|Any CPU
 		{32E2BBB0-C891-4B06-8DEC-7075D00CAC71}.Release|x86.ActiveCfg = Release|Any CPU
 		{32E2BBB0-C891-4B06-8DEC-7075D00CAC71}.Release|x86.Build.0 = Release|Any CPU
-		{4CDD495F-C05E-4535-A7D8-E21BE1C3C218}.Debug|Any CPU.ActiveCfg = Debug
-		{4CDD495F-C05E-4535-A7D8-E21BE1C3C218}.Debug|x86.ActiveCfg = Debug
-		{4CDD495F-C05E-4535-A7D8-E21BE1C3C218}.Release|Any CPU.ActiveCfg = Release
-		{4CDD495F-C05E-4535-A7D8-E21BE1C3C218}.Release|x86.ActiveCfg = Release
-		{E7057C8D-CD27-42D9-B19C-1B4330FC0C2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E7057C8D-CD27-42D9-B19C-1B4330FC0C2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E7057C8D-CD27-42D9-B19C-1B4330FC0C2D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E7057C8D-CD27-42D9-B19C-1B4330FC0C2D}.Debug|x86.Build.0 = Debug|Any CPU
-		{E7057C8D-CD27-42D9-B19C-1B4330FC0C2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E7057C8D-CD27-42D9-B19C-1B4330FC0C2D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E7057C8D-CD27-42D9-B19C-1B4330FC0C2D}.Release|x86.ActiveCfg = Release|Any CPU
-		{E7057C8D-CD27-42D9-B19C-1B4330FC0C2D}.Release|x86.Build.0 = Release|Any CPU
-		{DA470DE4-D87B-452B-9EA1-487C5AA493AB}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{DA470DE4-D87B-452B-9EA1-487C5AA493AB}.Debug|x86.ActiveCfg = Debug|x86
-		{DA470DE4-D87B-452B-9EA1-487C5AA493AB}.Debug|x86.Build.0 = Debug|x86
-		{DA470DE4-D87B-452B-9EA1-487C5AA493AB}.Release|Any CPU.ActiveCfg = Release|x86
-		{DA470DE4-D87B-452B-9EA1-487C5AA493AB}.Release|x86.ActiveCfg = Release|x86
-		{DA470DE4-D87B-452B-9EA1-487C5AA493AB}.Release|x86.Build.0 = Release|x86
+		{4881BF40-9EC6-4135-B841-0991920174B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4881BF40-9EC6-4135-B841-0991920174B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4881BF40-9EC6-4135-B841-0991920174B3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4881BF40-9EC6-4135-B841-0991920174B3}.Debug|x86.Build.0 = Debug|Any CPU
+		{4881BF40-9EC6-4135-B841-0991920174B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4881BF40-9EC6-4135-B841-0991920174B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4881BF40-9EC6-4135-B841-0991920174B3}.Release|x86.ActiveCfg = Release|Any CPU
+		{4881BF40-9EC6-4135-B841-0991920174B3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

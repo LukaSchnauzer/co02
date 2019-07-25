@@ -59,10 +59,13 @@ namespace Comun
         private string _SSRSServer = "";
         private List<PrmtrsReporte> _ListaParametrosReporte = new List<PrmtrsReporte>();
         private List<PrmtrsReporte> _ListaParametrosRepSSRS = new List<PrmtrsReporte>();
-        private string _servidor = "";
-        private string _seguridadIntegrada = "0";
-        private string _usuarioSql = "";
-        private string _passwordSql = "";
+        //private string _servidor = "";
+        private string _servidor = "10.1.1.22";
+        private string _seguridadIntegrada = "";
+        //private string _usuarioSql = "";
+        private string _usuarioSql = "FECOL1";
+        //private string _passwordSql = "";
+        private string _passwordSql = "fecol1";
         private string _emite = "0";
         private string _anula = "0";
         private string _imprime = "0";

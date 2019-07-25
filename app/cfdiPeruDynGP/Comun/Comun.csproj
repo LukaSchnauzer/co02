@@ -53,7 +53,7 @@
   <ItemGroup>
     <Reference Include="Ionic.Zip.Reduced, Version=1.9.1.5, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\DotNetZipLib-DevKit-v1.9\DotNetZip-v1.9-Reduced\Release\Ionic.Zip.Reduced.dll</HintPath>
+      <HintPath>..\cfdiPeruWin\bin\Debug\Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

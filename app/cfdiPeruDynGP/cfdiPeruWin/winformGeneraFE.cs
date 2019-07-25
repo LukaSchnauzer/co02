@@ -13,10 +13,11 @@ using cfd.FacturaElectronica;
 using MyGeneration.dOOdads;
 using MaquinaDeEstados;
 using System.Linq;
-using cfdiPeruInterfaces;
-using cfdiPeruOperadorServiciosElectronicos;
+using cfdiColombiaInterfaces;
+using cfdiColombiaOperadorServiciosElectronicos;
 
-namespace cfdiPeru
+//namespace cfdiPeru
+namespace cfdiColombia
 {
     public partial class winformGeneraFE : Form
     {
@@ -42,7 +43,9 @@ namespace cfdiPeru
         List<CfdiDocumentoId> LDocsNoSeleccionados = new List<CfdiDocumentoId>();   //Docs no marcados del grid
         private ConexionDB DatosConexionDB = new ConexionDB();  //Lee la configuración del archivo xml y obtiene los datos de conexión.
 
-        ICfdiMetodosWebService ServiciosOse; 
+        ICfdiMetodosWebService ServiciosOse;
+        
+        //cfdiColombiaOperadorServiciosElectronicos.WebServicesOSE ServicesOSE;
         //ICfdiPeruDocumento EstructuraDocsOse;
 
         public winformGeneraFE()
@@ -347,9 +350,12 @@ namespace cfdiPeru
         {
             int errores = 0;
             txtbxMensajes.Text = "";
-
+            //datos o parametos de conexion de la base de datos
             Parametros Param = new Parametros(DatosConexionDB.Elemento.Intercompany);
+            //tabCfdi es un control tabcontrol que divide la pantalla en partes
+            //cada parte es referenicado por un pestaña
             Param.ExtDefault = this.tabCfdi.SelectedTab.Name;
+            //crae un direccion unica de red donde un cliente puede cominicarse con un servicio endpoint
             ServiciosOse = new WebServicesOSE(Param.URLwebServPAC);
 
             //ServiciosOse.TimbraYEnviaASunat()
@@ -1049,6 +1055,31 @@ namespace cfdiPeru
                     dGridActivo.Rows[e.RowIndex].Cells[idxIdDoc].Style.BackColor = Color.Orange;
                 }
             }
+        }
+
+        private void Panel4_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void TxtbxMensajes_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DtPickerDesde_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LblUsuario_Click(object sender, EventArgs e)
+        {
+
         }
 
         //private async void toolStripButton2_Click_1(object sender, EventArgs e)
