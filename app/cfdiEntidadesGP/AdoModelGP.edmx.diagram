@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2f0e389f72f9407ea095c3d36dc31933" Name="Diagram1" ZoomLevel="63">
+      <Diagram DiagramId="2f0e389f72f9407ea095c3d36dc31933" Name="Diagram1" ZoomLevel="100">
         <EntityTypeShape EntityType="PERUEntities.vwCfdiRelacionados" Width="1.875" PointX="7.5" PointY="0.625" IsExpanded="true" />
         <EntityTypeShape EntityType="PERUEntities.vwCfdiGeneraResumenDiario" Width="2" PointX="5.125" PointY="0.625" />
-        <EntityTypeShape EntityType="PERUEntities.vwCfdiConceptos" Width="2.125" PointX="0.5" PointY="0.875" />
-        <EntityTypeShape EntityType="PERUEntities.vwCfdiGeneraDocumentoDeVenta" Width="2.375" PointX="2.625" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PERUEntities.vwCfdiConceptos" Width="2.125" PointX="0.5" PointY="0.625" />
+        <EntityTypeShape EntityType="PERUEntities.vwCfdiGeneraDocumentoDeVenta" Width="2.375" PointX="2.625" PointY="0.625" IsExpanded="true" />
         <EntityTypeShape EntityType="PERUEntities.AAAccountingClasses" Width="1.5" PointX="8.75" PointY="3.75" />
         <EntityTypeShape EntityType="PERUEntities.aaActualBudgetInquiryView" Width="1.5" PointX="8.75" PointY="6.75" />
         <EntityTypeShape EntityType="PERUEntities.aaActualBudgetInquiryViewAlt" Width="1.5" PointX="10.75" PointY="0.75" />
