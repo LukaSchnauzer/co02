@@ -1,11 +1,9 @@
---GETTY - Factura Electrónica México CFDI
+--GETTY - Factura Electrónica Colombia CFDI
 --Propósito. Tablas y funciones para monitorear la creación de facturas en formato xml
 --
 ---------------------------------------------------------------------------------------
 --Propósito. Log de facturas emitidas en formato xml. Sólo debe haber un estado emitido para cada factura.
---23/04/12 jcf Creación cfdi
---09/11/18 jcf Agrega estado: error
---14/01/19 jcf No recreaba constraint si la tabla existía
+--14/08/19 jcf Creación cfdi
 --
 IF not EXISTS (SELECT 1 FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[cfdLogFacturaXML]') AND OBJECTPROPERTY(id,N'IsTable') = 1)
 begin
