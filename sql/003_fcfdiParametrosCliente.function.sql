@@ -5,11 +5,9 @@ GO
 create function dbo.fCfdiParametrosCliente(@CUSTNMBR char(15), @tag1 varchar(17), @tag2 varchar(17), @tag3 varchar(17), @tag4 varchar(17), @tag5 varchar(17), @tag6 varchar(17), @ADRSCODE char(15) = 'MAIN')
 returns table
 as
---Propósito. Devuelve los parámetros de la compañía
+--Propósito. Devuelve los parámetros del cliente
 --Requisitos. Los @tagx deben configurarse en la ventana Información de internet del id de dirección @ADRSCODE de la compañía.
---21/11/16 jcf Creación 
---14/09/17 jcf Agrega inet7 y 8
---13/10/17 jcf Agrega filtro por COMPANIA
+--14/08/19 jcf Creación 
 --
 return
 (
