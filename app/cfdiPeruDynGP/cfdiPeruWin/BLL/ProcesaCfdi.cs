@@ -69,7 +69,7 @@ namespace cfd.FacturaElectronica
             try
             {
                 String msj = String.Empty;
-                trxVenta.Rewind();                                                          //move to first record
+                trxVenta.Rewind(); //un objeto que la lista de todas las facturas que a marcado el usuario para emitir                                                         //move to first record
                 string leyendas = await vwCfdTransaccionesDeVenta.ObtieneLeyendasAsync();
                 int errores = 0; int i = 1;
                 cfdReglasFacturaXml DocVenta = new cfdReglasFacturaXml(_Conex, _Param);     //log de facturas xml emitidas y anuladas
@@ -91,8 +91,9 @@ namespace cfd.FacturaElectronica
                         { 
                             if (trxVenta.Voidstts == 0)  //documento no anulado
                             {
-                                trxVenta.ArmarDocElectronico(leyendas);                                
-                                String[] serieCorrelativo = trxVenta.DocGP.DocVenta.idDocumento.Split(new char[] { '-' });
+                                trxVenta.ArmarDocElectronico(leyendas); 
+                                //ver en la linea de abajo si va consecutivo documento. En el proyecto anterior figuraba idDocumento
+                                String[] serieCorrelativo = trxVenta.DocGP.DocVenta.consecutivoDocumento.Split(new char[] { '-' });
                                 string nombreArchivo = Utiles.FormatoNombreArchivo(trxVenta.Docid + trxVenta.Sopnumbe + "_" + trxVenta.s_CUSTNMBR, trxVenta.s_NombreCliente, 20) + "_" + accion.Substring(0, 2);
                                 //validaciones
                                 switch (trxVenta.DocGP.DocVenta.tipoDocumento)
@@ -106,7 +107,8 @@ namespace cfd.FacturaElectronica
                                         else
                                         {
                                             if (trxVenta.DocGP.LDocVentaRelacionados
-                                                                        .Where(f => f.sopnumbeTo.Substring(0, 1) == trxVenta.DocGP.DocVenta.idDocumento.Substring(0, 1))
+                                                //  ver si en la linea de abajo va consecutivoDocumento. Antes figuraba idDocumento
+                                                                        .Where(f => f.sopnumbeTo.Substring(0, 1) == trxVenta.DocGP.DocVenta.consecutivoDocumento.Substring(0, 1))
                                                                         .Count() 
                                                 != trxVenta.DocGP.LDocVentaRelacionados.Count())
                                             {
@@ -114,12 +116,13 @@ namespace cfd.FacturaElectronica
                                                 continue;
                                             }
                                         }
+                                        /*
                                         if (string.IsNullOrEmpty(trxVenta.DocGP.DocVenta.infoRelNotasCodigoTipoNota))
                                         {
                                             msj = "No ha informado la causa de la discrepancia en la nota de crédito.";
                                             continue;
                                         }
-
+                                        */
                                         break;
                                     case "08":
                                         msj = "ok";
@@ -139,14 +142,19 @@ namespace cfd.FacturaElectronica
                                 rutaYNom = Path.Combine(trxVenta.RutaXml.Trim(), nombreArchivo + extension);
                                 try
                                 {
-                                    xmlFactura = await servicioTimbre.TimbraYEnviaASunatAsync(trxVenta.DocGP.DocVenta.emisorNroDoc, trxVenta.Ruta_certificadoPac, trxVenta.Contrasenia_clavePac, trxVenta.DocGP);
+                                    //ver si va consecutivoDocumento en la linea de abajo. antes estaba idDocumento
+                                    //xmlFactura = await servicioTimbre.TimbraYEnviaASunatAsync(trxVenta.DocGP.DocVenta.consecutivoDocumento, trxVenta.Ruta_certificadoPac, trxVenta.Contrasenia_clavePac, trxVenta.DocGP);
+                                    // la siguiente linea envia el metodo timbraYEnviaServivio>DeImpuesto envia el objeto armado con la factura al servicio web.
+                                    xmlFactura = await servicioTimbre.TimbraYEnviaServicioDeImpuestoAsync(trxVenta.DocGP.DocVenta.consecutivoDocumento, trxVenta.Ruta_certificadoPac, trxVenta.Contrasenia_clavePac, trxVenta.DocGP);
+                                    //xmlFactura = servicioTimbre.TimbraYEnviaServicioDeImpuesto(trxVenta.DocGP.DocVenta.consecutivoDocumento, trxVenta.Ruta_certificadoPac, trxVenta.Contrasenia_clavePac, trxVenta.DocGP);
                                     DocVenta.RegistraLogDeArchivoXML(trxVenta.Soptype, trxVenta.Sopnumbe, rutaYNom, "FAC", _Conex.Usuario, xmlFactura.Replace("encoding=\"utf-8\"", "").Replace("encoding=\"iso-8859-1\"", ""), maquina.DestinoStatusBase, maquina.DestinoEBinario, maquina.DestinoMensaje);
 
                                 }
                                 catch (ArgumentException ae)    //202 ó 207
                                 {
                                     msj = ae.Message;
-                                    xmlFactura = await servicioTimbre.ObtieneXMLdelOSEAsync(trxVenta.DocGP.DocVenta.emisorNroDoc, trxVenta.Ruta_certificadoPac, trxVenta.Contrasenia_clavePac, trxVenta.DocGP.DocVenta.tipoDocumento, serieCorrelativo[0], serieCorrelativo[1]);
+                                    //ver si va consecutivoDocumento en la linea de abajo. antes estaba idDocumento
+                                    xmlFactura = await servicioTimbre.ObtieneXMLdelOSEAsync(trxVenta.DocGP.DocVenta.consecutivoDocumento, trxVenta.Ruta_certificadoPac, trxVenta.Contrasenia_clavePac, trxVenta.DocGP.DocVenta.tipoDocumento, serieCorrelativo[0], serieCorrelativo[1]);
                                     DocVenta.RegistraLogDeArchivoXML(trxVenta.Soptype, trxVenta.Sopnumbe, rutaYNom, "FAC", _Conex.Usuario, xmlFactura.Replace("encoding=\"utf-8\"", "").Replace("encoding=\"iso-8859-1\"", ""), maquina.DestinoStatusBase, maquina.DestinoEBinario, maquina.DestinoMensaje);
                                 }
                                 catch(XmlException xm)
@@ -163,9 +171,11 @@ namespace cfd.FacturaElectronica
                                 }
 
                                 if (!string.IsNullOrEmpty(xmlFactura))
-                                {
+                                {// se guarda el archivo xml en un lugar del servidor
                                     rutaYNom = await DocVenta.GuardaArchivoAsync(trxVenta, xmlFactura, nombreArchivo, extension, false);
-                                    string tPdf = await servicioTimbre.ObtienePDFdelOSEAsync(trxVenta.DocGP.DocVenta.emisorNroDoc,  trxVenta.Ruta_certificadoPac, trxVenta.Contrasenia_clavePac, trxVenta.DocGP.DocVenta.tipoDocumento, serieCorrelativo[0], serieCorrelativo[1], trxVenta.RutaXml.Trim(), nombreArchivo, ".pdf");
+                                    //ver si va consecutivoDocumento en la linea de abajo. antes estaba idDocumento
+                                    //se obtiene el pdf
+                                    string tPdf = await servicioTimbre.ObtienePDFdelOSEAsync(trxVenta.DocGP.DocVenta.consecutivoDocumento,  trxVenta.Ruta_certificadoPac, trxVenta.Contrasenia_clavePac, trxVenta.DocGP.DocVenta.tipoDocumento, serieCorrelativo[0], serieCorrelativo[1], trxVenta.RutaXml.Trim(), nombreArchivo, ".pdf");
                                 }
                             }
                             else //si el documento está anulado en gp, agregar al log como emitido
@@ -269,7 +279,7 @@ namespace cfd.FacturaElectronica
                                 serie = serieCorrelativo[0];
                                 correlativo = serieCorrelativo[1];
 
-                                resultadoSunat = await servicioTimbre.ConsultaStatusAlOSEAsync(trxVenta.DocGP.DocVenta.emisorNroDoc, trxVenta.Ruta_certificadoPac, trxVenta.Contrasenia_clavePac, tipoDoc, serie, correlativo);
+                                resultadoSunat = await servicioTimbre.ConsultaStatusAlOSEAsync(trxVenta.DocGP.DocVenta.consecutivoDocumento, trxVenta.Ruta_certificadoPac, trxVenta.Contrasenia_clavePac, tipoDoc, serie, correlativo);
                                 String[] codigoYMensaje = resultadoSunat.Split(new char[] { '-' });
                                 maquina.DestinoAceptado = codigoYMensaje[0] == "0" ? true : false;
                                 maquina.ActualizarNodoDestinoStatusBase();
@@ -452,7 +462,7 @@ namespace cfd.FacturaElectronica
                             }
                             string nombreArchivo = Utiles.FormatoNombreArchivo(trxVenta.Docid + trxVenta.Sopnumbe + "_" + trxVenta.s_CUSTNMBR, trxVenta.s_NombreCliente, 20) + "_" + accion.Substring(0, 4);
 
-                            string resultadoBaja = await servicioTimbre.SolicitarBajaAsync(trxVenta.DocGP.DocVenta.emisorNroDoc, trxVenta.Ruta_certificadoPac, trxVenta.Contrasenia_clavePac, string.Concat(trxVenta.DocGP.DocVenta.tipoDocumento, "-", numeroSunat), Utiles.Izquierda(motivoBaja, 100));
+                            string resultadoBaja = await servicioTimbre.SolicitarBajaAsync(trxVenta.DocGP.DocVenta.cliente_numeroDocumento, trxVenta.Ruta_certificadoPac, trxVenta.Contrasenia_clavePac, string.Concat(trxVenta.DocGP.DocVenta.tipoDocumento, "-", numeroSunat), Utiles.Izquierda(motivoBaja, 100));
 
                             DocVenta.RegistraLogDeArchivoXML(trxVenta.Soptype, trxVenta.Sopnumbe, resultadoBaja, "baja ok", _Conex.Usuario, string.Empty, maquina.DestinoStatusBase, maquina.DestinoEBinario, maquina.DestinoMensaje);
 

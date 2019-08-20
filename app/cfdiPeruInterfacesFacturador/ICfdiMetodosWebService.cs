@@ -10,10 +10,13 @@ namespace cfdiColombiaInterfaces
 {
     public interface ICfdiMetodosWebService
     {
-        string TimbraYEnviaASunat(string ruc, string usuario, string usuarioPassword, string texto);
+        //string TimbraYEnviaASunat(string ruc, string usuario, string usuarioPassword, string texto);
+        string TimbraYEnviaServicioDeImpuesto(string ruc, string usuario, string usuarioPassword, string texto);
+        //Task<string> TimbraYEnviaASunatAsync(string ruc, string usuario, string usuarioPassword, DocumentoVentaGP documentoGP);
+        Task<string> TimbraYEnviaServicioDeImpuestoAsync(string ruc, string usuario, string usuarioPassword, DocumentoVentaGP documentoGP);
 
-        Task<string> TimbraYEnviaASunatAsync(string ruc, string usuario, string usuarioPassword, DocumentoVentaGP documentoGP);
-        string TimbraYEnviaASunat(string ruc, string usuario, string usuarioPassword, DocumentoVentaGP documentoGP);
+        //string TimbraYEnviaASunat(string ruc, string usuario, string usuarioPassword, DocumentoVentaGP documentoGP);
+        string TimbraYEnviaServicioDeImpuesto(string ruc, string usuario, string usuarioPassword, DocumentoVentaGP documentoGP);
 
         Task<string> ObtienePDFdelOSEAsync(string ruc, string usuario, string usuarioPassword, string tipoDoc, string serie, string correlativo, string ruta, string nombreArchivo, string extension);
         string ObtienePDFdelOSE(string ruc, string usuario, string usuarioPassword, string tipoDoc, string serie, string correlativo, string ruta, string nombreArchivo, string extension);

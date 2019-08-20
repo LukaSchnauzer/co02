@@ -10,11 +10,14 @@
 namespace cfdiEntidadesGP
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class fCfdiParametrosTipoLeyenda_Result
+    public partial class vwCfdiMediosDePago
     {
-        public string inetinfo { get; set; }
-        public string INET7 { get; set; }
-        public string INET8 { get; set; }
+        public int soptype { get; set; }
+        public string sopnumbe { get; set; }
+        public string mediopago { get; set; }
+        public string metodopago { get; set; }
+        public string numeroreferencia { get; set; }
     }
 }

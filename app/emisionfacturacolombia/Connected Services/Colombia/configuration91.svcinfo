@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="22kjkruMUAgwUOObY/nvMkA6T1M=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="g9/f5HRnKVf3rYWzTqCzlHeuOL0=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="BasicHttpBinding_IService">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="BasicHttpBinding_IService" contract="Colombia.IService" bindingType="basicHttpBinding" address="http://demoemision.thefactoryhka.com.co/ws/obj/v1.1/Service.svc" bindingConfiguration="BasicHttpBinding_IService">
+    <endpoint name="BasicHttpBinding_IService" contract="Colombia.IService" bindingType="basicHttpBinding" address="http://testubl21.thefactoryhka.com.co/ws/v1.0/Service.svc" bindingConfiguration="BasicHttpBinding_IService">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://demoemision.thefactoryhka.com.co/ws/obj/v1.1/Service.svc</serializedValue>
+          <serializedValue>http://testubl21.thefactoryhka.com.co/ws/v1.0/Service.svc</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

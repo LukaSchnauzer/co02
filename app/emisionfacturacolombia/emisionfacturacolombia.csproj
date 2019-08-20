@@ -63,6 +63,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Connected Services\Colombia\emisionfacturacolombia.Colombia.ContenedorResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Colombia\emisionfacturacolombia.Colombia.DescargarEventoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\Colombia\emisionfacturacolombia.Colombia.DocumentResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -75,6 +81,9 @@
     <None Include="Connected Services\Colombia\emisionfacturacolombia.Colombia.DownloadXMLResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\Colombia\emisionfacturacolombia.Colombia.EventoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\Colombia\emisionfacturacolombia.Colombia.FoliosRemainingResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -82,9 +91,6 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\Colombia\emisionfacturacolombia.Colombia.SendEmailResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Connected Services\Colombia\emisionfacturacolombia.Colombia.ValidateXML.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\Colombia\Service.wsdl" />
@@ -103,6 +109,15 @@
     <None Include="Connected Services\Colombia\Service4.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\Colombia\Service5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\cfdiPeruInterfacesFacturador\cfdiColombiaInterfaces.csproj">
+      <Project>{32e2bbb0-c891-4b06-8dec-7075d00cac71}</Project>
+      <Name>cfdiColombiaInterfaces</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\Colombia\" />
@@ -118,12 +133,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\cfdiPeruInterfacesFacturador\cfdiColombiaInterfaces.csproj">
-      <Project>{32e2bbb0-c891-4b06-8dec-7075d00cac71}</Project>
-      <Name>cfdiColombiaInterfaces</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

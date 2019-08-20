@@ -10,11 +10,12 @@
 namespace cfdiEntidadesGP
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class fCfdiParametrosTipoLeyenda_Result
+    public partial class vwCfdiClienteObligaciones
     {
-        public string inetinfo { get; set; }
-        public string INET7 { get; set; }
-        public string INET8 { get; set; }
+        public string CUSTNMBR { get; set; }
+        public string cliente_obligaciones { get; set; }
+        public string cliente_regimen { get; set; }
     }
 }
