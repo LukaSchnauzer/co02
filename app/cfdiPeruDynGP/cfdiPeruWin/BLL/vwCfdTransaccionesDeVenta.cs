@@ -44,10 +44,12 @@ namespace cfdiColombia
                 docGP = new DocumentoVentaGP();
                 docGP.GetDatosDocumentoVenta(this.Sopnumbe, this.Soptype);
 
-                if (!string.IsNullOrEmpty(leyendas) && !string.IsNullOrEmpty(docGP.DocVenta.leyendaPorFactura))
+                //if (!string.IsNullOrEmpty(leyendas) && !string.IsNullOrEmpty(docGP.DocVenta.leyendaPorFactura))
+                if (!string.IsNullOrEmpty(leyendas))
                 {
                     XElement leyendasX = XElement.Parse(leyendas);
-                    XElement nuevaSeccion = new XElement("SECCION", new XAttribute("S", 1), new XAttribute("T", "Adicional"), new XAttribute("V", docGP.DocVenta.leyendaPorFactura));
+                    //XElement nuevaSeccion = new XElement("SECCION", new XAttribute("S", 1), new XAttribute("T", "Adicional"), new XAttribute("V", docGP.DocVenta.leyendaPorFactura));
+                    XElement nuevaSeccion = new XElement("SECCION", new XAttribute("S", 1), new XAttribute("T", "Adicional"));
                     leyendasX.Add(nuevaSeccion);
                     leyendaConjunta = leyendasX.ToString();
                 }

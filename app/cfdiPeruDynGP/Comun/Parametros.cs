@@ -64,8 +64,10 @@ namespace Comun
         private string _seguridadIntegrada = "";
         //private string _usuarioSql = "";
         private string _usuarioSql = "FECOL1";
+        //private string _usuarioSql = "sa";
         //private string _passwordSql = "";
         private string _passwordSql = "fecol1";
+        //private string _passwordSql = "sa22";
         private string _emite = "0";
         private string _anula = "0";
         private string _imprime = "0";
@@ -110,6 +112,7 @@ namespace Comun
                 _URLArchivoXSLT = elemento.SelectSingleNode("//compannia[@bd='" + IdCompannia + "']/URLArchivoXSLT/text()").Value;
                 _URLConsulta = elemento.SelectSingleNode("//compannia[@bd='" + IdCompannia + "']/URLConsulta/text()").Value;
                 _URLwebServPAC = elemento.SelectSingleNode("//compannia[@bd='" + IdCompannia + "']/PAC/urlWebService/text()").Value;
+                //_URLwebServPAC = "http://testubl21.thefactoryhka.com.co/ws/v1.0/Service.svc?wsdl";
                 _emite = elemento.SelectSingleNode("//compannia[@bd='" + IdCompannia + "']/emite/text()").Value;
                 _anula = elemento.SelectSingleNode("//compannia[@bd='" + IdCompannia + "']/anula/text()").Value;
                 _imprime = elemento.SelectSingleNode("//compannia[@bd='" + IdCompannia + "']/imprime/text()").Value;

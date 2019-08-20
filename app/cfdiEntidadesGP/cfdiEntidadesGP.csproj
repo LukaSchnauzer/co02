@@ -73,13 +73,28 @@
       <DependentUpon>AdoModelGP.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="vwCfdiClienteDestinatario.cs">
+      <DependentUpon>AdoModelGP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwCfdiClienteObligaciones.cs">
+      <DependentUpon>AdoModelGP.tt</DependentUpon>
+    </Compile>
     <Compile Include="vwCfdiConceptos.cs">
+      <DependentUpon>AdoModelGP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwCfdiFacturaImpuestosCabecera.cs">
+      <DependentUpon>AdoModelGP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwCfdiFacturaImpuestosDetalles.cs">
       <DependentUpon>AdoModelGP.tt</DependentUpon>
     </Compile>
     <Compile Include="vwCfdiGeneraDocumentoDeVenta.cs">
       <DependentUpon>AdoModelGP.tt</DependentUpon>
     </Compile>
     <Compile Include="vwCfdiGeneraResumenDiario.cs">
+      <DependentUpon>AdoModelGP.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vwCfdiMediosDePago.cs">
       <DependentUpon>AdoModelGP.tt</DependentUpon>
     </Compile>
     <Compile Include="vwCfdiRelacionados.cs">
