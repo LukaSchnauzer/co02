@@ -98,24 +98,24 @@ namespace cfd.FacturaElectronica
                                 //validaciones
                                 switch (trxVenta.DocGP.DocVenta.tipoDocumento)
                                 {
-                                    case "07":
-                                        if (trxVenta.DocGP.LDocVentaRelacionados.Count() == 0)
-                                        {
-                                            msj = "La nota de crédito no está aplicada.";
-                                            continue;
-                                        }
-                                        else
-                                        {
-                                            if (trxVenta.DocGP.LDocVentaRelacionados
+                                    //case "07":
+                                        //if (trxVenta.DocGP.LDocVentaRelacionados.Count() == 0)
+                                        //{
+                                            //msj = "La nota de crédito no está aplicada.";
+                                            //continue;
+                                        //}
+                                        //else
+                                       //// {
+                                            //if (trxVenta.DocGP.LDocVentaRelacionados
                                                 //  ver si en la linea de abajo va consecutivoDocumento. Antes figuraba idDocumento
-                                                                        .Where(f => f.sopnumbeTo.Substring(0, 1) == trxVenta.DocGP.DocVenta.consecutivoDocumento.Substring(0, 1))
-                                                                        .Count() 
-                                                != trxVenta.DocGP.LDocVentaRelacionados.Count())
-                                            {
-                                                msj = "La serie de la nota de crédito y de la factura aplicada deben empezar con la misma letra: F o B.";
-                                                continue;
-                                            }
-                                        }
+                                                                        //.Where(f => f.sopnumbeTo.Substring(0, 1) == trxVenta.DocGP.DocVenta.consecutivoDocumento.Substring(0, 1))
+                                                                        //.Count() 
+                                                //!= trxVenta.DocGP.LDocVentaRelacionados.Count())
+                                            //{
+                                                //msj = "La serie de la nota de crédito y de la factura aplicada deben empezar con la misma letra: F o B.";
+                                                //continue;
+                                           // }
+                                       // }
                                         /*
                                         if (string.IsNullOrEmpty(trxVenta.DocGP.DocVenta.infoRelNotasCodigoTipoNota))
                                         {
@@ -123,7 +123,7 @@ namespace cfd.FacturaElectronica
                                             continue;
                                         }
                                         */
-                                        break;
+                                        //break;
                                     case "08":
                                         msj = "ok";
                                         break;
@@ -145,8 +145,9 @@ namespace cfd.FacturaElectronica
                                     //ver si va consecutivoDocumento en la linea de abajo. antes estaba idDocumento
                                     //xmlFactura = await servicioTimbre.TimbraYEnviaASunatAsync(trxVenta.DocGP.DocVenta.consecutivoDocumento, trxVenta.Ruta_certificadoPac, trxVenta.Contrasenia_clavePac, trxVenta.DocGP);
                                     // la siguiente linea envia el metodo timbraYEnviaServivio>DeImpuesto envia el objeto armado con la factura al servicio web.
-                                    xmlFactura = await servicioTimbre.TimbraYEnviaServicioDeImpuestoAsync(trxVenta.DocGP.DocVenta.consecutivoDocumento, trxVenta.Ruta_certificadoPac, trxVenta.Contrasenia_clavePac, trxVenta.DocGP);
-                                    //xmlFactura = servicioTimbre.TimbraYEnviaServicioDeImpuesto(trxVenta.DocGP.DocVenta.consecutivoDocumento, trxVenta.Ruta_certificadoPac, trxVenta.Contrasenia_clavePac, trxVenta.DocGP);
+                                    //xmlFactura = await servicioTimbre.TimbraYEnviaServicioDeImpuestoAsync(trxVenta.DocGP.DocVenta.consecutivoDocumento, trxVenta.Ruta_certificadoPac, trxVenta.Contrasenia_clavePac, trxVenta.DocGP);
+                                    xmlFactura = servicioTimbre.TimbraYEnviaServicioDeImpuesto(trxVenta.DocGP.DocVenta.consecutivoDocumento, trxVenta.Ruta_certificadoPac, trxVenta.Contrasenia_clavePac, trxVenta.DocGP);
+                                    //xmlFactura = servicioTimbre.TimbraYEnviaServicioDeImpuesto(trxVenta.DocGP.DocVenta.consecutivoDocumento, "89ab70d025c1cb8c5bac3f5ac319a94728e42e3a", "3cfb75199b5d14cdb706a55555a055488b1fad6c", trxVenta.DocGP);
                                     DocVenta.RegistraLogDeArchivoXML(trxVenta.Soptype, trxVenta.Sopnumbe, rutaYNom, "FAC", _Conex.Usuario, xmlFactura.Replace("encoding=\"utf-8\"", "").Replace("encoding=\"iso-8859-1\"", ""), maquina.DestinoStatusBase, maquina.DestinoEBinario, maquina.DestinoMensaje);
 
                                 }

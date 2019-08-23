@@ -15,16 +15,19 @@ namespace cfdiEntidadesGP
     public partial class vwCfdiRelacionados
     {
         public int orden { get; set; }
-        public string tipoDocumento { get; set; }
-        public Nullable<short> soptypeFrom { get; set; }
+        public short soptypeFrom { get; set; }
         public string sopnumbeFrom { get; set; }
-        public int soptypeTo { get; set; }
+        public Nullable<int> soptypeTo { get; set; }
         public string sopnumbeTo { get; set; }
-        public string codigoInterno { get; set; }
+        public Nullable<int> codigoInterno { get; set; }
+        public int discrepancyResponse { get; set; }
+        public int billingReference { get; set; }
         public string cufeDocReferenciado { get; set; }
+        public string codigoEstatusDocumento { get; set; }
         public string cufeDescripcion { get; set; }
-        public string fecha { get; set; }
+        public Nullable<System.DateTime> fecha { get; set; }
         public string numeroDocumento { get; set; }
+        public Nullable<int> tipoDocumento { get; set; }
         public string tipoCufe { get; set; }
     }
 }

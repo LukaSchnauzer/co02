@@ -10,6 +10,8 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiClienteDestinatario' no tien
         <EntityType Name="vwCfdiClienteDestinatario">
           <Key>
             <PropertyRef Name="CUSTNMBR" />
+            
+            
           </Key>
           <Property Name="CUSTNMBR" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="cliente_canalEntrega" Type="varchar" MaxLength="1" Nullable="false" />
@@ -20,6 +22,8 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiClienteObligaciones' no tien
         <EntityType Name="vwCfdiClienteObligaciones">
           <Key>
             <PropertyRef Name="CUSTNMBR" />
+            
+            
           </Key>
           <Property Name="CUSTNMBR" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="cliente_obligaciones" Type="varchar" MaxLength="4" Nullable="false" />
@@ -32,7 +36,30 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiConceptos' no tiene definida
             <PropertyRef Name="soptype" />
             <PropertyRef Name="sopnumbe" />
             <PropertyRef Name="lnitmseq" />
+            
             <PropertyRef Name="cmpntseq" />
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
           </Key>
           <Property Name="soptype" Type="int" Nullable="false" />
           <Property Name="sopnumbe" Type="varchar" MaxLength="12" Nullable="false" />
@@ -42,6 +69,7 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiConceptos' no tiene definida
           <Property Name="facturadetalle_cantidadreal" Type="numeric" Precision="3" Scale="2" Nullable="false" />
           <Property Name="facturadetalle_cantidadrealunidadmedida" Type="varchar" MaxLength="3" Nullable="false" />
           <Property Name="facturadetalle_cantidadunidades" Type="numeric" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="facturadetalle_cantidadporempaque" Type="numeric" Precision="3" Scale="2" Nullable="false" />
           <Property Name="cargosdescuentos_codigo" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="cargosdescuentos_descripcion" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="cargosdescuentos_indicador" Type="int" Nullable="false" />
@@ -67,6 +95,14 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiFacturaImpuestosCabecera' no
           <Key>
             <PropertyRef Name="soptype" />
             <PropertyRef Name="sopnumbe" />
+            
+            
+            
+            
+            
+            
+            
+            
           </Key>
           <Property Name="soptype" Type="int" Nullable="false" />
           <Property Name="sopnumbe" Type="varchar" MaxLength="12" Nullable="false" />
@@ -86,7 +122,15 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiFacturaImpuestosDetalles' no
             <PropertyRef Name="soptype" />
             <PropertyRef Name="sopnumbe" />
             <PropertyRef Name="lnitmseq" />
+            
             <PropertyRef Name="cmpntseq" />
+            
+            
+            
+            
+            
+            
+            
           </Key>
           <Property Name="soptype" Type="int" Nullable="false" />
           <Property Name="sopnumbe" Type="varchar" MaxLength="12" Nullable="false" />
@@ -108,6 +152,48 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' no t
           <Key>
             <PropertyRef Name="soptype" />
             <PropertyRef Name="sopnumbe" />
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
           </Key>
           <Property Name="soptype" Type="int" Nullable="false" />
           <Property Name="sopnumbe" Type="varchar" MaxLength="12" Nullable="false" />
@@ -140,8 +226,8 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' no t
           <Property Name="cliente_numeroDocumento" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="cliente_tipoPersona" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="cliente_actividadEconomicaCIIU" Type="varchar" MaxLength="4" Nullable="false" />
-          <Property Name="fechaEmision" Type="varchar" MaxLength="19" Nullable="false" />
-          <Property Name="fechaVencimiento" Type="varchar" MaxLength="19" Nullable="false" />
+          <Property Name="fechaEmision" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="fechaVencimiento" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="moneda" Type="varchar" MaxLength="3" Nullable="false" />
           <Property Name="rangonumeracion" Type="varchar" MaxLength="6" Nullable="false" />
           <Property Name="redondeoaplicado" Type="numeric" Precision="2" Scale="2" Nullable="false" />
@@ -217,6 +303,9 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiMediosDePago' no tiene defin
           <Key>
             <PropertyRef Name="soptype" />
             <PropertyRef Name="sopnumbe" />
+            
+            
+            
           </Key>
           <Property Name="soptype" Type="int" Nullable="false" />
           <Property Name="sopnumbe" Type="varchar" MaxLength="12" Nullable="false" />
@@ -229,27 +318,29 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
         <EntityType Name="vwCfdiRelacionados">
           <Key>
             <PropertyRef Name="orden" />
-            <PropertyRef Name="tipoDocumento" />
-            <PropertyRef Name="soptypeTo" />
-            <PropertyRef Name="codigoInterno" />
+            <PropertyRef Name="soptypeFrom" />
+            <PropertyRef Name="sopnumbeTo" />
+            <PropertyRef Name="discrepancyResponse" />
+            <PropertyRef Name="billingReference" />
             <PropertyRef Name="cufeDocReferenciado" />
-            <PropertyRef Name="cufeDescripcion" />
-            <PropertyRef Name="fecha" />
             <PropertyRef Name="numeroDocumento" />
             <PropertyRef Name="tipoCufe" />
           </Key>
           <Property Name="orden" Type="int" Nullable="false" />
-          <Property Name="tipoDocumento" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="soptypeFrom" Type="smallint" />
+          <Property Name="soptypeFrom" Type="smallint" Nullable="false" />
           <Property Name="sopnumbeFrom" Type="varchar" MaxLength="21" />
-          <Property Name="soptypeTo" Type="int" Nullable="false" />
-          <Property Name="sopnumbeTo" Type="varchar" MaxLength="21" />
-          <Property Name="codigoInterno" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="cufeDocReferenciado" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="cufeDescripcion" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="fecha" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="numeroDocumento" Type="varchar" MaxLength="9" Nullable="false" />
-          <Property Name="tipoCufe" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="soptypeTo" Type="int" />
+          <Property Name="sopnumbeTo" Type="char" MaxLength="41" Nullable="false" />
+          <Property Name="codigoInterno" Type="int" />
+          <Property Name="discrepancyResponse" Type="int" Nullable="false" />
+          <Property Name="billingReference" Type="int" Nullable="false" />
+          <Property Name="cufeDocReferenciado" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="codigoEstatusDocumento" Type="varchar" MaxLength="2" />
+          <Property Name="cufeDescripcion" Type="char" MaxLength="51" />
+          <Property Name="fecha" Type="datetime" />
+          <Property Name="numeroDocumento" Type="char" MaxLength="41" Nullable="false" />
+          <Property Name="tipoDocumento" Type="int" />
+          <Property Name="tipoCufe" Type="varchar" MaxLength="11" Nullable="false" />
         </EntityType>
         <Function Name="fCfdiParametrosTipoLeyenda" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ADRSCODE" Type="char" Mode="In" />
@@ -289,6 +380,7 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
     [vwCfdiConceptos].[facturadetalle_cantidadreal] AS [facturadetalle_cantidadreal], 
     [vwCfdiConceptos].[facturadetalle_cantidadrealunidadmedida] AS [facturadetalle_cantidadrealunidadmedida], 
     [vwCfdiConceptos].[facturadetalle_cantidadunidades] AS [facturadetalle_cantidadunidades], 
+    [vwCfdiConceptos].[facturadetalle_cantidadporempaque] AS [facturadetalle_cantidadporempaque], 
     [vwCfdiConceptos].[cargosdescuentos_codigo] AS [cargosdescuentos_codigo], 
     [vwCfdiConceptos].[cargosdescuentos_descripcion] AS [cargosdescuentos_descripcion], 
     [vwCfdiConceptos].[cargosdescuentos_indicador] AS [cargosdescuentos_indicador], 
@@ -437,16 +529,19 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
           <EntitySet Name="vwCfdiRelacionados" EntityType="Self.vwCfdiRelacionados" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vwCfdiRelacionados].[orden] AS [orden], 
-    [vwCfdiRelacionados].[tipoDocumento] AS [tipoDocumento], 
     [vwCfdiRelacionados].[soptypeFrom] AS [soptypeFrom], 
     [vwCfdiRelacionados].[sopnumbeFrom] AS [sopnumbeFrom], 
     [vwCfdiRelacionados].[soptypeTo] AS [soptypeTo], 
     [vwCfdiRelacionados].[sopnumbeTo] AS [sopnumbeTo], 
     [vwCfdiRelacionados].[codigoInterno] AS [codigoInterno], 
+    [vwCfdiRelacionados].[discrepancyResponse] AS [discrepancyResponse], 
+    [vwCfdiRelacionados].[billingReference] AS [billingReference], 
     [vwCfdiRelacionados].[cufeDocReferenciado] AS [cufeDocReferenciado], 
+    [vwCfdiRelacionados].[codigoEstatusDocumento] AS [codigoEstatusDocumento], 
     [vwCfdiRelacionados].[cufeDescripcion] AS [cufeDescripcion], 
     [vwCfdiRelacionados].[fecha] AS [fecha], 
     [vwCfdiRelacionados].[numeroDocumento] AS [numeroDocumento], 
+    [vwCfdiRelacionados].[tipoDocumento] AS [tipoDocumento], 
     [vwCfdiRelacionados].[tipoCufe] AS [tipoCufe]
     FROM [dbo].[vwCfdiRelacionados] AS [vwCfdiRelacionados]</DefiningQuery>
           </EntitySet>
@@ -467,8 +562,8 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
           <EntitySet Name="vwCfdiFacturaImpuestosDetalles" EntityType="PERUEntities.vwCfdiFacturaImpuestosDetalles" />
           <EntitySet Name="vwCfdiMediosDePago" EntityType="PERUEntities.vwCfdiMediosDePago" />
           <EntitySet Name="vwCfdiConceptos" EntityType="PERUEntities.vwCfdiConceptos" />
-          <EntitySet Name="vwCfdiRelacionados" EntityType="PERUEntities.vwCfdiRelacionados" />
           <EntitySet Name="vwCfdiGeneraDocumentoDeVenta" EntityType="PERUEntities.vwCfdiGeneraDocumentoDeVenta" />
+          <EntitySet Name="vwCfdiRelacionados" EntityType="PERUEntities.vwCfdiRelacionados" />
         </EntityContainer>
         <EntityType Name="vwCfdiGeneraResumenDiario">
           <Key>
@@ -613,31 +708,7 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
           <Property Name="facturadetalle_precioVentaUnitario" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
           <Property Name="facturadetalle_secuencia" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="facturadetalle_unidadMedida" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="vwCfdiRelacionados">
-          <Key>
-            <PropertyRef Name="orden" />
-            <PropertyRef Name="tipoDocumento" />
-            <PropertyRef Name="soptypeTo" />
-            <PropertyRef Name="codigoInterno" />
-            <PropertyRef Name="cufeDocReferenciado" />
-            <PropertyRef Name="cufeDescripcion" />
-            <PropertyRef Name="fecha" />
-            <PropertyRef Name="numeroDocumento" />
-            <PropertyRef Name="tipoCufe" />
-          </Key>
-          <Property Name="orden" Type="Int32" Nullable="false" />
-          <Property Name="tipoDocumento" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="soptypeFrom" Type="Int16" />
-          <Property Name="sopnumbeFrom" Type="String" MaxLength="21" FixedLength="false" Unicode="false" />
-          <Property Name="soptypeTo" Type="Int32" Nullable="false" />
-          <Property Name="sopnumbeTo" Type="String" MaxLength="21" FixedLength="false" Unicode="false" />
-          <Property Name="codigoInterno" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="cufeDocReferenciado" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="cufeDescripcion" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="fecha" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="numeroDocumento" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Name="tipoCufe" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="facturadetalle_cantidadporempaque" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
         </EntityType>
         <EntityType Name="vwCfdiGeneraDocumentoDeVenta">
           <Key>
@@ -675,8 +746,8 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
           <Property Name="cliente_numeroDocumento" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
           <Property Name="cliente_tipoPersona" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="cliente_actividadEconomicaCIIU" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="fechaEmision" Type="String" Nullable="false" MaxLength="19" FixedLength="false" Unicode="false" />
-          <Property Name="fechaVencimiento" Type="String" Nullable="false" MaxLength="19" FixedLength="false" Unicode="false" />
+          <Property Name="fechaEmision" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="fechaVencimiento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="moneda" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="rangonumeracion" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="redondeoaplicado" Type="Decimal" Nullable="false" Precision="2" Scale="2" />
@@ -688,6 +759,33 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
           <Property Name="totalMonto" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
           <Property Name="totalProductos" Type="Int32" Nullable="false" />
           <Property Name="totalSinImpuestos" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+        </EntityType>
+        <EntityType Name="vwCfdiRelacionados">
+          <Key>
+            <PropertyRef Name="orden" />
+            <PropertyRef Name="soptypeFrom" />
+            <PropertyRef Name="sopnumbeTo" />
+            <PropertyRef Name="discrepancyResponse" />
+            <PropertyRef Name="billingReference" />
+            <PropertyRef Name="cufeDocReferenciado" />
+            <PropertyRef Name="numeroDocumento" />
+            <PropertyRef Name="tipoCufe" />
+          </Key>
+          <Property Name="orden" Type="Int32" Nullable="false" />
+          <Property Name="soptypeFrom" Type="Int16" Nullable="false" />
+          <Property Name="sopnumbeFrom" Type="String" MaxLength="21" FixedLength="false" Unicode="false" />
+          <Property Name="soptypeTo" Type="Int32" />
+          <Property Name="sopnumbeTo" Type="String" Nullable="false" MaxLength="41" FixedLength="true" Unicode="false" />
+          <Property Name="codigoInterno" Type="Int32" />
+          <Property Name="discrepancyResponse" Type="Int32" Nullable="false" />
+          <Property Name="billingReference" Type="Int32" Nullable="false" />
+          <Property Name="cufeDocReferenciado" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="codigoEstatusDocumento" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="cufeDescripcion" Type="String" MaxLength="51" FixedLength="true" Unicode="false" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
+          <Property Name="numeroDocumento" Type="String" Nullable="false" MaxLength="41" FixedLength="true" Unicode="false" />
+          <Property Name="tipoDocumento" Type="Int32" />
+          <Property Name="tipoCufe" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -810,6 +908,7 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
           <EntitySetMapping Name="vwCfdiConceptos">
             <EntityTypeMapping TypeName="PERUEntities.vwCfdiConceptos">
               <MappingFragment StoreEntitySet="vwCfdiConceptos">
+                <ScalarProperty Name="facturadetalle_cantidadporempaque" ColumnName="facturadetalle_cantidadporempaque" />
                 <ScalarProperty Name="facturadetalle_unidadMedida" ColumnName="facturadetalle_unidadMedida" />
                 <ScalarProperty Name="facturadetalle_secuencia" ColumnName="facturadetalle_secuencia" />
                 <ScalarProperty Name="facturadetalle_precioVentaUnitario" ColumnName="facturadetalle_precioVentaUnitario" />
@@ -836,24 +935,6 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
                 <ScalarProperty Name="lnitmseq" ColumnName="lnitmseq" />
                 <ScalarProperty Name="sopnumbe" ColumnName="sopnumbe" />
                 <ScalarProperty Name="soptype" ColumnName="soptype" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vwCfdiRelacionados">
-            <EntityTypeMapping TypeName="PERUEntities.vwCfdiRelacionados">
-              <MappingFragment StoreEntitySet="vwCfdiRelacionados">
-                <ScalarProperty Name="tipoCufe" ColumnName="tipoCufe" />
-                <ScalarProperty Name="numeroDocumento" ColumnName="numeroDocumento" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="cufeDescripcion" ColumnName="cufeDescripcion" />
-                <ScalarProperty Name="cufeDocReferenciado" ColumnName="cufeDocReferenciado" />
-                <ScalarProperty Name="codigoInterno" ColumnName="codigoInterno" />
-                <ScalarProperty Name="sopnumbeTo" ColumnName="sopnumbeTo" />
-                <ScalarProperty Name="soptypeTo" ColumnName="soptypeTo" />
-                <ScalarProperty Name="sopnumbeFrom" ColumnName="sopnumbeFrom" />
-                <ScalarProperty Name="soptypeFrom" ColumnName="soptypeFrom" />
-                <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
-                <ScalarProperty Name="orden" ColumnName="orden" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -904,6 +985,27 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
                 <ScalarProperty Name="CUSTNMBR" ColumnName="CUSTNMBR" />
                 <ScalarProperty Name="sopnumbe" ColumnName="sopnumbe" />
                 <ScalarProperty Name="soptype" ColumnName="soptype" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwCfdiRelacionados">
+            <EntityTypeMapping TypeName="PERUEntities.vwCfdiRelacionados">
+              <MappingFragment StoreEntitySet="vwCfdiRelacionados">
+                <ScalarProperty Name="tipoCufe" ColumnName="tipoCufe" />
+                <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
+                <ScalarProperty Name="numeroDocumento" ColumnName="numeroDocumento" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="cufeDescripcion" ColumnName="cufeDescripcion" />
+                <ScalarProperty Name="codigoEstatusDocumento" ColumnName="codigoEstatusDocumento" />
+                <ScalarProperty Name="cufeDocReferenciado" ColumnName="cufeDocReferenciado" />
+                <ScalarProperty Name="billingReference" ColumnName="billingReference" />
+                <ScalarProperty Name="discrepancyResponse" ColumnName="discrepancyResponse" />
+                <ScalarProperty Name="codigoInterno" ColumnName="codigoInterno" />
+                <ScalarProperty Name="sopnumbeTo" ColumnName="sopnumbeTo" />
+                <ScalarProperty Name="soptypeTo" ColumnName="soptypeTo" />
+                <ScalarProperty Name="sopnumbeFrom" ColumnName="sopnumbeFrom" />
+                <ScalarProperty Name="soptypeFrom" ColumnName="soptypeFrom" />
+                <ScalarProperty Name="orden" ColumnName="orden" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
