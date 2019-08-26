@@ -40,5 +40,6 @@ namespace cfdiEntidadesGP
         public decimal facturadetalle_precioVentaUnitario { get; set; }
         public string facturadetalle_secuencia { get; set; }
         public string facturadetalle_unidadMedida { get; set; }
+        public decimal facturadetalle_cantidadporempaque { get; set; }
     }
 }
