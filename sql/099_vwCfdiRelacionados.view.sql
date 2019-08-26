@@ -8,7 +8,6 @@ alter VIEW [dbo].[vwCfdiRelacionados]
 --
 AS
 	select rel.orden, 
-	sop.commntid		tipoDocumento, 
 	sop.SOPTYPE			soptypeFrom, 
 	sop.SOPNUMBE		sopnumbeFrom,
 	rel.doctype			soptypeTo,
@@ -17,10 +16,12 @@ AS
 	4					discrepancyResponse,
 	5					billingReference,
 	rel.UUID			cufeDocReferenciado,
+	substring(sop.commntid, 2, 2)	codigoEstatusDocumento, 
 	sop.comment_1		cufeDescripcion,
 	rel.docdate			fecha,
 	rel.docnumbr		numeroDocumento,
-	null				tipoCufe  
+	null				tipoDocumento,
+	case when rel.doctype = 3 then 'CUFE-SHA384' else 'CUDE-SHA384' end  tipoCufe  
 	from dbo.vwCfdiSopTransaccionesVenta sop
 	 cross apply dbo.fnCfdiRelacionados(sop.soptype, sop.sopnumbe) rel
 
@@ -29,5 +30,4 @@ GO
 IF (@@Error = 0) PRINT 'Creación exitosa de la vista: [vwCfdiRelacionados]  '
 ELSE PRINT 'Error en la creación de la vista: [vwCfdiRelacionados] '
 GO
-
 
