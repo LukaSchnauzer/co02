@@ -74,7 +74,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             DocEnviarWS.cargosDescuentos = new CargosDescuentos[1];
             CargosDescuentos cargosdescuentos1 = new CargosDescuentos();
             cargosdescuentos1.codigo = documentoGP.DocVenta.cargosdescuentos_codigo;
-            cargosdescuentos1.descripcion = documentoGP.DocVenta.cargosdescuentos_descripcion.PadLeft(10, '-');
+            cargosdescuentos1.descripcion = documentoGP.DocVenta.cargosdescuentos_descripcion;//.PadLeft(10, '-');
             cargosdescuentos1.indicador = documentoGP.DocVenta.cargosdescuentos_indicador.ToString();
             cargosdescuentos1.monto= documentoGP.DocVenta.cargosdescuentos_monto.ToString();
             cargosdescuentos1.montoBase = documentoGP.DocVenta.cargosdescuentos_montobase.ToString();
@@ -408,7 +408,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                 impuestosTotales1.montoTotal = documentoGP._facimpcab.valorTotalImp.ToString();// ("000000000000000.000000");
                 detalle1.impuestosTotales[0] = impuestosTotales1;
                 //preguntar si esta bien lo de abajo
-                impuestosTotales1.montoTotal = impuestosTotales1.montoTotal + Math.Round((double)documentoGP._facimpdet.valorTotalImp, 2);//preguntar si esta bien esto
+                //impuestosTotales1.montoTotal = impuestosTotales1.montoTotal + Math.Round((double)documentoGP._facimpdet.valorTotalImp, 2);//preguntar si esta bien esto
                 debug_xml = debug_xml + "<Impuestos Totales de Facturas Detalles>\n\r";
                 debug_xml = debug_xml + "<impuestos totales>" + detalle1.impuestosTotales[0] + "\r\n";
                 debug_xml = debug_xml + "<Fin de Impuestos totales de Factura Detalles>\n\r";
@@ -635,7 +635,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             //fof = fes + " " + hos;
             //fec = Convert.ToDateTime(documentoGP.DocVenta.fechaEmision);
             //fes = fec.ToString("yyyy-MM-dd HH:mm:ss");
-            DocEnviarWS.fechaEmision = Convert.ToDateTime(documentoGP.DocVenta.fechaEmision).ToString("yyyy-MM-dd");
+            DocEnviarWS.fechaEmision = Convert.ToDateTime(documentoGP.DocVenta.fechaEmision).ToString("yyyy-MM-dd 00:00:00");
             //DocEnviarWS.fechaEmision = "2019-07-11 16:15:00";
             //DocEnviarWS.fechaEmisionDocumentoModificado = documentoGP.DocVenta.fechaEmision.ToString("yyyy-MM-dd HH:mm:ss");
             //DocEnviarWS.fechaEmisionDocumentoModificado = "2019-07-11 16:15:00";
@@ -714,11 +714,11 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             //TAZA DE CAMBIO
             DocEnviarWS.tasaDeCambio = new TasaDeCambio();
             TasaDeCambio tasadecambio1 = new TasaDeCambio();
-            tasadecambio1.baseMonedaOrigen = "1.00";
-            tasadecambio1.baseMonedaDestino = "1.00";
-            tasadecambio1.fechaDeTasaDeCambio = "2019-08-19";
-            tasadecambio1.monedaOrigen = "COP";
-            tasadecambio1.monedaDestino = "COP";
+            //tasadecambio1.baseMonedaOrigen = "1.00";
+            //tasadecambio1.baseMonedaDestino = "1.00";
+            //tasadecambio1.fechaDeTasaDeCambio = "2019-08-19";
+            //tasadecambio1.monedaOrigen = "COP";
+            //tasadecambio1.monedaDestino = "COP";
             tasadecambio1.tasaDeCambio = documentoGP.DocVenta.tasaDeCambio.ToString();
             DocEnviarWS.tasaDeCambio = tasadecambio1;
             //FIN TAZA DE CAMBIO
