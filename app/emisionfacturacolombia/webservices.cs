@@ -101,13 +101,14 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             DocEnviarWS.cliente.notificar = documentoGP.DocVenta.cliente_notificar;
             DocEnviarWS.cliente.telefono = documentoGP.DocVenta.cliente_telefono;
             DocEnviarWS.cliente.email = documentoGP.DocVenta.cliente_email;
+            DocEnviarWS.cliente.numeroIdentificacionDV = documentoGP.DocVenta.cliente_numeroIdentificacionDV;            
             //OBTENER DATOS DEL CLIENTE DE LA VISTA DESTINATARIOS
             DocEnviarWS.cliente.destinatario = new Destinatario[1];
             Destinatario destinatario1 = new Destinatario();
             destinatario1.email = new String[1];
             //string[] em = new String[1];
             //em[0]= documentoGP._clides.cliente_email;
-            destinatario1.email[0] = documentoGP._clides.cliente_email;//"email@gmail.com"; //em[0];
+            destinatario1.email[0] = documentoGP._clides.cliente_email;//"email@gmail.com"; //em[0];            
             destinatario1.canalDeEntrega = documentoGP._clides.cliente_canalEntrega;            
             DocEnviarWS.cliente.destinatario[0] = destinatario1;
             //FIN DE DATOS DE CLIENTES VISTA DESTINATARIOS
@@ -138,9 +139,10 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             //direccionFiscal.calle = null;
             //direccionFiscal.calleAdicional = null;
             //direccionFiscal.ciudad = "MANIZALES";
+            direccionFiscal.ciudad = documentoGP.DocVenta.cliente_difciudad;
             direccionFiscal.codigoDepartamento = documentoGP.DocVenta.cliente_difcodigoDepartamento;//"11";
             //direccionFiscal.correccionHusoHorario = null;
-            //direccionFiscal.departamento = "Bogotá";
+            direccionFiscal.departamento = documentoGP.DocVenta.cliente_difdepartamento;
             //direccionFiscal.departamentoOrg = null;
             direccionFiscal.direccion = documentoGP.DocVenta.cliente_difdireccion;//"Direccion";
             //direccionFiscal.distrito = null;
@@ -345,7 +347,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                 //detalle1.cantidadUnidades = Math.Round((double)detalleDeFactura_gp.facturadetalle_cantidadunidades,2).ToString("000000");
                 detalle1.cantidadUnidades = detalleDeFactura_gp.facturadetalle_cantidadunidades.ToString();
                 detalle1.secuencia = detalleDeFactura_gp.facturadetalle_secuencia;
-                detalle1.cantidadPorEmpaque = detalleDeFactura_gp.facturadetalle_cantidadporempaque.ToString();
+                detalle1.cantidadPorEmpaque = Convert.ToInt32(detalleDeFactura_gp.facturadetalle_cantidadporempaque).ToString();
                 //detalle1.descuento = Math.Round((double)detalleDeFactura_gp.cargosdescuentos_monto,2).ToString("0000000000000.00");
                 detalle1.precioVentaUnitario = Math.Round((double)detalleDeFactura_gp.facturadetalle_precioVentaUnitario, 2).ToString();// "00000000000000.00");
                 //detalle1.precioTotalSinImpuestos = (Math.Round((double)detalleDeFactura_gp.importe, 2) - Math.Round((double)detalleDeFactura_gp.descuento, 2)).ToString("00000000000000.00");

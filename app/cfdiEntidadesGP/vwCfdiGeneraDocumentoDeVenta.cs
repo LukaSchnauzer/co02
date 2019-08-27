@@ -28,7 +28,9 @@ namespace cfdiEntidadesGP
         public string cargosdescuentos_secuencia { get; set; }
         public string cliente_nitProveedorReceptor { get; set; }
         public string cliente_telefono { get; set; }
+        public string cliente_difciudad { get; set; }
         public string cliente_difcodigoDepartamento { get; set; }
+        public string cliente_difdepartamento { get; set; }
         public string cliente_difdireccion { get; set; }
         public string cliente_diflenguaje { get; set; }
         public string cliente_difmunicipio { get; set; }
