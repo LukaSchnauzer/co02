@@ -34,8 +34,8 @@ namespace cfdiEntidadesGP
         public virtual DbSet<vwCfdiFacturaImpuestosDetalles> vwCfdiFacturaImpuestosDetalles { get; set; }
         public virtual DbSet<vwCfdiMediosDePago> vwCfdiMediosDePago { get; set; }
         public virtual DbSet<vwCfdiConceptos> vwCfdiConceptos { get; set; }
-        public virtual DbSet<vwCfdiGeneraDocumentoDeVenta> vwCfdiGeneraDocumentoDeVenta { get; set; }
         public virtual DbSet<vwCfdiRelacionados> vwCfdiRelacionados { get; set; }
+        public virtual DbSet<vwCfdiGeneraDocumentoDeVenta> vwCfdiGeneraDocumentoDeVenta { get; set; }
     
         [DbFunction("PER10Entities", "fCfdiParametrosTipoLeyenda")]
         public virtual IQueryable<fCfdiParametrosTipoLeyenda_Result> fCfdiParametrosTipoLeyenda(string aDRSCODE, string master_Type)

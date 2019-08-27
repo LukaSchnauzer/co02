@@ -152,48 +152,6 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' no t
           <Key>
             <PropertyRef Name="soptype" />
             <PropertyRef Name="sopnumbe" />
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
           </Key>
           <Property Name="soptype" Type="int" Nullable="false" />
           <Property Name="sopnumbe" Type="varchar" MaxLength="12" Nullable="false" />
@@ -201,7 +159,7 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' no t
           <Property Name="cantidadDecimales" Type="int" Nullable="false" />
           <Property Name="consecutivoDocumento" Type="varchar" MaxLength="12" Nullable="false" />
           <Property Name="cargosdescuentos_codigo" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="cargosdescuentos_descripcion" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="cargosdescuentos_descripcion" Type="varchar" MaxLength="19" Nullable="false" />
           <Property Name="cargosdescuentos_indicador" Type="int" Nullable="false" />
           <Property Name="cargosdescuentos_monto" Type="int" Nullable="false" />
           <Property Name="cargosdescuentos_montobase" Type="int" Nullable="false" />
@@ -209,7 +167,9 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' no t
           <Property Name="cargosdescuentos_secuencia" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="cliente_nitProveedorReceptor" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="cliente_telefono" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="cliente_difciudad" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="cliente_difcodigoDepartamento" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="cliente_difdepartamento" Type="varchar" MaxLength="6" Nullable="false" />
           <Property Name="cliente_difdireccion" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="cliente_diflenguaje" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="cliente_difmunicipio" Type="varchar" MaxLength="5" Nullable="false" />
@@ -219,7 +179,7 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' no t
           <Property Name="cliente_nombreRegistroRUT" Type="varchar" MaxLength="33" Nullable="false" />
           <Property Name="cliente_numeroIdentificacion" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="cliente_numeroIdentificacionDV" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="cliente_tipoIdentificacion" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="cliente_tipoIdentificacion" Type="int" Nullable="false" />
           <Property Name="cliente_nombreComercial" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="cliente_nombreRazonSocial" Type="varchar" MaxLength="24" Nullable="false" />
           <Property Name="cliente_notificar" Type="varchar" MaxLength="2" Nullable="false" />
@@ -448,7 +408,9 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
     [vwCfdiGeneraDocumentoDeVenta].[cargosdescuentos_secuencia] AS [cargosdescuentos_secuencia], 
     [vwCfdiGeneraDocumentoDeVenta].[cliente_nitProveedorReceptor] AS [cliente_nitProveedorReceptor], 
     [vwCfdiGeneraDocumentoDeVenta].[cliente_telefono] AS [cliente_telefono], 
+    [vwCfdiGeneraDocumentoDeVenta].[cliente_difciudad] AS [cliente_difciudad], 
     [vwCfdiGeneraDocumentoDeVenta].[cliente_difcodigoDepartamento] AS [cliente_difcodigoDepartamento], 
+    [vwCfdiGeneraDocumentoDeVenta].[cliente_difdepartamento] AS [cliente_difdepartamento], 
     [vwCfdiGeneraDocumentoDeVenta].[cliente_difdireccion] AS [cliente_difdireccion], 
     [vwCfdiGeneraDocumentoDeVenta].[cliente_diflenguaje] AS [cliente_diflenguaje], 
     [vwCfdiGeneraDocumentoDeVenta].[cliente_difmunicipio] AS [cliente_difmunicipio], 
@@ -562,8 +524,8 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
           <EntitySet Name="vwCfdiFacturaImpuestosDetalles" EntityType="PERUEntities.vwCfdiFacturaImpuestosDetalles" />
           <EntitySet Name="vwCfdiMediosDePago" EntityType="PERUEntities.vwCfdiMediosDePago" />
           <EntitySet Name="vwCfdiConceptos" EntityType="PERUEntities.vwCfdiConceptos" />
-          <EntitySet Name="vwCfdiGeneraDocumentoDeVenta" EntityType="PERUEntities.vwCfdiGeneraDocumentoDeVenta" />
           <EntitySet Name="vwCfdiRelacionados" EntityType="PERUEntities.vwCfdiRelacionados" />
+          <EntitySet Name="vwCfdiGeneraDocumentoDeVenta" EntityType="PERUEntities.vwCfdiGeneraDocumentoDeVenta" />
         </EntityContainer>
         <EntityType Name="vwCfdiGeneraResumenDiario">
           <Key>
@@ -710,56 +672,6 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
           <Property Name="facturadetalle_unidadMedida" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="facturadetalle_cantidadporempaque" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
         </EntityType>
-        <EntityType Name="vwCfdiGeneraDocumentoDeVenta">
-          <Key>
-            <PropertyRef Name="soptype" />
-            <PropertyRef Name="sopnumbe" />
-          </Key>
-          <Property Name="soptype" Type="Int32" Nullable="false" />
-          <Property Name="sopnumbe" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="CUSTNMBR" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Name="cantidadDecimales" Type="Int32" Nullable="false" />
-          <Property Name="consecutivoDocumento" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="cargosdescuentos_codigo" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="cargosdescuentos_descripcion" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="cargosdescuentos_indicador" Type="Int32" Nullable="false" />
-          <Property Name="cargosdescuentos_monto" Type="Int32" Nullable="false" />
-          <Property Name="cargosdescuentos_montobase" Type="Int32" Nullable="false" />
-          <Property Name="cargodescuentos_porcentaje" Type="Int32" Nullable="false" />
-          <Property Name="cargosdescuentos_secuencia" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_nitProveedorReceptor" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_telefono" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_difcodigoDepartamento" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_difdireccion" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_diflenguaje" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_difmunicipio" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_difpais" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_difzonapostal" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_email" Type="String" Nullable="false" MaxLength="23" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_nombreRegistroRUT" Type="String" Nullable="false" MaxLength="33" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_numeroIdentificacion" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_numeroIdentificacionDV" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_tipoIdentificacion" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_nombreComercial" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_nombreRazonSocial" Type="String" Nullable="false" MaxLength="24" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_notificar" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_numeroDocumento" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_tipoPersona" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_actividadEconomicaCIIU" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="fechaEmision" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="fechaVencimiento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="moneda" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="rangonumeracion" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="redondeoaplicado" Type="Decimal" Nullable="false" Precision="2" Scale="2" />
-          <Property Name="tasaDeCambio" Type="Int32" Nullable="false" />
-          <Property Name="tipoDocumento" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="tipoOperacion" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="totalBaseImponible" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
-          <Property Name="totalBrutoconImpuestos" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
-          <Property Name="totalMonto" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
-          <Property Name="totalProductos" Type="Int32" Nullable="false" />
-          <Property Name="totalSinImpuestos" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
-        </EntityType>
         <EntityType Name="vwCfdiRelacionados">
           <Key>
             <PropertyRef Name="orden" />
@@ -786,6 +698,58 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
           <Property Name="numeroDocumento" Type="String" Nullable="false" MaxLength="41" FixedLength="true" Unicode="false" />
           <Property Name="tipoDocumento" Type="Int32" />
           <Property Name="tipoCufe" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="vwCfdiGeneraDocumentoDeVenta">
+          <Key>
+            <PropertyRef Name="soptype" />
+            <PropertyRef Name="sopnumbe" />
+          </Key>
+          <Property Name="soptype" Type="Int32" Nullable="false" />
+          <Property Name="sopnumbe" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="CUSTNMBR" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="cantidadDecimales" Type="Int32" Nullable="false" />
+          <Property Name="consecutivoDocumento" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="cargosdescuentos_codigo" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="cargosdescuentos_descripcion" Type="String" Nullable="false" MaxLength="19" FixedLength="false" Unicode="false" />
+          <Property Name="cargosdescuentos_indicador" Type="Int32" Nullable="false" />
+          <Property Name="cargosdescuentos_monto" Type="Int32" Nullable="false" />
+          <Property Name="cargosdescuentos_montobase" Type="Int32" Nullable="false" />
+          <Property Name="cargodescuentos_porcentaje" Type="Int32" Nullable="false" />
+          <Property Name="cargosdescuentos_secuencia" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_nitProveedorReceptor" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_telefono" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_difciudad" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_difcodigoDepartamento" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_difdepartamento" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_difdireccion" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_diflenguaje" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_difmunicipio" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_difpais" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_difzonapostal" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_email" Type="String" Nullable="false" MaxLength="23" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_nombreRegistroRUT" Type="String" Nullable="false" MaxLength="33" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_numeroIdentificacion" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_numeroIdentificacionDV" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_tipoIdentificacion" Type="Int32" Nullable="false" />
+          <Property Name="cliente_nombreComercial" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_nombreRazonSocial" Type="String" Nullable="false" MaxLength="24" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_notificar" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_numeroDocumento" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_tipoPersona" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_actividadEconomicaCIIU" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="fechaEmision" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="fechaVencimiento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="moneda" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="rangonumeracion" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="redondeoaplicado" Type="Decimal" Nullable="false" Precision="2" Scale="2" />
+          <Property Name="tasaDeCambio" Type="Int32" Nullable="false" />
+          <Property Name="tipoDocumento" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="tipoOperacion" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="totalBaseImponible" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="totalBrutoconImpuestos" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="totalMonto" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="totalProductos" Type="Int32" Nullable="false" />
+          <Property Name="totalSinImpuestos" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -938,6 +902,27 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="vwCfdiRelacionados">
+            <EntityTypeMapping TypeName="PERUEntities.vwCfdiRelacionados">
+              <MappingFragment StoreEntitySet="vwCfdiRelacionados">
+                <ScalarProperty Name="tipoCufe" ColumnName="tipoCufe" />
+                <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
+                <ScalarProperty Name="numeroDocumento" ColumnName="numeroDocumento" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="cufeDescripcion" ColumnName="cufeDescripcion" />
+                <ScalarProperty Name="codigoEstatusDocumento" ColumnName="codigoEstatusDocumento" />
+                <ScalarProperty Name="cufeDocReferenciado" ColumnName="cufeDocReferenciado" />
+                <ScalarProperty Name="billingReference" ColumnName="billingReference" />
+                <ScalarProperty Name="discrepancyResponse" ColumnName="discrepancyResponse" />
+                <ScalarProperty Name="codigoInterno" ColumnName="codigoInterno" />
+                <ScalarProperty Name="sopnumbeTo" ColumnName="sopnumbeTo" />
+                <ScalarProperty Name="soptypeTo" ColumnName="soptypeTo" />
+                <ScalarProperty Name="sopnumbeFrom" ColumnName="sopnumbeFrom" />
+                <ScalarProperty Name="soptypeFrom" ColumnName="soptypeFrom" />
+                <ScalarProperty Name="orden" ColumnName="orden" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="vwCfdiGeneraDocumentoDeVenta">
             <EntityTypeMapping TypeName="PERUEntities.vwCfdiGeneraDocumentoDeVenta">
               <MappingFragment StoreEntitySet="vwCfdiGeneraDocumentoDeVenta">
@@ -970,7 +955,9 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
                 <ScalarProperty Name="cliente_difmunicipio" ColumnName="cliente_difmunicipio" />
                 <ScalarProperty Name="cliente_diflenguaje" ColumnName="cliente_diflenguaje" />
                 <ScalarProperty Name="cliente_difdireccion" ColumnName="cliente_difdireccion" />
+                <ScalarProperty Name="cliente_difdepartamento" ColumnName="cliente_difdepartamento" />
                 <ScalarProperty Name="cliente_difcodigoDepartamento" ColumnName="cliente_difcodigoDepartamento" />
+                <ScalarProperty Name="cliente_difciudad" ColumnName="cliente_difciudad" />
                 <ScalarProperty Name="cliente_telefono" ColumnName="cliente_telefono" />
                 <ScalarProperty Name="cliente_nitProveedorReceptor" ColumnName="cliente_nitProveedorReceptor" />
                 <ScalarProperty Name="cargosdescuentos_secuencia" ColumnName="cargosdescuentos_secuencia" />
@@ -985,27 +972,6 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
                 <ScalarProperty Name="CUSTNMBR" ColumnName="CUSTNMBR" />
                 <ScalarProperty Name="sopnumbe" ColumnName="sopnumbe" />
                 <ScalarProperty Name="soptype" ColumnName="soptype" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vwCfdiRelacionados">
-            <EntityTypeMapping TypeName="PERUEntities.vwCfdiRelacionados">
-              <MappingFragment StoreEntitySet="vwCfdiRelacionados">
-                <ScalarProperty Name="tipoCufe" ColumnName="tipoCufe" />
-                <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
-                <ScalarProperty Name="numeroDocumento" ColumnName="numeroDocumento" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="cufeDescripcion" ColumnName="cufeDescripcion" />
-                <ScalarProperty Name="codigoEstatusDocumento" ColumnName="codigoEstatusDocumento" />
-                <ScalarProperty Name="cufeDocReferenciado" ColumnName="cufeDocReferenciado" />
-                <ScalarProperty Name="billingReference" ColumnName="billingReference" />
-                <ScalarProperty Name="discrepancyResponse" ColumnName="discrepancyResponse" />
-                <ScalarProperty Name="codigoInterno" ColumnName="codigoInterno" />
-                <ScalarProperty Name="sopnumbeTo" ColumnName="sopnumbeTo" />
-                <ScalarProperty Name="soptypeTo" ColumnName="soptypeTo" />
-                <ScalarProperty Name="sopnumbeFrom" ColumnName="sopnumbeFrom" />
-                <ScalarProperty Name="soptypeFrom" ColumnName="soptypeFrom" />
-                <ScalarProperty Name="orden" ColumnName="orden" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
