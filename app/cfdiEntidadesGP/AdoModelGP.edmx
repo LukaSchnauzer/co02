@@ -179,7 +179,7 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' no t
           <Property Name="cliente_nombreRegistroRUT" Type="varchar" MaxLength="33" Nullable="false" />
           <Property Name="cliente_numeroIdentificacion" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="cliente_numeroIdentificacionDV" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="cliente_tipoIdentificacion" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="cliente_tipoIdentificacion" Type="int" Nullable="false" />
           <Property Name="cliente_nombreComercial" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="cliente_nombreRazonSocial" Type="varchar" MaxLength="24" Nullable="false" />
           <Property Name="cliente_notificar" Type="varchar" MaxLength="2" Nullable="false" />
@@ -730,7 +730,7 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
           <Property Name="cliente_nombreRegistroRUT" Type="String" Nullable="false" MaxLength="33" FixedLength="false" Unicode="false" />
           <Property Name="cliente_numeroIdentificacion" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
           <Property Name="cliente_numeroIdentificacionDV" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_tipoIdentificacion" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_tipoIdentificacion" Type="Int32" Nullable="false" />
           <Property Name="cliente_nombreComercial" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="cliente_nombreRazonSocial" Type="String" Nullable="false" MaxLength="24" FixedLength="false" Unicode="false" />
           <Property Name="cliente_notificar" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />

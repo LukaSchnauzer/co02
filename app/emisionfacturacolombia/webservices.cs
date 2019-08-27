@@ -96,7 +96,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             //DocEnviarWS.cliente.email = documentoGP.DocVenta.cliente_email;
             DocEnviarWS.cliente.numeroDocumento = documentoGP.DocVenta.cliente_numeroDocumento;
             //DocEnviarWS.cliente.numeroDocumento = "23456783456734567832;
-            DocEnviarWS.cliente.tipoIdentificacion = documentoGP.DocVenta.cliente_tipoIdentificacion;
+            DocEnviarWS.cliente.tipoIdentificacion = documentoGP.DocVenta.cliente_tipoIdentificacion.ToString();
             DocEnviarWS.cliente.tipoPersona = documentoGP.DocVenta.cliente_tipoPersona;
             DocEnviarWS.cliente.notificar = documentoGP.DocVenta.cliente_notificar;
             DocEnviarWS.cliente.telefono = documentoGP.DocVenta.cliente_telefono;
@@ -168,7 +168,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             informacionlegal1.nombreRegistroRUT = documentoGP.DocVenta.cliente_nombreRegistroRUT;
             informacionlegal1.numeroIdentificacion = documentoGP.DocVenta.cliente_numeroIdentificacion;
             informacionlegal1.numeroIdentificacionDV = documentoGP.DocVenta.cliente_numeroIdentificacionDV;
-            informacionlegal1.tipoIdentificacion = documentoGP.DocVenta.cliente_tipoIdentificacion;
+            informacionlegal1.tipoIdentificacion = documentoGP.DocVenta.cliente_tipoIdentificacion.ToString();
             DocEnviarWS.cliente.informacionLegalCliente = informacionlegal1;
             //FIN INFORMACION LEGAL DEL CLIENTE
 

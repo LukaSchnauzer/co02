@@ -40,7 +40,7 @@ namespace cfdiEntidadesGP
         public string cliente_nombreRegistroRUT { get; set; }
         public string cliente_numeroIdentificacion { get; set; }
         public string cliente_numeroIdentificacionDV { get; set; }
-        public string cliente_tipoIdentificacion { get; set; }
+        public int cliente_tipoIdentificacion { get; set; }
         public string cliente_nombreComercial { get; set; }
         public string cliente_nombreRazonSocial { get; set; }
         public string cliente_notificar { get; set; }
