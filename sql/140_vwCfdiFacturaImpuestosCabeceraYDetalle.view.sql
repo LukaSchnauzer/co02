@@ -10,7 +10,7 @@ as
 --13/08/19 jcf Creación cfdi Colombia ubl 2.1
 --
 	select sop.soptype, sop.sopnumbe, 
-			imp.[name]			codigoTotalImp, 
+			rtrim(imp.[name])	codigoTotalImp, 
 			imp.TXDTLPCT		porcentajeTotalImp, 
 			sum(imp.staxamnt)	staxamnt, 
 			sum(abs(imp.orslstax))	valorTotalImp, 
@@ -42,7 +42,7 @@ as
 --
 	select sop.soptype, sop.sopnumbe, sop.LNITMSEQ, 
 			sop.itemnmbr, sop.cmpntseq,
-			imp.[name]			codigoTotalImp, 
+			rtrim(imp.[name])	codigoTotalImp, 
 			imp.TXDTLPCT		porcentajeTotalImp, 
 
 			sum(imp.staxamnt)	staxamnt, 
