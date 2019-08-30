@@ -374,8 +374,8 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                 impuestodetalles1.porcentajeTOTALImp = Convert.ToDecimal(documentoGP._facimpdet.porcentajeTotalImp).ToString(); //("00.00");
                 impuestodetalles1.valorTOTALImp = Math.Round((double)documentoGP._facimpdet.valorTotalImp, 2).ToString();// ("00000000000000.00");
                 impuestodetalles1.unidadMedida = documentoGP._facimpdet.unidadMedida.ToString();
-                impuestodetalles1.unidadMedidaTributo = Convert.ToDecimal(documentoGP._facimpdet.unidadMedidaTributo).ToString();// ("00.00");
-                impuestodetalles1.valorTributoUnidad = documentoGP._facimpdet.valorTributoUnidad.ToString();                
+                //impuestodetalles1.unidadMedidaTributo = Convert.ToDecimal(documentoGP._facimpdet.unidadMedidaTributo).ToString();// ("00.00");
+                //impuestodetalles1.valorTributoUnidad = documentoGP._facimpdet.valorTributoUnidad.ToString();                
                 detalle1.impuestosDetalles[0] = impuestodetalles1;
                 debug_xml = debug_xml + "<Impuestos Detalles de Factura Detalles>\n\r";
                 debug_xml = debug_xml + "<impuestosdetalle>" + detalle1.impuestosDetalles[0] + "\r\n";
@@ -680,8 +680,8 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             impuestosg1.valorTOTALImp = documentoGP._facimpdet.valorTotalImp.ToString();// ("00000000000000.00");
             //vti = Math.Round((float)(documentoGP._facimpdet.valorTotalImp * )
             impuestosg1.unidadMedida = documentoGP._facimpdet.unidadMedida;
-            impuestosg1.unidadMedidaTributo = documentoGP._facimpdet.unidadMedidaTributo.ToString();
-            impuestosg1.valorTributoUnidad = documentoGP._facimpdet.valorTributoUnidad.ToString();
+            //impuestosg1.unidadMedidaTributo = documentoGP._facimpdet.unidadMedidaTributo.ToString();
+            //impuestosg1.valorTributoUnidad = documentoGP._facimpdet.valorTributoUnidad.ToString();
             DocEnviarWS.impuestosGenerales[0] = impuestosg1;
             debug_xml = debug_xml + "<IMPUESTOS GENERALES>\n\r";
             debug_xml = debug_xml + "<impuestos generales>" + DocEnviarWS.impuestosGenerales[0] + "\r\n";
