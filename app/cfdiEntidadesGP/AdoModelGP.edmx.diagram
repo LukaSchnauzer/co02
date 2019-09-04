@@ -356,13 +356,13 @@
         <EntityTypeShape EntityType="PERUEntities.vwtii_mapeo_puc" Width="1.5" PointX="104.75" PointY="89.75" />
         <EntityTypeShape EntityType="PERUEntities.WorkOrders" Width="1.5" PointX="104.75" PointY="93.75" />
         <EntityTypeShape EntityType="PERUEntities.vwCfdiClienteDestinatario" Width="1.5" PointX="8.375" PointY="4.75" />
-        <EntityTypeShape EntityType="PERUEntities.vwCfdiClienteObligaciones" Width="1.5" PointX="6.375" PointY="8.75" />
+        <EntityTypeShape EntityType="PERUEntities.vwCfdiClienteObligaciones" Width="1.5" PointX="7" PointY="8.625" />
         <EntityTypeShape EntityType="PERUEntities.vwCfdiFacturaImpuestosCabecera" Width="1.5" PointX="8.375" PointY="7.75" />
         <EntityTypeShape EntityType="PERUEntities.vwCfdiFacturaImpuestosDetalles" Width="1.5" PointX="10.375" PointY="0.75" />
         <EntityTypeShape EntityType="PERUEntities.vwCfdiMediosDePago" Width="1.5" PointX="10.375" PointY="5.75" />
         <EntityTypeShape EntityType="PERUEntities.vwCfdiConceptos" Width="2.625" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="PERUEntities.vwCfdiRelacionados" Width="1.5" PointX="0.75" PointY="7.75" />
-        <EntityTypeShape EntityType="PERUEntities.vwCfdiGeneraDocumentoDeVenta" Width="3.125" PointX="3.375" PointY="8.75" />
+        <EntityTypeShape EntityType="PERUEntities.vwCfdiGeneraDocumentoDeVenta" Width="2.75" PointX="3.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

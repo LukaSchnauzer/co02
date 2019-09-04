@@ -68,22 +68,31 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             //FACTURA GENERAL
             debug_xml = "<FACTURA GENERAL> \r\n";
             //SECCION FACTURA COMIENZO
+            //ANTICIPOS
+            //DocEnviarWS.anticipos = new Anticipos[1];
+            //Anticipos anticipos1 = new Anticipos();
+            //anticipos1.fechaDeRecibido = "2019-02-02";
+            //anticipos1.id = "1";
+            //anticipos1.montoPagado = "7.00";
+            //DocEnviarWS.anticipos[0] = anticipos1;
+            //FIN ANTICIPO
             DocEnviarWS.cantidadDecimales = documentoGP.DocVenta.cantidadDecimales.ToString();
             DocEnviarWS.consecutivoDocumento = documentoGP.DocVenta.consecutivoDocumento;            
+            //DocEnviarWS.moneda =
             //CLASE CARGOS DESCUENTOS.
-            DocEnviarWS.cargosDescuentos = new CargosDescuentos[1];
-            CargosDescuentos cargosdescuentos1 = new CargosDescuentos();
-            cargosdescuentos1.codigo = documentoGP.DocVenta.cargosdescuentos_codigo;
-            cargosdescuentos1.descripcion = documentoGP.DocVenta.cargosdescuentos_descripcion;//.PadLeft(10, '-');
-            cargosdescuentos1.indicador = documentoGP.DocVenta.cargosdescuentos_indicador.ToString();
-            cargosdescuentos1.monto= documentoGP.DocVenta.cargosdescuentos_monto.ToString();
-            cargosdescuentos1.montoBase = documentoGP.DocVenta.cargosdescuentos_montobase.ToString();
-            cargosdescuentos1.porcentaje = documentoGP.DocVenta.cargodescuentos_porcentaje.ToString();
-            cargosdescuentos1.secuencia = documentoGP.DocVenta.cargosdescuentos_secuencia;
-            DocEnviarWS.cargosDescuentos[0] = cargosdescuentos1;            
-            debug_xml = "<CARGOS DESCUENTOS> \r\n";
-            debug_xml = debug_xml + DocEnviarWS.cargosDescuentos[0] + "\r\n";
-            debug_xml = debug_xml + "<FIN CARGOS DESCUENTOS> \r\n";
+            //DocEnviarWS.cargosDescuentos = new CargosDescuentos[1];
+            //CargosDescuentos cargosdescuentos1 = new CargosDescuentos();
+            //cargosdescuentos1.codigo = documentoGP.DocVenta.cargosdescuentos_codigo;
+            //cargosdescuentos1.descripcion = documentoGP.DocVenta.cargosdescuentos_descripcion;//.PadLeft(10, '-');
+            //cargosdescuentos1.indicador = documentoGP.DocVenta.cargosdescuentos_indicador.ToString();
+            //cargosdescuentos1.monto= documentoGP.DocVenta.cargosdescuentos_monto.ToString();
+            //cargosdescuentos1.montoBase = documentoGP.DocVenta.cargosdescuentos_montobase.ToString();
+            //cargosdescuentos1.porcentaje = documentoGP.DocVenta.cargodescuentos_porcentaje.ToString();
+            //cargosdescuentos1.secuencia = documentoGP.DocVenta.cargosdescuentos_secuencia;
+            //DocEnviarWS.cargosDescuentos[0] = cargosdescuentos1;            
+            //debug_xml = "<CARGOS DESCUENTOS> \r\n";
+            //debug_xml = debug_xml + DocEnviarWS.cargosDescuentos[0] + "\r\n";
+            //debug_xml = debug_xml + "<FIN CARGOS DESCUENTOS> \r\n";
             //FIN CARGOS DESCUENTOS            
             //FIN COMIENZO DE FACTURA GENERAL
             //SECCION CLIENTE
@@ -106,6 +115,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             DocEnviarWS.cliente.destinatario = new Destinatario[1];
             Destinatario destinatario1 = new Destinatario();
             destinatario1.email = new String[1];
+            
             //string[] em = new String[1];
             //em[0]= documentoGP._clides.cliente_email;
             destinatario1.email[0] = documentoGP._clides.cliente_email;//"email@gmail.com"; //em[0];            
@@ -715,12 +725,11 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             DocEnviarWS.redondeoAplicado = documentoGP.DocVenta.redondeoaplicado.ToString();
             //TAZA DE CAMBIO
             DocEnviarWS.tasaDeCambio = new TasaDeCambio();
-            TasaDeCambio tasadecambio1 = new TasaDeCambio();
-            //tasadecambio1.baseMonedaOrigen = "1.00";
-            //tasadecambio1.baseMonedaDestino = "1.00";
-            //tasadecambio1.fechaDeTasaDeCambio = "2019-08-19";
-            //tasadecambio1.monedaOrigen = "COP";
-            //tasadecambio1.monedaDestino = "COP";
+            TasaDeCambio tasadecambio1 = new TasaDeCambio();            
+            tasadecambio1.baseMonedaDestino = documentoGP.DocVenta.tc_baseMonedaDestino.ToString(); ;
+            tasadecambio1.fechaDeTasaDeCambio = documentoGP.DocVenta.tc_fechaDeTasaDeCambio;
+            tasadecambio1.monedaOrigen = documentoGP.DocVenta.tc_monedaOrigen;
+            tasadecambio1.monedaDestino = documentoGP.DocVenta.tc_monedaDestino;
             tasadecambio1.tasaDeCambio = documentoGP.DocVenta.tasaDeCambio.ToString();
             DocEnviarWS.tasaDeCambio = tasadecambio1;
             //FIN TAZA DE CAMBIO
@@ -917,7 +926,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             //var response = ServicioWS.Enviar("a64532c2a3b14050b893e78832e714f160eacdfd", "25cf0e943ce74feaa717b1f5464ea6e4591b3809", docWs, "0");
             var response = ServicioWS.Enviar("89ab70d025c1cb8c5bac3f5ac319a94728e42e3a", "3cfb75199b5d14cdb706a55555a055488b1fad6c", docWs, "0");
             //DocumentResponse docRespuesta = ServicioWS.Enviar("89ab70d025c1cb8c5bac3f5ac319a94728e42e3a", "3cfb75199b5d14cdb706a55555a055488b1fad6c", docWs, "0");
-
+            
             if (response.codigo == 0)
             {
 
