@@ -15,7 +15,7 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiClienteDestinatario' no tien
           </Key>
           <Property Name="CUSTNMBR" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="cliente_canalEntrega" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="cliente_email" Type="varchar" MaxLength="23" Nullable="false" />
+          <Property Name="cliente_email" Type="varchar" MaxLength="17" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiClienteObligaciones' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -83,7 +83,7 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiConceptos' no tiene definida
           <Property Name="facturadetalle_estandarcodigoproducto" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="facturadetalle_marca" Type="varchar" MaxLength="3" Nullable="false" />
           <Property Name="facturadetalle_modelo" Type="varchar" MaxLength="6" Nullable="false" />
-          <Property Name="facturadetalle_precioTotal" Type="numeric" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="facturadetalle_precioTotal" Type="numeric" Precision="6" Scale="2" Nullable="false" />
           <Property Name="facturadetalle_precioTotalSinImpuestos" Type="numeric" Precision="6" Scale="2" Nullable="false" />
           <Property Name="facturadetalle_precioVentaUnitario" Type="numeric" Precision="6" Scale="2" Nullable="false" />
           <Property Name="facturadetalle_secuencia" Type="varchar" MaxLength="1" Nullable="false" />
@@ -112,8 +112,8 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiFacturaImpuestosCabecera' no
           <Property Name="porcentajeTotalImp" Type="numeric" Precision="4" Scale="2" Nullable="false" />
           <Property Name="unidadMedida" Type="varchar" MaxLength="3" Nullable="false" />
           <Property Name="unidadMedidaTributo" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="valorTotalImp" Type="numeric" Precision="6" Scale="2" Nullable="false" />
           <Property Name="valorTributoUnidad" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="valorTotalImp" Type="numeric" Precision="5" Scale="2" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiFacturaImpuestosDetalles' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -143,8 +143,8 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiFacturaImpuestosDetalles' no
           <Property Name="porcentajeTotalImp" Type="numeric" Precision="4" Scale="2" Nullable="false" />
           <Property Name="unidadMedida" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="unidadMedidaTributo" Type="int" />
-          <Property Name="valorTotalImp" Type="numeric" Precision="5" Scale="2" Nullable="false" />
           <Property Name="valorTributoUnidad" Type="int" Nullable="false" />
+          <Property Name="valorTotalImp" Type="numeric" Precision="5" Scale="2" Nullable="false" />
         </EntityType>
         <!--Errores durante la generación:
 advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
@@ -152,6 +152,54 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' no t
           <Key>
             <PropertyRef Name="soptype" />
             <PropertyRef Name="sopnumbe" />
+            <PropertyRef Name="CUSTNMBR" />
+            <PropertyRef Name="cantidadDecimales" />
+            <PropertyRef Name="consecutivoDocumento" />
+            <PropertyRef Name="cargosdescuentos_codigo" />
+            <PropertyRef Name="cargosdescuentos_descripcion" />
+            <PropertyRef Name="cargosdescuentos_indicador" />
+            <PropertyRef Name="cargosdescuentos_monto" />
+            <PropertyRef Name="cargosdescuentos_montobase" />
+            <PropertyRef Name="cargodescuentos_porcentaje" />
+            <PropertyRef Name="cargosdescuentos_secuencia" />
+            <PropertyRef Name="cliente_nitProveedorReceptor" />
+            <PropertyRef Name="cliente_telefono" />
+            <PropertyRef Name="cliente_difciudad" />
+            <PropertyRef Name="cliente_difcodigoDepartamento" />
+            <PropertyRef Name="cliente_difdepartamento" />
+            <PropertyRef Name="cliente_difdireccion" />
+            <PropertyRef Name="cliente_diflenguaje" />
+            <PropertyRef Name="cliente_difmunicipio" />
+            <PropertyRef Name="cliente_difpais" />
+            <PropertyRef Name="cliente_difzonapostal" />
+            <PropertyRef Name="cliente_email" />
+            <PropertyRef Name="cliente_nombreRegistroRUT" />
+            <PropertyRef Name="cliente_numeroIdentificacion" />
+            <PropertyRef Name="cliente_numeroIdentificacionDV" />
+            <PropertyRef Name="cliente_tipoIdentificacion" />
+            <PropertyRef Name="cliente_nombreComercial" />
+            <PropertyRef Name="cliente_nombreRazonSocial" />
+            <PropertyRef Name="cliente_notificar" />
+            <PropertyRef Name="cliente_numeroDocumento" />
+            <PropertyRef Name="cliente_tipoPersona" />
+            <PropertyRef Name="cliente_actividadEconomicaCIIU" />
+            <PropertyRef Name="fechaEmision" />
+            <PropertyRef Name="fechaVencimiento" />
+            <PropertyRef Name="moneda" />
+            <PropertyRef Name="rangonumeracion" />
+            <PropertyRef Name="redondeoaplicado" />
+            <PropertyRef Name="tasaDeCambio" />
+            <PropertyRef Name="tc_baseMonedaDestino" />
+            <PropertyRef Name="tc_fechaDeTasaDeCambio" />
+            <PropertyRef Name="tc_monedaOrigen" />
+            <PropertyRef Name="tc_monedaDestino" />
+            <PropertyRef Name="tipoDocumento" />
+            <PropertyRef Name="tipoOperacion" />
+            <PropertyRef Name="totalBaseImponible" />
+            <PropertyRef Name="totalBrutoconImpuestos" />
+            <PropertyRef Name="totalMonto" />
+            <PropertyRef Name="totalProductos" />
+            <PropertyRef Name="totalSinImpuestos" />
           </Key>
           <Property Name="soptype" Type="int" Nullable="false" />
           <Property Name="sopnumbe" Type="varchar" MaxLength="12" Nullable="false" />
@@ -175,7 +223,7 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' no t
           <Property Name="cliente_difmunicipio" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="cliente_difpais" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="cliente_difzonapostal" Type="varchar" MaxLength="6" Nullable="false" />
-          <Property Name="cliente_email" Type="varchar" MaxLength="23" Nullable="false" />
+          <Property Name="cliente_email" Type="varchar" MaxLength="17" Nullable="false" />
           <Property Name="cliente_nombreRegistroRUT" Type="varchar" MaxLength="33" Nullable="false" />
           <Property Name="cliente_numeroIdentificacion" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="cliente_numeroIdentificacionDV" Type="varchar" MaxLength="1" Nullable="false" />
@@ -186,12 +234,16 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' no t
           <Property Name="cliente_numeroDocumento" Type="varchar" MaxLength="9" Nullable="false" />
           <Property Name="cliente_tipoPersona" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="cliente_actividadEconomicaCIIU" Type="varchar" MaxLength="4" Nullable="false" />
-          <Property Name="fechaEmision" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="fechaEmision" Type="varchar" MaxLength="19" Nullable="false" />
           <Property Name="fechaVencimiento" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="moneda" Type="varchar" MaxLength="3" Nullable="false" />
           <Property Name="rangonumeracion" Type="varchar" MaxLength="6" Nullable="false" />
           <Property Name="redondeoaplicado" Type="numeric" Precision="2" Scale="2" Nullable="false" />
           <Property Name="tasaDeCambio" Type="int" Nullable="false" />
+          <Property Name="tc_baseMonedaDestino" Type="numeric" Precision="3" Scale="2" Nullable="false" />
+          <Property Name="tc_fechaDeTasaDeCambio" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="tc_monedaOrigen" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="tc_monedaDestino" Type="varchar" MaxLength="3" Nullable="false" />
           <Property Name="tipoDocumento" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="tipoOperacion" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="totalBaseImponible" Type="numeric" Precision="6" Scale="2" Nullable="false" />
@@ -371,8 +423,8 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
     [vwCfdiFacturaImpuestosCabecera].[porcentajeTotalImp] AS [porcentajeTotalImp], 
     [vwCfdiFacturaImpuestosCabecera].[unidadMedida] AS [unidadMedida], 
     [vwCfdiFacturaImpuestosCabecera].[unidadMedidaTributo] AS [unidadMedidaTributo], 
-    [vwCfdiFacturaImpuestosCabecera].[valorTotalImp] AS [valorTotalImp], 
-    [vwCfdiFacturaImpuestosCabecera].[valorTributoUnidad] AS [valorTributoUnidad]
+    [vwCfdiFacturaImpuestosCabecera].[valorTributoUnidad] AS [valorTributoUnidad], 
+    [vwCfdiFacturaImpuestosCabecera].[valorTotalImp] AS [valorTotalImp]
     FROM [dbo].[vwCfdiFacturaImpuestosCabecera] AS [vwCfdiFacturaImpuestosCabecera]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vwCfdiFacturaImpuestosDetalles" EntityType="Self.vwCfdiFacturaImpuestosDetalles" store:Type="Views" store:Schema="dbo">
@@ -388,8 +440,8 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
     [vwCfdiFacturaImpuestosDetalles].[porcentajeTotalImp] AS [porcentajeTotalImp], 
     [vwCfdiFacturaImpuestosDetalles].[unidadMedida] AS [unidadMedida], 
     [vwCfdiFacturaImpuestosDetalles].[unidadMedidaTributo] AS [unidadMedidaTributo], 
-    [vwCfdiFacturaImpuestosDetalles].[valorTotalImp] AS [valorTotalImp], 
-    [vwCfdiFacturaImpuestosDetalles].[valorTributoUnidad] AS [valorTributoUnidad]
+    [vwCfdiFacturaImpuestosDetalles].[valorTributoUnidad] AS [valorTributoUnidad], 
+    [vwCfdiFacturaImpuestosDetalles].[valorTotalImp] AS [valorTotalImp]
     FROM [dbo].[vwCfdiFacturaImpuestosDetalles] AS [vwCfdiFacturaImpuestosDetalles]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vwCfdiGeneraDocumentoDeVenta" EntityType="Self.vwCfdiGeneraDocumentoDeVenta" store:Type="Views" store:Schema="dbo">
@@ -433,6 +485,10 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
     [vwCfdiGeneraDocumentoDeVenta].[rangonumeracion] AS [rangonumeracion], 
     [vwCfdiGeneraDocumentoDeVenta].[redondeoaplicado] AS [redondeoaplicado], 
     [vwCfdiGeneraDocumentoDeVenta].[tasaDeCambio] AS [tasaDeCambio], 
+    [vwCfdiGeneraDocumentoDeVenta].[tc_baseMonedaDestino] AS [tc_baseMonedaDestino], 
+    [vwCfdiGeneraDocumentoDeVenta].[tc_fechaDeTasaDeCambio] AS [tc_fechaDeTasaDeCambio], 
+    [vwCfdiGeneraDocumentoDeVenta].[tc_monedaOrigen] AS [tc_monedaOrigen], 
+    [vwCfdiGeneraDocumentoDeVenta].[tc_monedaDestino] AS [tc_monedaDestino], 
     [vwCfdiGeneraDocumentoDeVenta].[tipoDocumento] AS [tipoDocumento], 
     [vwCfdiGeneraDocumentoDeVenta].[tipoOperacion] AS [tipoOperacion], 
     [vwCfdiGeneraDocumentoDeVenta].[totalBaseImponible] AS [totalBaseImponible], 
@@ -579,7 +635,7 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
           </Key>
           <Property Name="CUSTNMBR" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
           <Property Name="cliente_canalEntrega" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_email" Type="String" Nullable="false" MaxLength="23" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_email" Type="String" Nullable="false" MaxLength="17" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="vwCfdiClienteObligaciones">
           <Key>
@@ -602,7 +658,7 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
           <Property Name="porcentajeTotalImp" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
           <Property Name="unidadMedida" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="unidadMedidaTributo" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="valorTotalImp" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="valorTotalImp" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
           <Property Name="valorTributoUnidad" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="vwCfdiFacturaImpuestosDetalles">
@@ -665,7 +721,7 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
           <Property Name="facturadetalle_estandarcodigoproducto" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="facturadetalle_marca" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="facturadetalle_modelo" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="facturadetalle_precioTotal" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+          <Property Name="facturadetalle_precioTotal" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
           <Property Name="facturadetalle_precioTotalSinImpuestos" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
           <Property Name="facturadetalle_precioVentaUnitario" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
           <Property Name="facturadetalle_secuencia" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
@@ -703,6 +759,54 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
           <Key>
             <PropertyRef Name="soptype" />
             <PropertyRef Name="sopnumbe" />
+            <PropertyRef Name="CUSTNMBR" />
+            <PropertyRef Name="cantidadDecimales" />
+            <PropertyRef Name="consecutivoDocumento" />
+            <PropertyRef Name="cargosdescuentos_codigo" />
+            <PropertyRef Name="cargosdescuentos_descripcion" />
+            <PropertyRef Name="cargosdescuentos_indicador" />
+            <PropertyRef Name="cargosdescuentos_monto" />
+            <PropertyRef Name="cargosdescuentos_montobase" />
+            <PropertyRef Name="cargodescuentos_porcentaje" />
+            <PropertyRef Name="cargosdescuentos_secuencia" />
+            <PropertyRef Name="cliente_nitProveedorReceptor" />
+            <PropertyRef Name="cliente_telefono" />
+            <PropertyRef Name="cliente_difciudad" />
+            <PropertyRef Name="cliente_difcodigoDepartamento" />
+            <PropertyRef Name="cliente_difdepartamento" />
+            <PropertyRef Name="cliente_difdireccion" />
+            <PropertyRef Name="cliente_diflenguaje" />
+            <PropertyRef Name="cliente_difmunicipio" />
+            <PropertyRef Name="cliente_difpais" />
+            <PropertyRef Name="cliente_difzonapostal" />
+            <PropertyRef Name="cliente_email" />
+            <PropertyRef Name="cliente_nombreRegistroRUT" />
+            <PropertyRef Name="cliente_numeroIdentificacion" />
+            <PropertyRef Name="cliente_numeroIdentificacionDV" />
+            <PropertyRef Name="cliente_tipoIdentificacion" />
+            <PropertyRef Name="cliente_nombreComercial" />
+            <PropertyRef Name="cliente_nombreRazonSocial" />
+            <PropertyRef Name="cliente_notificar" />
+            <PropertyRef Name="cliente_numeroDocumento" />
+            <PropertyRef Name="cliente_tipoPersona" />
+            <PropertyRef Name="cliente_actividadEconomicaCIIU" />
+            <PropertyRef Name="fechaEmision" />
+            <PropertyRef Name="fechaVencimiento" />
+            <PropertyRef Name="moneda" />
+            <PropertyRef Name="rangonumeracion" />
+            <PropertyRef Name="redondeoaplicado" />
+            <PropertyRef Name="tasaDeCambio" />
+            <PropertyRef Name="tc_baseMonedaDestino" />
+            <PropertyRef Name="tc_fechaDeTasaDeCambio" />
+            <PropertyRef Name="tc_monedaOrigen" />
+            <PropertyRef Name="tc_monedaDestino" />
+            <PropertyRef Name="tipoDocumento" />
+            <PropertyRef Name="tipoOperacion" />
+            <PropertyRef Name="totalBaseImponible" />
+            <PropertyRef Name="totalBrutoconImpuestos" />
+            <PropertyRef Name="totalMonto" />
+            <PropertyRef Name="totalProductos" />
+            <PropertyRef Name="totalSinImpuestos" />
           </Key>
           <Property Name="soptype" Type="Int32" Nullable="false" />
           <Property Name="sopnumbe" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
@@ -726,7 +830,7 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
           <Property Name="cliente_difmunicipio" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="cliente_difpais" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
           <Property Name="cliente_difzonapostal" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_email" Type="String" Nullable="false" MaxLength="23" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_email" Type="String" Nullable="false" MaxLength="17" FixedLength="false" Unicode="false" />
           <Property Name="cliente_nombreRegistroRUT" Type="String" Nullable="false" MaxLength="33" FixedLength="false" Unicode="false" />
           <Property Name="cliente_numeroIdentificacion" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
           <Property Name="cliente_numeroIdentificacionDV" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
@@ -737,12 +841,16 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
           <Property Name="cliente_numeroDocumento" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
           <Property Name="cliente_tipoPersona" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="cliente_actividadEconomicaCIIU" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="fechaEmision" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="fechaEmision" Type="String" Nullable="false" MaxLength="19" FixedLength="false" Unicode="false" />
           <Property Name="fechaVencimiento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="moneda" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="rangonumeracion" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="redondeoaplicado" Type="Decimal" Nullable="false" Precision="2" Scale="2" />
           <Property Name="tasaDeCambio" Type="Int32" Nullable="false" />
+          <Property Name="tc_baseMonedaDestino" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <Property Name="tc_fechaDeTasaDeCambio" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="tc_monedaOrigen" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="tc_monedaDestino" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="tipoDocumento" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
           <Property Name="tipoOperacion" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
           <Property Name="totalBaseImponible" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
@@ -933,6 +1041,10 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
                 <ScalarProperty Name="totalBaseImponible" ColumnName="totalBaseImponible" />
                 <ScalarProperty Name="tipoOperacion" ColumnName="tipoOperacion" />
                 <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
+                <ScalarProperty Name="tc_monedaDestino" ColumnName="tc_monedaDestino" />
+                <ScalarProperty Name="tc_monedaOrigen" ColumnName="tc_monedaOrigen" />
+                <ScalarProperty Name="tc_fechaDeTasaDeCambio" ColumnName="tc_fechaDeTasaDeCambio" />
+                <ScalarProperty Name="tc_baseMonedaDestino" ColumnName="tc_baseMonedaDestino" />
                 <ScalarProperty Name="tasaDeCambio" ColumnName="tasaDeCambio" />
                 <ScalarProperty Name="redondeoaplicado" ColumnName="redondeoaplicado" />
                 <ScalarProperty Name="rangonumeracion" ColumnName="rangonumeracion" />

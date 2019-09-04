@@ -53,6 +53,10 @@ namespace cfdiEntidadesGP
         public string rangonumeracion { get; set; }
         public decimal redondeoaplicado { get; set; }
         public int tasaDeCambio { get; set; }
+        public decimal tc_baseMonedaDestino { get; set; }
+        public string tc_fechaDeTasaDeCambio { get; set; }
+        public string tc_monedaOrigen { get; set; }
+        public string tc_monedaDestino { get; set; }
         public string tipoDocumento { get; set; }
         public string tipoOperacion { get; set; }
         public decimal totalBaseImponible { get; set; }
