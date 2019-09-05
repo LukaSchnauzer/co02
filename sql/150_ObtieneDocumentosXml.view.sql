@@ -182,7 +182,7 @@ as
 		tv.sopnumbe,
 		tv.custnmbr,
 		convert(int, parametros.param1)	cantidadDecimales, 
-		tv.sopnumbe						consecutivoDocumento,
+		convert(varchar(20), convert(int, substring(tv.sopnumbe, convert(int, parametros.param5), 20))) consecutivoDocumento,
 		--Clase CargosDescuentos:
 		substring(tv.commntid, 2, 2)	cargosdescuentos_codigo, 
 		tv.comment_1					cargosdescuentos_descripcion,
@@ -233,7 +233,7 @@ as
 		convert(varchar(10), tv.docdate, 111) + ' ' + convert(varchar(10), tv.fechaHora, 108) fechaEmision,
 		tv.duedate						fechaVencimiento,
 		tv.curncyid						moneda,
-		LEFT(tv.sopnumbe, 4) +'-'+ parametros.param2	rangonumeracion,
+		upper(left(tv.sopnumbe, convert(int, parametros.param5)-1)) +'-'+ parametros.param2	rangonumeracion,
 		0								redondeoaplicado,	--calcular an la app
 		tv.xchgrate						tasaDeCambio,
 		parametros.param3				tipoDocumento,
@@ -253,7 +253,7 @@ as
 					where CUSTNMBR = tv.CUSTNMBR
 					) nitTercero
 		outer apply dbo.fCfdiCatalogoGetDescripcion('CIUDAD', tv.cityCode) catCiudad
-		outer apply dbo.fCfdiParametros('V_CANTDECIMALES', 'I_'+tv.docid, 'D_'+tv.docid, 'O_'+tv.docid, 'na', 'na', 'FECOL') parametros	--Parámetros. Cantidad decimales
+		outer apply dbo.fCfdiParametros('V_CANTDECIMALES', 'I_'+tv.docid, 'D_'+tv.docid, 'O_'+tv.docid, 'V_ININUMEROFAC', 'na', 'FECOL') parametros	--Parámetros. Cantidad decimales
 		outer apply dbo.fnCfdiSumaImpuestosSop(tv.sopnumbe, tv.soptype, 0, '%', '%', '%') sumaImpuestos
 		outer apply (select top 1 Email_Recipient from dbo.rm00106 where CUSTNMBR = tv.custnmbr and Email_Type = 1) unEmail 
 		outer apply dbo.fnCfdGetDireccionesCorreo(tv.custnmbr) mail
