@@ -19,11 +19,13 @@ AS
 	substring(sop.commntid, 2, 2)	codigoEstatusDocumento, 
 	sop.comment_1		cufeDescripcion,
 	rel.docdate			fecha,
-	rel.docnumbr		numeroDocumento,
+	upper(left(ltrim(rel.docnumbr), convert(int, pr.param1)-1)) 
+	+ convert(varchar(20), convert(int, substring(ltrim(rel.docnumbr), convert(int, pr.param1), 20))) numeroDocumento,	--serie + número sin ceros a la izquierda
 	null				tipoDocumento,
 	case when rel.doctype = 3 then 'CUFE-SHA384' else 'CUDE-SHA384' end  tipoCufe  
 	from dbo.vwCfdiSopTransaccionesVenta sop
 	 cross apply dbo.fnCfdiRelacionados(sop.soptype, sop.sopnumbe) rel
+	 outer apply dbo.fCfdiParametros('V_ININUMEROFAC', 'NA', 'NA', 'NA', 'na', 'na', 'FECOL') pr	--posición donde inicia el número de la factura
 
 GO
 

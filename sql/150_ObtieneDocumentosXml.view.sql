@@ -123,12 +123,13 @@ as
 --Requisito. 
 --12/08/19 jcf Creación cfdi Colombia ubl 2.1
 --
-		select  ROW_NUMBER() OVER(ORDER BY Concepto.LNITMSEQ asc) facturadetalle_secuencia,
+		select  ROW_NUMBER() OVER(partition by Concepto.soptype, Concepto.sopnumbe ORDER BY Concepto.LNITMSEQ asc) facturadetalle_secuencia,
 			Concepto.soptype, Concepto.sopnumbe, Concepto.LNITMSEQ, rtrim(Concepto.ITEMNMBR) ITEMNMBR, '' SERLTNUM, 
 			Concepto.CMPNTSEQ, 
 			Concepto.QUANTITY		facturadetalle_cantidadreal, 
 			rtrim(Concepto.UOFMsat) facturadetalle_cantidadrealunidadmedida,
 			Concepto.QUANTITY		facturadetalle_cantidadunidades,
+			null					facturadetalle_cantidadporempaque,
 
 			null					cargosdescuentos_codigo,
 			'-'						cargosdescuentos_descripcion,
@@ -136,7 +137,7 @@ as
 			0						cargosdescuentos_monto,
 			0						cargosdescuentos_montobase,
 			0						cargodescuentos_porcentaje,
-			1						cargosdescuentos_secuencia,
+			'1'						cargosdescuentos_secuencia,
 
 			rtrim(Concepto.ITEMNMBR) facturadetalle_codigoproducto,
 			dbo.fCfdReemplazaSecuenciaDeEspacios(ltrim(rtrim(dbo.fCfdReemplazaCaracteresNI(Concepto.ITEMDESC))), 10) facturadetalle_descripcion,
@@ -180,8 +181,8 @@ as
 		tv.soptype,
 		tv.sopnumbe,
 		tv.custnmbr,
-		parametros.param1				cantidadDecimales, 
-		tv.sopnumbe						consecutivoDocumento,
+		convert(int, parametros.param1)	cantidadDecimales, 
+		convert(varchar(20), convert(int, substring(tv.sopnumbe, convert(int, parametros.param5), 20))) consecutivoDocumento,
 		--Clase CargosDescuentos:
 		substring(tv.commntid, 2, 2)	cargosdescuentos_codigo, 
 		tv.comment_1					cargosdescuentos_descripcion,
@@ -200,6 +201,7 @@ as
 		--Clase Dirección fiscal del cliente
 		catCiudad.descripcion			cliente_difCiudad,
 		tv.stateCode					cliente_difcodigoDepartamento,
+		tv.state						cliente_difdepartamento,
 		left(tv.address1 +' '+ tv.address2, 100)	cliente_difdireccion,
 		'es'							cliente_diflenguaje,
 		tv.cityCode						cliente_difmunicipio,
@@ -220,7 +222,7 @@ as
 		else left(reverse(tv.idImpuestoCliente), 1) 
 		end								cliente_numeroIdentificacionDV,
 
-		nitTercero.nsaif_type_nit				cliente_tipoIdentificacion,
+		nitTercero.nsaif_type_nit		cliente_tipoIdentificacion,
 		null							cliente_nombreComercial,
 		tv.nombreCliente				cliente_nombreRazonSocial,
 		case when tv.send_email_statements=1 then 'SI' else 'NO' end cliente_notificar,
@@ -231,7 +233,7 @@ as
 		convert(varchar(10), tv.docdate, 111) + ' ' + convert(varchar(10), tv.fechaHora, 108) fechaEmision,
 		tv.duedate						fechaVencimiento,
 		tv.curncyid						moneda,
-		LEFT(tv.sopnumbe, 4) +'-'+ parametros.param2	rangonumeracion,
+		upper(left(tv.sopnumbe, convert(int, parametros.param5)-1)) +'-'+ parametros.param2	rangonumeracion,
 		0								redondeoaplicado,	--calcular an la app
 		tv.xchgrate						tasaDeCambio,
 		parametros.param3				tipoDocumento,
@@ -251,7 +253,7 @@ as
 					where CUSTNMBR = tv.CUSTNMBR
 					) nitTercero
 		outer apply dbo.fCfdiCatalogoGetDescripcion('CIUDAD', tv.cityCode) catCiudad
-		outer apply dbo.fCfdiParametros('V_CANTDECIMALES', 'I_'+tv.docid, 'D_'+tv.docid, 'O_'+tv.docid, 'na', 'na', 'FECOL') parametros	--Parámetros. Cantidad decimales
+		outer apply dbo.fCfdiParametros('V_CANTDECIMALES', 'I_'+tv.docid, 'D_'+tv.docid, 'O_'+tv.docid, 'V_ININUMEROFAC', 'na', 'FECOL') parametros	--Parámetros. Cantidad decimales
 		outer apply dbo.fnCfdiSumaImpuestosSop(tv.sopnumbe, tv.soptype, 0, '%', '%', '%') sumaImpuestos
 		outer apply (select top 1 Email_Recipient from dbo.rm00106 where CUSTNMBR = tv.custnmbr and Email_Type = 1) unEmail 
 		outer apply dbo.fnCfdGetDireccionesCorreo(tv.custnmbr) mail

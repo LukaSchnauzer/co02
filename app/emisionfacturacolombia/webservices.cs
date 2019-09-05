@@ -8,6 +8,11 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using emisionfacturacolombia.Colombia;
+<<<<<<< HEAD
+=======
+using System.Xml.Serialization;
+//using System.Xml;
+>>>>>>> Elimina los ceros a la izquierda del consecutivo de la factura
 
 namespace cfdiColombiaOperadorServiciosElectronicos
 {
@@ -247,6 +252,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             DocEnviarWS.redondeoAplicado = documentoGP.DocVenta.redondeoaplicado.ToString();
             //TAZA DE CAMBIO
             //tasaDeCambio = new TasaDeCambio();
+            //DocEnviarWS.tasaDeCambio = new TasaDeCambio();
             //TasaDeCambio tasadecambio1 = new TasaDeCambio();            
             //tasadecambio1.baseMonedaDestino = documentoGP.DocVenta.tc_baseMonedaDestino.ToString(); ;
             //tasadecambio1.fechaDeTasaDeCambio = documentoGP.DocVenta.tc_fechaDeTasaDeCambio;
@@ -283,8 +289,13 @@ namespace cfdiColombiaOperadorServiciosElectronicos
         public string TimbraYEnviaServicioDeImpuesto(string ruc, string usuario, string usuarioPassword, DocumentoVentaGP documentoGP)
         {
             var docWs = ArmaDocumentoEnviarWS(documentoGP);
-            var response = ServicioWS.Enviar("89ab70d025c1cb8c5bac3f5ac319a94728e42e3a", "3cfb75199b5d14cdb706a55555a055488b1fad6c", docWs, "0");
-            //DocumentResponse docRespuesta = ServicioWS.Enviar("89ab70d025c1cb8c5bac3f5ac319a94728e42e3a", "3cfb75199b5d14cdb706a55555a055488b1fad6c", docWs, "0");
+            StreamWriter MyFile = new StreamWriter(@"Request_factura.txt"); //ruta y name del archivo request a almecenar
+            XmlSerializer Serializer1 = new XmlSerializer(typeof(FacturaGeneral));
+            Serializer1.Serialize(MyFile, docWs); // Objeto serializado
+            MyFile.Close();
+
+            //var response = ServicioWS.Enviar("89ab70d025c1cb8c5bac3f5ac319a94728e42e3a", "3cfb75199b5d14cdb706a55555a055488b1fad6c", docWs, "0");
+            DocumentResponse response = ServicioWS.Enviar("89ab70d025c1cb8c5bac3f5ac319a94728e42e3a", "3cfb75199b5d14cdb706a55555a055488b1fad6c", docWs, "0");
             
             if (response.codigo == 0)
             {
