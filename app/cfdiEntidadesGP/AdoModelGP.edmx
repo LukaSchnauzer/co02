@@ -4,52 +4,38 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="PERUEntities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiClienteDestinatario' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+    <Schema Namespace="COLOMBIAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'COL10.dbo.vwCfdiClienteDestinatario' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwCfdiClienteDestinatario">
           <Key>
-            <PropertyRef Name="CUSTNMBR" />
+            <PropertyRef Name="custnmbr" />
             
             
           </Key>
-          <Property Name="CUSTNMBR" Type="varchar" MaxLength="9" Nullable="false" />
-          <Property Name="cliente_canalEntrega" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="cliente_email" Type="varchar" MaxLength="17" Nullable="false" />
+          <Property Name="custnmbr" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="cliente_canalEntrega" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="cliente_email" Type="char" MaxLength="81" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiClienteObligaciones' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'COL10.dbo.vwCfdiClienteObligaciones' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwCfdiClienteObligaciones">
           <Key>
-            <PropertyRef Name="CUSTNMBR" />
-            
-            
+            <PropertyRef Name="custnmbr" />
           </Key>
-          <Property Name="CUSTNMBR" Type="varchar" MaxLength="9" Nullable="false" />
-          <Property Name="cliente_obligaciones" Type="varchar" MaxLength="4" Nullable="false" />
-          <Property Name="cliente_regimen" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="custnmbr" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="cliente_regimen" Type="varchar" MaxLength="8000" />
+          <Property Name="cliente_obligaciones" Type="varchar" MaxLength="100" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiConceptos' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'COL10.dbo.vwCfdiConceptos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwCfdiConceptos">
           <Key>
             <PropertyRef Name="soptype" />
             <PropertyRef Name="sopnumbe" />
-            <PropertyRef Name="lnitmseq" />
-            
-            <PropertyRef Name="cmpntseq" />
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+            <PropertyRef Name="LNITMSEQ" />
+            <PropertyRef Name="SERLTNUM" />
+            <PropertyRef Name="CMPNTSEQ" />
             
             
             
@@ -61,202 +47,95 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiConceptos' no tiene definida
             
             
           </Key>
-          <Property Name="soptype" Type="int" Nullable="false" />
-          <Property Name="sopnumbe" Type="varchar" MaxLength="12" Nullable="false" />
-          <Property Name="lnitmseq" Type="int" Nullable="false" />
-          <Property Name="itemnmbr" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="cmpntseq" Type="int" Nullable="false" />
-          <Property Name="facturadetalle_cantidadreal" Type="numeric" Precision="3" Scale="2" Nullable="false" />
-          <Property Name="facturadetalle_cantidadrealunidadmedida" Type="varchar" MaxLength="3" Nullable="false" />
-          <Property Name="facturadetalle_cantidadunidades" Type="numeric" Precision="3" Scale="2" Nullable="false" />
-          <Property Name="facturadetalle_cantidadporempaque" Type="numeric" Precision="3" Scale="2" Nullable="false" />
-          <Property Name="cargosdescuentos_codigo" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="facturadetalle_secuencia" Type="bigint" />
+          <Property Name="soptype" Type="smallint" Nullable="false" />
+          <Property Name="sopnumbe" Type="char" MaxLength="21" Nullable="false" />
+          <Property Name="LNITMSEQ" Type="int" Nullable="false" />
+          <Property Name="ITEMNMBR" Type="varchar" MaxLength="31" />
+          <Property Name="SERLTNUM" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="CMPNTSEQ" Type="int" Nullable="false" />
+          <Property Name="facturadetalle_cantidadreal" Type="numeric" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="facturadetalle_cantidadrealunidadmedida" Type="varchar" MaxLength="255" />
+          <Property Name="facturadetalle_cantidadunidades" Type="numeric" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="facturadetalle_cantidadporempaque" Type="int" />
+          <Property Name="cargosdescuentos_codigo" Type="int" />
           <Property Name="cargosdescuentos_descripcion" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="cargosdescuentos_indicador" Type="int" Nullable="false" />
           <Property Name="cargosdescuentos_monto" Type="int" Nullable="false" />
           <Property Name="cargosdescuentos_montobase" Type="int" Nullable="false" />
           <Property Name="cargodescuentos_porcentaje" Type="int" Nullable="false" />
           <Property Name="cargosdescuentos_secuencia" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="facturadetalle_codigoproducto" Type="varchar" MaxLength="7" Nullable="false" />
-          <Property Name="facturadetalle_descripcion" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="facturadetalle_estandarcodigo" Type="varchar" MaxLength="3" Nullable="false" />
-          <Property Name="facturadetalle_estandarcodigoproducto" Type="varchar" MaxLength="5" Nullable="false" />
-          <Property Name="facturadetalle_marca" Type="varchar" MaxLength="3" Nullable="false" />
-          <Property Name="facturadetalle_modelo" Type="varchar" MaxLength="6" Nullable="false" />
-          <Property Name="facturadetalle_precioTotal" Type="numeric" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="facturadetalle_precioTotalSinImpuestos" Type="numeric" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="facturadetalle_precioVentaUnitario" Type="numeric" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="facturadetalle_secuencia" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="facturadetalle_unidadMedida" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="facturadetalle_codigoproducto" Type="varchar" MaxLength="31" />
+          <Property Name="facturadetalle_descripcion" Type="nvarchar(max)" />
+          <Property Name="facturadetalle_estandarcodigo" Type="varchar" MaxLength="8000" />
+          <Property Name="facturadetalle_estandarcodigoproducto" Type="varchar" MaxLength="31" />
+          <Property Name="facturadetalle_marca" Type="char" MaxLength="11" />
+          <Property Name="facturadetalle_modelo" Type="char" MaxLength="11" />
+          <Property Name="facturadetalle_precioTotal" Type="numeric" Precision="38" Scale="5" />
+          <Property Name="facturadetalle_precioTotalSinImpuestos" Type="numeric" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="facturadetalle_precioVentaUnitario" Type="numeric" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="facturadetalle_unidadMedida" Type="varchar" MaxLength="255" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiFacturaImpuestosCabecera' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'COL10.dbo.vwCfdiFacturaImpuestosCabecera' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwCfdiFacturaImpuestosCabecera">
           <Key>
             <PropertyRef Name="soptype" />
             <PropertyRef Name="sopnumbe" />
+            <PropertyRef Name="porcentajeTotalImp" />
             
-            
-            
-            
-            
-            
-            
-            
+            <PropertyRef Name="codigoTotalImp" />
           </Key>
-          <Property Name="soptype" Type="int" Nullable="false" />
-          <Property Name="sopnumbe" Type="varchar" MaxLength="12" Nullable="false" />
-          <Property Name="baseimponibletotalimp" Type="numeric" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="codigoTotalImp" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="controlInterno" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="porcentajeTotalImp" Type="numeric" Precision="4" Scale="2" Nullable="false" />
+          <Property Name="soptype" Type="smallint" Nullable="false" />
+          <Property Name="sopnumbe" Type="char" MaxLength="21" Nullable="false" />
+          <Property Name="codigoTotalImp" Type="varchar" MaxLength="31" Nullable="false" />
+          <Property Name="porcentajeTotalImp" Type="numeric" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="staxamnt" Type="numeric" Precision="38" Scale="5" />
+          <Property Name="valorTotalImp" Type="numeric" Precision="38" Scale="5" />
+          <Property Name="tdttxsls" Type="numeric" Precision="38" Scale="5" />
+          <Property Name="baseImponibleTotalImp" Type="numeric" Precision="38" Scale="5" />
+          <Property Name="controlInterno" Type="int" />
           <Property Name="unidadMedida" Type="varchar" MaxLength="3" Nullable="false" />
-          <Property Name="unidadMedidaTributo" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="valorTributoUnidad" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="valorTotalImp" Type="numeric" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="unidadMedidaTributo" Type="int" />
+          <Property Name="valorTributoUnidad" Type="int" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiFacturaImpuestosDetalles' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'COL10.dbo.vwCfdiFacturaImpuestosDetalles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwCfdiFacturaImpuestosDetalles">
           <Key>
             <PropertyRef Name="soptype" />
             <PropertyRef Name="sopnumbe" />
-            <PropertyRef Name="lnitmseq" />
-            
-            <PropertyRef Name="cmpntseq" />
+            <PropertyRef Name="LNITMSEQ" />
             
             
-            
+            <PropertyRef Name="porcentajeTotalImp" />
             
             
             
             
+            <PropertyRef Name="codigoTotalImp" />
           </Key>
-          <Property Name="soptype" Type="int" Nullable="false" />
-          <Property Name="sopnumbe" Type="varchar" MaxLength="12" Nullable="false" />
-          <Property Name="lnitmseq" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="itemnmbr" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="cmpntseq" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="baseimponibletotalimp" Type="numeric" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="codigoTotalImp" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="soptype" Type="smallint" Nullable="false" />
+          <Property Name="sopnumbe" Type="char" MaxLength="21" Nullable="false" />
+          <Property Name="LNITMSEQ" Type="int" Nullable="false" />
+          <Property Name="itemnmbr" Type="char" MaxLength="31" Nullable="false" />
+          <Property Name="cmpntseq" Type="int" Nullable="false" />
+          <Property Name="codigoTotalImp" Type="varchar" MaxLength="31" Nullable="false" />
+          <Property Name="porcentajeTotalImp" Type="numeric" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="staxamnt" Type="numeric" Precision="38" Scale="5" />
+          <Property Name="valorTotalImp" Type="numeric" Precision="38" Scale="5" />
+          <Property Name="tdttxsls" Type="numeric" Precision="38" Scale="5" />
+          <Property Name="baseImponibleTotalImp" Type="numeric" Precision="38" Scale="5" />
           <Property Name="controlInterno" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="porcentajeTotalImp" Type="numeric" Precision="4" Scale="2" Nullable="false" />
-          <Property Name="unidadMedida" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="unidadMedidaTributo" Type="int" />
-          <Property Name="valorTributoUnidad" Type="int" Nullable="false" />
-          <Property Name="valorTotalImp" Type="numeric" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="unidadMedida" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="unidadMedidaTributo" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="valorTributoUnidad" Type="varchar" MaxLength="1" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwCfdiGeneraDocumentoDeVenta">
           <Key>
             <PropertyRef Name="soptype" />
-            <PropertyRef Name="sopnumbe" />
-            <PropertyRef Name="CUSTNMBR" />
-            <PropertyRef Name="cantidadDecimales" />
-            <PropertyRef Name="consecutivoDocumento" />
-            <PropertyRef Name="cargosdescuentos_codigo" />
-            <PropertyRef Name="cargosdescuentos_descripcion" />
-            <PropertyRef Name="cargosdescuentos_indicador" />
-            <PropertyRef Name="cargosdescuentos_monto" />
-            <PropertyRef Name="cargosdescuentos_montobase" />
-            <PropertyRef Name="cargodescuentos_porcentaje" />
-            <PropertyRef Name="cargosdescuentos_secuencia" />
-            <PropertyRef Name="cliente_nitProveedorReceptor" />
-            <PropertyRef Name="cliente_telefono" />
-            <PropertyRef Name="cliente_difciudad" />
-            <PropertyRef Name="cliente_difcodigoDepartamento" />
-            <PropertyRef Name="cliente_difdepartamento" />
-            <PropertyRef Name="cliente_difdireccion" />
-            <PropertyRef Name="cliente_diflenguaje" />
-            <PropertyRef Name="cliente_difmunicipio" />
-            <PropertyRef Name="cliente_difpais" />
-            <PropertyRef Name="cliente_difzonapostal" />
-            <PropertyRef Name="cliente_email" />
-            <PropertyRef Name="cliente_nombreRegistroRUT" />
-            <PropertyRef Name="cliente_numeroIdentificacion" />
-            <PropertyRef Name="cliente_numeroIdentificacionDV" />
-            <PropertyRef Name="cliente_tipoIdentificacion" />
-            <PropertyRef Name="cliente_nombreComercial" />
-            <PropertyRef Name="cliente_nombreRazonSocial" />
-            <PropertyRef Name="cliente_notificar" />
-            <PropertyRef Name="cliente_numeroDocumento" />
-            <PropertyRef Name="cliente_tipoPersona" />
-            <PropertyRef Name="cliente_actividadEconomicaCIIU" />
-            <PropertyRef Name="fechaEmision" />
-            <PropertyRef Name="fechaVencimiento" />
-            <PropertyRef Name="moneda" />
-            <PropertyRef Name="rangonumeracion" />
-            <PropertyRef Name="redondeoaplicado" />
-            <PropertyRef Name="tasaDeCambio" />
-            <PropertyRef Name="tc_baseMonedaDestino" />
-            <PropertyRef Name="tc_fechaDeTasaDeCambio" />
-            <PropertyRef Name="tc_monedaOrigen" />
-            <PropertyRef Name="tc_monedaDestino" />
-            <PropertyRef Name="tipoDocumento" />
-            <PropertyRef Name="tipoOperacion" />
-            <PropertyRef Name="totalBaseImponible" />
-            <PropertyRef Name="totalBrutoconImpuestos" />
-            <PropertyRef Name="totalMonto" />
-            <PropertyRef Name="totalProductos" />
-            <PropertyRef Name="totalSinImpuestos" />
-          </Key>
-          <Property Name="soptype" Type="int" Nullable="false" />
-          <Property Name="sopnumbe" Type="varchar" MaxLength="12" Nullable="false" />
-          <Property Name="CUSTNMBR" Type="varchar" MaxLength="9" Nullable="false" />
-          <Property Name="cantidadDecimales" Type="int" Nullable="false" />
-          <Property Name="consecutivoDocumento" Type="varchar" MaxLength="12" Nullable="false" />
-          <Property Name="cargosdescuentos_codigo" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="cargosdescuentos_descripcion" Type="varchar" MaxLength="19" Nullable="false" />
-          <Property Name="cargosdescuentos_indicador" Type="int" Nullable="false" />
-          <Property Name="cargosdescuentos_monto" Type="int" Nullable="false" />
-          <Property Name="cargosdescuentos_montobase" Type="int" Nullable="false" />
-          <Property Name="cargodescuentos_porcentaje" Type="int" Nullable="false" />
-          <Property Name="cargosdescuentos_secuencia" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="cliente_nitProveedorReceptor" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="cliente_telefono" Type="varchar" MaxLength="9" Nullable="false" />
-          <Property Name="cliente_difciudad" Type="varchar" MaxLength="9" Nullable="false" />
-          <Property Name="cliente_difcodigoDepartamento" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="cliente_difdepartamento" Type="varchar" MaxLength="6" Nullable="false" />
-          <Property Name="cliente_difdireccion" Type="varchar" MaxLength="9" Nullable="false" />
-          <Property Name="cliente_diflenguaje" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="cliente_difmunicipio" Type="varchar" MaxLength="5" Nullable="false" />
-          <Property Name="cliente_difpais" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="cliente_difzonapostal" Type="varchar" MaxLength="6" Nullable="false" />
-          <Property Name="cliente_email" Type="varchar" MaxLength="17" Nullable="false" />
-          <Property Name="cliente_nombreRegistroRUT" Type="varchar" MaxLength="33" Nullable="false" />
-          <Property Name="cliente_numeroIdentificacion" Type="varchar" MaxLength="9" Nullable="false" />
-          <Property Name="cliente_numeroIdentificacionDV" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="cliente_tipoIdentificacion" Type="int" Nullable="false" />
-          <Property Name="cliente_nombreComercial" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="cliente_nombreRazonSocial" Type="varchar" MaxLength="24" Nullable="false" />
-          <Property Name="cliente_notificar" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="cliente_numeroDocumento" Type="varchar" MaxLength="9" Nullable="false" />
-          <Property Name="cliente_tipoPersona" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="cliente_actividadEconomicaCIIU" Type="varchar" MaxLength="4" Nullable="false" />
-          <Property Name="fechaEmision" Type="varchar" MaxLength="19" Nullable="false" />
-          <Property Name="fechaVencimiento" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="moneda" Type="varchar" MaxLength="3" Nullable="false" />
-          <Property Name="rangonumeracion" Type="varchar" MaxLength="6" Nullable="false" />
-          <Property Name="redondeoaplicado" Type="numeric" Precision="2" Scale="2" Nullable="false" />
-          <Property Name="tasaDeCambio" Type="int" Nullable="false" />
-          <Property Name="tc_baseMonedaDestino" Type="numeric" Precision="3" Scale="2" Nullable="false" />
-          <Property Name="tc_fechaDeTasaDeCambio" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="tc_monedaOrigen" Type="varchar" MaxLength="3" Nullable="false" />
-          <Property Name="tc_monedaDestino" Type="varchar" MaxLength="3" Nullable="false" />
-          <Property Name="tipoDocumento" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="tipoOperacion" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="totalBaseImponible" Type="numeric" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="totalBrutoconImpuestos" Type="numeric" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="totalMonto" Type="numeric" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="totalProductos" Type="int" Nullable="false" />
-          <Property Name="totalSinImpuestos" Type="numeric" Precision="6" Scale="2" Nullable="false" />
-        </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiGeneraResumenDiario' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
-        <EntityType Name="vwCfdiGeneraResumenDiario">
-          <Key>
-            <PropertyRef Name="tipoResumenDiario" />
             
             
             
@@ -271,77 +150,94 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiGeneraResumenDiario' no tien
             
             
             
-            <PropertyRef Name="numResumenDiario" />
-            <PropertyRef Name="tipoDocumento" />
+            
             <PropertyRef Name="sopnumbe" />
           </Key>
-          <Property Name="tipoResumenDiario" Type="int" Nullable="false" />
-          <Property Name="numResumenDiario" Type="varchar" MaxLength="21" Nullable="false" />
-          <Property Name="docdate" Type="datetime" Nullable="false" />
-          <Property Name="tipoDocumento" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="emisorTipoDoc" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="emisorNroDoc" Type="varchar" MaxLength="8000" />
-          <Property Name="emisorNombre" Type="nvarchar(max)" />
-          <Property Name="emisorUbigeo" Type="nvarchar(max)" />
-          <Property Name="emisorDireccion" Type="nvarchar(max)" />
-          <Property Name="emisorUrbanizacion" Type="nvarchar(max)" />
-          <Property Name="emisorDepartamento" Type="nvarchar(max)" />
-          <Property Name="emisorProvincia" Type="nvarchar(max)" />
-          <Property Name="emisorDistrito" Type="nvarchar(max)" />
-          <Property Name="receptorTipoDoc" Type="varchar" MaxLength="1" />
-          <Property Name="receptorNroDoc" Type="nvarchar(max)" />
-          <Property Name="serie" Type="varchar" MaxLength="1" />
+          <Property Name="soptype" Type="smallint" Nullable="false" />
           <Property Name="sopnumbe" Type="varchar" MaxLength="21" Nullable="false" />
-          <Property Name="iniRango" Type="int" Nullable="false" />
-          <Property Name="finRango" Type="int" Nullable="false" />
+          <Property Name="custnmbr" Type="char" MaxLength="15" Nullable="false" />
+          <Property Name="cantidadDecimales" Type="int" />
+          <Property Name="consecutivoDocumento" Type="varchar" MaxLength="20" />
+          <Property Name="cargosdescuentos_codigo" Type="varchar" MaxLength="2" />
+          <Property Name="cargosdescuentos_descripcion" Type="char" MaxLength="51" />
+          <Property Name="cargosdescuentos_indicador" Type="varchar" MaxLength="1" />
+          <Property Name="cargosdescuentos_monto" Type="numeric" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="cargosdescuentos_montobase" Type="numeric" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="cargodescuentos_porcentaje" Type="numeric" Precision="38" Scale="19" />
+          <Property Name="cargosdescuentos_secuencia" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="cliente_nitProveedorReceptor" Type="nvarchar(max)" />
+          <Property Name="cliente_telefono" Type="nvarchar(max)" />
+          <Property Name="cliente_difCiudad" Type="varchar" MaxLength="150" />
+          <Property Name="cliente_difcodigoDepartamento" Type="nvarchar(max)" />
+          <Property Name="cliente_difdepartamento" Type="nvarchar(max)" />
+          <Property Name="cliente_difdireccion" Type="nvarchar(max)" />
+          <Property Name="cliente_diflenguaje" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="cliente_difmunicipio" Type="nvarchar(max)" />
+          <Property Name="cliente_difpais" Type="nvarchar(max)" />
+          <Property Name="cliente_difzonapostal" Type="nvarchar(max)" />
+          <Property Name="cliente_email" Type="char" MaxLength="81" />
+          <Property Name="cliente_nombreRegistroRUT" Type="nvarchar(max)" />
+          <Property Name="cliente_numeroIdentificacion" Type="nvarchar(max)" />
+          <Property Name="cliente_numeroIdentificacionDV" Type="nvarchar(max)" />
+          <Property Name="cliente_tipoIdentificacion" Type="varchar" MaxLength="3" />
+          <Property Name="cliente_nombreComercial" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="cliente_nombreRazonSocial" Type="nvarchar(max)" />
+          <Property Name="cliente_notificar" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="cliente_numeroDocumento" Type="nvarchar(max)" />
+          <Property Name="cliente_tipoPersona" Type="nvarchar(max)" />
+          <Property Name="cliente_actividadEconomicaCIIU" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="fechaEmision" Type="varchar" MaxLength="21" />
+          <Property Name="fechaVencimiento" Type="datetime" Nullable="false" />
           <Property Name="moneda" Type="varchar" MaxLength="15" />
-          <Property Name="xchgrate" Type="numeric" Precision="19" Scale="7" Nullable="false" />
-          <Property Name="totalIvaImponible" Type="numeric" Precision="38" Scale="5" Nullable="false" />
-          <Property Name="totalIva" Type="numeric" Precision="38" Scale="5" Nullable="false" />
-          <Property Name="totalInafecta" Type="numeric" Precision="38" Scale="5" Nullable="false" />
-          <Property Name="totalExonerado" Type="numeric" Precision="38" Scale="5" Nullable="false" />
-          <Property Name="totalGratuito" Type="numeric" Precision="38" Scale="5" Nullable="false" />
-          <Property Name="totalDescuento" Type="numeric" Precision="20" Scale="5" />
-          <Property Name="ORTDISAM" Type="numeric" Precision="19" Scale="5" Nullable="false" />
-          <Property Name="total" Type="numeric" Precision="19" Scale="5" Nullable="false" />
-          <Property Name="cantidad" Type="int" Nullable="false" />
-          <Property Name="formaPago" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="tipoDocumentoTo" Type="varchar" MaxLength="2" />
-          <Property Name="sopnumbeTo" Type="varchar" MaxLength="21" />
+          <Property Name="rangonumeracion" Type="varchar" MaxLength="8000" />
+          <Property Name="redondeoaplicado" Type="int" Nullable="false" />
+          <Property Name="tasaDeCambio" Type="numeric" Precision="19" Scale="7" Nullable="false" />
+          <Property Name="tipoDocumento" Type="varchar" MaxLength="8000" />
+          <Property Name="tipoOperacion" Type="varchar" MaxLength="8000" />
+          <Property Name="totalBaseImponible" Type="numeric" Precision="38" Scale="5" Nullable="false" />
+          <Property Name="totalSinImpuestos" Type="numeric" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="totalBrutoconImpuestos" Type="numeric" Precision="38" Scale="5" />
+          <Property Name="totalMonto" Type="numeric" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="totalProductos" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiMediosDePago' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'COL10.dbo.vwCfdiMediosDePago' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwCfdiMediosDePago">
           <Key>
-            <PropertyRef Name="soptype" />
+            <PropertyRef Name="APTODCTY" />
             <PropertyRef Name="sopnumbe" />
-            
-            
-            
+            <PropertyRef Name="APFRDCTY" />
+            <PropertyRef Name="APFRDCNM" />
+            <PropertyRef Name="metodopago" />
+            <PropertyRef Name="numeroreferencia" />
           </Key>
-          <Property Name="soptype" Type="int" Nullable="false" />
-          <Property Name="sopnumbe" Type="varchar" MaxLength="12" Nullable="false" />
-          <Property Name="mediopago" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="metodopago" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="APTODCTY" Type="smallint" Nullable="false" />
+          <Property Name="soptype" Type="int" />
+          <Property Name="sopnumbe" Type="char" MaxLength="21" Nullable="false" />
+          <Property Name="APFRDCTY" Type="smallint" Nullable="false" />
+          <Property Name="APFRDCNM" Type="char" MaxLength="21" Nullable="false" />
+          <Property Name="mediopago" Type="varchar" MaxLength="21" />
+          <Property Name="metodopago" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="numeroreferencia" Type="varchar" MaxLength="2" Nullable="false" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwCfdiRelacionados">
           <Key>
-            <PropertyRef Name="orden" />
+            
             <PropertyRef Name="soptypeFrom" />
             <PropertyRef Name="sopnumbeTo" />
-            <PropertyRef Name="discrepancyResponse" />
-            <PropertyRef Name="billingReference" />
-            <PropertyRef Name="cufeDocReferenciado" />
-            <PropertyRef Name="numeroDocumento" />
-            <PropertyRef Name="tipoCufe" />
+            
+            
+            
+            
+            <PropertyRef Name="sopnumbeFrom" />
+            <PropertyRef Name="soptypeTo" />
           </Key>
           <Property Name="orden" Type="int" Nullable="false" />
           <Property Name="soptypeFrom" Type="smallint" Nullable="false" />
-          <Property Name="sopnumbeFrom" Type="varchar" MaxLength="21" />
-          <Property Name="soptypeTo" Type="int" />
+          <Property Name="sopnumbeFrom" Type="varchar" MaxLength="21" Nullable="false" />
+          <Property Name="soptypeTo" Type="int" Nullable="false" />
           <Property Name="sopnumbeTo" Type="char" MaxLength="41" Nullable="false" />
           <Property Name="codigoInterno" Type="int" />
           <Property Name="discrepancyResponse" Type="int" Nullable="false" />
@@ -350,7 +246,7 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
           <Property Name="codigoEstatusDocumento" Type="varchar" MaxLength="2" />
           <Property Name="cufeDescripcion" Type="char" MaxLength="51" />
           <Property Name="fecha" Type="datetime" />
-          <Property Name="numeroDocumento" Type="char" MaxLength="41" Nullable="false" />
+          <Property Name="numeroDocumento" Type="varchar" MaxLength="61" />
           <Property Name="tipoDocumento" Type="int" />
           <Property Name="tipoCufe" Type="varchar" MaxLength="11" Nullable="false" />
         </EntityType>
@@ -367,28 +263,30 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
             </CollectionType>
           </ReturnType>
         </Function>
-        <EntityContainer Name="PERUEntitiesStoreContainer">
+        <EntityContainer Name="COLOMBIAModelStoreContainer">
           <EntitySet Name="vwCfdiClienteDestinatario" EntityType="Self.vwCfdiClienteDestinatario" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [vwCfdiClienteDestinatario].[CUSTNMBR] AS [CUSTNMBR], 
+    [vwCfdiClienteDestinatario].[custnmbr] AS [custnmbr], 
     [vwCfdiClienteDestinatario].[cliente_canalEntrega] AS [cliente_canalEntrega], 
     [vwCfdiClienteDestinatario].[cliente_email] AS [cliente_email]
     FROM [dbo].[vwCfdiClienteDestinatario] AS [vwCfdiClienteDestinatario]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vwCfdiClienteObligaciones" EntityType="Self.vwCfdiClienteObligaciones" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
-    [vwCfdiClienteObligaciones].[CUSTNMBR] AS [CUSTNMBR], 
-    [vwCfdiClienteObligaciones].[cliente_obligaciones] AS [cliente_obligaciones], 
-    [vwCfdiClienteObligaciones].[cliente_regimen] AS [cliente_regimen]
+    [vwCfdiClienteObligaciones].[custnmbr] AS [custnmbr], 
+    [vwCfdiClienteObligaciones].[cliente_regimen] AS [cliente_regimen], 
+    [vwCfdiClienteObligaciones].[cliente_obligaciones] AS [cliente_obligaciones]
     FROM [dbo].[vwCfdiClienteObligaciones] AS [vwCfdiClienteObligaciones]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vwCfdiConceptos" EntityType="Self.vwCfdiConceptos" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
+    [vwCfdiConceptos].[facturadetalle_secuencia] AS [facturadetalle_secuencia], 
     [vwCfdiConceptos].[soptype] AS [soptype], 
     [vwCfdiConceptos].[sopnumbe] AS [sopnumbe], 
-    [vwCfdiConceptos].[lnitmseq] AS [lnitmseq], 
-    [vwCfdiConceptos].[itemnmbr] AS [itemnmbr], 
-    [vwCfdiConceptos].[cmpntseq] AS [cmpntseq], 
+    [vwCfdiConceptos].[LNITMSEQ] AS [LNITMSEQ], 
+    [vwCfdiConceptos].[ITEMNMBR] AS [ITEMNMBR], 
+    [vwCfdiConceptos].[SERLTNUM] AS [SERLTNUM], 
+    [vwCfdiConceptos].[CMPNTSEQ] AS [CMPNTSEQ], 
     [vwCfdiConceptos].[facturadetalle_cantidadreal] AS [facturadetalle_cantidadreal], 
     [vwCfdiConceptos].[facturadetalle_cantidadrealunidadmedida] AS [facturadetalle_cantidadrealunidadmedida], 
     [vwCfdiConceptos].[facturadetalle_cantidadunidades] AS [facturadetalle_cantidadunidades], 
@@ -409,7 +307,6 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
     [vwCfdiConceptos].[facturadetalle_precioTotal] AS [facturadetalle_precioTotal], 
     [vwCfdiConceptos].[facturadetalle_precioTotalSinImpuestos] AS [facturadetalle_precioTotalSinImpuestos], 
     [vwCfdiConceptos].[facturadetalle_precioVentaUnitario] AS [facturadetalle_precioVentaUnitario], 
-    [vwCfdiConceptos].[facturadetalle_secuencia] AS [facturadetalle_secuencia], 
     [vwCfdiConceptos].[facturadetalle_unidadMedida] AS [facturadetalle_unidadMedida]
     FROM [dbo].[vwCfdiConceptos] AS [vwCfdiConceptos]</DefiningQuery>
           </EntitySet>
@@ -417,38 +314,42 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
             <DefiningQuery>SELECT 
     [vwCfdiFacturaImpuestosCabecera].[soptype] AS [soptype], 
     [vwCfdiFacturaImpuestosCabecera].[sopnumbe] AS [sopnumbe], 
-    [vwCfdiFacturaImpuestosCabecera].[baseimponibletotalimp] AS [baseimponibletotalimp], 
     [vwCfdiFacturaImpuestosCabecera].[codigoTotalImp] AS [codigoTotalImp], 
-    [vwCfdiFacturaImpuestosCabecera].[controlInterno] AS [controlInterno], 
     [vwCfdiFacturaImpuestosCabecera].[porcentajeTotalImp] AS [porcentajeTotalImp], 
+    [vwCfdiFacturaImpuestosCabecera].[staxamnt] AS [staxamnt], 
+    [vwCfdiFacturaImpuestosCabecera].[valorTotalImp] AS [valorTotalImp], 
+    [vwCfdiFacturaImpuestosCabecera].[tdttxsls] AS [tdttxsls], 
+    [vwCfdiFacturaImpuestosCabecera].[baseImponibleTotalImp] AS [baseImponibleTotalImp], 
+    [vwCfdiFacturaImpuestosCabecera].[controlInterno] AS [controlInterno], 
     [vwCfdiFacturaImpuestosCabecera].[unidadMedida] AS [unidadMedida], 
     [vwCfdiFacturaImpuestosCabecera].[unidadMedidaTributo] AS [unidadMedidaTributo], 
-    [vwCfdiFacturaImpuestosCabecera].[valorTributoUnidad] AS [valorTributoUnidad], 
-    [vwCfdiFacturaImpuestosCabecera].[valorTotalImp] AS [valorTotalImp]
+    [vwCfdiFacturaImpuestosCabecera].[valorTributoUnidad] AS [valorTributoUnidad]
     FROM [dbo].[vwCfdiFacturaImpuestosCabecera] AS [vwCfdiFacturaImpuestosCabecera]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vwCfdiFacturaImpuestosDetalles" EntityType="Self.vwCfdiFacturaImpuestosDetalles" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vwCfdiFacturaImpuestosDetalles].[soptype] AS [soptype], 
     [vwCfdiFacturaImpuestosDetalles].[sopnumbe] AS [sopnumbe], 
-    [vwCfdiFacturaImpuestosDetalles].[lnitmseq] AS [lnitmseq], 
+    [vwCfdiFacturaImpuestosDetalles].[LNITMSEQ] AS [LNITMSEQ], 
     [vwCfdiFacturaImpuestosDetalles].[itemnmbr] AS [itemnmbr], 
     [vwCfdiFacturaImpuestosDetalles].[cmpntseq] AS [cmpntseq], 
-    [vwCfdiFacturaImpuestosDetalles].[baseimponibletotalimp] AS [baseimponibletotalimp], 
     [vwCfdiFacturaImpuestosDetalles].[codigoTotalImp] AS [codigoTotalImp], 
-    [vwCfdiFacturaImpuestosDetalles].[controlInterno] AS [controlInterno], 
     [vwCfdiFacturaImpuestosDetalles].[porcentajeTotalImp] AS [porcentajeTotalImp], 
+    [vwCfdiFacturaImpuestosDetalles].[staxamnt] AS [staxamnt], 
+    [vwCfdiFacturaImpuestosDetalles].[valorTotalImp] AS [valorTotalImp], 
+    [vwCfdiFacturaImpuestosDetalles].[tdttxsls] AS [tdttxsls], 
+    [vwCfdiFacturaImpuestosDetalles].[baseImponibleTotalImp] AS [baseImponibleTotalImp], 
+    [vwCfdiFacturaImpuestosDetalles].[controlInterno] AS [controlInterno], 
     [vwCfdiFacturaImpuestosDetalles].[unidadMedida] AS [unidadMedida], 
     [vwCfdiFacturaImpuestosDetalles].[unidadMedidaTributo] AS [unidadMedidaTributo], 
-    [vwCfdiFacturaImpuestosDetalles].[valorTributoUnidad] AS [valorTributoUnidad], 
-    [vwCfdiFacturaImpuestosDetalles].[valorTotalImp] AS [valorTotalImp]
+    [vwCfdiFacturaImpuestosDetalles].[valorTributoUnidad] AS [valorTributoUnidad]
     FROM [dbo].[vwCfdiFacturaImpuestosDetalles] AS [vwCfdiFacturaImpuestosDetalles]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vwCfdiGeneraDocumentoDeVenta" EntityType="Self.vwCfdiGeneraDocumentoDeVenta" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vwCfdiGeneraDocumentoDeVenta].[soptype] AS [soptype], 
     [vwCfdiGeneraDocumentoDeVenta].[sopnumbe] AS [sopnumbe], 
-    [vwCfdiGeneraDocumentoDeVenta].[CUSTNMBR] AS [CUSTNMBR], 
+    [vwCfdiGeneraDocumentoDeVenta].[custnmbr] AS [custnmbr], 
     [vwCfdiGeneraDocumentoDeVenta].[cantidadDecimales] AS [cantidadDecimales], 
     [vwCfdiGeneraDocumentoDeVenta].[consecutivoDocumento] AS [consecutivoDocumento], 
     [vwCfdiGeneraDocumentoDeVenta].[cargosdescuentos_codigo] AS [cargosdescuentos_codigo], 
@@ -460,7 +361,7 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
     [vwCfdiGeneraDocumentoDeVenta].[cargosdescuentos_secuencia] AS [cargosdescuentos_secuencia], 
     [vwCfdiGeneraDocumentoDeVenta].[cliente_nitProveedorReceptor] AS [cliente_nitProveedorReceptor], 
     [vwCfdiGeneraDocumentoDeVenta].[cliente_telefono] AS [cliente_telefono], 
-    [vwCfdiGeneraDocumentoDeVenta].[cliente_difciudad] AS [cliente_difciudad], 
+    [vwCfdiGeneraDocumentoDeVenta].[cliente_difCiudad] AS [cliente_difCiudad], 
     [vwCfdiGeneraDocumentoDeVenta].[cliente_difcodigoDepartamento] AS [cliente_difcodigoDepartamento], 
     [vwCfdiGeneraDocumentoDeVenta].[cliente_difdepartamento] AS [cliente_difdepartamento], 
     [vwCfdiGeneraDocumentoDeVenta].[cliente_difdireccion] AS [cliente_difdireccion], 
@@ -485,60 +386,22 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
     [vwCfdiGeneraDocumentoDeVenta].[rangonumeracion] AS [rangonumeracion], 
     [vwCfdiGeneraDocumentoDeVenta].[redondeoaplicado] AS [redondeoaplicado], 
     [vwCfdiGeneraDocumentoDeVenta].[tasaDeCambio] AS [tasaDeCambio], 
-    [vwCfdiGeneraDocumentoDeVenta].[tc_baseMonedaDestino] AS [tc_baseMonedaDestino], 
-    [vwCfdiGeneraDocumentoDeVenta].[tc_fechaDeTasaDeCambio] AS [tc_fechaDeTasaDeCambio], 
-    [vwCfdiGeneraDocumentoDeVenta].[tc_monedaOrigen] AS [tc_monedaOrigen], 
-    [vwCfdiGeneraDocumentoDeVenta].[tc_monedaDestino] AS [tc_monedaDestino], 
     [vwCfdiGeneraDocumentoDeVenta].[tipoDocumento] AS [tipoDocumento], 
     [vwCfdiGeneraDocumentoDeVenta].[tipoOperacion] AS [tipoOperacion], 
     [vwCfdiGeneraDocumentoDeVenta].[totalBaseImponible] AS [totalBaseImponible], 
+    [vwCfdiGeneraDocumentoDeVenta].[totalSinImpuestos] AS [totalSinImpuestos], 
     [vwCfdiGeneraDocumentoDeVenta].[totalBrutoconImpuestos] AS [totalBrutoconImpuestos], 
     [vwCfdiGeneraDocumentoDeVenta].[totalMonto] AS [totalMonto], 
-    [vwCfdiGeneraDocumentoDeVenta].[totalProductos] AS [totalProductos], 
-    [vwCfdiGeneraDocumentoDeVenta].[totalSinImpuestos] AS [totalSinImpuestos]
+    [vwCfdiGeneraDocumentoDeVenta].[totalProductos] AS [totalProductos]
     FROM [dbo].[vwCfdiGeneraDocumentoDeVenta] AS [vwCfdiGeneraDocumentoDeVenta]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="vwCfdiGeneraResumenDiario" EntityType="Self.vwCfdiGeneraResumenDiario" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [vwCfdiGeneraResumenDiario].[tipoResumenDiario] AS [tipoResumenDiario], 
-    [vwCfdiGeneraResumenDiario].[numResumenDiario] AS [numResumenDiario], 
-    [vwCfdiGeneraResumenDiario].[docdate] AS [docdate], 
-    [vwCfdiGeneraResumenDiario].[tipoDocumento] AS [tipoDocumento], 
-    [vwCfdiGeneraResumenDiario].[emisorTipoDoc] AS [emisorTipoDoc], 
-    [vwCfdiGeneraResumenDiario].[emisorNroDoc] AS [emisorNroDoc], 
-    [vwCfdiGeneraResumenDiario].[emisorNombre] AS [emisorNombre], 
-    [vwCfdiGeneraResumenDiario].[emisorUbigeo] AS [emisorUbigeo], 
-    [vwCfdiGeneraResumenDiario].[emisorDireccion] AS [emisorDireccion], 
-    [vwCfdiGeneraResumenDiario].[emisorUrbanizacion] AS [emisorUrbanizacion], 
-    [vwCfdiGeneraResumenDiario].[emisorDepartamento] AS [emisorDepartamento], 
-    [vwCfdiGeneraResumenDiario].[emisorProvincia] AS [emisorProvincia], 
-    [vwCfdiGeneraResumenDiario].[emisorDistrito] AS [emisorDistrito], 
-    [vwCfdiGeneraResumenDiario].[receptorTipoDoc] AS [receptorTipoDoc], 
-    [vwCfdiGeneraResumenDiario].[receptorNroDoc] AS [receptorNroDoc], 
-    [vwCfdiGeneraResumenDiario].[serie] AS [serie], 
-    [vwCfdiGeneraResumenDiario].[sopnumbe] AS [sopnumbe], 
-    [vwCfdiGeneraResumenDiario].[iniRango] AS [iniRango], 
-    [vwCfdiGeneraResumenDiario].[finRango] AS [finRango], 
-    [vwCfdiGeneraResumenDiario].[moneda] AS [moneda], 
-    [vwCfdiGeneraResumenDiario].[xchgrate] AS [xchgrate], 
-    [vwCfdiGeneraResumenDiario].[totalIvaImponible] AS [totalIvaImponible], 
-    [vwCfdiGeneraResumenDiario].[totalIva] AS [totalIva], 
-    [vwCfdiGeneraResumenDiario].[totalInafecta] AS [totalInafecta], 
-    [vwCfdiGeneraResumenDiario].[totalExonerado] AS [totalExonerado], 
-    [vwCfdiGeneraResumenDiario].[totalGratuito] AS [totalGratuito], 
-    [vwCfdiGeneraResumenDiario].[totalDescuento] AS [totalDescuento], 
-    [vwCfdiGeneraResumenDiario].[ORTDISAM] AS [ORTDISAM], 
-    [vwCfdiGeneraResumenDiario].[total] AS [total], 
-    [vwCfdiGeneraResumenDiario].[cantidad] AS [cantidad], 
-    [vwCfdiGeneraResumenDiario].[formaPago] AS [formaPago], 
-    [vwCfdiGeneraResumenDiario].[tipoDocumentoTo] AS [tipoDocumentoTo], 
-    [vwCfdiGeneraResumenDiario].[sopnumbeTo] AS [sopnumbeTo]
-    FROM [dbo].[vwCfdiGeneraResumenDiario] AS [vwCfdiGeneraResumenDiario]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vwCfdiMediosDePago" EntityType="Self.vwCfdiMediosDePago" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
+    [vwCfdiMediosDePago].[APTODCTY] AS [APTODCTY], 
     [vwCfdiMediosDePago].[soptype] AS [soptype], 
     [vwCfdiMediosDePago].[sopnumbe] AS [sopnumbe], 
+    [vwCfdiMediosDePago].[APFRDCTY] AS [APFRDCTY], 
+    [vwCfdiMediosDePago].[APFRDCNM] AS [APFRDCNM], 
     [vwCfdiMediosDePago].[mediopago] AS [mediopago], 
     [vwCfdiMediosDePago].[metodopago] AS [metodopago], 
     [vwCfdiMediosDePago].[numeroreferencia] AS [numeroreferencia]
@@ -567,526 +430,409 @@ advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene defin
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="PERUEntities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="PER10Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="vwCfdiGeneraResumenDiario" EntityType="PERUEntities.vwCfdiGeneraResumenDiario" />
-          <FunctionImport Name="fCfdiParametrosTipoLeyenda" IsComposable="true" ReturnType="Collection(PERUEntities.fCfdiParametrosTipoLeyenda_Result)">
-            <Parameter Name="ADRSCODE" Mode="In" Type="String" />
-            <Parameter Name="Master_Type" Mode="In" Type="String" />
-          </FunctionImport>
-          <EntitySet Name="vwCfdiClienteDestinatario" EntityType="PERUEntities.vwCfdiClienteDestinatario" />
-          <EntitySet Name="vwCfdiClienteObligaciones" EntityType="PERUEntities.vwCfdiClienteObligaciones" />
-          <EntitySet Name="vwCfdiFacturaImpuestosCabecera" EntityType="PERUEntities.vwCfdiFacturaImpuestosCabecera" />
-          <EntitySet Name="vwCfdiFacturaImpuestosDetalles" EntityType="PERUEntities.vwCfdiFacturaImpuestosDetalles" />
-          <EntitySet Name="vwCfdiMediosDePago" EntityType="PERUEntities.vwCfdiMediosDePago" />
-          <EntitySet Name="vwCfdiConceptos" EntityType="PERUEntities.vwCfdiConceptos" />
-          <EntitySet Name="vwCfdiRelacionados" EntityType="PERUEntities.vwCfdiRelacionados" />
-          <EntitySet Name="vwCfdiGeneraDocumentoDeVenta" EntityType="PERUEntities.vwCfdiGeneraDocumentoDeVenta" />
-        </EntityContainer>
-        <EntityType Name="vwCfdiGeneraResumenDiario">
-          <Key>
-            <PropertyRef Name="tipoResumenDiario" />
-            <PropertyRef Name="numResumenDiario" />
-            <PropertyRef Name="tipoDocumento" />
-            <PropertyRef Name="sopnumbe" />
-          </Key>
-          <Property Name="tipoResumenDiario" Type="Int32" Nullable="false" />
-          <Property Name="numResumenDiario" Type="String" MaxLength="21" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="docdate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="tipoDocumento" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="emisorTipoDoc" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="emisorNroDoc" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
-          <Property Name="emisorNombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="emisorUbigeo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="emisorDireccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="emisorUrbanizacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="emisorDepartamento" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="emisorProvincia" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="emisorDistrito" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="receptorTipoDoc" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="receptorNroDoc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="serie" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="sopnumbe" Type="String" MaxLength="21" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="iniRango" Type="Int32" Nullable="false" />
-          <Property Name="finRango" Type="Int32" Nullable="false" />
-          <Property Name="moneda" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="xchgrate" Type="Decimal" Nullable="false" Precision="19" Scale="7" />
-          <Property Name="totalIvaImponible" Type="Decimal" Nullable="false" Precision="38" Scale="5" />
-          <Property Name="totalIva" Type="Decimal" Nullable="false" Precision="38" Scale="5" />
-          <Property Name="totalInafecta" Type="Decimal" Nullable="false" Precision="38" Scale="5" />
-          <Property Name="totalExonerado" Type="Decimal" Nullable="false" Precision="38" Scale="5" />
-          <Property Name="totalGratuito" Type="Decimal" Nullable="false" Precision="38" Scale="5" />
-          <Property Name="totalDescuento" Type="Decimal" Precision="20" Scale="5" />
-          <Property Name="ORTDISAM" Type="Decimal" Nullable="false" Precision="19" Scale="5" />
-          <Property Name="total" Type="Decimal" Nullable="false" Precision="19" Scale="5" />
-          <Property Name="cantidad" Type="Int32" Nullable="false" />
-          <Property Name="formaPago" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="tipoDocumentoTo" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="sopnumbeTo" Type="String" MaxLength="21" FixedLength="false" Unicode="false" />
-        </EntityType>
+      <Schema Namespace="COLOMBIAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <ComplexType Name="fCfdiParametrosTipoLeyenda_Result">
-          <Property Type="String" Name="inetinfo" Nullable="false" MaxLength="Max" />
-          <Property Type="String" Name="INET7" Nullable="false" MaxLength="201" />
-          <Property Type="String" Name="INET8" Nullable="false" MaxLength="201" />
+          <Property Name="inetinfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="INET7" Type="String" MaxLength="201" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="INET8" Type="String" MaxLength="201" FixedLength="true" Unicode="false" Nullable="false" />
         </ComplexType>
         <EntityType Name="vwCfdiClienteDestinatario">
           <Key>
-            <PropertyRef Name="CUSTNMBR" />
+            <PropertyRef Name="custnmbr" />
           </Key>
-          <Property Name="CUSTNMBR" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_canalEntrega" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_email" Type="String" Nullable="false" MaxLength="17" FixedLength="false" Unicode="false" />
+          <Property Name="custnmbr" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="cliente_canalEntrega" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cliente_email" Type="String" MaxLength="81" FixedLength="true" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="vwCfdiClienteObligaciones">
           <Key>
-            <PropertyRef Name="CUSTNMBR" />
+            <PropertyRef Name="custnmbr" />
           </Key>
-          <Property Name="CUSTNMBR" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_obligaciones" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_regimen" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="vwCfdiFacturaImpuestosCabecera">
-          <Key>
-            <PropertyRef Name="soptype" />
-            <PropertyRef Name="sopnumbe" />
-          </Key>
-          <Property Name="soptype" Type="Int32" Nullable="false" />
-          <Property Name="sopnumbe" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="baseimponibletotalimp" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
-          <Property Name="codigoTotalImp" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="controlInterno" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="porcentajeTotalImp" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
-          <Property Name="unidadMedida" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="unidadMedidaTributo" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="valorTotalImp" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
-          <Property Name="valorTributoUnidad" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="vwCfdiFacturaImpuestosDetalles">
-          <Key>
-            <PropertyRef Name="soptype" />
-            <PropertyRef Name="sopnumbe" />
-            <PropertyRef Name="lnitmseq" />
-            <PropertyRef Name="cmpntseq" />
-          </Key>
-          <Property Name="soptype" Type="Int32" Nullable="false" />
-          <Property Name="sopnumbe" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="lnitmseq" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="itemnmbr" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="cmpntseq" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="baseimponibletotalimp" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
-          <Property Name="codigoTotalImp" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="controlInterno" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="porcentajeTotalImp" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
-          <Property Name="unidadMedida" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="unidadMedidaTributo" Type="Int32" />
-          <Property Name="valorTotalImp" Type="Decimal" Nullable="false" Precision="5" Scale="2" />
-          <Property Name="valorTributoUnidad" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="vwCfdiMediosDePago">
-          <Key>
-            <PropertyRef Name="soptype" />
-            <PropertyRef Name="sopnumbe" />
-          </Key>
-          <Property Name="soptype" Type="Int32" Nullable="false" />
-          <Property Name="sopnumbe" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="mediopago" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="metodopago" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="numeroreferencia" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="custnmbr" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="cliente_regimen" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_obligaciones" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="vwCfdiConceptos">
           <Key>
             <PropertyRef Name="soptype" />
             <PropertyRef Name="sopnumbe" />
-            <PropertyRef Name="lnitmseq" />
-            <PropertyRef Name="cmpntseq" />
+            <PropertyRef Name="LNITMSEQ" />
+            <PropertyRef Name="SERLTNUM" />
+            <PropertyRef Name="CMPNTSEQ" />
           </Key>
-          <Property Name="soptype" Type="Int32" Nullable="false" />
-          <Property Name="sopnumbe" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="lnitmseq" Type="Int32" Nullable="false" />
-          <Property Name="itemnmbr" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="cmpntseq" Type="Int32" Nullable="false" />
-          <Property Name="facturadetalle_cantidadreal" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
-          <Property Name="facturadetalle_cantidadrealunidadmedida" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="facturadetalle_cantidadunidades" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
-          <Property Name="cargosdescuentos_codigo" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="cargosdescuentos_descripcion" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="facturadetalle_secuencia" Type="Int64" />
+          <Property Name="soptype" Type="Int16" Nullable="false" />
+          <Property Name="sopnumbe" Type="String" MaxLength="21" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="LNITMSEQ" Type="Int32" Nullable="false" />
+          <Property Name="ITEMNMBR" Type="String" MaxLength="31" FixedLength="false" Unicode="false" />
+          <Property Name="SERLTNUM" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CMPNTSEQ" Type="Int32" Nullable="false" />
+          <Property Name="facturadetalle_cantidadreal" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="facturadetalle_cantidadrealunidadmedida" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="facturadetalle_cantidadunidades" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="facturadetalle_cantidadporempaque" Type="Int32" />
+          <Property Name="cargosdescuentos_codigo" Type="Int32" />
+          <Property Name="cargosdescuentos_descripcion" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cargosdescuentos_indicador" Type="Int32" Nullable="false" />
           <Property Name="cargosdescuentos_monto" Type="Int32" Nullable="false" />
           <Property Name="cargosdescuentos_montobase" Type="Int32" Nullable="false" />
           <Property Name="cargodescuentos_porcentaje" Type="Int32" Nullable="false" />
-          <Property Name="cargosdescuentos_secuencia" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="facturadetalle_codigoproducto" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
-          <Property Name="facturadetalle_descripcion" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="facturadetalle_estandarcodigo" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="facturadetalle_estandarcodigoproducto" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="facturadetalle_marca" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="facturadetalle_modelo" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="facturadetalle_precioTotal" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
-          <Property Name="facturadetalle_precioTotalSinImpuestos" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
-          <Property Name="facturadetalle_precioVentaUnitario" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
-          <Property Name="facturadetalle_secuencia" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="facturadetalle_unidadMedida" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="facturadetalle_cantidadporempaque" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
+          <Property Name="cargosdescuentos_secuencia" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="facturadetalle_codigoproducto" Type="String" MaxLength="31" FixedLength="false" Unicode="false" />
+          <Property Name="facturadetalle_descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="facturadetalle_estandarcodigo" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="facturadetalle_estandarcodigoproducto" Type="String" MaxLength="31" FixedLength="false" Unicode="false" />
+          <Property Name="facturadetalle_marca" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="facturadetalle_modelo" Type="String" MaxLength="11" FixedLength="true" Unicode="false" />
+          <Property Name="facturadetalle_precioTotal" Type="Decimal" Precision="38" Scale="5" />
+          <Property Name="facturadetalle_precioTotalSinImpuestos" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="facturadetalle_precioVentaUnitario" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="facturadetalle_unidadMedida" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="vwCfdiRelacionados">
+        <EntityType Name="vwCfdiFacturaImpuestosCabecera">
           <Key>
-            <PropertyRef Name="orden" />
-            <PropertyRef Name="soptypeFrom" />
-            <PropertyRef Name="sopnumbeTo" />
-            <PropertyRef Name="discrepancyResponse" />
-            <PropertyRef Name="billingReference" />
-            <PropertyRef Name="cufeDocReferenciado" />
-            <PropertyRef Name="numeroDocumento" />
-            <PropertyRef Name="tipoCufe" />
+            <PropertyRef Name="soptype" />
+            <PropertyRef Name="sopnumbe" />
+            <PropertyRef Name="porcentajeTotalImp" />
+            <PropertyRef Name="codigoTotalImp" />
           </Key>
-          <Property Name="orden" Type="Int32" Nullable="false" />
-          <Property Name="soptypeFrom" Type="Int16" Nullable="false" />
-          <Property Name="sopnumbeFrom" Type="String" MaxLength="21" FixedLength="false" Unicode="false" />
-          <Property Name="soptypeTo" Type="Int32" />
-          <Property Name="sopnumbeTo" Type="String" Nullable="false" MaxLength="41" FixedLength="true" Unicode="false" />
-          <Property Name="codigoInterno" Type="Int32" />
-          <Property Name="discrepancyResponse" Type="Int32" Nullable="false" />
-          <Property Name="billingReference" Type="Int32" Nullable="false" />
-          <Property Name="cufeDocReferenciado" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="codigoEstatusDocumento" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="cufeDescripcion" Type="String" MaxLength="51" FixedLength="true" Unicode="false" />
-          <Property Name="fecha" Type="DateTime" Precision="3" />
-          <Property Name="numeroDocumento" Type="String" Nullable="false" MaxLength="41" FixedLength="true" Unicode="false" />
-          <Property Name="tipoDocumento" Type="Int32" />
-          <Property Name="tipoCufe" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="soptype" Type="Int16" Nullable="false" />
+          <Property Name="sopnumbe" Type="String" MaxLength="21" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="codigoTotalImp" Type="String" MaxLength="31" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="porcentajeTotalImp" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="staxamnt" Type="Decimal" Precision="38" Scale="5" />
+          <Property Name="valorTotalImp" Type="Decimal" Precision="38" Scale="5" />
+          <Property Name="tdttxsls" Type="Decimal" Precision="38" Scale="5" />
+          <Property Name="baseImponibleTotalImp" Type="Decimal" Precision="38" Scale="5" />
+          <Property Name="controlInterno" Type="Int32" />
+          <Property Name="unidadMedida" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="unidadMedidaTributo" Type="Int32" />
+          <Property Name="valorTributoUnidad" Type="Int32" />
+        </EntityType>
+        <EntityType Name="vwCfdiFacturaImpuestosDetalles">
+          <Key>
+            <PropertyRef Name="soptype" />
+            <PropertyRef Name="sopnumbe" />
+            <PropertyRef Name="LNITMSEQ" />
+            <PropertyRef Name="porcentajeTotalImp" />
+            <PropertyRef Name="codigoTotalImp" />
+          </Key>
+          <Property Name="soptype" Type="Int16" Nullable="false" />
+          <Property Name="sopnumbe" Type="String" MaxLength="21" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="LNITMSEQ" Type="Int32" Nullable="false" />
+          <Property Name="itemnmbr" Type="String" MaxLength="31" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="cmpntseq" Type="Int32" Nullable="false" />
+          <Property Name="codigoTotalImp" Type="String" MaxLength="31" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="porcentajeTotalImp" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="staxamnt" Type="Decimal" Precision="38" Scale="5" />
+          <Property Name="valorTotalImp" Type="Decimal" Precision="38" Scale="5" />
+          <Property Name="tdttxsls" Type="Decimal" Precision="38" Scale="5" />
+          <Property Name="baseImponibleTotalImp" Type="Decimal" Precision="38" Scale="5" />
+          <Property Name="controlInterno" Type="String" MaxLength="1" Nullable="false" Unicode="false" FixedLength="false" />
+          <Property Name="unidadMedida" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="unidadMedidaTributo" Type="String" MaxLength="1" Nullable="false" Unicode="false" FixedLength="false" />
+          <Property Name="valorTributoUnidad" Type="String" MaxLength="1" Nullable="false" Unicode="false" FixedLength="false" />
         </EntityType>
         <EntityType Name="vwCfdiGeneraDocumentoDeVenta">
           <Key>
             <PropertyRef Name="soptype" />
             <PropertyRef Name="sopnumbe" />
-            <PropertyRef Name="CUSTNMBR" />
-            <PropertyRef Name="cantidadDecimales" />
-            <PropertyRef Name="consecutivoDocumento" />
-            <PropertyRef Name="cargosdescuentos_codigo" />
-            <PropertyRef Name="cargosdescuentos_descripcion" />
-            <PropertyRef Name="cargosdescuentos_indicador" />
-            <PropertyRef Name="cargosdescuentos_monto" />
-            <PropertyRef Name="cargosdescuentos_montobase" />
-            <PropertyRef Name="cargodescuentos_porcentaje" />
-            <PropertyRef Name="cargosdescuentos_secuencia" />
-            <PropertyRef Name="cliente_nitProveedorReceptor" />
-            <PropertyRef Name="cliente_telefono" />
-            <PropertyRef Name="cliente_difciudad" />
-            <PropertyRef Name="cliente_difcodigoDepartamento" />
-            <PropertyRef Name="cliente_difdepartamento" />
-            <PropertyRef Name="cliente_difdireccion" />
-            <PropertyRef Name="cliente_diflenguaje" />
-            <PropertyRef Name="cliente_difmunicipio" />
-            <PropertyRef Name="cliente_difpais" />
-            <PropertyRef Name="cliente_difzonapostal" />
-            <PropertyRef Name="cliente_email" />
-            <PropertyRef Name="cliente_nombreRegistroRUT" />
-            <PropertyRef Name="cliente_numeroIdentificacion" />
-            <PropertyRef Name="cliente_numeroIdentificacionDV" />
-            <PropertyRef Name="cliente_tipoIdentificacion" />
-            <PropertyRef Name="cliente_nombreComercial" />
-            <PropertyRef Name="cliente_nombreRazonSocial" />
-            <PropertyRef Name="cliente_notificar" />
-            <PropertyRef Name="cliente_numeroDocumento" />
-            <PropertyRef Name="cliente_tipoPersona" />
-            <PropertyRef Name="cliente_actividadEconomicaCIIU" />
-            <PropertyRef Name="fechaEmision" />
-            <PropertyRef Name="fechaVencimiento" />
-            <PropertyRef Name="moneda" />
-            <PropertyRef Name="rangonumeracion" />
-            <PropertyRef Name="redondeoaplicado" />
-            <PropertyRef Name="tasaDeCambio" />
-            <PropertyRef Name="tc_baseMonedaDestino" />
-            <PropertyRef Name="tc_fechaDeTasaDeCambio" />
-            <PropertyRef Name="tc_monedaOrigen" />
-            <PropertyRef Name="tc_monedaDestino" />
-            <PropertyRef Name="tipoDocumento" />
-            <PropertyRef Name="tipoOperacion" />
-            <PropertyRef Name="totalBaseImponible" />
-            <PropertyRef Name="totalBrutoconImpuestos" />
-            <PropertyRef Name="totalMonto" />
-            <PropertyRef Name="totalProductos" />
-            <PropertyRef Name="totalSinImpuestos" />
           </Key>
-          <Property Name="soptype" Type="Int32" Nullable="false" />
-          <Property Name="sopnumbe" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="CUSTNMBR" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Name="cantidadDecimales" Type="Int32" Nullable="false" />
-          <Property Name="consecutivoDocumento" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
-          <Property Name="cargosdescuentos_codigo" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="cargosdescuentos_descripcion" Type="String" Nullable="false" MaxLength="19" FixedLength="false" Unicode="false" />
-          <Property Name="cargosdescuentos_indicador" Type="Int32" Nullable="false" />
-          <Property Name="cargosdescuentos_monto" Type="Int32" Nullable="false" />
-          <Property Name="cargosdescuentos_montobase" Type="Int32" Nullable="false" />
-          <Property Name="cargodescuentos_porcentaje" Type="Int32" Nullable="false" />
-          <Property Name="cargosdescuentos_secuencia" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_nitProveedorReceptor" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_telefono" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_difciudad" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_difcodigoDepartamento" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_difdepartamento" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_difdireccion" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_diflenguaje" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_difmunicipio" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_difpais" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_difzonapostal" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_email" Type="String" Nullable="false" MaxLength="17" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_nombreRegistroRUT" Type="String" Nullable="false" MaxLength="33" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_numeroIdentificacion" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_numeroIdentificacionDV" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_tipoIdentificacion" Type="Int32" Nullable="false" />
-          <Property Name="cliente_nombreComercial" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_nombreRazonSocial" Type="String" Nullable="false" MaxLength="24" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_notificar" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_numeroDocumento" Type="String" Nullable="false" MaxLength="9" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_tipoPersona" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_actividadEconomicaCIIU" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="fechaEmision" Type="String" Nullable="false" MaxLength="19" FixedLength="false" Unicode="false" />
-          <Property Name="fechaVencimiento" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="moneda" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="rangonumeracion" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
-          <Property Name="redondeoaplicado" Type="Decimal" Nullable="false" Precision="2" Scale="2" />
-          <Property Name="tasaDeCambio" Type="Int32" Nullable="false" />
-          <Property Name="tc_baseMonedaDestino" Type="Decimal" Nullable="false" Precision="3" Scale="2" />
-          <Property Name="tc_fechaDeTasaDeCambio" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="tc_monedaOrigen" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="tc_monedaDestino" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="tipoDocumento" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="tipoOperacion" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="totalBaseImponible" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
-          <Property Name="totalBrutoconImpuestos" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
-          <Property Name="totalMonto" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
+          <Property Name="soptype" Type="Int16" Nullable="false" />
+          <Property Name="sopnumbe" Type="String" MaxLength="21" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="custnmbr" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="cantidadDecimales" Type="Int32" />
+          <Property Name="consecutivoDocumento" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="cargosdescuentos_codigo" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="cargosdescuentos_descripcion" Type="String" MaxLength="51" FixedLength="true" Unicode="false" />
+          <Property Name="cargosdescuentos_indicador" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="cargosdescuentos_monto" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="cargosdescuentos_montobase" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="cargodescuentos_porcentaje" Type="Decimal" Precision="38" Scale="19" />
+          <Property Name="cargosdescuentos_secuencia" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cliente_nitProveedorReceptor" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cliente_telefono" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cliente_difCiudad" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_difcodigoDepartamento" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cliente_difdepartamento" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cliente_difdireccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cliente_diflenguaje" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cliente_difmunicipio" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cliente_difpais" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cliente_difzonapostal" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cliente_email" Type="String" MaxLength="81" FixedLength="true" Unicode="false" />
+          <Property Name="cliente_nombreRegistroRUT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cliente_numeroIdentificacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cliente_numeroIdentificacionDV" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cliente_tipoIdentificacion" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_nombreComercial" Type="String" MaxLength="1" Nullable="false" Unicode="false" FixedLength="false" />
+          <Property Name="cliente_nombreRazonSocial" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cliente_notificar" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cliente_numeroDocumento" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cliente_tipoPersona" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cliente_actividadEconomicaCIIU" Type="String" MaxLength="1" Nullable="false" Unicode="false" FixedLength="false" />
+          <Property Name="fechaEmision" Type="String" MaxLength="21" FixedLength="false" Unicode="false" />
+          <Property Name="fechaVencimiento" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="moneda" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="rangonumeracion" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="redondeoaplicado" Type="Int32" Nullable="false" />
+          <Property Name="tasaDeCambio" Type="Decimal" Precision="19" Scale="7" Nullable="false" />
+          <Property Name="tipoDocumento" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="tipoOperacion" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="totalBaseImponible" Type="Decimal" Precision="38" Scale="5" Nullable="false" />
+          <Property Name="totalSinImpuestos" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="totalBrutoconImpuestos" Type="Decimal" Precision="38" Scale="5" />
+          <Property Name="totalMonto" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
           <Property Name="totalProductos" Type="Int32" Nullable="false" />
-          <Property Name="totalSinImpuestos" Type="Decimal" Nullable="false" Precision="6" Scale="2" />
         </EntityType>
+        <EntityType Name="vwCfdiMediosDePago">
+          <Key>
+            <PropertyRef Name="APTODCTY" />
+            <PropertyRef Name="sopnumbe" />
+            <PropertyRef Name="APFRDCTY" />
+            <PropertyRef Name="APFRDCNM" />
+            <PropertyRef Name="metodopago" />
+            <PropertyRef Name="numeroreferencia" />
+          </Key>
+          <Property Name="APTODCTY" Type="Int16" Nullable="false" />
+          <Property Name="soptype" Type="Int32" />
+          <Property Name="sopnumbe" Type="String" MaxLength="21" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="APFRDCTY" Type="Int16" Nullable="false" />
+          <Property Name="APFRDCNM" Type="String" MaxLength="21" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="mediopago" Type="String" MaxLength="21" FixedLength="false" Unicode="false" />
+          <Property Name="metodopago" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numeroreferencia" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vwCfdiRelacionados">
+          <Key>
+            <PropertyRef Name="soptypeFrom" />
+            <PropertyRef Name="sopnumbeTo" />
+            <PropertyRef Name="sopnumbeFrom" />
+            <PropertyRef Name="soptypeTo" />
+          </Key>
+          <Property Name="orden" Type="Int32" Nullable="false" />
+          <Property Name="soptypeFrom" Type="Int16" Nullable="false" />
+          <Property Name="sopnumbeFrom" Type="String" MaxLength="21" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="soptypeTo" Type="Int32" Nullable="false" />
+          <Property Name="sopnumbeTo" Type="String" MaxLength="41" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="codigoInterno" Type="Int32" />
+          <Property Name="discrepancyResponse" Type="Int32" Nullable="false" />
+          <Property Name="billingReference" Type="Int32" Nullable="false" />
+          <Property Name="cufeDocReferenciado" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="codigoEstatusDocumento" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="cufeDescripcion" Type="String" MaxLength="51" FixedLength="true" Unicode="false" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
+          <Property Name="numeroDocumento" Type="String" MaxLength="61" FixedLength="false" Unicode="false" />
+          <Property Name="tipoDocumento" Type="Int32" />
+          <Property Name="tipoCufe" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="COLEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="vwCfdiClienteDestinatario" EntityType="Self.vwCfdiClienteDestinatario" />
+          <EntitySet Name="vwCfdiClienteObligaciones" EntityType="Self.vwCfdiClienteObligaciones" />
+          <EntitySet Name="vwCfdiConceptos" EntityType="Self.vwCfdiConceptos" />
+          <EntitySet Name="vwCfdiFacturaImpuestosCabecera" EntityType="Self.vwCfdiFacturaImpuestosCabecera" />
+          <EntitySet Name="vwCfdiFacturaImpuestosDetalles" EntityType="Self.vwCfdiFacturaImpuestosDetalles" />
+          <EntitySet Name="vwCfdiGeneraDocumentoDeVenta" EntityType="Self.vwCfdiGeneraDocumentoDeVenta" />
+          <EntitySet Name="vwCfdiMediosDePago" EntityType="Self.vwCfdiMediosDePago" />
+          <EntitySet Name="vwCfdiRelacionados" EntityType="Self.vwCfdiRelacionados" />
+          <FunctionImport Name="fCfdiParametrosTipoLeyenda" IsComposable="true" ReturnType="Collection(COLOMBIAModel.fCfdiParametrosTipoLeyenda_Result)">
+            <Parameter Name="ADRSCODE" Mode="In" Type="String" />
+            <Parameter Name="Master_Type" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="PERUEntitiesStoreContainer" CdmEntityContainer="PER10Entities">
-          <EntitySetMapping Name="vwCfdiGeneraResumenDiario">
-            <EntityTypeMapping TypeName="PERUEntities.vwCfdiGeneraResumenDiario">
-              <MappingFragment StoreEntitySet="vwCfdiGeneraResumenDiario">
-                <ScalarProperty Name="sopnumbeTo" ColumnName="sopnumbeTo" />
-                <ScalarProperty Name="tipoDocumentoTo" ColumnName="tipoDocumentoTo" />
-                <ScalarProperty Name="formaPago" ColumnName="formaPago" />
-                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
-                <ScalarProperty Name="total" ColumnName="total" />
-                <ScalarProperty Name="ORTDISAM" ColumnName="ORTDISAM" />
-                <ScalarProperty Name="totalDescuento" ColumnName="totalDescuento" />
-                <ScalarProperty Name="totalGratuito" ColumnName="totalGratuito" />
-                <ScalarProperty Name="totalExonerado" ColumnName="totalExonerado" />
-                <ScalarProperty Name="totalInafecta" ColumnName="totalInafecta" />
-                <ScalarProperty Name="totalIva" ColumnName="totalIva" />
-                <ScalarProperty Name="totalIvaImponible" ColumnName="totalIvaImponible" />
-                <ScalarProperty Name="xchgrate" ColumnName="xchgrate" />
-                <ScalarProperty Name="moneda" ColumnName="moneda" />
-                <ScalarProperty Name="finRango" ColumnName="finRango" />
-                <ScalarProperty Name="iniRango" ColumnName="iniRango" />
-                <ScalarProperty Name="sopnumbe" ColumnName="sopnumbe" />
-                <ScalarProperty Name="serie" ColumnName="serie" />
-                <ScalarProperty Name="receptorNroDoc" ColumnName="receptorNroDoc" />
-                <ScalarProperty Name="receptorTipoDoc" ColumnName="receptorTipoDoc" />
-                <ScalarProperty Name="emisorDistrito" ColumnName="emisorDistrito" />
-                <ScalarProperty Name="emisorProvincia" ColumnName="emisorProvincia" />
-                <ScalarProperty Name="emisorDepartamento" ColumnName="emisorDepartamento" />
-                <ScalarProperty Name="emisorUrbanizacion" ColumnName="emisorUrbanizacion" />
-                <ScalarProperty Name="emisorDireccion" ColumnName="emisorDireccion" />
-                <ScalarProperty Name="emisorUbigeo" ColumnName="emisorUbigeo" />
-                <ScalarProperty Name="emisorNombre" ColumnName="emisorNombre" />
-                <ScalarProperty Name="emisorNroDoc" ColumnName="emisorNroDoc" />
-                <ScalarProperty Name="emisorTipoDoc" ColumnName="emisorTipoDoc" />
-                <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
-                <ScalarProperty Name="docdate" ColumnName="docdate" />
-                <ScalarProperty Name="numResumenDiario" ColumnName="numResumenDiario" />
-                <ScalarProperty Name="tipoResumenDiario" ColumnName="tipoResumenDiario" />
+        <EntityContainerMapping StorageEntityContainer="COLOMBIAModelStoreContainer" CdmEntityContainer="COLEntities">
+          <EntitySetMapping Name="vwCfdiClienteDestinatario">
+            <EntityTypeMapping TypeName="COLOMBIAModel.vwCfdiClienteDestinatario">
+              <MappingFragment StoreEntitySet="vwCfdiClienteDestinatario">
+                <ScalarProperty Name="custnmbr" ColumnName="custnmbr" />
+                <ScalarProperty Name="cliente_canalEntrega" ColumnName="cliente_canalEntrega" />
+                <ScalarProperty Name="cliente_email" ColumnName="cliente_email" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="fCfdiParametrosTipoLeyenda" FunctionName="PERUEntities.Store.fCfdiParametrosTipoLeyenda">
+          <EntitySetMapping Name="vwCfdiClienteObligaciones">
+            <EntityTypeMapping TypeName="COLOMBIAModel.vwCfdiClienteObligaciones">
+              <MappingFragment StoreEntitySet="vwCfdiClienteObligaciones">
+                <ScalarProperty Name="custnmbr" ColumnName="custnmbr" />
+                <ScalarProperty Name="cliente_regimen" ColumnName="cliente_regimen" />
+                <ScalarProperty Name="cliente_obligaciones" ColumnName="cliente_obligaciones" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwCfdiConceptos">
+            <EntityTypeMapping TypeName="COLOMBIAModel.vwCfdiConceptos">
+              <MappingFragment StoreEntitySet="vwCfdiConceptos">
+                <ScalarProperty Name="facturadetalle_secuencia" ColumnName="facturadetalle_secuencia" />
+                <ScalarProperty Name="soptype" ColumnName="soptype" />
+                <ScalarProperty Name="sopnumbe" ColumnName="sopnumbe" />
+                <ScalarProperty Name="LNITMSEQ" ColumnName="LNITMSEQ" />
+                <ScalarProperty Name="ITEMNMBR" ColumnName="ITEMNMBR" />
+                <ScalarProperty Name="SERLTNUM" ColumnName="SERLTNUM" />
+                <ScalarProperty Name="CMPNTSEQ" ColumnName="CMPNTSEQ" />
+                <ScalarProperty Name="facturadetalle_cantidadreal" ColumnName="facturadetalle_cantidadreal" />
+                <ScalarProperty Name="facturadetalle_cantidadrealunidadmedida" ColumnName="facturadetalle_cantidadrealunidadmedida" />
+                <ScalarProperty Name="facturadetalle_cantidadunidades" ColumnName="facturadetalle_cantidadunidades" />
+                <ScalarProperty Name="facturadetalle_cantidadporempaque" ColumnName="facturadetalle_cantidadporempaque" />
+                <ScalarProperty Name="cargosdescuentos_codigo" ColumnName="cargosdescuentos_codigo" />
+                <ScalarProperty Name="cargosdescuentos_descripcion" ColumnName="cargosdescuentos_descripcion" />
+                <ScalarProperty Name="cargosdescuentos_indicador" ColumnName="cargosdescuentos_indicador" />
+                <ScalarProperty Name="cargosdescuentos_monto" ColumnName="cargosdescuentos_monto" />
+                <ScalarProperty Name="cargosdescuentos_montobase" ColumnName="cargosdescuentos_montobase" />
+                <ScalarProperty Name="cargodescuentos_porcentaje" ColumnName="cargodescuentos_porcentaje" />
+                <ScalarProperty Name="cargosdescuentos_secuencia" ColumnName="cargosdescuentos_secuencia" />
+                <ScalarProperty Name="facturadetalle_codigoproducto" ColumnName="facturadetalle_codigoproducto" />
+                <ScalarProperty Name="facturadetalle_descripcion" ColumnName="facturadetalle_descripcion" />
+                <ScalarProperty Name="facturadetalle_estandarcodigo" ColumnName="facturadetalle_estandarcodigo" />
+                <ScalarProperty Name="facturadetalle_estandarcodigoproducto" ColumnName="facturadetalle_estandarcodigoproducto" />
+                <ScalarProperty Name="facturadetalle_marca" ColumnName="facturadetalle_marca" />
+                <ScalarProperty Name="facturadetalle_modelo" ColumnName="facturadetalle_modelo" />
+                <ScalarProperty Name="facturadetalle_precioTotal" ColumnName="facturadetalle_precioTotal" />
+                <ScalarProperty Name="facturadetalle_precioTotalSinImpuestos" ColumnName="facturadetalle_precioTotalSinImpuestos" />
+                <ScalarProperty Name="facturadetalle_precioVentaUnitario" ColumnName="facturadetalle_precioVentaUnitario" />
+                <ScalarProperty Name="facturadetalle_unidadMedida" ColumnName="facturadetalle_unidadMedida" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwCfdiFacturaImpuestosCabecera">
+            <EntityTypeMapping TypeName="COLOMBIAModel.vwCfdiFacturaImpuestosCabecera">
+              <MappingFragment StoreEntitySet="vwCfdiFacturaImpuestosCabecera">
+                <ScalarProperty Name="soptype" ColumnName="soptype" />
+                <ScalarProperty Name="sopnumbe" ColumnName="sopnumbe" />
+                <ScalarProperty Name="codigoTotalImp" ColumnName="codigoTotalImp" />
+                <ScalarProperty Name="porcentajeTotalImp" ColumnName="porcentajeTotalImp" />
+                <ScalarProperty Name="staxamnt" ColumnName="staxamnt" />
+                <ScalarProperty Name="valorTotalImp" ColumnName="valorTotalImp" />
+                <ScalarProperty Name="tdttxsls" ColumnName="tdttxsls" />
+                <ScalarProperty Name="baseImponibleTotalImp" ColumnName="baseImponibleTotalImp" />
+                <ScalarProperty Name="controlInterno" ColumnName="controlInterno" />
+                <ScalarProperty Name="unidadMedida" ColumnName="unidadMedida" />
+                <ScalarProperty Name="unidadMedidaTributo" ColumnName="unidadMedidaTributo" />
+                <ScalarProperty Name="valorTributoUnidad" ColumnName="valorTributoUnidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwCfdiFacturaImpuestosDetalles">
+            <EntityTypeMapping TypeName="COLOMBIAModel.vwCfdiFacturaImpuestosDetalles">
+              <MappingFragment StoreEntitySet="vwCfdiFacturaImpuestosDetalles">
+                <ScalarProperty Name="soptype" ColumnName="soptype" />
+                <ScalarProperty Name="sopnumbe" ColumnName="sopnumbe" />
+                <ScalarProperty Name="LNITMSEQ" ColumnName="LNITMSEQ" />
+                <ScalarProperty Name="itemnmbr" ColumnName="itemnmbr" />
+                <ScalarProperty Name="cmpntseq" ColumnName="cmpntseq" />
+                <ScalarProperty Name="codigoTotalImp" ColumnName="codigoTotalImp" />
+                <ScalarProperty Name="porcentajeTotalImp" ColumnName="porcentajeTotalImp" />
+                <ScalarProperty Name="staxamnt" ColumnName="staxamnt" />
+                <ScalarProperty Name="valorTotalImp" ColumnName="valorTotalImp" />
+                <ScalarProperty Name="tdttxsls" ColumnName="tdttxsls" />
+                <ScalarProperty Name="baseImponibleTotalImp" ColumnName="baseImponibleTotalImp" />
+                <ScalarProperty Name="controlInterno" ColumnName="controlInterno" />
+                <ScalarProperty Name="unidadMedida" ColumnName="unidadMedida" />
+                <ScalarProperty Name="unidadMedidaTributo" ColumnName="unidadMedidaTributo" />
+                <ScalarProperty Name="valorTributoUnidad" ColumnName="valorTributoUnidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwCfdiGeneraDocumentoDeVenta">
+            <EntityTypeMapping TypeName="COLOMBIAModel.vwCfdiGeneraDocumentoDeVenta">
+              <MappingFragment StoreEntitySet="vwCfdiGeneraDocumentoDeVenta">
+                <ScalarProperty Name="soptype" ColumnName="soptype" />
+                <ScalarProperty Name="sopnumbe" ColumnName="sopnumbe" />
+                <ScalarProperty Name="custnmbr" ColumnName="custnmbr" />
+                <ScalarProperty Name="cantidadDecimales" ColumnName="cantidadDecimales" />
+                <ScalarProperty Name="consecutivoDocumento" ColumnName="consecutivoDocumento" />
+                <ScalarProperty Name="cargosdescuentos_codigo" ColumnName="cargosdescuentos_codigo" />
+                <ScalarProperty Name="cargosdescuentos_descripcion" ColumnName="cargosdescuentos_descripcion" />
+                <ScalarProperty Name="cargosdescuentos_indicador" ColumnName="cargosdescuentos_indicador" />
+                <ScalarProperty Name="cargosdescuentos_monto" ColumnName="cargosdescuentos_monto" />
+                <ScalarProperty Name="cargosdescuentos_montobase" ColumnName="cargosdescuentos_montobase" />
+                <ScalarProperty Name="cargodescuentos_porcentaje" ColumnName="cargodescuentos_porcentaje" />
+                <ScalarProperty Name="cargosdescuentos_secuencia" ColumnName="cargosdescuentos_secuencia" />
+                <ScalarProperty Name="cliente_nitProveedorReceptor" ColumnName="cliente_nitProveedorReceptor" />
+                <ScalarProperty Name="cliente_telefono" ColumnName="cliente_telefono" />
+                <ScalarProperty Name="cliente_difCiudad" ColumnName="cliente_difCiudad" />
+                <ScalarProperty Name="cliente_difcodigoDepartamento" ColumnName="cliente_difcodigoDepartamento" />
+                <ScalarProperty Name="cliente_difdepartamento" ColumnName="cliente_difdepartamento" />
+                <ScalarProperty Name="cliente_difdireccion" ColumnName="cliente_difdireccion" />
+                <ScalarProperty Name="cliente_diflenguaje" ColumnName="cliente_diflenguaje" />
+                <ScalarProperty Name="cliente_difmunicipio" ColumnName="cliente_difmunicipio" />
+                <ScalarProperty Name="cliente_difpais" ColumnName="cliente_difpais" />
+                <ScalarProperty Name="cliente_difzonapostal" ColumnName="cliente_difzonapostal" />
+                <ScalarProperty Name="cliente_email" ColumnName="cliente_email" />
+                <ScalarProperty Name="cliente_nombreRegistroRUT" ColumnName="cliente_nombreRegistroRUT" />
+                <ScalarProperty Name="cliente_numeroIdentificacion" ColumnName="cliente_numeroIdentificacion" />
+                <ScalarProperty Name="cliente_numeroIdentificacionDV" ColumnName="cliente_numeroIdentificacionDV" />
+                <ScalarProperty Name="cliente_tipoIdentificacion" ColumnName="cliente_tipoIdentificacion" />
+                <ScalarProperty Name="cliente_nombreComercial" ColumnName="cliente_nombreComercial" />
+                <ScalarProperty Name="cliente_nombreRazonSocial" ColumnName="cliente_nombreRazonSocial" />
+                <ScalarProperty Name="cliente_notificar" ColumnName="cliente_notificar" />
+                <ScalarProperty Name="cliente_numeroDocumento" ColumnName="cliente_numeroDocumento" />
+                <ScalarProperty Name="cliente_tipoPersona" ColumnName="cliente_tipoPersona" />
+                <ScalarProperty Name="cliente_actividadEconomicaCIIU" ColumnName="cliente_actividadEconomicaCIIU" />
+                <ScalarProperty Name="fechaEmision" ColumnName="fechaEmision" />
+                <ScalarProperty Name="fechaVencimiento" ColumnName="fechaVencimiento" />
+                <ScalarProperty Name="moneda" ColumnName="moneda" />
+                <ScalarProperty Name="rangonumeracion" ColumnName="rangonumeracion" />
+                <ScalarProperty Name="redondeoaplicado" ColumnName="redondeoaplicado" />
+                <ScalarProperty Name="tasaDeCambio" ColumnName="tasaDeCambio" />
+                <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
+                <ScalarProperty Name="tipoOperacion" ColumnName="tipoOperacion" />
+                <ScalarProperty Name="totalBaseImponible" ColumnName="totalBaseImponible" />
+                <ScalarProperty Name="totalSinImpuestos" ColumnName="totalSinImpuestos" />
+                <ScalarProperty Name="totalBrutoconImpuestos" ColumnName="totalBrutoconImpuestos" />
+                <ScalarProperty Name="totalMonto" ColumnName="totalMonto" />
+                <ScalarProperty Name="totalProductos" ColumnName="totalProductos" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwCfdiMediosDePago">
+            <EntityTypeMapping TypeName="COLOMBIAModel.vwCfdiMediosDePago">
+              <MappingFragment StoreEntitySet="vwCfdiMediosDePago">
+                <ScalarProperty Name="APTODCTY" ColumnName="APTODCTY" />
+                <ScalarProperty Name="soptype" ColumnName="soptype" />
+                <ScalarProperty Name="sopnumbe" ColumnName="sopnumbe" />
+                <ScalarProperty Name="APFRDCTY" ColumnName="APFRDCTY" />
+                <ScalarProperty Name="APFRDCNM" ColumnName="APFRDCNM" />
+                <ScalarProperty Name="mediopago" ColumnName="mediopago" />
+                <ScalarProperty Name="metodopago" ColumnName="metodopago" />
+                <ScalarProperty Name="numeroreferencia" ColumnName="numeroreferencia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwCfdiRelacionados">
+            <EntityTypeMapping TypeName="COLOMBIAModel.vwCfdiRelacionados">
+              <MappingFragment StoreEntitySet="vwCfdiRelacionados">
+                <ScalarProperty Name="orden" ColumnName="orden" />
+                <ScalarProperty Name="soptypeFrom" ColumnName="soptypeFrom" />
+                <ScalarProperty Name="sopnumbeFrom" ColumnName="sopnumbeFrom" />
+                <ScalarProperty Name="soptypeTo" ColumnName="soptypeTo" />
+                <ScalarProperty Name="sopnumbeTo" ColumnName="sopnumbeTo" />
+                <ScalarProperty Name="codigoInterno" ColumnName="codigoInterno" />
+                <ScalarProperty Name="discrepancyResponse" ColumnName="discrepancyResponse" />
+                <ScalarProperty Name="billingReference" ColumnName="billingReference" />
+                <ScalarProperty Name="cufeDocReferenciado" ColumnName="cufeDocReferenciado" />
+                <ScalarProperty Name="codigoEstatusDocumento" ColumnName="codigoEstatusDocumento" />
+                <ScalarProperty Name="cufeDescripcion" ColumnName="cufeDescripcion" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="numeroDocumento" ColumnName="numeroDocumento" />
+                <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
+                <ScalarProperty Name="tipoCufe" ColumnName="tipoCufe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionName="COLOMBIAModel.Store.fCfdiParametrosTipoLeyenda" FunctionImportName="fCfdiParametrosTipoLeyenda">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="PERUEntities.fCfdiParametrosTipoLeyenda_Result">
+              <ComplexTypeMapping TypeName="COLOMBIAModel.fCfdiParametrosTipoLeyenda_Result">
                 <ScalarProperty Name="inetinfo" ColumnName="inetinfo" />
                 <ScalarProperty Name="INET7" ColumnName="INET7" />
                 <ScalarProperty Name="INET8" ColumnName="INET8" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="vwCfdiClienteDestinatario">
-            <EntityTypeMapping TypeName="PERUEntities.vwCfdiClienteDestinatario">
-              <MappingFragment StoreEntitySet="vwCfdiClienteDestinatario">
-                <ScalarProperty Name="cliente_email" ColumnName="cliente_email" />
-                <ScalarProperty Name="cliente_canalEntrega" ColumnName="cliente_canalEntrega" />
-                <ScalarProperty Name="CUSTNMBR" ColumnName="CUSTNMBR" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vwCfdiClienteObligaciones">
-            <EntityTypeMapping TypeName="PERUEntities.vwCfdiClienteObligaciones">
-              <MappingFragment StoreEntitySet="vwCfdiClienteObligaciones">
-                <ScalarProperty Name="cliente_regimen" ColumnName="cliente_regimen" />
-                <ScalarProperty Name="cliente_obligaciones" ColumnName="cliente_obligaciones" />
-                <ScalarProperty Name="CUSTNMBR" ColumnName="CUSTNMBR" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vwCfdiFacturaImpuestosCabecera">
-            <EntityTypeMapping TypeName="PERUEntities.vwCfdiFacturaImpuestosCabecera">
-              <MappingFragment StoreEntitySet="vwCfdiFacturaImpuestosCabecera">
-                <ScalarProperty Name="valorTributoUnidad" ColumnName="valorTributoUnidad" />
-                <ScalarProperty Name="valorTotalImp" ColumnName="valorTotalImp" />
-                <ScalarProperty Name="unidadMedidaTributo" ColumnName="unidadMedidaTributo" />
-                <ScalarProperty Name="unidadMedida" ColumnName="unidadMedida" />
-                <ScalarProperty Name="porcentajeTotalImp" ColumnName="porcentajeTotalImp" />
-                <ScalarProperty Name="controlInterno" ColumnName="controlInterno" />
-                <ScalarProperty Name="codigoTotalImp" ColumnName="codigoTotalImp" />
-                <ScalarProperty Name="baseimponibletotalimp" ColumnName="baseimponibletotalimp" />
-                <ScalarProperty Name="sopnumbe" ColumnName="sopnumbe" />
-                <ScalarProperty Name="soptype" ColumnName="soptype" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vwCfdiFacturaImpuestosDetalles">
-            <EntityTypeMapping TypeName="PERUEntities.vwCfdiFacturaImpuestosDetalles">
-              <MappingFragment StoreEntitySet="vwCfdiFacturaImpuestosDetalles">
-                <ScalarProperty Name="valorTributoUnidad" ColumnName="valorTributoUnidad" />
-                <ScalarProperty Name="valorTotalImp" ColumnName="valorTotalImp" />
-                <ScalarProperty Name="unidadMedidaTributo" ColumnName="unidadMedidaTributo" />
-                <ScalarProperty Name="unidadMedida" ColumnName="unidadMedida" />
-                <ScalarProperty Name="porcentajeTotalImp" ColumnName="porcentajeTotalImp" />
-                <ScalarProperty Name="controlInterno" ColumnName="controlInterno" />
-                <ScalarProperty Name="codigoTotalImp" ColumnName="codigoTotalImp" />
-                <ScalarProperty Name="baseimponibletotalimp" ColumnName="baseimponibletotalimp" />
-                <ScalarProperty Name="cmpntseq" ColumnName="cmpntseq" />
-                <ScalarProperty Name="itemnmbr" ColumnName="itemnmbr" />
-                <ScalarProperty Name="lnitmseq" ColumnName="lnitmseq" />
-                <ScalarProperty Name="sopnumbe" ColumnName="sopnumbe" />
-                <ScalarProperty Name="soptype" ColumnName="soptype" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vwCfdiMediosDePago">
-            <EntityTypeMapping TypeName="PERUEntities.vwCfdiMediosDePago">
-              <MappingFragment StoreEntitySet="vwCfdiMediosDePago">
-                <ScalarProperty Name="numeroreferencia" ColumnName="numeroreferencia" />
-                <ScalarProperty Name="metodopago" ColumnName="metodopago" />
-                <ScalarProperty Name="mediopago" ColumnName="mediopago" />
-                <ScalarProperty Name="sopnumbe" ColumnName="sopnumbe" />
-                <ScalarProperty Name="soptype" ColumnName="soptype" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vwCfdiConceptos">
-            <EntityTypeMapping TypeName="PERUEntities.vwCfdiConceptos">
-              <MappingFragment StoreEntitySet="vwCfdiConceptos">
-                <ScalarProperty Name="facturadetalle_cantidadporempaque" ColumnName="facturadetalle_cantidadporempaque" />
-                <ScalarProperty Name="facturadetalle_unidadMedida" ColumnName="facturadetalle_unidadMedida" />
-                <ScalarProperty Name="facturadetalle_secuencia" ColumnName="facturadetalle_secuencia" />
-                <ScalarProperty Name="facturadetalle_precioVentaUnitario" ColumnName="facturadetalle_precioVentaUnitario" />
-                <ScalarProperty Name="facturadetalle_precioTotalSinImpuestos" ColumnName="facturadetalle_precioTotalSinImpuestos" />
-                <ScalarProperty Name="facturadetalle_precioTotal" ColumnName="facturadetalle_precioTotal" />
-                <ScalarProperty Name="facturadetalle_modelo" ColumnName="facturadetalle_modelo" />
-                <ScalarProperty Name="facturadetalle_marca" ColumnName="facturadetalle_marca" />
-                <ScalarProperty Name="facturadetalle_estandarcodigoproducto" ColumnName="facturadetalle_estandarcodigoproducto" />
-                <ScalarProperty Name="facturadetalle_estandarcodigo" ColumnName="facturadetalle_estandarcodigo" />
-                <ScalarProperty Name="facturadetalle_descripcion" ColumnName="facturadetalle_descripcion" />
-                <ScalarProperty Name="facturadetalle_codigoproducto" ColumnName="facturadetalle_codigoproducto" />
-                <ScalarProperty Name="cargosdescuentos_secuencia" ColumnName="cargosdescuentos_secuencia" />
-                <ScalarProperty Name="cargodescuentos_porcentaje" ColumnName="cargodescuentos_porcentaje" />
-                <ScalarProperty Name="cargosdescuentos_montobase" ColumnName="cargosdescuentos_montobase" />
-                <ScalarProperty Name="cargosdescuentos_monto" ColumnName="cargosdescuentos_monto" />
-                <ScalarProperty Name="cargosdescuentos_indicador" ColumnName="cargosdescuentos_indicador" />
-                <ScalarProperty Name="cargosdescuentos_descripcion" ColumnName="cargosdescuentos_descripcion" />
-                <ScalarProperty Name="cargosdescuentos_codigo" ColumnName="cargosdescuentos_codigo" />
-                <ScalarProperty Name="facturadetalle_cantidadunidades" ColumnName="facturadetalle_cantidadunidades" />
-                <ScalarProperty Name="facturadetalle_cantidadrealunidadmedida" ColumnName="facturadetalle_cantidadrealunidadmedida" />
-                <ScalarProperty Name="facturadetalle_cantidadreal" ColumnName="facturadetalle_cantidadreal" />
-                <ScalarProperty Name="cmpntseq" ColumnName="cmpntseq" />
-                <ScalarProperty Name="itemnmbr" ColumnName="itemnmbr" />
-                <ScalarProperty Name="lnitmseq" ColumnName="lnitmseq" />
-                <ScalarProperty Name="sopnumbe" ColumnName="sopnumbe" />
-                <ScalarProperty Name="soptype" ColumnName="soptype" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vwCfdiRelacionados">
-            <EntityTypeMapping TypeName="PERUEntities.vwCfdiRelacionados">
-              <MappingFragment StoreEntitySet="vwCfdiRelacionados">
-                <ScalarProperty Name="tipoCufe" ColumnName="tipoCufe" />
-                <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
-                <ScalarProperty Name="numeroDocumento" ColumnName="numeroDocumento" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="cufeDescripcion" ColumnName="cufeDescripcion" />
-                <ScalarProperty Name="codigoEstatusDocumento" ColumnName="codigoEstatusDocumento" />
-                <ScalarProperty Name="cufeDocReferenciado" ColumnName="cufeDocReferenciado" />
-                <ScalarProperty Name="billingReference" ColumnName="billingReference" />
-                <ScalarProperty Name="discrepancyResponse" ColumnName="discrepancyResponse" />
-                <ScalarProperty Name="codigoInterno" ColumnName="codigoInterno" />
-                <ScalarProperty Name="sopnumbeTo" ColumnName="sopnumbeTo" />
-                <ScalarProperty Name="soptypeTo" ColumnName="soptypeTo" />
-                <ScalarProperty Name="sopnumbeFrom" ColumnName="sopnumbeFrom" />
-                <ScalarProperty Name="soptypeFrom" ColumnName="soptypeFrom" />
-                <ScalarProperty Name="orden" ColumnName="orden" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vwCfdiGeneraDocumentoDeVenta">
-            <EntityTypeMapping TypeName="PERUEntities.vwCfdiGeneraDocumentoDeVenta">
-              <MappingFragment StoreEntitySet="vwCfdiGeneraDocumentoDeVenta">
-                <ScalarProperty Name="totalSinImpuestos" ColumnName="totalSinImpuestos" />
-                <ScalarProperty Name="totalProductos" ColumnName="totalProductos" />
-                <ScalarProperty Name="totalMonto" ColumnName="totalMonto" />
-                <ScalarProperty Name="totalBrutoconImpuestos" ColumnName="totalBrutoconImpuestos" />
-                <ScalarProperty Name="totalBaseImponible" ColumnName="totalBaseImponible" />
-                <ScalarProperty Name="tipoOperacion" ColumnName="tipoOperacion" />
-                <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
-                <ScalarProperty Name="tc_monedaDestino" ColumnName="tc_monedaDestino" />
-                <ScalarProperty Name="tc_monedaOrigen" ColumnName="tc_monedaOrigen" />
-                <ScalarProperty Name="tc_fechaDeTasaDeCambio" ColumnName="tc_fechaDeTasaDeCambio" />
-                <ScalarProperty Name="tc_baseMonedaDestino" ColumnName="tc_baseMonedaDestino" />
-                <ScalarProperty Name="tasaDeCambio" ColumnName="tasaDeCambio" />
-                <ScalarProperty Name="redondeoaplicado" ColumnName="redondeoaplicado" />
-                <ScalarProperty Name="rangonumeracion" ColumnName="rangonumeracion" />
-                <ScalarProperty Name="moneda" ColumnName="moneda" />
-                <ScalarProperty Name="fechaVencimiento" ColumnName="fechaVencimiento" />
-                <ScalarProperty Name="fechaEmision" ColumnName="fechaEmision" />
-                <ScalarProperty Name="cliente_actividadEconomicaCIIU" ColumnName="cliente_actividadEconomicaCIIU" />
-                <ScalarProperty Name="cliente_tipoPersona" ColumnName="cliente_tipoPersona" />
-                <ScalarProperty Name="cliente_numeroDocumento" ColumnName="cliente_numeroDocumento" />
-                <ScalarProperty Name="cliente_notificar" ColumnName="cliente_notificar" />
-                <ScalarProperty Name="cliente_nombreRazonSocial" ColumnName="cliente_nombreRazonSocial" />
-                <ScalarProperty Name="cliente_nombreComercial" ColumnName="cliente_nombreComercial" />
-                <ScalarProperty Name="cliente_tipoIdentificacion" ColumnName="cliente_tipoIdentificacion" />
-                <ScalarProperty Name="cliente_numeroIdentificacionDV" ColumnName="cliente_numeroIdentificacionDV" />
-                <ScalarProperty Name="cliente_numeroIdentificacion" ColumnName="cliente_numeroIdentificacion" />
-                <ScalarProperty Name="cliente_nombreRegistroRUT" ColumnName="cliente_nombreRegistroRUT" />
-                <ScalarProperty Name="cliente_email" ColumnName="cliente_email" />
-                <ScalarProperty Name="cliente_difzonapostal" ColumnName="cliente_difzonapostal" />
-                <ScalarProperty Name="cliente_difpais" ColumnName="cliente_difpais" />
-                <ScalarProperty Name="cliente_difmunicipio" ColumnName="cliente_difmunicipio" />
-                <ScalarProperty Name="cliente_diflenguaje" ColumnName="cliente_diflenguaje" />
-                <ScalarProperty Name="cliente_difdireccion" ColumnName="cliente_difdireccion" />
-                <ScalarProperty Name="cliente_difdepartamento" ColumnName="cliente_difdepartamento" />
-                <ScalarProperty Name="cliente_difcodigoDepartamento" ColumnName="cliente_difcodigoDepartamento" />
-                <ScalarProperty Name="cliente_difciudad" ColumnName="cliente_difciudad" />
-                <ScalarProperty Name="cliente_telefono" ColumnName="cliente_telefono" />
-                <ScalarProperty Name="cliente_nitProveedorReceptor" ColumnName="cliente_nitProveedorReceptor" />
-                <ScalarProperty Name="cargosdescuentos_secuencia" ColumnName="cargosdescuentos_secuencia" />
-                <ScalarProperty Name="cargodescuentos_porcentaje" ColumnName="cargodescuentos_porcentaje" />
-                <ScalarProperty Name="cargosdescuentos_montobase" ColumnName="cargosdescuentos_montobase" />
-                <ScalarProperty Name="cargosdescuentos_monto" ColumnName="cargosdescuentos_monto" />
-                <ScalarProperty Name="cargosdescuentos_indicador" ColumnName="cargosdescuentos_indicador" />
-                <ScalarProperty Name="cargosdescuentos_descripcion" ColumnName="cargosdescuentos_descripcion" />
-                <ScalarProperty Name="cargosdescuentos_codigo" ColumnName="cargosdescuentos_codigo" />
-                <ScalarProperty Name="consecutivoDocumento" ColumnName="consecutivoDocumento" />
-                <ScalarProperty Name="cantidadDecimales" ColumnName="cantidadDecimales" />
-                <ScalarProperty Name="CUSTNMBR" ColumnName="CUSTNMBR" />
-                <ScalarProperty Name="sopnumbe" ColumnName="sopnumbe" />
-                <ScalarProperty Name="soptype" ColumnName="soptype" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -223,12 +223,12 @@ as
 		end								cliente_numeroIdentificacionDV,
 
 		nitTercero.nsaif_type_nit		cliente_tipoIdentificacion,
-		null							cliente_nombreComercial,
+		''								cliente_nombreComercial,
 		tv.nombreCliente				cliente_nombreRazonSocial,
 		case when tv.send_email_statements=1 then 'SI' else 'NO' end cliente_notificar,
 		substring(reverse(tv.idImpuestoCliente), 2, 20)	cliente_numeroDocumento,
 		left(tv.userdef2, 1)			cliente_tipoPersona,
-		null							cliente_actividadEconomicaCIIU,
+		''								cliente_actividadEconomicaCIIU,
 
 		convert(varchar(10), tv.docdate, 111) + ' ' + convert(varchar(10), tv.fechaHora, 108) fechaEmision,
 		tv.duedate						fechaVencimiento,

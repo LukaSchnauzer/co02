@@ -8,11 +8,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using emisionfacturacolombia.Colombia;
-<<<<<<< HEAD
-=======
 using System.Xml.Serialization;
-//using System.Xml;
->>>>>>> Elimina los ceros a la izquierda del consecutivo de la factura
 
 namespace cfdiColombiaOperadorServiciosElectronicos
 {
@@ -20,9 +16,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
     {
         private FacturaGeneral DocEnviarWS = new FacturaGeneral();
         //instancia un objeto que tiene la direccion del servicio web
-        //ServiceEmision.ServiceClient serviceClient;
         private ServiceClient ServicioWS = new ServiceClient();
-        string debug_xml;
         string MensajeError;        
 
         public WebServicesOSE(string URLwebServPAC)
@@ -37,10 +31,8 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             DocEnviarWS = new FacturaGeneral();
             int i = 0; // Variable para loopear                       
             int correlativo = 1; // Variable para corre de productos;            
-            debug_xml = "";
 
             //FACTURA GENERAL
-            debug_xml = "<FACTURA GENERAL> \r\n";            
             DocEnviarWS.cantidadDecimales = documentoGP.DocVenta.cantidadDecimales.ToString();
             DocEnviarWS.consecutivoDocumento = documentoGP.DocVenta.consecutivoDocumento;           
             DocEnviarWS.cliente = new Cliente();
@@ -52,11 +44,11 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             DocEnviarWS.cliente.telefono = documentoGP.DocVenta.cliente_telefono;
             DocEnviarWS.cliente.email = documentoGP.DocVenta.cliente_email;
             DocEnviarWS.cliente.numeroIdentificacionDV = documentoGP.DocVenta.cliente_numeroIdentificacionDV;
-            if (documentoGP.DocVenta.cliente_nombreComercial != null)
+            if (!string.IsNullOrEmpty( documentoGP.DocVenta.cliente_nombreComercial))
             {
                 DocEnviarWS.cliente.nombreComercial = documentoGP.DocVenta.cliente_nombreComercial;
             }
-            if(documentoGP.DocVenta.cliente_actividadEconomicaCIIU != null)
+            if(!string.IsNullOrEmpty(documentoGP.DocVenta.cliente_actividadEconomicaCIIU ))
             {
                 DocEnviarWS.cliente.actividadEconomicaCIIU = documentoGP.DocVenta.cliente_actividadEconomicaCIIU;
             }
@@ -66,7 +58,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             {
                 Destinatario destinatario1 = new Destinatario();
                 destinatario1.email = new String[j];
-                destinatario1.email[j] = documentoGP._clides[j].cliente_email;//"email@gmail.com"; //em[0];            
+                destinatario1.email[j] = documentoGP._clides[j].cliente_email;
                 destinatario1.canalDeEntrega = documentoGP._clides[j].cliente_canalEntrega;
                 DocEnviarWS.cliente.destinatario[j] = destinatario1;
             }
@@ -82,7 +74,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
 
             // SECCION DIRECCION FISCAL,
             Direccion direccionFiscal = new Direccion();            
-            direccionFiscal.ciudad = documentoGP.DocVenta.cliente_difciudad;
+            direccionFiscal.ciudad = documentoGP.DocVenta.cliente_difCiudad;
             direccionFiscal.codigoDepartamento = documentoGP.DocVenta.cliente_difcodigoDepartamento;//"11";
             direccionFiscal.departamento = documentoGP.DocVenta.cliente_difdepartamento;
             direccionFiscal.direccion = documentoGP.DocVenta.cliente_difdireccion;//"Direccion";
@@ -110,16 +102,10 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             obligaciones1.regimen = documentoGP._cliobl.cliente_regimen;
             DocEnviarWS.cliente.responsabilidadesRut[0] = obligaciones1;
             //FIN OBLIGACIONES DE LA VISTA vwCfdiClienteObligaciones            
-            // FORMO EL DEBUG_XML DE CLIENTE      
-            debug_xml = debug_xml + "<CLIENTE> \r\n";
-            debug_xml = debug_xml  + DocEnviarWS.cliente + "\r\n";
-            debug_xml = debug_xml + " <FIN CLIENTE> \r\n";            
             // FIN SECCION COMPROBANTE            
 
             //SECCION CONCEPTOS O DETALLES DE LA FACTURA
             DocEnviarWS.detalleDeFactura = new FacturaDetalle[documentoGP.LDocVentaConceptos.Count()];
-            debug_xml = debug_xml + "FACTURA DETALLE \r\n";
-            debug_xml = debug_xml + "<CANT PROD>" + DocEnviarWS.detalleDeFactura.Count() + "\r\n";
             i = 0; correlativo = 1;
             int toi = 0;
             foreach(vwCfdiConceptos detalleDeFactura_gp in documentoGP.LDocVentaConceptos)
@@ -134,39 +120,29 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                 detalle1.cantidadReal = detalleDeFactura_gp.facturadetalle_cantidadreal.ToString();
                 detalle1.cantidadRealUnidadMedida = detalleDeFactura_gp.facturadetalle_cantidadrealunidadmedida;
                 detalle1.cantidadUnidades = detalleDeFactura_gp.facturadetalle_cantidadunidades.ToString();
-                detalle1.secuencia = detalleDeFactura_gp.facturadetalle_secuencia;                
+                detalle1.secuencia = detalleDeFactura_gp.facturadetalle_secuencia.ToString();                
                 detalle1.cantidadPorEmpaque = Convert.ToInt32(detalleDeFactura_gp.facturadetalle_cantidadporempaque).ToString();
-                detalle1.precioVentaUnitario = Math.Round((double)detalleDeFactura_gp.facturadetalle_precioVentaUnitario, 2).ToString();// "00000000000000.00");
+                detalle1.precioVentaUnitario = detalleDeFactura_gp.facturadetalle_precioVentaUnitario.ToString();// "00000000000000.00");
                 detalle1.precioTotalSinImpuestos = detalleDeFactura_gp.facturadetalle_precioTotalSinImpuestos.ToString();//("00000000000000.00");
                 detalle1.precioTotal = detalleDeFactura_gp.facturadetalle_precioTotal.ToString();
-                debug_xml = debug_xml + "Código Produco \r\n" + detalle1.codigoProducto;
-                debug_xml = debug_xml + "Descripción Producto \r\n" + detalle1.descripcion;
-                debug_xml = debug_xml + "Unidad de Medida \r\n" + detalle1.unidadMedida;
-                debug_xml = debug_xml + "Cantidad de Unidades \r\n" + detalle1.cantidadUnidades;
-                debug_xml = debug_xml + "Precio Venta Unitario \r\n" + detalle1.precioVentaUnitario;
-                debug_xml = debug_xml + "Precio Total Sin Impuestos \r\n" + detalle1.precioTotalSinImpuestos;
-                debug_xml = debug_xml + "Precio Total \r\n" + detalle1.precioTotal;
                 //FIN DETALLES BASICOS
 
                 //IMPUESTOS DETALLES DE FACTURA DETALLES 
                 int imp3 = documentoGP._facimpdet.Count();
-                detalle1.impuestosDetalles = new FacturaImpuestos[imp3];                
+                detalle1.impuestosDetalles = new FacturaImpuestos[imp3];
                 for (int j = 0; j <= imp3; j++)
                 {
                     FacturaImpuestos impuestodetalles1 = new FacturaImpuestos();
-                    impuestodetalles1.baseImponibleTOTALImp = Math.Round(documentoGP._facimpdet[j].baseimponibletotalimp).ToString();//("00000000000000.00");
+                    impuestodetalles1.baseImponibleTOTALImp = documentoGP._facimpdet[j].baseImponibleTotalImp.ToString();//("00000000000000.00");
                     impuestodetalles1.codigoTOTALImp = documentoGP._facimpdet[j].codigoTotalImp;
                     impuestodetalles1.controlInterno = documentoGP._facimpdet[j].controlInterno;
-                    impuestodetalles1.porcentajeTOTALImp = Convert.ToDecimal(documentoGP._facimpdet[j].porcentajeTotalImp).ToString(); //("00.00");
-                    impuestodetalles1.valorTOTALImp = Math.Round((double)documentoGP._facimpdet[j].valorTotalImp, 2).ToString();// ("00000000000000.00");
+                    impuestodetalles1.porcentajeTOTALImp = documentoGP._facimpdet[j].porcentajeTotalImp.ToString(); //("00.00");
+                    impuestodetalles1.valorTOTALImp = documentoGP._facimpdet[j].valorTotalImp.ToString();// ("00000000000000.00");
                     if (documentoGP._facimpdet[j].unidadMedida != null)
                     {
                         impuestodetalles1.unidadMedida = documentoGP._facimpdet[j].unidadMedida.ToString();
                     }
                     detalle1.impuestosDetalles[j] = impuestodetalles1;
-                    debug_xml = debug_xml + "<Impuestos Detalles de Factura Detalles>\n\r";
-                    debug_xml = debug_xml + "<impuestosdetalle>" + detalle1.impuestosDetalles[j] + "\r\n";
-                    debug_xml = debug_xml + "<FIN de Impuestos Detalles de Factura Detalles>\n\r";
                     //FIN IMPUESTOS DETALLES DE FACTURA DETALLE
                 }
 
@@ -179,9 +155,6 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                     impuestosTotales1.codigoTOTALImp = documentoGP._facimpcab[j].codigoTotalImp;
                     impuestosTotales1.montoTotal = documentoGP._facimpcab[j].valorTotalImp.ToString();// ("000000000000000.000000");
                     detalle1.impuestosTotales[0] = impuestosTotales1;
-                    debug_xml = debug_xml + "<Impuestos Totales de Facturas Detalles>\n\r";
-                    debug_xml = debug_xml + "<impuestos totales>" + detalle1.impuestosTotales[j] + "\r\n";
-                    debug_xml = debug_xml + "<Fin de Impuestos totales de Factura Detalles>\n\r";
                 }
                 //FIN IMPUESTOS TOTALES DE FACTURA DETALLE  
                 
@@ -191,7 +164,6 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                 correlativo++;
                 toi = toi + 1;
             }
-            debug_xml = debug_xml + "<FIN DETALLES>\r\n";
             //FIN SECCION DETALLES DE LA FACTURA            
 
             //SECCION FACTURA MEDIOS DE PAGO. MEDIOS DE PAGO VIENE DE LA VISTA vwCfdiMediosDePago]
@@ -204,11 +176,6 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                 mediopago1.numeroDeReferencia = documentoGP._medpag[j].numeroreferencia;
                 mediopago1.metodoDePago = documentoGP._medpag[j].metodopago;
                 DocEnviarWS.mediosDePago[j] = mediopago1;
-                debug_xml = debug_xml + "<MEDIOS DE PAGO>\r\n";
-                debug_xml = debug_xml + "<mediopago>" + mediopago1.medioPago + "\r\n";
-                debug_xml = debug_xml + "<metodopago>" + mediopago1.metodoDePago + "\r\n";
-                debug_xml = debug_xml + "<numeroreferencia>" + mediopago1.numeroDeReferencia + "\r\n";
-                debug_xml = debug_xml + "<FIN MEDIOS DE PAGO>\r\n";
             }
             //FIN MEDIOS DE PAGO            
             DocEnviarWS.fechaEmision = Convert.ToDateTime(documentoGP.DocVenta.fechaEmision).ToString("yyyy-MM-dd 00:00:00");
@@ -220,16 +187,13 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             for (int j = 0; j <= imp; j++)
             {
                 FacturaImpuestos impuestosg1 = new FacturaImpuestos();
-                impuestosg1.baseImponibleTOTALImp = documentoGP._facimpdet[j].baseimponibletotalimp.ToString();// ("00000000000000.00");
+                impuestosg1.baseImponibleTOTALImp = documentoGP._facimpdet[j].baseImponibleTotalImp.ToString();// ("00000000000000.00");
                 impuestosg1.codigoTOTALImp = documentoGP._facimpdet[j].codigoTotalImp.ToString();
                 impuestosg1.controlInterno = documentoGP._facimpdet[j].controlInterno.ToString();
                 impuestosg1.porcentajeTOTALImp = documentoGP._facimpdet[j].porcentajeTotalImp.ToString();
                 impuestosg1.valorTOTALImp = documentoGP._facimpdet[j].valorTotalImp.ToString();// ("00000000000000.00");
                 impuestosg1.unidadMedida = documentoGP._facimpdet[j].unidadMedida;
                 DocEnviarWS.impuestosGenerales[j] = impuestosg1;
-                debug_xml = debug_xml + "<IMPUESTOS GENERALES>\n\r";
-                debug_xml = debug_xml + "<impuestos generales>" + DocEnviarWS.impuestosGenerales[j] + "\r\n";
-                debug_xml = debug_xml + "<FIN IMPUESTOS GENERALES>\n\r";
                 //FIN SECCION IMPUESTOS GENERALES
             }
             //SECCION IMPUESTOS TOTALES
@@ -242,15 +206,12 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                 impuestototales1.codigoTOTALImp = documentoGP._facimpcab[m].codigoTotalImp;
                 impuestototales1.montoTotal = documentoGP._facimpcab[m].valorTotalImp.ToString();// es una sumatoria de valorTotalImp
                 DocEnviarWS.impuestosTotales[m] = impuestototales1;
-                debug_xml = debug_xml + "<IMPUESTOS TOTALES>\n\r";
-                debug_xml = debug_xml + "<impuestos totales>" + DocEnviarWS.impuestosTotales[m] + "\r\n";
-                debug_xml = debug_xml + "<FIN IMPUESTOS TOTALES>\n\r";
             }
             //FIN SECCION IMPUESTOS TOTALES
             DocEnviarWS.moneda = documentoGP.DocVenta.moneda.ToString();
             DocEnviarWS.rangoNumeracion = documentoGP.DocVenta.rangonumeracion;
             DocEnviarWS.redondeoAplicado = documentoGP.DocVenta.redondeoaplicado.ToString();
-            //TAZA DE CAMBIO
+            //TASA DE CAMBIO
             //tasaDeCambio = new TasaDeCambio();
             //DocEnviarWS.tasaDeCambio = new TasaDeCambio();
             //TasaDeCambio tasadecambio1 = new TasaDeCambio();            
@@ -260,54 +221,45 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             //tasadecambio1.monedaDestino = documentoGP.DocVenta.tc_monedaDestino;
             //tasadecambio1.tasaDeCambio = documentoGP.DocVenta.tasaDeCambio.ToString();
             //DocEnviarWS.tasaDeCambio = tasadecambio1;
-            //FIN TAZA DE CAMBIO
+            //FIN TASA DE CAMBIO
             DocEnviarWS.tipoDocumento = documentoGP.DocVenta.tipoDocumento;
             DocEnviarWS.tipoOperacion = documentoGP.DocVenta.tipoOperacion;
-            DocEnviarWS.totalBaseImponible = documentoGP.DocVenta.totalBaseImponible.ToString();// ("0000000000000000.000000");//ver si va este campo en la vista principal vwGenerarDocumentoDeVenta
+            DocEnviarWS.totalBaseImponible = documentoGP.DocVenta.totalBaseImponible.ToString();// ("0000000000000000.000000");
             DocEnviarWS.totalBrutoConImpuesto = documentoGP.DocVenta.totalBrutoconImpuestos.ToString();// ("0000000000000000.000000");
             DocEnviarWS.totalMonto = Convert.ToDecimal(documentoGP.DocVenta.totalMonto).ToString();// ("0000000000000000.000000");
             DocEnviarWS.totalProductos = toi.ToString();// ("00000");
             DocEnviarWS.totalSinImpuestos = documentoGP.DocVenta.totalSinImpuestos.ToString();// ("0000000000000000.000000");
             
-            debug_xml = debug_xml + "<rango numeración>" + DocEnviarWS.rangoNumeracion + "\r\n";
-            debug_xml = debug_xml + "<redondeo aplicado>" + DocEnviarWS.redondeoAplicado + "\r\n";
-            //debug_xml = debug_xml + "<tasa de cambio>" + DocEnviarWS.tasaDeCambio + "\r\n";
-            debug_xml = debug_xml + "<tipo documento>" + DocEnviarWS.tipoDocumento + "\r\n";
-            debug_xml = debug_xml + "<tipo operacion>" + DocEnviarWS.tipoOperacion + "\r\n";
-            debug_xml = debug_xml + "<total Base Imponible>" + DocEnviarWS.totalBaseImponible + "\r\n";
-            debug_xml = debug_xml + "<total Bruto con Impuestos>" + DocEnviarWS.totalBrutoConImpuesto + "\r\n";
-            debug_xml = debug_xml + "<total Monto>" + DocEnviarWS.totalMonto+ "\r\n";
-            debug_xml = debug_xml + "<total Productos>" + DocEnviarWS.totalProductos + "\r\n";
-            debug_xml = debug_xml + "<total sin impuestos>" + DocEnviarWS.totalSinImpuestos + "\r\n";
             //FIN SECCION FACTURA FINAL
-            debug_xml = debug_xml + "<FIN FACTURA GENERAL>";
             //FIN FACTURA GENERAL
             return DocEnviarWS;
         }
 
-        //public string TimbraYEnviaASunat(string ruc, string usuario, string usuarioPassword, DocumentoVentaGP documentoGP)
         public string TimbraYEnviaServicioDeImpuesto(string ruc, string usuario, string usuarioPassword, DocumentoVentaGP documentoGP)
         {
             var docWs = ArmaDocumentoEnviarWS(documentoGP);
-            StreamWriter MyFile = new StreamWriter(@"Request_factura.txt"); //ruta y name del archivo request a almecenar
-            XmlSerializer Serializer1 = new XmlSerializer(typeof(FacturaGeneral));
-            Serializer1.Serialize(MyFile, docWs); // Objeto serializado
-            MyFile.Close();
 
-            //var response = ServicioWS.Enviar("89ab70d025c1cb8c5bac3f5ac319a94728e42e3a", "3cfb75199b5d14cdb706a55555a055488b1fad6c", docWs, "0");
             DocumentResponse response = ServicioWS.Enviar("89ab70d025c1cb8c5bac3f5ac319a94728e42e3a", "3cfb75199b5d14cdb706a55555a055488b1fad6c", docWs, "0");
             
-            if (response.codigo == 0)
+            if (response.codigo == 200)
             {
                 byte[] converbyte = Convert.FromBase64String(response.xml.ToString());
                 return System.Text.Encoding.UTF8.GetString(converbyte);            
             }
             else
-            {   
-                if (response.codigo == 202 || response.codigo == 207)
-                    throw new ArgumentException(response.codigo.ToString() + " - " + response.mensaje);
-                else
-                    throw new TimeoutException("Excepción al conectarse con el Web Service de Facturación. " + response.codigo.ToString() + " - " + response.mensaje + " " + debug_xml);
+            {
+                string docSerializado = string.Empty;
+                XmlSerializer xml = new XmlSerializer(typeof(FacturaGeneral));
+                using (StringWriter sw = new StringWriter() )
+                {           
+                    xml.Serialize(sw, docWs);
+                    docSerializado = sw.ToString();
+                }
+
+                //if (response.codigo == 202 || response.codigo == 207)
+                //    throw new ArgumentException(response.codigo.ToString() + " - " + response.mensaje + " - " + response.mensajesValidacion.ToString());
+                //else
+                throw new TimeoutException("Excepción al conectarse con el Web Service de Facturación [TimbraYEnviaServicioDeImpuesto] " + response.codigo.ToString() + " - " + response.mensaje + Environment.NewLine + response.mensajesValidacion.ToString() + Environment.NewLine + docSerializado);
 
             }
 
@@ -317,21 +269,25 @@ namespace cfdiColombiaOperadorServiciosElectronicos
         {
             var docWs = ArmaDocumentoEnviarWS(documentoGP);
             var response = await ServicioWS.EnviarAsync("89ab70d025c1cb8c5bac3f5ac319a94728e42e3a", "3cfb75199b5d14cdb706a55555a055488b1fad6c", docWs, "0");
-            //DocumentResponse docRespuesta  = await ServicioWS.EnviarAsync("89ab70d025c1cb8c5bac3f5ac319a94728e42e3a", "3cfb75199b5d14cdb706a55555a055488b1fad6c", docWs, "0");
-            if (response.codigo == 0)
+            if (response.codigo == 200)
             {
-                //docRespuesta.resultado.ToString();
                 byte[] converbyte = Convert.FromBase64String(response.xml.ToString());
                 return System.Text.Encoding.UTF8.GetString(converbyte);
-             //DocumentResponse docRespuesta = new DocumentResponse(); //objeto Response del metodo enviar
-                
             }
             else
             {
-                if (response.codigo == 202 || response.codigo == 207)
-                    throw new ArgumentException(response.codigo.ToString() + " - " + response.mensaje);
-                else
-                    throw new TimeoutException("Excepción al conectarse con el Web Service de Facturación. [TimbraYEnviaASunatAsync] " + response.codigo.ToString() + " - " + response.mensaje + " " + debug_xml + " ruc: " + ruc + " USu: " + usuario + "/" + usuarioPassword);
+                string docSerializado = string.Empty;
+                XmlSerializer xml = new XmlSerializer(typeof(FacturaGeneral));
+                using (StringWriter sw = new StringWriter())
+                {
+                    xml.Serialize(sw, docWs);
+                    docSerializado = sw.ToString();
+                }
+
+                //if (response.codigo == 202 || response.codigo == 207)
+                //    throw new ArgumentException(response.codigo.ToString() + " - " + response.mensaje);
+                //else
+                throw new TimeoutException("Excepción al conectarse con el Web Service de Facturación. [TimbraYEnviaServicioDeImpuestoAsync] " + response.codigo.ToString() + " - " + response.mensaje + Environment.NewLine + docSerializado);
 
             }
 
@@ -342,9 +298,9 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             string rutaYNomArchivoPDF = Path.Combine(ruta, nombreArchivo + extension);
 
             //var response_descarga = await ServicioWS.DescargaArchivoAsync(usuario, usuarioPassword, ruc + "-" + tipoDoc + "-" + serie + "-" + correlativo, "PDF");
-            var response_descarga = await ServicioWS.DescargaPDFAsync("a64532c2a3b14050b893e78832e714f160eacdfd", "25cf0e943ce74feaa717b1f5464ea6e4591b3809", "PRUE980338212");
+            var response_descarga = await ServicioWS.DescargaPDFAsync("89ab70d025c1cb8c5bac3f5ac319a94728e42e3a", "3cfb75199b5d14cdb706a55555a055488b1fad6c", serie+correlativo);
 
-            if (response_descarga.codigo == 0)
+            if (response_descarga.codigo == 200)
             {
 
                 byte[] converbyte = Convert.FromBase64String(response_descarga.documento.ToString());
@@ -360,7 +316,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
         
             else
             {
-                throw new Exception("Excepción al descargar el PDF del servicio web. " + response_descarga.codigo.ToString() + " - " + response_descarga.mensaje + " " + response_descarga.cufe);
+                throw new Exception("Excepción al descargar el PDF del servicio web. [ObtienePDFdelOSEAsync] " + response_descarga.codigo.ToString() + " - " + response_descarga.mensaje + " " + response_descarga.cufe);
             }
         }
         

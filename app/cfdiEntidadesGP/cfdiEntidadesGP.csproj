@@ -91,9 +91,6 @@
     <Compile Include="vwCfdiGeneraDocumentoDeVenta.cs">
       <DependentUpon>AdoModelGP.tt</DependentUpon>
     </Compile>
-    <Compile Include="vwCfdiGeneraResumenDiario.cs">
-      <DependentUpon>AdoModelGP.tt</DependentUpon>
-    </Compile>
     <Compile Include="vwCfdiMediosDePago.cs">
       <DependentUpon>AdoModelGP.tt</DependentUpon>
     </Compile>

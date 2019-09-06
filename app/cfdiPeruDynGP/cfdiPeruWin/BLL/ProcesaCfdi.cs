@@ -146,7 +146,7 @@ namespace cfd.FacturaElectronica
                                     //xmlFactura = await servicioTimbre.TimbraYEnviaASunatAsync(trxVenta.DocGP.DocVenta.consecutivoDocumento, trxVenta.Ruta_certificadoPac, trxVenta.Contrasenia_clavePac, trxVenta.DocGP);
                                     // la siguiente linea envia el metodo timbraYEnviaServivio>DeImpuesto envia el objeto armado con la factura al servicio web.
                                     //xmlFactura = await servicioTimbre.TimbraYEnviaServicioDeImpuestoAsync(trxVenta.DocGP.DocVenta.consecutivoDocumento, trxVenta.Ruta_certificadoPac, trxVenta.Contrasenia_clavePac, trxVenta.DocGP);
-                                    xmlFactura = servicioTimbre.TimbraYEnviaServicioDeImpuesto(trxVenta.DocGP.DocVenta.consecutivoDocumento, trxVenta.Ruta_certificadoPac, trxVenta.Contrasenia_clavePac, trxVenta.DocGP);
+                                    xmlFactura = await servicioTimbre.TimbraYEnviaServicioDeImpuestoAsync(trxVenta.DocGP.DocVenta.consecutivoDocumento, trxVenta.Ruta_certificadoPac, trxVenta.Contrasenia_clavePac, trxVenta.DocGP);
                                     //xmlFactura = servicioTimbre.TimbraYEnviaServicioDeImpuesto(trxVenta.DocGP.DocVenta.consecutivoDocumento, "89ab70d025c1cb8c5bac3f5ac319a94728e42e3a", "3cfb75199b5d14cdb706a55555a055488b1fad6c", trxVenta.DocGP);
                                     DocVenta.RegistraLogDeArchivoXML(trxVenta.Soptype, trxVenta.Sopnumbe, rutaYNom, "FAC", _Conex.Usuario, xmlFactura.Replace("encoding=\"utf-8\"", "").Replace("encoding=\"iso-8859-1\"", ""), maquina.DestinoStatusBase, maquina.DestinoEBinario, maquina.DestinoMensaje);
 
