@@ -11,9 +11,7 @@ namespace cfdiEntidadesGP
     public class DocumentoVentaGP
     {
         vwCfdiGeneraDocumentoDeVenta _DocVenta;
-        //vwCfdiGeneraResumenDiario _resumenCab;
         public List<vwCfdiFacturaImpuestosCabecera> _facimpcab;
-        //List<vwCfdiGeneraResumenDiario> _lDocResumenLineas;
         List <vwCfdiConceptos> _LDocVentaConceptos;
         public List<vwCfdiRelacionados> _LDocVentaRelacionados;
         public List<vwCfdiFacturaImpuestosDetalles> _facimpdet;
@@ -28,8 +26,6 @@ namespace cfdiEntidadesGP
             _DocVenta = new vwCfdiGeneraDocumentoDeVenta();
             _facimpcab = new List<vwCfdiFacturaImpuestosCabecera>();
             _LDocVentaRelacionados = new List<vwCfdiRelacionados>();
-            //_resumenCab = new vwCfdiGeneraResumenDiario();
-            //_lDocResumenLineas = new List<vwCfdiGeneraResumenDiario>();
             _facimpdet = new List<vwCfdiFacturaImpuestosDetalles>();
             _clides = new List<vwCfdiClienteDestinatario>();
             _cliobl = new vwCfdiClienteObligaciones();
