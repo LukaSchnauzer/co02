@@ -205,9 +205,8 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                 debug_xml = debug_xml + "<numeroreferencia>" + mediopago1.numeroDeReferencia + "\r\n";
                 debug_xml = debug_xml + "<FIN MEDIOS DE PAGO>\r\n";
             }
-            //FIN MEDIOS DE PAGO            
+            //FIN MEDIOS DE PAGO         
             DocEnviarWS.fechaEmision = Convert.ToDateTime(documentoGP.DocVenta.fechaEmision).ToString("yyyy-MM-dd 00:00:00");
-            
             DocEnviarWS.fechaVencimiento = Convert.ToDateTime(documentoGP.DocVenta.fechaVencimiento).ToString("yyyy-MM-dd");
             //SECCION IMPUESTOS GLOBALES O GENERALES
             int imp = documentoGP._facimpdet.Count();
