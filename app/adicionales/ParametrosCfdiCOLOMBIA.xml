@@ -2,14 +2,14 @@
 <listaParametros>
   <servidor>10.1.1.22</servidor>
   <seguridadIntegrada>0</seguridadIntegrada>
-  <usuariosql>FECOL1</usuariosql>
-  <passwordsql>fecol1</passwordsql>
+  <usuariosql>sa</usuariosql>
+  <passwordsql>sa22</passwordsql>
   <compannia bd="COL10">
     <URLArchivoXSD>NA</URLArchivoXSD>
     <URLArchivoXSLT>NA</URLArchivoXSLT>
     <URLConsulta>NA</URLConsulta>
     <PAC>
-      <urlWebService>http://demoemision.thefactoryhka.com.co/ws/obj/v1.1/Service.svc?wsdl </urlWebService>
+      <urlWebService>http://testubl21.thefactoryhka.com.co/ws/v1.0/Service.svc</urlWebService>
     </PAC>
     <reporteador>na</reporteador>
 	<reporteExtensiones>

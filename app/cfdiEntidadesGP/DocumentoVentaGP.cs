@@ -11,9 +11,7 @@ namespace cfdiEntidadesGP
     public class DocumentoVentaGP
     {
         vwCfdiGeneraDocumentoDeVenta _DocVenta;
-        vwCfdiGeneraResumenDiario _resumenCab;
         public List<vwCfdiFacturaImpuestosCabecera> _facimpcab;
-        List<vwCfdiGeneraResumenDiario> _lDocResumenLineas;
         List <vwCfdiConceptos> _LDocVentaConceptos;
         public List<vwCfdiRelacionados> _LDocVentaRelacionados;
         public List<vwCfdiFacturaImpuestosDetalles> _facimpdet;
@@ -28,8 +26,6 @@ namespace cfdiEntidadesGP
             _DocVenta = new vwCfdiGeneraDocumentoDeVenta();
             _facimpcab = new List<vwCfdiFacturaImpuestosCabecera>();
             _LDocVentaRelacionados = new List<vwCfdiRelacionados>();
-            _resumenCab = new vwCfdiGeneraResumenDiario();
-            _lDocResumenLineas = new List<vwCfdiGeneraResumenDiario>();
             _facimpdet = new List<vwCfdiFacturaImpuestosDetalles>();
             _clides = new List<vwCfdiClienteDestinatario>();
             _cliobl = new vwCfdiClienteObligaciones();
@@ -87,31 +83,6 @@ namespace cfdiEntidadesGP
             }
         }
 
-        public vwCfdiGeneraResumenDiario ResumenCab
-        {
-            get
-            {
-                return _resumenCab;
-            }
-
-            set
-            {
-                _resumenCab = value;
-            }
-        }
-
-        public List<vwCfdiGeneraResumenDiario> LDocResumenLineas
-        {
-            get
-            {
-                return _lDocResumenLineas;
-            }
-
-            set
-            {
-                _lDocResumenLineas = value;
-            }
-        }
         public List<vwCfdiFacturaImpuestosDetalles> facimpdet
         {
             get
@@ -164,7 +135,7 @@ namespace cfdiEntidadesGP
 
         public static async Task<string> GetParametrosTipoLeyendaAsync()
         {
-            using (var ctx = new PER10Entities())
+            using (var ctx = new COLEntities())
             {
                 var leyendas = await ctx.fCfdiParametrosTipoLeyenda("LEYENDASFE", "CMP").AsQueryable().ToListAsync();
                 return leyendas.FirstOrDefault().inetinfo;
@@ -173,7 +144,7 @@ namespace cfdiEntidadesGP
 
         public void GetDatosDocumentoVenta(String Sopnumbe, short Soptype)
         {            
-            using (PER10Entities dv = new PER10Entities())
+            using (COLEntities dv = new COLEntities())
             {
                 _DocVenta = dv.vwCfdiGeneraDocumentoDeVenta
                                     .Where(v => v.sopnumbe == Sopnumbe && v.soptype == Soptype)
@@ -197,11 +168,11 @@ namespace cfdiEntidadesGP
                                     //.First();
                                     .ToList();
                 _clides = dv.vwCfdiClienteDestinatario
-                                    .Where(v => v.CUSTNMBR == _DocVenta.CUSTNMBR)
+                                    .Where(v => v.custnmbr == _DocVenta.custnmbr)
                                     //.First();
                                     .ToList();
                 _cliobl = dv.vwCfdiClienteObligaciones
-                                   .Where(v => v.CUSTNMBR == _DocVenta.CUSTNMBR)
+                                   .Where(v => v.custnmbr == _DocVenta.custnmbr)
                                    .First();
                 //var resDoc = dv.vwCfdiGeneraDocumentoDeVenta.Where(v => v.sopnumbe == Sopnumbe && v.soptype == Soptype);
                 //foreach (vwCfdiGeneraDocumentoDeVenta doc in resDoc)
@@ -223,18 +194,6 @@ namespace cfdiEntidadesGP
 
             }
 
-        }
-        public void GetDatosResumenBoletas(String Sopnumbe, short Soptype)
-        {
-            using (PER10Entities dv = new PER10Entities())
-            {
-                //System.Diagnostics.Debugger.NotifyOfCrossThreadDependency();
-                _lDocResumenLineas = dv.vwCfdiGeneraResumenDiario
-                                        .Where(v => v.numResumenDiario == Sopnumbe && v.tipoResumenDiario == Soptype)
-                                        .ToList();
-
-                _resumenCab = _lDocResumenLineas.First();
-            }
         }
     }
 }
