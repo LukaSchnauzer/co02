@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="6f1f9b19-a086-4d24-abb6-5dfcbd1bfb3c" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://testubl21.thefactoryhka.com.co/ws/v1.0/Service.svc?wsdl" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Service.xsd" MetadataType="Schema" ID="116eef78-5326-4b30-991e-458a1c9fe8ef" SourceId="1" SourceUrl="http://testubl21.thefactoryhka.com.co/ws/v1.0/Service.svc?xsd=xsd3" />
+    <MetadataFile FileName="Service1.xsd" MetadataType="Schema" ID="0d22be1c-2493-4052-8e67-340eb468988f" SourceId="1" SourceUrl="http://testubl21.thefactoryhka.com.co/ws/v1.0/Service.svc?xsd=xsd2" />
+    <MetadataFile FileName="Service.wsdl" MetadataType="Wsdl" ID="7e9a88ee-8933-4c66-98c4-583e099099dc" SourceId="1" SourceUrl="http://testubl21.thefactoryhka.com.co/ws/v1.0/Service.svc?wsdl" />
+    <MetadataFile FileName="Service2.xsd" MetadataType="Schema" ID="2a0c3231-2f6f-49b8-a6bf-37c0e8b334b3" SourceId="1" SourceUrl="http://testubl21.thefactoryhka.com.co/ws/v1.0/Service.svc?xsd=xsd5" />
+    <MetadataFile FileName="Service3.xsd" MetadataType="Schema" ID="e90b8c97-fcc6-4a3f-b74b-211dc1ff5c1f" SourceId="1" SourceUrl="http://testubl21.thefactoryhka.com.co/ws/v1.0/Service.svc?xsd=xsd4" />
+    <MetadataFile FileName="Service4.xsd" MetadataType="Schema" ID="26b0653c-6b42-49d3-a38b-0a5dee02608b" SourceId="1" SourceUrl="http://testubl21.thefactoryhka.com.co/ws/v1.0/Service.svc?xsd=xsd1" />
+    <MetadataFile FileName="Service5.xsd" MetadataType="Schema" ID="ff62aeed-efc5-4837-a683-d6a1207a2b11" SourceId="1" SourceUrl="http://testubl21.thefactoryhka.com.co/ws/v1.0/Service.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
