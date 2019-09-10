@@ -6,8 +6,8 @@ using Comun;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Linq;
-//using cfdiColomiba;
 using cfdiColombia;
+using MaquinaDeEstados;
 
 //namespace cfdiPeru
 namespace cfdiColombia
@@ -17,6 +17,7 @@ namespace cfdiColombia
         DocumentoVentaGP docGP;
         private const string FormatoFecha = "yyyy-MM-dd";
         private const string FormatoFechaHora = "yyyy-MM-dd";
+        public Maquina CicloDeVida { get; set; }
 
         public DocumentoVentaGP DocGP { get => docGP; set => docGP = value; }
 

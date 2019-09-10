@@ -270,10 +270,10 @@ namespace cfdiColombiaOperadorServiciosElectronicos
 
         }
 
-        public async Task<string> TimbraYEnviaServicioDeImpuestoAsync(string ruc, string usuario, string usuarioPassword, DocumentoVentaGP documentoGP)
+        public async Task<string> TimbraYEnviaServicioDeImpuestoAsync(string ruc, string tokenEmpresa, string tokenPassword, DocumentoVentaGP documentoGP)
         {
             var docWs = ArmaDocumentoEnviarWS(documentoGP);
-            var response = await ServicioWS.EnviarAsync("89ab70d025c1cb8c5bac3f5ac319a94728e42e3a", "3cfb75199b5d14cdb706a55555a055488b1fad6c", docWs, "0");
+            var response = await ServicioWS.EnviarAsync(tokenEmpresa, tokenPassword, docWs, "0");
             if (response.codigo == 200)
             {
                 byte[] converbyte = Convert.FromBase64String(response.xml.ToString());
