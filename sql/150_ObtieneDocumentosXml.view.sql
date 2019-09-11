@@ -202,21 +202,25 @@ as
 		--Clase Dirección fiscal del cliente
 		catCiudad.descripcion			cliente_difCiudad,
 		tv.stateCode					cliente_difcodigoDepartamento,
-		tv.state						cliente_difdepartamento,
+		catDepartamento.descripcion		cliente_difdepartamento,
 		left(tv.address1 +' '+ tv.address2, 100)	cliente_difdireccion,
 		'es'							cliente_diflenguaje,
 		tv.cityCode						cliente_difmunicipio,
 		tv.countryCode					cliente_difpais, 
 		tv.zipcode						cliente_difzonapostal, 
-		unEmail.Email_Recipient			cliente_email,
+		rtrim(unEmail.Email_Recipient)	cliente_email,
 
 		 --Información legal cliente
 		tv.nombreCliente				cliente_nombreRegistroRUT,
 
 		case when tv.TXRGNNUM = '' then
 			nitTercero.numeroIdentificacion
-		else substring(reverse(tv.idImpuestoCliente), 2, 20)	
+		else reverse(substring(reverse(tv.idImpuestoCliente), 2, 30))	
 		end								cliente_numeroIdentificacion,
+		reverse(
+			substring(
+				reverse(tv.idImpuestoCliente)
+				, 2, 30))				cliente_numeroDocumento,
 
 		case when tv.TXRGNNUM = '' then
 			nitTercero.numeroIdentificacionDV
@@ -227,7 +231,6 @@ as
 		''								cliente_nombreComercial,
 		tv.nombreCliente				cliente_nombreRazonSocial,
 		case when tv.send_email_statements=1 then 'SI' else 'NO' end cliente_notificar,
-		substring(reverse(tv.idImpuestoCliente), 2, 20)	cliente_numeroDocumento,
 		left(tv.userdef2, 1)			cliente_tipoPersona,
 		''								cliente_actividadEconomicaCIIU,
 
@@ -240,9 +243,12 @@ as
 		parametros.param3				tipoDocumento,
 		parametros.param4				tipoOperacion,
 
-		isnull(sumaImpuestos.ortxsls, 0) totalBaseImponible,
-		tv.ORSUBTOT						totalSinImpuestos,
-		tv.ORSUBTOT + isnull(sumaImpuestos.orslstaxAbs, 0.00)	totalBrutoconImpuestos,
+		--isnull(sumaImpuestos.ortxsls, 0)	totalBaseImponible,
+		tv.ORSUBTOT - tv.ORTDISAM		totalBaseImponible,
+		--isnull(sumaImpuestos.ortxsls, 0)	totalSinImpuestos,
+		tv.ORSUBTOT - tv.ORTDISAM		totalSinImpuestos,
+		--tv.ORSUBTOT + isnull(sumaImpuestos.orslstax, 0.00)	totalBrutoconImpuestos,
+		tv.total						totalBrutoconImpuestos,
 		tv.total						totalMonto,
 
 		0								totalProductos		--calcular en la app
@@ -253,7 +259,8 @@ as
 					from NSAIF02666
 					where CUSTNMBR = tv.CUSTNMBR
 					) nitTercero
-		outer apply dbo.fCfdiCatalogoGetDescripcion('CIUDAD', tv.cityCode) catCiudad
+		outer apply dbo.fCfdiCatalogoGetDescripcion('CITY', tv.cityCode) catCiudad
+		outer apply dbo.fCfdiCatalogoGetDescripcion('DPTO', tv.stateCode) catDepartamento
 		outer apply dbo.fCfdiParametros('V_CANTDECIMALES', 'I_'+tv.docid, 'D_'+tv.docid, 'O_'+tv.docid, 'V_ININUMEROFAC', 'na', 'FECOL') parametros	--Parámetros. Cantidad decimales
 		outer apply dbo.fnCfdiSumaImpuestosSop(tv.sopnumbe, tv.soptype, 0, '%', '%', '%') sumaImpuestos
 		outer apply (select top 1 Email_Recipient from dbo.rm00106 where CUSTNMBR = tv.custnmbr and Email_Type = 1) unEmail 

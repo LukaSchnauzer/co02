@@ -11,11 +11,10 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiClienteDestinatario' does not have
           <Key>
             <PropertyRef Name="custnmbr" />
             
-            
           </Key>
           <Property Name="custnmbr" Type="char" MaxLength="15" Nullable="false" />
           <Property Name="cliente_canalEntrega" Type="varchar" MaxLength="8000" Nullable="false" />
-          <Property Name="cliente_email" Type="char" MaxLength="81" Nullable="false" />
+          <Property Name="cliente_email" Type="varchar" MaxLength="81" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'COL10.dbo.vwCfdiClienteObligaciones' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -88,7 +87,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiFacturaImpuestosCabecera' does not
           </Key>
           <Property Name="soptype" Type="smallint" Nullable="false" />
           <Property Name="sopnumbe" Type="char" MaxLength="21" Nullable="false" />
-          <Property Name="codigoTotalImp" Type="varchar" MaxLength="31" Nullable="false" />
+          <Property Name="codigoTotalImp" Type="varchar" MaxLength="61" Nullable="false" />
           <Property Name="porcentajeTotalImp" Type="numeric" Precision="19" Scale="5" Nullable="false" />
           <Property Name="staxamnt" Type="numeric" Precision="38" Scale="5" />
           <Property Name="valorTotalImp" Type="numeric" Precision="38" Scale="5" />
@@ -120,7 +119,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiFacturaImpuestosDetalles' does not
           <Property Name="LNITMSEQ" Type="int" Nullable="false" />
           <Property Name="itemnmbr" Type="char" MaxLength="31" Nullable="false" />
           <Property Name="cmpntseq" Type="int" Nullable="false" />
-          <Property Name="codigoTotalImp" Type="varchar" MaxLength="31" Nullable="false" />
+          <Property Name="codigoTotalImp" Type="varchar" MaxLength="61" Nullable="false" />
           <Property Name="porcentajeTotalImp" Type="numeric" Precision="19" Scale="5" Nullable="false" />
           <Property Name="staxamnt" Type="numeric" Precision="38" Scale="5" />
           <Property Name="valorTotalImp" Type="numeric" Precision="38" Scale="5" />
@@ -150,7 +149,6 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' does not h
             
             
             
-            
             <PropertyRef Name="sopnumbe" />
           </Key>
           <Property Name="soptype" Type="smallint" Nullable="false" />
@@ -158,6 +156,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' does not h
           <Property Name="custnmbr" Type="char" MaxLength="15" Nullable="false" />
           <Property Name="cantidadDecimales" Type="int" />
           <Property Name="consecutivoDocumento" Type="varchar" MaxLength="20" />
+          <Property Name="prefijo" Type="varchar" MaxLength="21" />
           <Property Name="cargosdescuentos_codigo" Type="varchar" MaxLength="2" />
           <Property Name="cargosdescuentos_descripcion" Type="char" MaxLength="51" />
           <Property Name="cargosdescuentos_indicador" Type="varchar" MaxLength="1" />
@@ -169,21 +168,21 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' does not h
           <Property Name="cliente_telefono" Type="nvarchar(max)" />
           <Property Name="cliente_difCiudad" Type="varchar" MaxLength="150" />
           <Property Name="cliente_difcodigoDepartamento" Type="nvarchar(max)" />
-          <Property Name="cliente_difdepartamento" Type="nvarchar(max)" />
+          <Property Name="cliente_difdepartamento" Type="varchar" MaxLength="150" />
           <Property Name="cliente_difdireccion" Type="nvarchar(max)" />
           <Property Name="cliente_diflenguaje" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="cliente_difmunicipio" Type="nvarchar(max)" />
           <Property Name="cliente_difpais" Type="nvarchar(max)" />
           <Property Name="cliente_difzonapostal" Type="nvarchar(max)" />
-          <Property Name="cliente_email" Type="char" MaxLength="81" />
+          <Property Name="cliente_email" Type="varchar" MaxLength="81" />
           <Property Name="cliente_nombreRegistroRUT" Type="nvarchar(max)" />
           <Property Name="cliente_numeroIdentificacion" Type="nvarchar(max)" />
+          <Property Name="cliente_numeroDocumento" Type="nvarchar(max)" />
           <Property Name="cliente_numeroIdentificacionDV" Type="nvarchar(max)" />
           <Property Name="cliente_tipoIdentificacion" Type="varchar" MaxLength="3" />
           <Property Name="cliente_nombreComercial" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="cliente_nombreRazonSocial" Type="nvarchar(max)" />
           <Property Name="cliente_notificar" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="cliente_numeroDocumento" Type="nvarchar(max)" />
           <Property Name="cliente_tipoPersona" Type="nvarchar(max)" />
           <Property Name="cliente_actividadEconomicaCIIU" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="fechaEmision" Type="varchar" MaxLength="21" />
@@ -194,9 +193,9 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' does not h
           <Property Name="tasaDeCambio" Type="numeric" Precision="19" Scale="7" Nullable="false" />
           <Property Name="tipoDocumento" Type="varchar" MaxLength="8000" />
           <Property Name="tipoOperacion" Type="varchar" MaxLength="8000" />
-          <Property Name="totalBaseImponible" Type="numeric" Precision="38" Scale="5" Nullable="false" />
-          <Property Name="totalSinImpuestos" Type="numeric" Precision="19" Scale="5" Nullable="false" />
-          <Property Name="totalBrutoconImpuestos" Type="numeric" Precision="38" Scale="5" />
+          <Property Name="totalBaseImponible" Type="numeric" Precision="20" Scale="5" />
+          <Property Name="totalSinImpuestos" Type="numeric" Precision="20" Scale="5" />
+          <Property Name="totalBrutoconImpuestos" Type="numeric" Precision="19" Scale="5" Nullable="false" />
           <Property Name="totalMonto" Type="numeric" Precision="19" Scale="5" Nullable="false" />
           <Property Name="totalProductos" Type="int" Nullable="false" />
         </EntityType>
@@ -352,6 +351,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
     [vwCfdiGeneraDocumentoDeVenta].[custnmbr] AS [custnmbr], 
     [vwCfdiGeneraDocumentoDeVenta].[cantidadDecimales] AS [cantidadDecimales], 
     [vwCfdiGeneraDocumentoDeVenta].[consecutivoDocumento] AS [consecutivoDocumento], 
+    [vwCfdiGeneraDocumentoDeVenta].[prefijo] AS [prefijo], 
     [vwCfdiGeneraDocumentoDeVenta].[cargosdescuentos_codigo] AS [cargosdescuentos_codigo], 
     [vwCfdiGeneraDocumentoDeVenta].[cargosdescuentos_descripcion] AS [cargosdescuentos_descripcion], 
     [vwCfdiGeneraDocumentoDeVenta].[cargosdescuentos_indicador] AS [cargosdescuentos_indicador], 
@@ -372,12 +372,12 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
     [vwCfdiGeneraDocumentoDeVenta].[cliente_email] AS [cliente_email], 
     [vwCfdiGeneraDocumentoDeVenta].[cliente_nombreRegistroRUT] AS [cliente_nombreRegistroRUT], 
     [vwCfdiGeneraDocumentoDeVenta].[cliente_numeroIdentificacion] AS [cliente_numeroIdentificacion], 
+    [vwCfdiGeneraDocumentoDeVenta].[cliente_numeroDocumento] AS [cliente_numeroDocumento], 
     [vwCfdiGeneraDocumentoDeVenta].[cliente_numeroIdentificacionDV] AS [cliente_numeroIdentificacionDV], 
     [vwCfdiGeneraDocumentoDeVenta].[cliente_tipoIdentificacion] AS [cliente_tipoIdentificacion], 
     [vwCfdiGeneraDocumentoDeVenta].[cliente_nombreComercial] AS [cliente_nombreComercial], 
     [vwCfdiGeneraDocumentoDeVenta].[cliente_nombreRazonSocial] AS [cliente_nombreRazonSocial], 
     [vwCfdiGeneraDocumentoDeVenta].[cliente_notificar] AS [cliente_notificar], 
-    [vwCfdiGeneraDocumentoDeVenta].[cliente_numeroDocumento] AS [cliente_numeroDocumento], 
     [vwCfdiGeneraDocumentoDeVenta].[cliente_tipoPersona] AS [cliente_tipoPersona], 
     [vwCfdiGeneraDocumentoDeVenta].[cliente_actividadEconomicaCIIU] AS [cliente_actividadEconomicaCIIU], 
     [vwCfdiGeneraDocumentoDeVenta].[fechaEmision] AS [fechaEmision], 
@@ -442,7 +442,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           </Key>
           <Property Name="custnmbr" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="cliente_canalEntrega" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cliente_email" Type="String" MaxLength="81" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="cliente_email" Type="String" MaxLength="81" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="vwCfdiClienteObligaciones">
           <Key>
@@ -498,7 +498,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           </Key>
           <Property Name="soptype" Type="Int16" Nullable="false" />
           <Property Name="sopnumbe" Type="String" MaxLength="21" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="codigoTotalImp" Type="String" MaxLength="31" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="codigoTotalImp" Type="String" MaxLength="61" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="porcentajeTotalImp" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
           <Property Name="staxamnt" Type="Decimal" Precision="38" Scale="5" />
           <Property Name="valorTotalImp" Type="Decimal" Precision="38" Scale="5" />
@@ -522,7 +522,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           <Property Name="LNITMSEQ" Type="Int32" Nullable="false" />
           <Property Name="itemnmbr" Type="String" MaxLength="31" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="cmpntseq" Type="Int32" Nullable="false" />
-          <Property Name="codigoTotalImp" Type="String" MaxLength="31" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="codigoTotalImp" Type="String" MaxLength="61" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="porcentajeTotalImp" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
           <Property Name="staxamnt" Type="Decimal" Precision="38" Scale="5" />
           <Property Name="valorTotalImp" Type="Decimal" Precision="38" Scale="5" />
@@ -554,13 +554,13 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           <Property Name="cliente_telefono" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="cliente_difCiudad" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="cliente_difcodigoDepartamento" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="cliente_difdepartamento" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cliente_difdepartamento" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="cliente_difdireccion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="cliente_diflenguaje" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cliente_difmunicipio" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="cliente_difpais" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="cliente_difzonapostal" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="cliente_email" Type="String" MaxLength="81" FixedLength="true" Unicode="false" />
+          <Property Name="cliente_email" Type="String" MaxLength="81" FixedLength="false" Unicode="false" />
           <Property Name="cliente_nombreRegistroRUT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="cliente_numeroIdentificacion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="cliente_numeroIdentificacionDV" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -579,11 +579,12 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           <Property Name="tasaDeCambio" Type="Decimal" Precision="19" Scale="7" Nullable="false" />
           <Property Name="tipoDocumento" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
           <Property Name="tipoOperacion" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
-          <Property Name="totalBaseImponible" Type="Decimal" Precision="38" Scale="5" Nullable="false" />
-          <Property Name="totalSinImpuestos" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
-          <Property Name="totalBrutoconImpuestos" Type="Decimal" Precision="38" Scale="5" />
+          <Property Name="totalBaseImponible" Type="Decimal" Precision="20" Scale="5" />
+          <Property Name="totalSinImpuestos" Type="Decimal" Precision="20" Scale="5" />
+          <Property Name="totalBrutoconImpuestos" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
           <Property Name="totalMonto" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
           <Property Name="totalProductos" Type="Int32" Nullable="false" />
+          <Property Name="prefijo" Type="String" MaxLength="21" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="vwCfdiMediosDePago">
           <Key>
@@ -740,6 +741,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           <EntitySetMapping Name="vwCfdiGeneraDocumentoDeVenta">
             <EntityTypeMapping TypeName="COLOMBIAModel.vwCfdiGeneraDocumentoDeVenta">
               <MappingFragment StoreEntitySet="vwCfdiGeneraDocumentoDeVenta">
+                <ScalarProperty Name="prefijo" ColumnName="prefijo" />
                 <ScalarProperty Name="soptype" ColumnName="soptype" />
                 <ScalarProperty Name="sopnumbe" ColumnName="sopnumbe" />
                 <ScalarProperty Name="custnmbr" ColumnName="custnmbr" />

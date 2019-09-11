@@ -40,7 +40,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             DocEnviarWS.cliente.tipoIdentificacion = documentoGP.DocVenta.cliente_tipoIdentificacion.ToString();
             DocEnviarWS.cliente.tipoPersona = documentoGP.DocVenta.cliente_tipoPersona;
             DocEnviarWS.cliente.notificar = documentoGP.DocVenta.cliente_notificar;
-            DocEnviarWS.cliente.telefono = documentoGP.DocVenta.cliente_telefono;
+            //DocEnviarWS.cliente.telefono = documentoGP.DocVenta.cliente_telefono;
             DocEnviarWS.cliente.email = documentoGP.DocVenta.cliente_email;
             DocEnviarWS.cliente.numeroIdentificacionDV = documentoGP.DocVenta.cliente_numeroIdentificacionDV;
             if (!string.IsNullOrEmpty( documentoGP.DocVenta.cliente_nombreComercial))
@@ -132,34 +132,46 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                 tsi = tsi + detalleDeFactura_gp.facturadetalle_precioTotalSinImpuestos;
                 //FIN DETALLES BASICOS
 
+                var impuestosDelConcepto = documentoGP.facimpdet.Where(x => x.LNITMSEQ == detalleDeFactura_gp.LNITMSEQ);
+
                 //IMPUESTOS DETALLES DE FACTURA DETALLES 
-                int imp3 = documentoGP._facimpdet.Count();
+                int imp3 = impuestosDelConcepto.Count();
                 detalle1.impuestosDetalles = new FacturaImpuestos[imp3];
-                for (int j = 0; j < imp3; j++)
+                int j = 0;
+                foreach (var regImpuestosDelConcepto in impuestosDelConcepto)
                 {
-                    FacturaImpuestos impuestodetalles1 = new FacturaImpuestos();
-                    impuestodetalles1.baseImponibleTOTALImp = Math.Round(Convert.ToDecimal(documentoGP._facimpdet[j].baseImponibleTotalImp),2).ToString();//("00000000000000.00");
-                    impuestodetalles1.codigoTOTALImp = documentoGP._facimpdet[j].codigoTotalImp;
-                    impuestodetalles1.controlInterno = documentoGP._facimpdet[j].controlInterno;
-                    impuestodetalles1.porcentajeTOTALImp = Math.Abs(Math.Round(documentoGP._facimpdet[j].porcentajeTotalImp,2)).ToString(); //("00.00");
-                    impuestodetalles1.valorTOTALImp = Math.Round(Convert.ToDecimal(documentoGP._facimpdet[j].valorTotalImp),2).ToString();// ("00000000000000.00");
-                    if (documentoGP._facimpdet[j].unidadMedida != null)
+                    FacturaImpuestos facturaImpuestosDet = new FacturaImpuestos();
+                    facturaImpuestosDet.baseImponibleTOTALImp = Math.Round(Convert.ToDecimal(regImpuestosDelConcepto.baseImponibleTotalImp), 2).ToString();//("00000000000000.00");
+                    facturaImpuestosDet.codigoTOTALImp = regImpuestosDelConcepto.codigoTotalImp;
+                    //facturaImpuestosDet.controlInterno = regImpuestosDelConcepto.controlInterno;
+                    facturaImpuestosDet.porcentajeTOTALImp = Math.Abs(Math.Round(regImpuestosDelConcepto.porcentajeTotalImp, 2)).ToString(); //("00.00");
+                    facturaImpuestosDet.valorTOTALImp = Math.Round(Convert.ToDecimal(regImpuestosDelConcepto.valorTotalImp), 2).ToString();// ("00000000000000.00");
+                    if (!string.IsNullOrEmpty( regImpuestosDelConcepto.unidadMedida ))
                     {
-                        impuestodetalles1.unidadMedida = documentoGP._facimpdet[j].unidadMedida.ToString();
+                        facturaImpuestosDet.unidadMedida = regImpuestosDelConcepto.unidadMedida;
                     }
-                    detalle1.impuestosDetalles[j] = impuestodetalles1;
-                    //FIN IMPUESTOS DETALLES DE FACTURA DETALLE
+                    detalle1.impuestosDetalles[j] = facturaImpuestosDet;
+                    j++;
                 }
 
                 //IMPUESTOS TOTALES DE FACTURA DETALLES
-                int imp4 = documentoGP._facimpcab.Count();
+                var impTotalesDelConcepto = impuestosDelConcepto.GroupBy(ic => new { ic.codigoTotalImp })
+                                            .Select(impuTotales => new
+                                                {
+                                                    CodigoTotalImp = impuTotales.Key.codigoTotalImp,
+                                                    SumMontoTotal = impuTotales.Sum(s=>s.valorTotalImp),
+                                                });
+
+                int imp4 = impTotalesDelConcepto.Count();
                 detalle1.impuestosTotales = new ImpuestosTotales[imp4];
-                for (int j = 0; j < imp4; j++)
+                j = 0;
+                foreach (var regImpTotalesConcepto in impTotalesDelConcepto)
                 {
                     ImpuestosTotales impuestosTotales1 = new ImpuestosTotales();
-                    impuestosTotales1.codigoTOTALImp = documentoGP._facimpcab[j].codigoTotalImp;
-                    impuestosTotales1.montoTotal = Math.Round(Convert.ToDecimal(documentoGP._facimpcab[j].valorTotalImp),2).ToString();
+                    impuestosTotales1.codigoTOTALImp = regImpTotalesConcepto.CodigoTotalImp;
+                    impuestosTotales1.montoTotal = Math.Round(Convert.ToDecimal(regImpTotalesConcepto.SumMontoTotal), 2).ToString();
                     detalle1.impuestosTotales[j] = impuestosTotales1;
+                    j++;
                 }
                 //FIN IMPUESTOS TOTALES DE FACTURA DETALLE  
                 
@@ -186,33 +198,43 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             DocEnviarWS.fechaEmision = Convert.ToDateTime(documentoGP.DocVenta.fechaEmision).ToString("yyyy-MM-dd 00:00:00");
             
             DocEnviarWS.fechaVencimiento = Convert.ToDateTime(documentoGP.DocVenta.fechaVencimiento).ToString("yyyy-MM-dd");
+            
             //SECCION IMPUESTOS GLOBALES O GENERALES
-            int imp = documentoGP._facimpdet.Count();
+            int imp = documentoGP.facimpcab.Count();
             DocEnviarWS.impuestosGenerales = new FacturaImpuestos[imp];
             for (int j = 0; j < imp; j++)
             {
                 FacturaImpuestos impuestosg1 = new FacturaImpuestos();
-                impuestosg1.baseImponibleTOTALImp = Math.Round(Convert.ToDecimal(documentoGP._facimpdet[j].baseImponibleTotalImp),2).ToString();// ("00000000000000.00");
-                impuestosg1.codigoTOTALImp = documentoGP._facimpdet[j].codigoTotalImp.ToString();
-                impuestosg1.controlInterno = documentoGP._facimpdet[j].controlInterno.ToString();
-                impuestosg1.porcentajeTOTALImp = Math.Abs(Math.Round(documentoGP._facimpdet[j].porcentajeTotalImp,2)).ToString();
-                impuestosg1.valorTOTALImp = Math.Round(Convert.ToDecimal(documentoGP._facimpdet[j].valorTotalImp),2).ToString();// ("00000000000000.00");
-                impuestosg1.unidadMedida = documentoGP._facimpdet[j].unidadMedida;
+                impuestosg1.baseImponibleTOTALImp = Math.Round(Convert.ToDecimal(documentoGP.facimpcab[j].baseImponibleTotalImp),2).ToString();// ("00000000000000.00");
+                impuestosg1.codigoTOTALImp = documentoGP.facimpcab[j].codigoTotalImp.ToString();
+                //impuestosg1.controlInterno = documentoGP.facimpcab[j].controlInterno.ToString();
+                impuestosg1.porcentajeTOTALImp = Math.Abs(Math.Round(documentoGP.facimpcab[j].porcentajeTotalImp,2)).ToString();
+                impuestosg1.valorTOTALImp = Math.Round(Convert.ToDecimal(documentoGP.facimpcab[j].valorTotalImp),2).ToString();// ("00000000000000.00");
+                impuestosg1.unidadMedida = documentoGP.facimpcab[j].unidadMedida;
                 DocEnviarWS.impuestosGenerales[j] = impuestosg1;
                 //FIN SECCION IMPUESTOS GENERALES
             }
+
             //SECCION IMPUESTOS TOTALES
-            int m = 0;
+            var impuestosTotalesCab = documentoGP._facimpcab.GroupBy(ic => new { ic.codigoTotalImp })
+                            .Select(impuTotales => new
+                            {
+                                CodigoTotalImp = impuTotales.Key.codigoTotalImp,
+                                SumMontoTotal = impuTotales.Sum(s => s.valorTotalImp),
+                            });
             int imp2 = documentoGP._facimpcab.Count();
             DocEnviarWS.impuestosTotales = new ImpuestosTotales[imp2];
-            for (m = 0; m < imp2; m++)
+            int m = 0;
+            foreach (var regImpuTotalesCab in impuestosTotalesCab)
             {
                 ImpuestosTotales impuestototales1 = new ImpuestosTotales();
-                impuestototales1.codigoTOTALImp = documentoGP._facimpcab[m].codigoTotalImp;
-                impuestototales1.montoTotal = Math.Round(Convert.ToDecimal(documentoGP._facimpcab[m].valorTotalImp),2).ToString();// es una sumatoria de valorTotalImp
+                impuestototales1.codigoTOTALImp = regImpuTotalesCab.CodigoTotalImp;
+                impuestototales1.montoTotal = Math.Round(Convert.ToDecimal(regImpuTotalesCab.SumMontoTotal), 2).ToString();// es una sumatoria de valorTotalImp
                 DocEnviarWS.impuestosTotales[m] = impuestototales1;
+                m++;
             }
             //FIN SECCION IMPUESTOS TOTALES
+
             DocEnviarWS.moneda = documentoGP.DocVenta.moneda.ToString();
             DocEnviarWS.rangoNumeracion = documentoGP.DocVenta.rangonumeracion;
             DocEnviarWS.redondeoAplicado = documentoGP.DocVenta.redondeoaplicado.ToString();
@@ -229,11 +251,11 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             //FIN TASA DE CAMBIO
             DocEnviarWS.tipoDocumento = documentoGP.DocVenta.tipoDocumento;
             DocEnviarWS.tipoOperacion = documentoGP.DocVenta.tipoOperacion;
-            DocEnviarWS.totalBaseImponible = Math.Round(documentoGP.DocVenta.totalBaseImponible,2).ToString();// ("0000000000000000.000000");
-            DocEnviarWS.totalBrutoConImpuesto = Math.Round(Convert.ToDouble(documentoGP.DocVenta.totalBrutoconImpuestos),2).ToString();
+            DocEnviarWS.totalBaseImponible = Math.Round(Convert.ToDecimal(documentoGP.DocVenta.totalBaseImponible),2).ToString();// ("0000000000000000.000000");
+            DocEnviarWS.totalBrutoConImpuesto = Math.Round(Convert.ToDecimal(documentoGP.DocVenta.totalBrutoconImpuestos),2).ToString();
             DocEnviarWS.totalMonto = Math.Round(Convert.ToDecimal(documentoGP.DocVenta.totalMonto),2).ToString();// ("0000000000000000.000000");
             DocEnviarWS.totalProductos = toi.ToString();// ("00000");
-            DocEnviarWS.totalSinImpuestos = Math.Round(documentoGP.DocVenta.totalSinImpuestos,2).ToString();// ("0000000000000000.000000");
+            DocEnviarWS.totalSinImpuestos = Math.Round(Convert.ToDecimal(documentoGP.DocVenta.totalSinImpuestos),2).ToString();// ("0000000000000000.000000");
             //DocEnviarWS.totalSinImpuestos = Math.Round(tsi,2).ToString();
             //FIN SECCION FACTURA FINAL
             //FIN FACTURA GENERAL
@@ -292,7 +314,13 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                 //if (response.codigo == 202 || response.codigo == 207)
                 //    throw new ArgumentException(response.codigo.ToString() + " - " + response.mensaje);
                 //else
-                throw new TimeoutException("Excepción al conectarse con el Web Service de Facturación. [TimbraYEnviaServicioDeImpuestoAsync] " + response.codigo.ToString() + " - " + response.mensaje + Environment.NewLine + docSerializado);
+
+                string msjErr=Environment.NewLine;
+                if (response.mensajesValidacion.Count() > 0)
+                    msjErr += string.Join(Environment.NewLine, response.mensajesValidacion);
+
+                msjErr += Environment.NewLine + docSerializado;
+                throw new TimeoutException("Excepción al conectarse con el Web Service de Facturación. [TimbraYEnviaServicioDeImpuestoAsync] " + response.codigo.ToString() + " - " + response.mensaje + msjErr);
 
             }
 
