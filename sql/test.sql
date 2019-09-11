@@ -55,6 +55,10 @@ select *
 from dbo.fCfdiImpuestosSop( 'F001-00000012        ', 3, 0, 'V-GRATIS', '02') gra	--gratuito
 
 select *
+from dbo.fnCfdiSumaImpuestosSop('TISF00000003', 3, 0, '%', '%', '%') sumaImpuestos
+
+
+select *
 from vwCfdiConceptos
 where sopnumbe = 'F001-00000012        '
 

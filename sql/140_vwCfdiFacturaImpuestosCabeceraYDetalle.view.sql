@@ -10,7 +10,7 @@ as
 --13/08/19 jcf Creación cfdi Colombia ubl 2.1
 --
 	select sop.soptype, sop.sopnumbe, 
-			rtrim(imp.[name])	codigoTotalImp, 
+			rtrim(imp.cntcprsn)	codigoTotalImp, 
 			imp.TXDTLPCT		porcentajeTotalImp, 
 			sum(imp.staxamnt)	staxamnt, 
 			sum(abs(imp.orslstax))	valorTotalImp, 
@@ -22,7 +22,8 @@ as
 			null				valorTributoUnidad
 	from sop30200 sop
 	cross apply dbo.fnCfdiImpuestosSop(sop.SOPNUMBE, sop.soptype , 0, '%', '%') imp
-	group by sop.soptype, sop.sopnumbe, imp.[name], imp.TXDTLPCT
+	group by sop.soptype, sop.sopnumbe, imp.cntcprsn, imp.TXDTLPCT
+	having sum(abs(imp.orslstax)) != 0
 
 go
 
@@ -42,7 +43,7 @@ as
 --
 	select sop.soptype, sop.sopnumbe, sop.LNITMSEQ, 
 			sop.itemnmbr, sop.cmpntseq,
-			rtrim(imp.[name])	codigoTotalImp, 
+			rtrim(imp.cntcprsn)	codigoTotalImp, 
 			imp.TXDTLPCT		porcentajeTotalImp, 
 
 			sum(imp.staxamnt)	staxamnt, 
@@ -56,7 +57,8 @@ as
 			''					valorTributoUnidad
 	from sop30300 sop
 	cross apply dbo.fnCfdiImpuestosSop(sop.SOPNUMBE, sop.soptype , sop.LNITMSEQ, '%', '%') imp
-	group by sop.soptype, sop.sopnumbe, sop.LNITMSEQ, sop.itemnmbr, sop.cmpntseq, imp.[name], imp.TXDTLPCT
+	group by sop.soptype, sop.sopnumbe, sop.LNITMSEQ, sop.itemnmbr, sop.cmpntseq, imp.cntcprsn, imp.TXDTLPCT
+	having sum(abs(imp.orslstax)) != 0
 
 go
 

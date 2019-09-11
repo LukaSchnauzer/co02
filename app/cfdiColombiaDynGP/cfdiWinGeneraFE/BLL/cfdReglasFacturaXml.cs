@@ -367,43 +367,43 @@ namespace cfd.FacturaElectronica
         /// <param name="tipoDoc"></param>
         /// <param name="accion"></param>
         /// <param name="eBinarioOK"></param>
-        public void LogDocumento(vwCfdTransaccionesDeVenta trxVenta, String comprobante, ReglasME mEstados, String ticket, String tipoDoc, String accion, bool eBinarioOK, String rutaYNomArchivoCfdi)
-        {
-            try
-            {   
-                String statusBase;
-                String msjBinActual;
-                String eBinario = !eBinarioOK ? mEstados.eBinActualConError : mEstados.eBinarioNuevo;
-                switch (accion)
-                {
-                    case "DAR DE BAJA":
-                        statusBase = "publicado";
-                        msjBinActual = "Baja solicitada el " + DateTime.Today.ToString();
-                        break;
-                    case "CONSULTA CDR":
-                        if (tipoDoc.Equals("FACTURA"))
-                            statusBase = !eBinarioOK ? "rechazo_sunat" : "anulado";
-                        else
-                            statusBase = !eBinarioOK ? "rechazo_sunat" : "acepta_sunat";
+        //public void LogDocumento(vwCfdTransaccionesDeVenta trxVenta, String comprobante, ReglasME mEstados, String ticket, String tipoDoc, String accion, bool eBinarioOK, String rutaYNomArchivoCfdi)
+        //{
+        //    try
+        //    {   
+        //        String statusBase;
+        //        String msjBinActual;
+        //        String eBinario = !eBinarioOK ? mEstados.eBinActualConError : mEstados.eBinarioNuevo;
+        //        switch (accion)
+        //        {
+        //            case "DAR DE BAJA":
+        //                statusBase = "publicado";
+        //                msjBinActual = "Baja solicitada el " + DateTime.Today.ToString();
+        //                break;
+        //            case "CONSULTA CDR":
+        //                if (tipoDoc.Equals("FACTURA"))
+        //                    statusBase = !eBinarioOK ? "rechazo_sunat" : "anulado";
+        //                else
+        //                    statusBase = !eBinarioOK ? "rechazo_sunat" : "acepta_sunat";
 
-                        msjBinActual = comprobante;
-                        break;
-                    default:
-                        statusBase = "emitido";
-                        msjBinActual = mEstados.EnLetras(eBinario, tipoDoc);
-                        break;
-                }
+        //                msjBinActual = comprobante;
+        //                break;
+        //            default:
+        //                statusBase = "emitido";
+        //                msjBinActual = mEstados.EnLetras(eBinario, tipoDoc);
+        //                break;
+        //        }
 
-                //Registra log de la emisión del xml antes de imprimir el pdf, sino habrá error al imprimir
-                RegistraLogDeArchivoXML(trxVenta.Soptype, trxVenta.Sopnumbe, rutaYNomArchivoCfdi, ticket, _Conexion.Usuario, comprobante.Replace("encoding=\"utf-8\"", "").Replace("encoding=\"ISO-8859-1\"", ""),
-                                        statusBase, eBinario, msjBinActual);
-            }
-            catch (Exception eAFE)
-            {
-                string smsj = "Contacte al administrador. No se pudo registrar el estado del documento en la bitácora. " + eAFE.Message + Environment.NewLine + eAFE.StackTrace;
-                throw new Exception(smsj);
-            }
-        }
+        //        //Registra log de la emisión del xml antes de imprimir el pdf, sino habrá error al imprimir
+        //        RegistraLogDeArchivoXML(trxVenta.Soptype, trxVenta.Sopnumbe, rutaYNomArchivoCfdi, ticket, _Conexion.Usuario, comprobante.Replace("encoding=\"utf-8\"", "").Replace("encoding=\"ISO-8859-1\"", ""),
+        //                                statusBase, eBinario, msjBinActual);
+        //    }
+        //    catch (Exception eAFE)
+        //    {
+        //        string smsj = "Contacte al administrador. No se pudo registrar el estado del documento en la bitácora. " + eAFE.Message + Environment.NewLine + eAFE.StackTrace;
+        //        throw new Exception(smsj);
+        //    }
+        //}
 
         /// <summary>
         /// Guarda el archivo xml, lo comprime en zip y anota en la bitácora la factura emitida y el nuevo estado binario.
@@ -414,90 +414,90 @@ namespace cfd.FacturaElectronica
         /// <param name="mEstados">Nuevo set de estados</param>
         /// <param name="tramaXmlFirmado">trama del xml firmado por la sunat en base 64</param>
         /// <param name="tramaZipCdr">trama zipeada del cdr enviado por la sunat</param>
-        public void AlmacenaEnRepositorio(vwCfdTransaccionesDeVenta trxVenta, String comprobante, ReglasME mEstados, String tramaXmlFirmado, String tramaZipCdr, String ticket, String nomArchivoCDR, 
-                                        String tipoDoc, String accion, bool eBinarioOK)
-        {
-            try
-            {   //arma el nombre del archivo xml
-                string nomArchivo = Utiles.FormatoNombreArchivo(trxVenta.Docid + trxVenta.Sopnumbe + "_" + trxVenta.s_CUSTNMBR, trxVenta.s_NombreCliente, 20);
-                string rutaYNomArchivoCfdi = string.Concat(trxVenta.RutaXml.Trim() , nomArchivo ,"_", accion.Substring(0,2), ".xml");
-                string rutaYNomArchivoCdr = trxVenta.RutaXml.Trim() + @"CDR\"+ nomArchivoCDR;
+        //public void AlmacenaEnRepositorio(vwCfdTransaccionesDeVenta trxVenta, String comprobante, ReglasME mEstados, String tramaXmlFirmado, String tramaZipCdr, String ticket, String nomArchivoCDR, 
+        //                                String tipoDoc, String accion, bool eBinarioOK)
+        //{
+        //    try
+        //    {   //arma el nombre del archivo xml
+        //        string nomArchivo = Utiles.FormatoNombreArchivo(trxVenta.Docid + trxVenta.Sopnumbe + "_" + trxVenta.s_CUSTNMBR, trxVenta.s_NombreCliente, 20);
+        //        string rutaYNomArchivoCfdi = string.Concat(trxVenta.RutaXml.Trim() , nomArchivo ,"_", accion.Substring(0,2), ".xml");
+        //        string rutaYNomArchivoCdr = trxVenta.RutaXml.Trim() + @"CDR\"+ nomArchivoCDR;
 
-                //Guarda el archivo xml
-                if ((tipoDoc.Equals("FACTURA") && accion.Equals("EMITE XML Y PDF")) ||
-                    (tipoDoc.Equals("RESUMEN") && accion.Equals("ENVIA RESUMEN")) ||
-                    (tipoDoc.Equals("FACTURA") && accion.Equals("DAR DE BAJA"))
-                    )
-                {
-                    if (!string.IsNullOrEmpty(tramaXmlFirmado))
-                        File.WriteAllBytes($"{rutaYNomArchivoCfdi}", Convert.FromBase64String(tramaXmlFirmado));
-                    else
-                        throw new ArgumentException("No se puede guardar el archivo xml " + nomArchivo + " porque está vacío.");
-                }
+        //        //Guarda el archivo xml
+        //        if ((tipoDoc.Equals("FACTURA") && accion.Equals("EMITE XML Y PDF")) ||
+        //            (tipoDoc.Equals("RESUMEN") && accion.Equals("ENVIA RESUMEN")) ||
+        //            (tipoDoc.Equals("FACTURA") && accion.Equals("DAR DE BAJA"))
+        //            )
+        //        {
+        //            if (!string.IsNullOrEmpty(tramaXmlFirmado))
+        //                File.WriteAllBytes($"{rutaYNomArchivoCfdi}", Convert.FromBase64String(tramaXmlFirmado));
+        //            else
+        //                throw new ArgumentException("No se puede guardar el archivo xml " + nomArchivo + " porque está vacío.");
+        //        }
 
-                //Guarda el CDR
-                if (tipoDoc.Equals("FACTURA") && //accion.Equals("EMITE XML Y PDF") ||
-                    accion.Equals("CONSULTA CDR")
-                    )
-                {
-                    if (!string.IsNullOrEmpty(tramaZipCdr))
-                        File.WriteAllBytes($"{rutaYNomArchivoCdr}", Convert.FromBase64String(tramaZipCdr));
-                    else
-                        throw new ArgumentException("No se puede guardar el archivo cdr de la SUNAT porque está vacío.");
-                }
+        //        //Guarda el CDR
+        //        if (tipoDoc.Equals("FACTURA") && //accion.Equals("EMITE XML Y PDF") ||
+        //            accion.Equals("CONSULTA CDR")
+        //            )
+        //        {
+        //            if (!string.IsNullOrEmpty(tramaZipCdr))
+        //                File.WriteAllBytes($"{rutaYNomArchivoCdr}", Convert.FromBase64String(tramaZipCdr));
+        //            else
+        //                throw new ArgumentException("No se puede guardar el archivo cdr de la SUNAT porque está vacío.");
+        //        }
 
-                String status;
-                String msjBinActual;
-                String eBinario = !eBinarioOK ? mEstados.eBinActualConError : mEstados.eBinarioNuevo;
-                switch (accion){
-                    case "DAR DE BAJA":
-                        status = "publicado";
-                        msjBinActual = "Baja solicitada el " + DateTime.Today.ToString();
-                        break;
-                    case "CONSULTA CDR":
-                        if (tipoDoc.Equals("FACTURA")) 
-                            status = !eBinarioOK ? "rechazo_sunat" : "anulado";
-                        else 
-                            status = !eBinarioOK ? "rechazo_sunat" : "acepta_sunat";
+        //        String status;
+        //        String msjBinActual;
+        //        String eBinario = !eBinarioOK ? mEstados.eBinActualConError : mEstados.eBinarioNuevo;
+        //        switch (accion){
+        //            case "DAR DE BAJA":
+        //                status = "publicado";
+        //                msjBinActual = "Baja solicitada el " + DateTime.Today.ToString();
+        //                break;
+        //            case "CONSULTA CDR":
+        //                if (tipoDoc.Equals("FACTURA")) 
+        //                    status = !eBinarioOK ? "rechazo_sunat" : "anulado";
+        //                else 
+        //                    status = !eBinarioOK ? "rechazo_sunat" : "acepta_sunat";
 
-                        msjBinActual = comprobante;
-                        rutaYNomArchivoCfdi = rutaYNomArchivoCdr;
-                        break;
-                    default:
-                        status = "emitido";
-                        msjBinActual = mEstados.EnLetras(eBinario, tipoDoc);
-                        break;
-                }
+        //                msjBinActual = comprobante;
+        //                rutaYNomArchivoCfdi = rutaYNomArchivoCdr;
+        //                break;
+        //            default:
+        //                status = "emitido";
+        //                msjBinActual = mEstados.EnLetras(eBinario, tipoDoc);
+        //                break;
+        //        }
                 
-                //Registra log de la emisión del xml antes de imprimir el pdf, sino habrá error al imprimir
-                RegistraLogDeArchivoXML(trxVenta.Soptype, trxVenta.Sopnumbe, rutaYNomArchivoCfdi, ticket, _Conexion.Usuario, comprobante.Replace("encoding=\"utf-8\"", "").Replace("encoding=\"ISO-8859-1\"", ""),
-                                        status, eBinario, msjBinActual);
+        //        //Registra log de la emisión del xml antes de imprimir el pdf, sino habrá error al imprimir
+        //        RegistraLogDeArchivoXML(trxVenta.Soptype, trxVenta.Sopnumbe, rutaYNomArchivoCfdi, ticket, _Conexion.Usuario, comprobante.Replace("encoding=\"utf-8\"", "").Replace("encoding=\"ISO-8859-1\"", ""),
+        //                                status, eBinario, msjBinActual);
 
-                //Genera pdf
-                //if (tipoDoc.Equals("FACTURA") && accion.Equals("EMITE XML Y PDF"))
-                //   reporte.generaEnFormatoPDF(rutaYNomArchivoCfdi, trxVenta.Soptype, trxVenta.Sopnumbe, trxVenta.EstadoContabilizado);
+        //        //Genera pdf
+        //        //if (tipoDoc.Equals("FACTURA") && accion.Equals("EMITE XML Y PDF"))
+        //        //   reporte.generaEnFormatoPDF(rutaYNomArchivoCfdi, trxVenta.Soptype, trxVenta.Sopnumbe, trxVenta.EstadoContabilizado);
 
-            }
-            catch (DirectoryNotFoundException)
-            {
-                string smsj = "Verifique en GP la existencia de la carpeta indicada en la configuración de Ruta de archivos Xml. La ruta de la carpeta no pudo ser encontrada: " + trxVenta.RutaXml;
-                throw new DirectoryNotFoundException(smsj);
-            }
-            catch (IOException)
-            {
-                string smsj = "Verifique permisos de escritura en la carpeta: " + trxVenta.RutaXml + ". No se pudo guardar el archivo xml ni registrar el documento en la bitácora. ";
-                throw new IOException(smsj);
-            }
-            catch (Exception eAFE)
-            {
-                string smsj;
-                if (eAFE.Message.Contains("denied"))
-                    smsj = "Elimine el archivo xml antes de volver a generar uno nuevo. Luego vuelva a intentar. " + eAFE.Message;
-                else
-                    smsj = "Contacte a su administrador. No se pudo guardar el archivo XML ni registrar la Bitácora. " + eAFE.Message + Environment.NewLine + eAFE.StackTrace;
-                throw new Exception(smsj);
-            }
-        }
+        //    }
+        //    catch (DirectoryNotFoundException)
+        //    {
+        //        string smsj = "Verifique en GP la existencia de la carpeta indicada en la configuración de Ruta de archivos Xml. La ruta de la carpeta no pudo ser encontrada: " + trxVenta.RutaXml;
+        //        throw new DirectoryNotFoundException(smsj);
+        //    }
+        //    catch (IOException)
+        //    {
+        //        string smsj = "Verifique permisos de escritura en la carpeta: " + trxVenta.RutaXml + ". No se pudo guardar el archivo xml ni registrar el documento en la bitácora. ";
+        //        throw new IOException(smsj);
+        //    }
+        //    catch (Exception eAFE)
+        //    {
+        //        string smsj;
+        //        if (eAFE.Message.Contains("denied"))
+        //            smsj = "Elimine el archivo xml antes de volver a generar uno nuevo. Luego vuelva a intentar. " + eAFE.Message;
+        //        else
+        //            smsj = "Contacte a su administrador. No se pudo guardar el archivo XML ni registrar la Bitácora. " + eAFE.Message + Environment.NewLine + eAFE.StackTrace;
+        //        throw new Exception(smsj);
+        //    }
+        //}
 
         private void getDatosDelXml(short soptype, string sopnumbe)
         {

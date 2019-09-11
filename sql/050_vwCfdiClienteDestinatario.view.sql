@@ -11,7 +11,7 @@ as
 --
 	select dir.custnmbr, 
 		case when isnull(prcliente.param1, '-') like 'no existe tag%' then '0' else isnull(prcliente.param1, '0') end cliente_canalEntrega, 
-		dir.Email_Recipient cliente_email
+		rtrim(dir.Email_Recipient) cliente_email
 	from dbo.rm00106 dir
 	outer apply dbo.fCfdiParametrosCliente(dir.CUSTNMBR, 'CANALDENTREGA', 'NA', 'NA', 'NA', 'NA', 'NA', 'PREDETERMINADO') prcliente
 
