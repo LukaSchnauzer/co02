@@ -248,8 +248,8 @@ as
 		--isnull(sumaImpuestos.ortxsls, 0)	totalSinImpuestos,
 		tv.ORSUBTOT - tv.ORTDISAM		totalSinImpuestos,
 		--tv.ORSUBTOT + isnull(sumaImpuestos.orslstax, 0.00)	totalBrutoconImpuestos,
-		tv.total						totalBrutoconImpuestos,
-		tv.total						totalMonto,
+		tv.total + abs(isnull(sumaImpuestosNeg.staxamnt, 0))	totalBrutoconImpuestos,
+		tv.total + abs(isnull(sumaImpuestosNeg.staxamnt, 0))	totalMonto,
 
 		0								totalProductos		--calcular en la app
 
@@ -262,7 +262,7 @@ as
 		outer apply dbo.fCfdiCatalogoGetDescripcion('CITY', tv.cityCode) catCiudad
 		outer apply dbo.fCfdiCatalogoGetDescripcion('DPTO', tv.stateCode) catDepartamento
 		outer apply dbo.fCfdiParametros('V_CANTDECIMALES', 'I_'+tv.docid, 'D_'+tv.docid, 'O_'+tv.docid, 'V_ININUMEROFAC', 'na', 'FECOL') parametros	--Parámetros. Cantidad decimales
-		outer apply dbo.fnCfdiSumaImpuestosSop(tv.sopnumbe, tv.soptype, 0, '%', '%', '%') sumaImpuestos
+		outer apply dbo.fnCfdiSumaImpuestosNegativosSop(tv.sopnumbe, tv.soptype, 0, '%', '%', '%') sumaImpuestosNeg
 		outer apply (select top 1 Email_Recipient from dbo.rm00106 where CUSTNMBR = tv.custnmbr and Email_Type = 1) unEmail 
 		outer apply dbo.fnCfdGetDireccionesCorreo(tv.custnmbr) mail
 		--outer apply dbo.fCfdiGetLeyendaDeFactura(tv.SOPNUMBE, tv.soptype, '01') lfa
@@ -283,10 +283,12 @@ alter view dbo.vwCfdiTransaccionesDeVenta as
 --Requisitos. El estado "no emitido" indica que no se ha emitido el archivo xml pero que está listo para ser generado.
 --			El estado "inconsistente" indica que existe un problema en el folio o certificado, por tanto no puede ser generado.
 --			El estado "emitido" indica que el archivo xml ha sido generado y sellado por el PAC y está listo para ser impreso.
---06/11/17 jcf Creación cfdi Perú
+--01/09/19 jcf Creación cfdi Colombia
+--13/09/19 jcf Corrige fechahora
 --
 
-select tv.estadoContabilizado, tv.soptype, tv.docid, tv.sopnumbe, tv.fechahora, 
+select tv.estadoContabilizado, tv.soptype, tv.docid, tv.sopnumbe, 
+	cast(cast(tv.docdate as date) as datetime) + cast(cast(tv.fechahora as time) as datetime) fechahora, 
 	tv.CUSTNMBR, tv.nombreCliente, tv.idImpuestoCliente, cast(tv.total as numeric(19,2)) total, tv.montoActualOriginal, tv.voidstts, 
 
 	isnull(lf.estado, isnull(fv.estado, 'inconsistente')) estado,
