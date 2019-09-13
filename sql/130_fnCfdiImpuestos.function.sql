@@ -61,3 +61,29 @@ IF (@@Error = 0) PRINT 'Creación exitosa de la función: fnCfdiSumaImpuestosSop()
 ELSE PRINT 'Error en la creación de la función: fnCfdiSumaImpuestosSop()'
 GO
 
+----------------------------------------------------------------------------------------------------
+IF OBJECT_ID ('dbo.fnCfdiSumaImpuestosNegativosSop') IS NOT NULL
+   DROP FUNCTION dbo.fnCfdiSumaImpuestosNegativosSop
+GO
+
+create function dbo.fnCfdiSumaImpuestosNegativosSop(@SOPNUMBE char(21), @DOCTYPE smallint, @LNITMSEQ int, @prefijo varchar(15), @tipoTributo varchar(10), @tipoAfectacion varchar(2))
+returns table
+as
+--Propósito. Agrupa los impuestos en trabajo e históricos de SOP. Filtra los impuestos negativos por @prefijo
+--Requisitos. -
+--13/09/19 jcf Creación ubl2.1
+--
+return
+(
+	select sum(imp.staxamnt) staxamnt, sum(imp.orslstax) orslstax, sum(imp.tdttxsls) tdttxsls, sum(imp.ortxsls) ortxsls
+	from dbo.fnCfdiImpuestosSop(@SOPNUMBE, @DOCTYPE, @LNITMSEQ,  @prefijo , @tipoTributo) imp
+	where imp.name like @tipoAfectacion
+	and imp.staxamnt < 0
+)
+
+go
+
+
+IF (@@Error = 0) PRINT 'Creación exitosa de la función: fnCfdiSumaImpuestosNegativosSop()'
+ELSE PRINT 'Error en la creación de la función: fnCfdiSumaImpuestosNegativosSop()'
+GO

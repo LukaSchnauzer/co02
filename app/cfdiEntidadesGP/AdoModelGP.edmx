@@ -147,8 +147,6 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' does not h
             
             
             
-            
-            
             <PropertyRef Name="sopnumbe" />
           </Key>
           <Property Name="soptype" Type="smallint" Nullable="false" />
@@ -195,8 +193,8 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' does not h
           <Property Name="tipoOperacion" Type="varchar" MaxLength="8000" />
           <Property Name="totalBaseImponible" Type="numeric" Precision="20" Scale="5" />
           <Property Name="totalSinImpuestos" Type="numeric" Precision="20" Scale="5" />
-          <Property Name="totalBrutoconImpuestos" Type="numeric" Precision="19" Scale="5" Nullable="false" />
-          <Property Name="totalMonto" Type="numeric" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="totalBrutoconImpuestos" Type="numeric" Precision="38" Scale="5" />
+          <Property Name="totalMonto" Type="numeric" Precision="38" Scale="5" />
           <Property Name="totalProductos" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -581,8 +579,8 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           <Property Name="tipoOperacion" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
           <Property Name="totalBaseImponible" Type="Decimal" Precision="20" Scale="5" />
           <Property Name="totalSinImpuestos" Type="Decimal" Precision="20" Scale="5" />
-          <Property Name="totalBrutoconImpuestos" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
-          <Property Name="totalMonto" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="totalBrutoconImpuestos" Type="Decimal" Precision="38" Scale="5" />
+          <Property Name="totalMonto" Type="Decimal" Precision="38" Scale="5" />
           <Property Name="totalProductos" Type="Int32" Nullable="false" />
           <Property Name="prefijo" Type="String" MaxLength="21" FixedLength="false" Unicode="false" />
         </EntityType>

@@ -157,19 +157,15 @@ namespace cfdiEntidadesGP
                 //.ToList();
                 _facimpcab = dv.vwCfdiFacturaImpuestosCabecera
                                    .Where(v => v.sopnumbe == Sopnumbe && v.soptype == Soptype)
-                                   //.First();
                                    .ToList();
                 _facimpdet = dv.vwCfdiFacturaImpuestosDetalles
                                     .Where(v => v.sopnumbe == Sopnumbe && v.soptype == Soptype)
-                                    //.First();
                                     .ToList();
                 _medpag = dv.vwCfdiMediosDePago
                                     .Where(v => v.sopnumbe == Sopnumbe && v.soptype == Soptype)
-                                    //.First();
                                     .ToList();
                 _clides = dv.vwCfdiClienteDestinatario
-                                    .Where(v => v.custnmbr == _DocVenta.custnmbr)
-                                    //.First();
+                                    .Where(v => v.custnmbr == _DocVenta.custnmbr.Trim())
                                     .ToList();
                 _cliobl = dv.vwCfdiClienteObligaciones
                                    .Where(v => v.custnmbr == _DocVenta.custnmbr)

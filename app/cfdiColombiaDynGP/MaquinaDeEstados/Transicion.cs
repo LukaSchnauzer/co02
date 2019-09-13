@@ -86,6 +86,22 @@ namespace MaquinaDeEstados
                     if (conAcceso == 0)
                         throw new ArgumentException("No tiene permisos para emitir factura electrónica.");
                 }
+                if (evento == Maquina.eventoDIANAcepta)   //Aceptado
+                {
+                    if (conAcceso == 1)
+                        ok = true;
+
+                    if (conAcceso == 0)
+                        throw new ArgumentException("No tiene permisos para emitir factura electrónica.");
+                }
+                if (evento == Maquina.eventoObtienePDF)   //Aceptado
+                {
+                    if (conAcceso == 1)
+                        ok = true;
+
+                    if (conAcceso == 0)
+                        throw new ArgumentException("No tiene permisos para emitir factura electrónica.");
+                }
 
             }
 

@@ -55,13 +55,11 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             int des = documentoGP._clides.Count();
             DocEnviarWS.cliente.destinatario = new Destinatario[des];
             foreach (vwCfdiClienteDestinatario destinatarios_gp in documentoGP._clides)
-                
-            //for (int j = 0; j < des; j++)
             {
                 Destinatario destinatario1 = new Destinatario();
                 destinatario1.email = new String[1];
                 destinatario1.email[0] = destinatarios_gp.cliente_email;
-                destinatario1.canalDeEntrega =destinatarios_gp.cliente_canalEntrega;
+                destinatario1.canalDeEntrega = destinatarios_gp.cliente_canalEntrega;
                 DocEnviarWS.cliente.destinatario[p] = destinatario1;
                 p++;
             }
@@ -311,16 +309,12 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                     docSerializado = sw.ToString();
                 }
 
-                //if (response.codigo == 202 || response.codigo == 207)
-                //    throw new ArgumentException(response.codigo.ToString() + " - " + response.mensaje);
-                //else
-
                 string msjErr=Environment.NewLine;
                 if (response.mensajesValidacion.Count() > 0)
                     msjErr += string.Join(Environment.NewLine, response.mensajesValidacion);
 
                 msjErr += Environment.NewLine + docSerializado;
-                throw new TimeoutException("Excepción al conectarse con el Web Service de Facturación. [TimbraYEnviaServicioDeImpuestoAsync] " + response.codigo.ToString() + " - " + response.mensaje + msjErr);
+                throw new InvalidOperationException(response.codigo.ToString() + " - " + response.mensaje + msjErr + "Excepción del Web Service de Facturación. [TimbraYEnviaServicioDeImpuestoAsync]");
 
             }
 
@@ -330,8 +324,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
         {
             string rutaYNomArchivoPDF = Path.Combine(ruta, nombreArchivo + extension);
 
-            //var response_descarga = await ServicioWS.DescargaArchivoAsync(usuario, usuarioPassword, ruc + "-" + tipoDoc + "-" + serie + "-" + correlativo, "PDF");
-            var response_descarga = await ServicioWS.DescargaPDFAsync("89ab70d025c1cb8c5bac3f5ac319a94728e42e3a", "3cfb75199b5d14cdb706a55555a055488b1fad6c", serie+correlativo);
+            var response_descarga = await ServicioWS.DescargaPDFAsync(usuario, usuarioPassword, serie+correlativo);
 
             if (response_descarga.codigo == 200)
             {
@@ -346,10 +339,9 @@ namespace cfdiColombiaOperadorServiciosElectronicos
 
                 return rutaYNomArchivoPDF;
             }
-        
             else
             {
-                throw new Exception("Excepción al descargar el PDF del servicio web. [ObtienePDFdelOSEAsync] " + response_descarga.codigo.ToString() + " - " + response_descarga.mensaje + " " + response_descarga.cufe);
+                throw new InvalidOperationException(response_descarga.codigo.ToString() + " - " + response_descarga.mensaje + " " + response_descarga.cufe + " Excepción al descargar el PDF del servicio web. [ObtienePDFdelOSEAsync] " );
             }
         }
         
@@ -410,15 +402,15 @@ namespace cfdiColombiaOperadorServiciosElectronicos
         
         public async Task<string> ObtieneXMLdelOSEAsync(string ruc, string usuario, string usuarioPassword, string tipoDoc, string serie, string correlativo)
         {
-            //var response_descarga = await ServicioWS.DescargaArchivoAsync(usuario, usuarioPassword, ruc + "-" + tipoDoc + "-" + serie + "-" + correlativo, "XML");
-            var response_descarga = await ServicioWS.DescargaXMLAsync("a64532c2a3b14050b893e78832e714f160eacdfd", "25cf0e943ce74feaa717b1f5464ea6e4591b3809", "PRUE980338212");
-            if (response_descarga.codigo == 0)
+            var response_descarga = await ServicioWS.DescargaXMLAsync(usuario, usuarioPassword, serie + correlativo);
+            if (response_descarga.codigo == 200)
             {
-                return response_descarga.documento.ToString();
+                byte[] converbyte = Convert.FromBase64String(response_descarga.documento.ToString());
+                return System.Text.Encoding.UTF8.GetString(converbyte);
             }
             else
             {
-                throw new Exception("Excepción al descargar el XML del servicio web. " + response_descarga.codigo.ToString() + " - " + response_descarga.mensaje + " " + response_descarga.cufe);
+                throw new InvalidOperationException(response_descarga.codigo.ToString() + " - " + response_descarga.mensaje + " " + response_descarga.cufe + " Excepción al descargar el XML del servicio web. " );
             }
 
         }

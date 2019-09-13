@@ -57,8 +57,8 @@ namespace cfdiEntidadesGP
         public string tipoOperacion { get; set; }
         public Nullable<decimal> totalBaseImponible { get; set; }
         public Nullable<decimal> totalSinImpuestos { get; set; }
-        public decimal totalBrutoconImpuestos { get; set; }
-        public decimal totalMonto { get; set; }
+        public Nullable<decimal> totalBrutoconImpuestos { get; set; }
+        public Nullable<decimal> totalMonto { get; set; }
         public int totalProductos { get; set; }
         public string prefijo { get; set; }
     }

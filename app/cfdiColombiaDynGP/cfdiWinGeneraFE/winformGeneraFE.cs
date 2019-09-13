@@ -725,12 +725,6 @@ namespace cfdiColombia
                 if (!this.tabCfdi.SelectedTab.Name.Equals("tabResumen"))
                     await proc.ProcesaObtienePDFAsync(ServiciosOse);
 
-                //cfdFacturaPdfWorker _bw = new cfdFacturaPdfWorker(DatosConexionDB.Elemento, Param);
-                //_bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_Completed);
-                //_bw.ProgressChanged += new ProgressChangedEventHandler(bw_Progress);
-                //object[] arguments = { regla.CfdiTransacciones };
-                //_bw.RunWorkerAsync(arguments);
-                //Actualiza la pantalla
                 HabilitarVentana(Param.emite, Param.anula, Param.imprime, Param.publica, Param.envia, true);
                 AplicaFiltroYActualizaPantalla(this.tabCfdi.SelectedTab.Name);
                 progressBar1.Value = 0;
