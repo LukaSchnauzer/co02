@@ -33,19 +33,10 @@
             this.dgridTrxFacturas = new System.Windows.Forms.DataGridView();
             this.Mark = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Docid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EstadoContabilizado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Voidstts = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MensajeEA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.eBinAct = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.vwCfdTransaccionesDeVentaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cmbBIdDoc = new System.Windows.Forms.ComboBox();
             this.cmbBEstado = new System.Windows.Forms.ComboBox();
             this.checkBoxEstado = new System.Windows.Forms.CheckBox();
@@ -93,7 +84,6 @@
             this.tsButtonConsultaTimbre = new System.Windows.Forms.ToolStripButton();
             this.tsBtnAnulaElimina = new System.Windows.Forms.ToolStripButton();
             this.tsBtnAbrirXML = new System.Windows.Forms.ToolStripButton();
-            this.tsBtnArchivoMensual = new System.Windows.Forms.ToolStripButton();
             this.tsConfirmaAnulaXml = new System.Windows.Forms.ToolStrip();
             this.tsLabelConfirma = new System.Windows.Forms.ToolStripLabel();
             this.tsButtonConfirmaAnulaXml = new System.Windows.Forms.ToolStripButton();
@@ -130,19 +120,27 @@
             this.iddoc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Soptype = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Sopnumbe = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vwCfdTransaccionesDeVentaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewTextBoxColumn15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn17 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn18 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn20 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn22 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn21 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgridTrxFacturas)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vwCfdTransaccionesDeVentaBindingSource)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.toolStripAccionesXML.SuspendLayout();
             this.toolStripImpresion.SuspendLayout();
@@ -163,6 +161,7 @@
             this.tabFacturas.SuspendLayout();
             this.tabResumen.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgridTrxResumen)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vwCfdTransaccionesDeVentaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // dgridTrxFacturas
@@ -222,57 +221,6 @@
             this.Docid.ReadOnly = true;
             this.Docid.Width = 50;
             // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "Soptype";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Tipo";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Width = 45;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "Sopnumbe";
-            this.dataGridViewTextBoxColumn4.HeaderText = "Número Doc.";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "Fechahora";
-            this.dataGridViewTextBoxColumn5.HeaderText = "Fecha";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "NombreCliente";
-            this.dataGridViewTextBoxColumn6.HeaderText = "Nombre Cliente";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.Width = 150;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "IdImpuestoCliente";
-            this.dataGridViewTextBoxColumn7.HeaderText = "Id. de Impuesto";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.DataPropertyName = "Total";
-            this.dataGridViewTextBoxColumn8.HeaderText = "Total";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.DataPropertyName = "Estado";
-            this.dataGridViewTextBoxColumn9.HeaderText = "Estado";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.DataPropertyName = "Mensaje";
-            this.dataGridViewTextBoxColumn10.HeaderText = "Mensaje";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            // 
             // EstadoContabilizado
             // 
             this.EstadoContabilizado.DataPropertyName = "EstadoContabilizado";
@@ -304,10 +252,6 @@
             this.eBinAct.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.eBinAct.Visible = false;
             this.eBinAct.Width = 20;
-            // 
-            // vwCfdTransaccionesDeVentaBindingSource
-            // 
-            this.vwCfdTransaccionesDeVentaBindingSource.DataSource = typeof(cfdiColombia.vwCfdTransaccionesDeVenta);
             // 
             // cmbBIdDoc
             // 
@@ -498,7 +442,7 @@
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip1.Size = new System.Drawing.Size(152, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(272, 24);
             this.menuStrip1.TabIndex = 14;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -514,7 +458,7 @@
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
             this.salirToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.salirToolStripMenuItem.Text = "Cerrar";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
@@ -530,7 +474,7 @@
             // 
             this.genFacturaElectrónicaV10ToolStripMenuItem.Name = "genFacturaElectrónicaV10ToolStripMenuItem";
             this.genFacturaElectrónicaV10ToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
-            this.genFacturaElectrónicaV10ToolStripMenuItem.Text = "Factura Electrónica COLOMBIA v1.0.1+ubl20";
+            this.genFacturaElectrónicaV10ToolStripMenuItem.Text = "Factura Electrónica COLOMBIA v1.0.1+ubl21";
             // 
             // toolStripMenuItem2
             // 
@@ -693,21 +637,21 @@
             // hoyToolStripMenuItem
             // 
             this.hoyToolStripMenuItem.Name = "hoyToolStripMenuItem";
-            this.hoyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hoyToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.hoyToolStripMenuItem.Text = "Hoy          ";
             this.hoyToolStripMenuItem.Click += new System.EventHandler(this.hoyToolStripMenuItem_Click);
             // 
             // ayerToolStripMenuItem
             // 
             this.ayerToolStripMenuItem.Name = "ayerToolStripMenuItem";
-            this.ayerToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ayerToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.ayerToolStripMenuItem.Text = "Ayer             ";
             this.ayerToolStripMenuItem.Click += new System.EventHandler(this.ayerToolStripMenuItem_Click);
             // 
             // ultimos7DíasToolStripMenuItem
             // 
             this.ultimos7DíasToolStripMenuItem.Name = "ultimos7DíasToolStripMenuItem";
-            this.ultimos7DíasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ultimos7DíasToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.ultimos7DíasToolStripMenuItem.Tag = "";
             this.ultimos7DíasToolStripMenuItem.Text = "Ultimos 7 días";
             this.ultimos7DíasToolStripMenuItem.Click += new System.EventHandler(this.ultimos7DíasToolStripMenuItem_Click);
@@ -715,21 +659,21 @@
             // ultimos30diasToolStripMenuItem
             // 
             this.ultimos30diasToolStripMenuItem.Name = "ultimos30diasToolStripMenuItem";
-            this.ultimos30diasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ultimos30diasToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.ultimos30diasToolStripMenuItem.Text = "Ultimos 30 días";
             this.ultimos30diasToolStripMenuItem.Click += new System.EventHandler(this.dToolStripMenuItem_Click);
             // 
             // ultimos60DíasToolStripMenuItem
             // 
             this.ultimos60DíasToolStripMenuItem.Name = "ultimos60DíasToolStripMenuItem";
-            this.ultimos60DíasToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ultimos60DíasToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.ultimos60DíasToolStripMenuItem.Text = "Ultimos 60 días";
             this.ultimos60DíasToolStripMenuItem.Click += new System.EventHandler(this.ultimos60DíasToolStripMenuItem_Click);
             // 
             // mesActualToolStripMenuItem
             // 
             this.mesActualToolStripMenuItem.Name = "mesActualToolStripMenuItem";
-            this.mesActualToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.mesActualToolStripMenuItem.Size = new System.Drawing.Size(154, 22);
             this.mesActualToolStripMenuItem.Text = "Mes actual";
             this.mesActualToolStripMenuItem.Click += new System.EventHandler(this.mesActualToolStripMenuItem_Click);
             // 
@@ -742,8 +686,7 @@
             this.toolStripAccionesXMLOtros.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsButtonConsultaTimbre,
             this.tsBtnAnulaElimina,
-            this.tsBtnAbrirXML,
-            this.tsBtnArchivoMensual});
+            this.tsBtnAbrirXML});
             this.toolStripAccionesXMLOtros.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStripAccionesXMLOtros.Location = new System.Drawing.Point(87, 0);
             this.toolStripAccionesXMLOtros.Name = "toolStripAccionesXMLOtros";
@@ -763,11 +706,13 @@
             // tsBtnAnulaElimina
             // 
             this.tsBtnAnulaElimina.AutoToolTip = false;
+            this.tsBtnAnulaElimina.Enabled = false;
             this.tsBtnAnulaElimina.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnAnulaElimina.Image")));
             this.tsBtnAnulaElimina.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsBtnAnulaElimina.Name = "tsBtnAnulaElimina";
             this.tsBtnAnulaElimina.Size = new System.Drawing.Size(111, 20);
             this.tsBtnAnulaElimina.Text = "Comunicar Baja";
+            this.tsBtnAnulaElimina.Visible = false;
             this.tsBtnAnulaElimina.Click += new System.EventHandler(this.tsBtnAnulaElimina_Click);
             // 
             // tsBtnAbrirXML
@@ -780,17 +725,6 @@
             this.tsBtnAbrirXML.Text = "Abrir XML      ";
             this.tsBtnAbrirXML.Visible = false;
             this.tsBtnAbrirXML.Click += new System.EventHandler(this.tsBtnAbrirXML_Click);
-            // 
-            // tsBtnArchivoMensual
-            // 
-            this.tsBtnArchivoMensual.Enabled = false;
-            this.tsBtnArchivoMensual.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnArchivoMensual.Image")));
-            this.tsBtnArchivoMensual.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsBtnArchivoMensual.Name = "tsBtnArchivoMensual";
-            this.tsBtnArchivoMensual.Size = new System.Drawing.Size(116, 20);
-            this.tsBtnArchivoMensual.Text = "Archivo Mensual";
-            this.tsBtnArchivoMensual.Visible = false;
-            this.tsBtnArchivoMensual.Click += new System.EventHandler(this.tsBtnArchivoMensual_Click);
             // 
             // tsConfirmaAnulaXml
             // 
@@ -1246,6 +1180,84 @@
             this.Sopnumbe.HeaderText = "Número";
             this.Sopnumbe.Name = "Sopnumbe";
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "EstadoContabilizado";
+            this.dataGridViewTextBoxColumn1.HeaderText = "EstadoContab.";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "Voidstts";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Anulado";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Visible = false;
+            // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Text = "toolStripButton1";
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Soptype";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Tipo";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Width = 45;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "Sopnumbe";
+            this.dataGridViewTextBoxColumn4.HeaderText = "Número Doc.";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "Fechahora";
+            this.dataGridViewTextBoxColumn5.HeaderText = "Fecha";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "NombreCliente";
+            this.dataGridViewTextBoxColumn6.HeaderText = "Nombre Cliente";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.Width = 150;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "IdImpuestoCliente";
+            this.dataGridViewTextBoxColumn7.HeaderText = "Id. de Impuesto";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "Total";
+            this.dataGridViewTextBoxColumn8.HeaderText = "Total";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.DataPropertyName = "Estado";
+            this.dataGridViewTextBoxColumn9.HeaderText = "Estado";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.DataPropertyName = "Mensaje";
+            this.dataGridViewTextBoxColumn10.HeaderText = "Mensaje";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            // 
+            // vwCfdTransaccionesDeVentaBindingSource
+            // 
+            this.vwCfdTransaccionesDeVentaBindingSource.DataSource = typeof(cfdiColombia.vwCfdTransaccionesDeVenta);
+            // 
             // dataGridViewTextBoxColumn15
             // 
             this.dataGridViewTextBoxColumn15.DataPropertyName = "Fechahora";
@@ -1287,20 +1299,6 @@
             this.dataGridViewTextBoxColumn20.Name = "dataGridViewTextBoxColumn20";
             this.dataGridViewTextBoxColumn20.Width = 200;
             // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "EstadoContabilizado";
-            this.dataGridViewTextBoxColumn1.HeaderText = "EstadoContab.";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "Voidstts";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Anulado";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.Visible = false;
-            // 
             // dataGridViewTextBoxColumn22
             // 
             this.dataGridViewTextBoxColumn22.DataPropertyName = "MensajeEA";
@@ -1314,15 +1312,6 @@
             this.dataGridViewTextBoxColumn21.HeaderText = "EstadoActual";
             this.dataGridViewTextBoxColumn21.Name = "dataGridViewTextBoxColumn21";
             this.dataGridViewTextBoxColumn21.Visible = false;
-            // 
-            // toolStripButton1
-            // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "toolStripButton1";
             // 
             // winformGeneraFE
             // 
@@ -1343,7 +1332,6 @@
             this.Text = "GP Factura Electrónica";
             this.Load += new System.EventHandler(this.winformGeneraFE_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgridTrxFacturas)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.vwCfdTransaccionesDeVentaBindingSource)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStripAccionesXML.ResumeLayout(false);
@@ -1379,6 +1367,7 @@
             this.tabResumen.ResumeLayout(false);
             this.tabResumen.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgridTrxResumen)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vwCfdTransaccionesDeVentaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1442,7 +1431,6 @@
         private System.Windows.Forms.ComboBox cmbBxCompannia;
         private System.Windows.Forms.ToolStripButton tsBtnAbrirXML;
         private System.Windows.Forms.ToolStripButton tsBtnAnulaElimina;
-        private System.Windows.Forms.ToolStripButton tsBtnArchivoMensual;
         private System.Windows.Forms.ToolStrip toolStripPDF;
         private System.Windows.Forms.ToolStripButton tsBtnGeneraPDF;
         private System.Windows.Forms.ToolStrip toolStrip1;

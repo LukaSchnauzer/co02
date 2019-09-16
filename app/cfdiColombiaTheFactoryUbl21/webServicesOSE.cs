@@ -499,19 +499,8 @@ namespace cfdiColombiaOperadorServiciosElectronicos
 
         public async Task<string> ConsultaStatusAlOSEAsync(string ruc, string usuario, string usuarioPassword, string tipoDoc, string serie, string correlativo)
         {
-            //string rutaYNomArchivoPDF = Path.Combine(ruta, nombreArchivo + extension);
-
-            //var response_descarga = await ServicioWS.EstatusDocumentoAsync(usuario, usuarioPassword, ruc + "-" + tipoDoc + "-" + serie + "-" + correlativo);
-            var response_descarga = await ServicioWS.EstadoDocumentoAsync("a64532c2a3b14050b893e78832e714f160eacdfd", "25cf0e943ce74feaa717b1f5464ea6e4591b3809", "PRUE980338212");
+            var response_descarga = await ServicioWS.EstadoDocumentoAsync(usuario, usuarioPassword, serie+correlativo);
             return string.Concat(response_descarga.codigo.ToString(), "-", response_descarga.mensaje);
-            //if (response_descarga.codigo == 0)
-            //{
-            //    return response_descarga.codigo.ToString();
-            //}
-            //else
-            //{
-            //    return string.Concat(response_descarga.codigo.ToString(), " - ", response_descarga.mensaje);
-            //}
 
         }
 

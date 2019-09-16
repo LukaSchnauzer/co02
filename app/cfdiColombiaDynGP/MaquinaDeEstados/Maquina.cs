@@ -12,7 +12,8 @@ namespace MaquinaDeEstados
         //public int iErr;
         public string sMsj;
         private int estadoInicial;
-        public const int eventoGeneraYEnviaXml = 0;
+        public const int eventoNoHaceNada = 0;
+        public const int eventoGeneraYEnviaXml = 5;
         public const int eventoDIANAcepta = 10;
         public const int eventoDIANRechaza = 20;
         public const int eventoDarDeBaja = 30;
@@ -142,6 +143,7 @@ namespace MaquinaDeEstados
                                     new Transicion(eventoAnulaFolioEnDIAN, "Anular folio en DIAN", "std",                       _Estados.Where(x=>x.Nombre.Equals("rechazado DIAN")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("anulado")).First().Idx),
                                     new Transicion(eventoObtienePDF, "Obtiene PDF del PT", "std",                               _Estados.Where(x=>x.Nombre.Equals("aceptado DIAN")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("impreso")).First().Idx),
                                     new Transicion(eventoObtienePDF, "Obtiene PDF del PT", "std",                               _Estados.Where(x=>x.Nombre.Equals("aceptado Cliente")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("impreso")).First().Idx),
+                                    new Transicion(eventoObtienePDF, "Obtiene PDF del PT", "std",                               _Estados.Where(x=>x.Nombre.Equals("impreso")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("impreso")).First().Idx),
                                     new Transicion(eventoAcuseAceptado, "Cliente acepta acuse de recibo", "std",                _Estados.Where(x=>x.Nombre.Equals("impreso")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("aceptado Cliente")).First().Idx),
                                     new Transicion(eventoAcuseAceptado, "Cliente acepta acuse de recibo", "std",                _Estados.Where(x=>x.Nombre.Equals("aceptado DIAN")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("aceptado Cliente")).First().Idx),
                                     new Transicion(eventoAcuseRechazado, "Cliente rechaza acuse de recibo", "std",              _Estados.Where(x=>x.Nombre.Equals("aceptado DIAN")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("rechazado Cliente")).First().Idx),

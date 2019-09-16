@@ -263,8 +263,7 @@ namespace cfdiColombia
         {
             cmbBxCompannia.Enabled = cambiaCia;
             tsButtonGenerar.Enabled = emite;      //Emite xml
-            tsBtnAbrirXML.Enabled = false;                          //Emite xml
-            tsBtnArchivoMensual.Enabled = emite;  //Emite xml
+            tsBtnAbrirXML.Enabled = false;        //Emite xml
             tsBtnAnulaElimina.Enabled = anula;    //Elimina xml
             toolStripPDF.Enabled = imprime;       //Imprime
             toolStripImpresion.Enabled = imprime; //Imprime
@@ -496,26 +495,6 @@ namespace cfdiColombia
             AplicaFiltroYActualizaPantalla(this.tabCfdi.SelectedTab.Name);
         }
 
-        public bool ExistenFacturasNoEmitidas()
-        {
-            //int i = 0; 
-            //progressBar1.Value = 0;
-            //foreach (DataGridViewRow dgvr in dgridTrxFacturas.Rows)
-            //{
-            //    if (!dgvr.Cells[idxEstado].Value.Equals("emitido"))
-            //    {
-            //        dgvr.DefaultCellStyle.ForeColor = Color.Red;
-            //        dgridTrxFacturas.CurrentCell = dgvr.Cells[idxEstado];
-            //        progressBar1.Value = 0;
-            //        return true;
-            //    }
-            //    progressBar1.Value = i * 100 / dgridTrxFacturas.RowCount;
-            //    i++;
-            //}
-            //progressBar1.Value = 0;
-            return false;
-        }
-
         public void GuardaArchivoMensual()
         {
 
@@ -676,11 +655,6 @@ namespace cfdiColombia
             {
                 txtbxMensajes.Text = "Error al abrir el archivo XML. Es probable que el archivo no exista o haya sido trasladado a otra carpeta. " + eAbrexml.Message;
             }
-
-        }
-
-        private void tsBtnArchivoMensual_Click(object sender, EventArgs e)
-        {
 
         }
 
@@ -1075,45 +1049,5 @@ namespace cfdiColombia
 
         }
 
-        //private async void toolStripButton2_Click_1(object sender, EventArgs e)
-        //{
-        //    int errores = 0;
-        //    txtbxMensajes.Text = "";
-
-        //    Parametros Param = new Parametros(DatosConexionDB.Elemento.Intercompany);
-        //    Param.ExtDefault = this.tabCfdi.SelectedTab.Name;
-
-        //    if (!Param.ultimoMensaje.Equals(string.Empty))
-        //    {
-        //        txtbxMensajes.Text = Param.ultimoMensaje;
-        //        errores++;
-        //    }
-        //    if (regla.CfdiTransacciones.RowCount == 0)
-        //    {
-        //        txtbxMensajes.Text = "No hay documentos para generar. Verifique los criterios de búsqueda.";
-        //        errores++;
-        //    }
-        //    if (!filtraListaSeleccionada()) //Filtra cfdiTransacciones sólo con docs marcados
-        //    {
-        //        txtbxMensajes.Text = ultimoMensaje;
-        //        errores++;
-        //    }
-        //    if (errores == 0 && !ExistenTransaccionesAMedioContabilizar(regla.CfdiTransacciones))
-        //    {
-        //        HabilitarVentana(false, false, false, false, false, false);
-        //        ProcesaCfdi proc = new ProcesaCfdi(DatosConexionDB.Elemento, Param);
-        //        proc.TrxVenta = regla.CfdiTransacciones;
-        //        proc.Progreso += new ProcesaCfdi.LogHandler(reportaProgreso);
-        //        pBarProcesoActivo.Visible = true;
-        //        ICfdiMetodosWebService servicioTimbre = null;
-        //        await proc.GeneraResumenXmlAsync(servicioTimbre);
-
-        //    }
-        //    //Actualiza la pantalla
-        //    HabilitarVentana(Param.emite, Param.anula, Param.imprime, Param.publica, Param.envia, true);
-        //    AplicaFiltroYActualizaPantalla(this.tabCfdi.SelectedTab.Name);
-        //    progressBar1.Value = 0;
-        //    pBarProcesoActivo.Visible = false;
-        //}
     }
 }
