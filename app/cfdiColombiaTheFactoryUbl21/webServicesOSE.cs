@@ -52,13 +52,17 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                 DocEnviarWS.cliente.actividadEconomicaCIIU = documentoGP.DocVenta.cliente_actividadEconomicaCIIU;
             }
             int p = 0;
-            int des = documentoGP._clides.Count();
+            int des = documentoGP._clides.Count();            
             DocEnviarWS.cliente.destinatario = new Destinatario[des];
             foreach (vwCfdiClienteDestinatario destinatarios_gp in documentoGP._clides)
             {
                 Destinatario destinatario1 = new Destinatario();
-                destinatario1.email = new String[1];
-                destinatario1.email[0] = destinatarios_gp.cliente_email;
+                int cem = destinatarios_gp.cliente_email.Count();
+                for (int coe = 0; coe < cem; coe++)
+                {
+                    destinatario1.email[coe] = destinatarios_gp.cliente_email[coe].ToString();
+                }
+                destinatarios_gp.cliente_email = destinatario1.email[p];
                 destinatario1.canalDeEntrega = destinatarios_gp.cliente_canalEntrega;
                 DocEnviarWS.cliente.destinatario[p] = destinatario1;
                 p++;
@@ -96,14 +100,32 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             DocEnviarWS.cliente.informacionLegalCliente = informacionlegal1;
             //FIN INFORMACION LEGAL DEL CLIENTE
 
-            //OBLIGACIONES VIENE DE LA VISTA vwCfdiClienteObligacioS 
-            DocEnviarWS.cliente.responsabilidadesRut = new Obligaciones[1];
-            Obligaciones obligaciones1 = new Obligaciones();
-            obligaciones1.obligaciones = documentoGP._cliobl.cliente_obligaciones;
-            obligaciones1.regimen = documentoGP._cliobl.cliente_regimen;
-            DocEnviarWS.cliente.responsabilidadesRut[0] = obligaciones1;
-            //FIN OBLIGACIONES DE LA VISTA vwCfdiClienteObligaciones            
-            // FIN SECCION COMPROBANTE            
+            //OBLIGACIONES VIENE DE LA VISTA vwCfdiClienteObligacioS
+            int cob = documentoGP._cliobl.Count();
+            DocEnviarWS.cliente.responsabilidadesRut = new Obligaciones[cob];
+            int obl = 0;
+            foreach (vwCfdiClienteObligaciones obligaciones_gp in documentoGP._cliobl)
+            {
+                Obligaciones obligaciones1 = new Obligaciones();
+                obligaciones1.obligaciones = obligaciones_gp.cliente_obligaciones; ;
+                obligaciones1.regimen = obligaciones_gp.cliente_regimen;
+                DocEnviarWS.cliente.responsabilidadesRut[obl] = obligaciones1;
+                obl++;
+                //FIN OBLIGACIONES DE LA VISTA vwCfdiClienteObligaciones            
+            }
+            // FIN SECCION COMPROBANTE   
+
+            //CARGOS DESCUENTOS
+            DocEnviarWS.cargosDescuentos = new CargosDescuentos[1];
+            CargosDescuentos cargosdescuentos1 = new CargosDescuentos();
+            cargosdescuentos1.codigo = documentoGP.DocVenta.cargosdescuentos_codigo;
+            cargosdescuentos1.descripcion = documentoGP.DocVenta.cargosdescuentos_descripcion;
+            cargosdescuentos1.indicador = documentoGP.DocVenta.cargosdescuentos_indicador;
+            cargosdescuentos1.monto = documentoGP.DocVenta.cargosdescuentos_monto.ToString();
+            cargosdescuentos1.montoBase = documentoGP.DocVenta.cargosdescuentos_montobase.ToString();
+            cargosdescuentos1.porcentaje = documentoGP.DocVenta.cargodescuentos_porcentaje.ToString();
+            cargosdescuentos1.secuencia = documentoGP.DocVenta.cargosdescuentos_secuencia;
+            DocEnviarWS.cargosDescuentos[0] = cargosdescuentos1;
 
             //SECCION CONCEPTOS O DETALLES DE LA FACTURA
             DocEnviarWS.detalleDeFactura = new FacturaDetalle[documentoGP.LDocVentaConceptos.Count()];

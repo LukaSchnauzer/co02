@@ -16,7 +16,7 @@ namespace cfdiEntidadesGP
         public List<vwCfdiRelacionados> _LDocVentaRelacionados;
         public List<vwCfdiFacturaImpuestosDetalles> _facimpdet;
         public List<vwCfdiClienteDestinatario> _clides;
-        public vwCfdiClienteObligaciones _cliobl;
+        public List<vwCfdiClienteObligaciones> _cliobl;
         public List<vwCfdiMediosDePago> _medpag;
         private string _leyendasXml = string.Empty;
         
@@ -28,7 +28,7 @@ namespace cfdiEntidadesGP
             _LDocVentaRelacionados = new List<vwCfdiRelacionados>();
             _facimpdet = new List<vwCfdiFacturaImpuestosDetalles>();
             _clides = new List<vwCfdiClienteDestinatario>();
-            _cliobl = new vwCfdiClienteObligaciones();
+            _cliobl = new List<vwCfdiClienteObligaciones>();
             _medpag = new List<vwCfdiMediosDePago>();
         }
 
@@ -107,7 +107,7 @@ namespace cfdiEntidadesGP
                 _clides = value;
             }
         }
-        public vwCfdiClienteObligaciones cliobl
+        public List<vwCfdiClienteObligaciones> cliobl
         {
             get
             {
@@ -169,7 +169,7 @@ namespace cfdiEntidadesGP
                                     .ToList();
                 _cliobl = dv.vwCfdiClienteObligaciones
                                    .Where(v => v.custnmbr == _DocVenta.custnmbr)
-                                   .First();
+                                   .ToList();
                 //var resDoc = dv.vwCfdiGeneraDocumentoDeVenta.Where(v => v.sopnumbe == Sopnumbe && v.soptype == Soptype);
                 //foreach (vwCfdiGeneraDocumentoDeVenta doc in resDoc)
                 //{
