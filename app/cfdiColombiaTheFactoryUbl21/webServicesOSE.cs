@@ -64,32 +64,18 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             {
                 DocEnviarWS.cliente.actividadEconomicaCIIU = documentoGP.DocVenta.cliente_actividadEconomicaCIIU;
             }
-            int des = documentoGP._clides.Count();
-            int con = 0;
-            
+
             //DESTINATARIOS
+            int des = documentoGP._clides.Count();
             DocEnviarWS.cliente.destinatario = new Destinatario[des];
-            foreach (vwCfdiClienteDestinatario destinatarios_gp in documentoGP._clides)
-            {
-                //DocEnviarWS.cliente.destinatario[p].email = new String[1];
-                if (documentoGP.DocVenta.cliente_numeroDocumento == destinatarios_gp.custnmbr)
-                {
-                    con++;
-                }
-            }            
-            int r = 0,p = 0;
+            int p = 0;
             foreach (vwCfdiClienteDestinatario destinatarios_gp in documentoGP._clides)           
             {
-                DocEnviarWS.cliente.destinatario[p].email = new String[con];
-                foreach (vwCfdiClienteDestinatario destinatarios_gp2 in documentoGP._clides)
-                {
-                    if (documentoGP.DocVenta.cliente_numeroDocumento == destinatarios_gp2.custnmbr)
-                    {
-                        DocEnviarWS.cliente.destinatario[p].email[r] = destinatarios_gp2.cliente_email;
-                        r++;
-                    }
-                }   
-                DocEnviarWS.cliente.destinatario[p].canalDeEntrega = destinatarios_gp.cliente_canalEntrega;                
+                var destinatario = new Destinatario();
+                destinatario.email = new string[] { destinatarios_gp.cliente_email };
+                destinatario.canalDeEntrega = destinatarios_gp.cliente_canalEntrega;
+                DocEnviarWS.cliente.destinatario[p] = destinatario;
+
                 p++;
             }
             //FIN DE DATOS DE CLIENTES VISTA DESTINATARIOS
@@ -98,7 +84,6 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             DocEnviarWS.cliente.detallesTributarios = new Tributos[1];
             Tributos tributos1 = new Tributos();
             tributos1.codigoImpuesto = documentoGP._facimpcab[0].codigoTotalImp; //"01";
-            //tributos1.extras = null;
             DocEnviarWS.cliente.detallesTributarios[0] = tributos1;
             //FIN DETALLES TRIBUTOS
 
@@ -132,7 +117,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             foreach (vwCfdiClienteObligaciones obligaciones_gp in documentoGP._cliobl)
             {
                 Obligaciones obligaciones1 = new Obligaciones();
-                obligaciones1.obligaciones = obligaciones_gp.cliente_obligaciones; ;
+                obligaciones1.obligaciones = obligaciones_gp.cliente_obligaciones; 
                 obligaciones1.regimen = obligaciones_gp.cliente_regimen;
                 DocEnviarWS.cliente.responsabilidadesRut[obl] = obligaciones1;
                 obl++;
@@ -524,19 +509,8 @@ namespace cfdiColombiaOperadorServiciosElectronicos
 
         public async Task<string> ConsultaStatusAlOSEAsync(string ruc, string usuario, string usuarioPassword, string tipoDoc, string serie, string correlativo)
         {
-            //string rutaYNomArchivoPDF = Path.Combine(ruta, nombreArchivo + extension);
-
-            //var response_descarga = await ServicioWS.EstatusDocumentoAsync(usuario, usuarioPassword, ruc + "-" + tipoDoc + "-" + serie + "-" + correlativo);
-            var response_descarga = await ServicioWS.EstadoDocumentoAsync("a64532c2a3b14050b893e78832e714f160eacdfd", "25cf0e943ce74feaa717b1f5464ea6e4591b3809", "PRUE980338212");
+            var response_descarga = await ServicioWS.EstadoDocumentoAsync(usuario, usuarioPassword, serie+correlativo);
             return string.Concat(response_descarga.codigo.ToString(), "-", response_descarga.mensaje);
-            //if (response_descarga.codigo == 0)
-            //{
-            //    return response_descarga.codigo.ToString();
-            //}
-            //else
-            //{
-            //    return string.Concat(response_descarga.codigo.ToString(), " - ", response_descarga.mensaje);
-            //}
 
         }
 
