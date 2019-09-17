@@ -42,6 +42,19 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             DocEnviarWS.cliente.notificar = documentoGP.DocVenta.cliente_notificar;
             //DocEnviarWS.cliente.telefono = documentoGP.DocVenta.cliente_telefono;
             DocEnviarWS.cliente.email = documentoGP.DocVenta.cliente_email;
+            //DIRECCION DEL CLIENTE
+            DocEnviarWS.cliente.direccionCliente = new Direccion();
+            Direccion direccion1 = new Direccion();
+            direccion1.ciudad = documentoGP.DocVenta.cliente_difCiudad;
+            direccion1.codigoDepartamento = documentoGP.DocVenta.cliente_difcodigoDepartamento;//"11";
+            direccion1.departamento = documentoGP.DocVenta.cliente_difdepartamento;
+            direccion1.direccion = documentoGP.DocVenta.cliente_difdireccion;//"Direccion";
+            direccion1.lenguaje = documentoGP.DocVenta.cliente_diflenguaje;//"es";
+            direccion1.municipio = documentoGP.DocVenta.cliente_difmunicipio;// "11001";
+            direccion1.pais = documentoGP.DocVenta.cliente_difpais;// "CO";
+            direccion1.zonaPostal = documentoGP.DocVenta.cliente_difzonapostal;//"110211";
+            DocEnviarWS.cliente.direccionFiscal = direccion1;
+            //FIN DIRECCION DEL CLIENTE
             DocEnviarWS.cliente.numeroIdentificacionDV = documentoGP.DocVenta.cliente_numeroIdentificacionDV;
             if (!string.IsNullOrEmpty( documentoGP.DocVenta.cliente_nombreComercial))
             {
@@ -51,20 +64,32 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             {
                 DocEnviarWS.cliente.actividadEconomicaCIIU = documentoGP.DocVenta.cliente_actividadEconomicaCIIU;
             }
-            int p = 0;
-            int des = documentoGP._clides.Count();            
+            int des = documentoGP._clides.Count();
+            int con = 0;
+            
+            //DESTINATARIOS
             DocEnviarWS.cliente.destinatario = new Destinatario[des];
             foreach (vwCfdiClienteDestinatario destinatarios_gp in documentoGP._clides)
             {
-                Destinatario destinatario1 = new Destinatario();
-                int cem = destinatarios_gp.cliente_email.Count();
-                for (int coe = 0; coe < cem; coe++)
+                //DocEnviarWS.cliente.destinatario[p].email = new String[1];
+                if (documentoGP.DocVenta.cliente_numeroDocumento == destinatarios_gp.custnmbr)
                 {
-                    destinatario1.email[coe] = destinatarios_gp.cliente_email[coe].ToString();
+                    con++;
                 }
-                destinatarios_gp.cliente_email = destinatario1.email[p];
-                destinatario1.canalDeEntrega = destinatarios_gp.cliente_canalEntrega;
-                DocEnviarWS.cliente.destinatario[p] = destinatario1;
+            }            
+            int r = 0,p = 0;
+            foreach (vwCfdiClienteDestinatario destinatarios_gp in documentoGP._clides)           
+            {
+                DocEnviarWS.cliente.destinatario[p].email = new String[con];
+                foreach (vwCfdiClienteDestinatario destinatarios_gp2 in documentoGP._clides)
+                {
+                    if (documentoGP.DocVenta.cliente_numeroDocumento == destinatarios_gp2.custnmbr)
+                    {
+                        DocEnviarWS.cliente.destinatario[p].email[r] = destinatarios_gp2.cliente_email;
+                        r++;
+                    }
+                }   
+                DocEnviarWS.cliente.destinatario[p].canalDeEntrega = destinatarios_gp.cliente_canalEntrega;                
                 p++;
             }
             //FIN DE DATOS DE CLIENTES VISTA DESTINATARIOS
