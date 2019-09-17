@@ -10,21 +10,24 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiClienteDestinatario' does not have
         <EntityType Name="vwCfdiClienteDestinatario">
           <Key>
             <PropertyRef Name="custnmbr" />
+            <PropertyRef Name="cliente_email" />
             
           </Key>
           <Property Name="custnmbr" Type="char" MaxLength="15" Nullable="false" />
           <Property Name="cliente_canalEntrega" Type="varchar" MaxLength="8000" Nullable="false" />
-          <Property Name="cliente_email" Type="varchar" MaxLength="81" />
+          <Property Name="cliente_email" Type="varchar" MaxLength="81" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'COL10.dbo.vwCfdiClienteObligaciones' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vwCfdiClienteObligaciones">
           <Key>
             <PropertyRef Name="custnmbr" />
+            
+            <PropertyRef Name="cliente_obligaciones" />
           </Key>
           <Property Name="custnmbr" Type="char" MaxLength="15" Nullable="false" />
-          <Property Name="cliente_regimen" Type="varchar" MaxLength="8000" />
-          <Property Name="cliente_obligaciones" Type="varchar" MaxLength="100" />
+          <Property Name="cliente_regimen" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="cliente_obligaciones" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'COL10.dbo.vwCfdiConceptos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -437,18 +440,20 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
         <EntityType Name="vwCfdiClienteDestinatario">
           <Key>
             <PropertyRef Name="custnmbr" />
+            <PropertyRef Name="cliente_email" />
           </Key>
           <Property Name="custnmbr" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="cliente_canalEntrega" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="cliente_email" Type="String" MaxLength="81" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_email" Type="String" MaxLength="81" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="vwCfdiClienteObligaciones">
           <Key>
             <PropertyRef Name="custnmbr" />
+            <PropertyRef Name="cliente_obligaciones" />
           </Key>
           <Property Name="custnmbr" Type="String" MaxLength="15" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="cliente_regimen" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
-          <Property Name="cliente_obligaciones" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cliente_regimen" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cliente_obligaciones" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="vwCfdiConceptos">
           <Key>

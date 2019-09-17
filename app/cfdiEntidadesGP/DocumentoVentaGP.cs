@@ -163,13 +163,15 @@ namespace cfdiEntidadesGP
                                     .ToList();
                 _medpag = dv.vwCfdiMediosDePago
                                     .Where(v => v.sopnumbe == Sopnumbe && v.soptype == Soptype)
-                                    .ToList();
+                                    ?.ToList();
                 _clides = dv.vwCfdiClienteDestinatario
                                     .Where(v => v.custnmbr == _DocVenta.custnmbr.Trim())
-                                    .ToList();
+                                    ?.ToList();
+
                 _cliobl = dv.vwCfdiClienteObligaciones
-                                   .Where(v => v.custnmbr == _DocVenta.custnmbr)
-                                   .ToList();
+                                   .Where(v => v.custnmbr == _DocVenta.custnmbr.Trim())
+                                   ?.ToList();
+
                 //var resDoc = dv.vwCfdiGeneraDocumentoDeVenta.Where(v => v.sopnumbe == Sopnumbe && v.soptype == Soptype);
                 //foreach (vwCfdiGeneraDocumentoDeVenta doc in resDoc)
                 //{
