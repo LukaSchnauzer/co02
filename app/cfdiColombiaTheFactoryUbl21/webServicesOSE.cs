@@ -133,12 +133,11 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                 obligaciones1.regimen = obligaciones_gp.cliente_regimen;
                 DocEnviarWS.cliente.responsabilidadesRut[obl] = obligaciones1;
                 obl++;
-                //FIN OBLIGACIONES DE LA VISTA vwCfdiClienteObligaciones            
             }
-            // FIN SECCION COMPROBANTE   
+            //FIN OBLIGACIONES DE LA VISTA vwCfdiClienteObligaciones            
 
             //CARGOS DESCUENTOS
-            if (documentoGP.DocVenta.cargosdescuentos_indicador == "0")
+            if (documentoGP.DocVenta.cargosdescuentos_monto != 0)
             {
                 DocEnviarWS.cargosDescuentos = new CargosDescuentos[1];
                 CargosDescuentos cargosdescuentos1 = new CargosDescuentos();
@@ -188,7 +187,6 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                     FacturaImpuestos facturaImpuestosDet = new FacturaImpuestos();
                     facturaImpuestosDet.baseImponibleTOTALImp = Math.Round(Convert.ToDecimal(regImpuestosDelConcepto.baseImponibleTotalImp), 2).ToString();//("00000000000000.00");
                     facturaImpuestosDet.codigoTOTALImp = regImpuestosDelConcepto.codigoTotalImp;
-                    facturaImpuestosDet.controlInterno = regImpuestosDelConcepto.controlInterno;
                     facturaImpuestosDet.porcentajeTOTALImp = Math.Abs(Math.Round(regImpuestosDelConcepto.porcentajeTotalImp, 2)).ToString(); //("00.00");
                     facturaImpuestosDet.valorTOTALImp = Math.Round(Convert.ToDecimal(regImpuestosDelConcepto.valorTotalImp), 2).ToString();// ("00000000000000.00");
                     if (!string.IsNullOrEmpty( regImpuestosDelConcepto.unidadMedida ))
@@ -252,7 +250,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                 FacturaImpuestos impuestosg1 = new FacturaImpuestos();
                 impuestosg1.baseImponibleTOTALImp = Math.Round(Convert.ToDecimal(documentoGP.facimpcab[j].baseImponibleTotalImp),2).ToString();// ("00000000000000.00");
                 impuestosg1.codigoTOTALImp = documentoGP.facimpcab[j].codigoTotalImp.ToString();
-                impuestosg1.controlInterno = documentoGP.facimpcab[j].controlInterno.ToString();
+                //impuestosg1.controlInterno = documentoGP.facimpcab[j].controlInterno.ToString();
                 impuestosg1.porcentajeTOTALImp = Math.Abs(Math.Round(documentoGP.facimpcab[j].porcentajeTotalImp,2)).ToString();
                 impuestosg1.valorTOTALImp = Math.Round(Convert.ToDecimal(documentoGP.facimpcab[j].valorTotalImp),2).ToString();// ("00000000000000.00");
                 impuestosg1.unidadMedida = documentoGP.facimpcab[j].unidadMedida;
@@ -357,7 +355,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                 }
 
                 string msjErr=Environment.NewLine;
-                if (response.mensajesValidacion.Count() > 0)
+                if (response.mensajesValidacion != null && response.mensajesValidacion.Count() > 0)
                     msjErr += string.Join(Environment.NewLine, response.mensajesValidacion);
 
                 msjErr += Environment.NewLine + docSerializado;
@@ -452,7 +450,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             var response_descarga = await ServicioWS.DescargaXMLAsync(usuario, usuarioPassword, serie + correlativo);
             if (response_descarga.codigo == 200)
             {
-                byte[] converbyte = Convert.FromBase64String(response_descarga.documento.ToString());
+                byte[] converbyte = Convert.FromBase64String(response_descarga.documento);
                 return System.Text.Encoding.UTF8.GetString(converbyte);
             }
             else
