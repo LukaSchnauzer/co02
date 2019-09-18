@@ -44,7 +44,7 @@ SELECT	'contabilizado' estadoContabilizado,
 		cn.send_email_statements,
 		cab.duedate, cab.pymtrmid, cab.glpostdt, 
 		dbo.fCfdReemplazaSecuenciaDeEspacios(dbo.fCfdReemplazaCaracteresNI(cab.cstponbr), 10) cstponbr,
-		da.USRDEF05, isnull(da.usrtab01, '') usrtab01, cab.commntid, isnull(da.comment_1, '') comment_1,
+		da.USRDEF05, isnull(da.usrtab01, '') usrtab01, rtrim(cab.commntid) commntid, rtrim(isnull(da.comment_1, '')) comment_1,
 		cab.dex_row_id
   from	sop30200 cab							--sop_hdr_hist
 		inner join vwCfdIdDocumentos id
@@ -89,7 +89,7 @@ SELECT	'contabilizado' estadoContabilizado,
 		0,
 		cab.duedate, cab.pymtrmid, cab.glpostdt, 
 		dbo.fCfdReemplazaSecuenciaDeEspacios(dbo.fCfdReemplazaCaracteresNI(cab.cstponbr), 10) cstponbr,
-		ctrl.USRDEF05, ctrl.usrtab01, cab.commntid, ctrl.comment_1,
+		ctrl.USRDEF05, ctrl.usrtab01, rtrim(cab.commntid) commntid, rtrim(isnull(ctrl.comment_1, '')) comment_1,
 		cab.dex_row_id
  from  SOP10100 cab								--sop_hdr_work
 		inner join vwCfdIdDocumentos id

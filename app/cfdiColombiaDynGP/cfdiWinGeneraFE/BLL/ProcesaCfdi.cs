@@ -58,7 +58,7 @@ namespace cfd.FacturaElectronica
         }
 
         /// <summary>
-        /// Genera documentos xml: factura, boleta, nc, nd
+        /// Genera documentos xml: factura, nc, nd
         /// </summary>
         public async Task GeneraDocumentoXmlAsync(ICfdiMetodosWebService servicioTimbre)
         {
@@ -86,9 +86,8 @@ namespace cfd.FacturaElectronica
                             string nombreArchivo = Utiles.FormatoNombreArchivo(trxVenta.Sopnumbe + "_" + trxVenta.s_CUSTNMBR, trxVenta.s_NombreCliente, 20) + "_" + Maquina.eventoGeneraYEnviaXml.ToString();
                             msj = ValidaDatosComprobante();
 
-                            string extension = ".xml";
-
-                            rutaYNombreArchivo = await EjecutaEventoEmiteAsync(servicioTimbre, LogComprobante, nombreArchivo, extension, 1);
+                            if (msj.ToLower().Equals("ok"))
+                                rutaYNombreArchivo = await EjecutaEventoEmiteAsync(servicioTimbre, LogComprobante, nombreArchivo, ".xml", 1);
 
                         }
                         //if (trxVenta.Voidstts == 1)  //documento anulado
@@ -148,10 +147,10 @@ namespace cfd.FacturaElectronica
 
         private string ValidaDatosComprobante()
         {
-            string msj;
+            string msj = "ok";
             switch (trxVenta.DocGP.DocVenta.tipoDocumento)
             {
-                //case "07":
+                case "91": //Nota de crédito
                 //if (trxVenta.DocGP.LDocVentaRelacionados.Count() == 0)
                 //{
                 //msj = "La nota de crédito no está aplicada.";
@@ -175,15 +174,12 @@ namespace cfd.FacturaElectronica
                     continue;
                 }
                 */
-                //break;
-                case "08":
-                    msj = "ok";
                     break;
-                case "01":
-                    msj = "ok";
+                case "92":  //Nota de débito
                     break;
-                case "03":
-                    msj = "ok";
+                case "01":  //Factura
+                    if (string.IsNullOrEmpty(trxVenta.DocGP.DocVenta.cargosdescuentos_codigo) || string.IsNullOrEmpty(trxVenta.DocGP.DocVenta.cargosdescuentos_descripcion))
+                        msj = "Debe ingresar un código y razón del descuento.";
                     break;
                 default:
                     msj = "No se puede emitir porque el tipo de documento: " + trxVenta.DocGP.DocVenta.tipoDocumento + " no está configurado.";

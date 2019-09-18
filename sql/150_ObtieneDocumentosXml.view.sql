@@ -264,7 +264,7 @@ as
 		outer apply dbo.fCfdiParametros('V_CANTDECIMALES', 'I_'+tv.docid, 'D_'+tv.docid, 'O_'+tv.docid, 'V_ININUMEROFAC', 'na', 'FECOL') parametros	--Parámetros. Cantidad decimales
 		outer apply dbo.fnCfdiSumaImpuestosNegativosSop(tv.sopnumbe, tv.soptype, 0, '%', '%', '%') sumaImpuestosNeg
 		outer apply (select top 1 Email_Recipient from dbo.rm00106 where CUSTNMBR = tv.custnmbr and Email_Type = 1) unEmail 
-		outer apply dbo.fnCfdGetDireccionesCorreo(tv.custnmbr) mail
+		--outer apply dbo.fnCfdGetDireccionesCorreo(tv.custnmbr) mail
 		--outer apply dbo.fCfdiGetLeyendaDeFactura(tv.SOPNUMBE, tv.soptype, '01') lfa
 
 go

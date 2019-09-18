@@ -87,11 +87,7 @@ from dbo.fCfdiPagoSimultaneoMayor(3, 'FV 00000247', 1) pg
 
 select *
 from dbo.sop10106
-where sopnumbe LIKE 'B%0000001'
-
-tx00201
-
-sp_columns tx00201
+where sopnumbe LIKE 'TISF00000016'
 
 select docncorr, *
 --update s set docncorr = '10:23:10:060'
@@ -100,14 +96,14 @@ where s.sopnumbe like 'B%'
 
 --ingresar la causa de la nc
 select docncorr, commntid,  *
---update s set commntid = '01ANULA OPER', refrence = 'x'	-- docncorr = '10:23:10:060'
+update s set commntid = '009'	--'01ANULA OPER', refrence = 'x'	-- docncorr = '10:23:10:060'
 from sop30200 s
-where s.soptype = 4
-and s.sopnumbe like 'BNC1-000002'
+where s.soptype = 3
+and s.sopnumbe like 'TISF00000016'
 
 --ingresar la causa de la nc
 insert into sop10106 (SOPTYPE,SOPNUMBE,USRDAT01,USRDAT02,USRTAB01,USRTAB09,USRTAB03,USERDEF1,USERDEF2,USRDEF03,USRDEF04,USRDEF05,COMMENT_1,COMMENT_2,COMMENT_3,COMMENT_4,CMMTTEXT)
-values (4, 'BNC1-000002', 0, 0, '', '', '', '', '', '', '', '', 'Anulación de la operación', '', '', '', 'Anulación de la operación')
+values (3, 'TISF00000016', 0, 0, '', '', '', '', '', '', '', '', 'Descuento General', '', '', '', 'Descuento General')
 
 --------------------------------------------------------------------------------
 --Para eliminar un número que se pueda reusar seguir el procedimiento: C:\jcTii\SW\SWDynamicsGP\KnowledgeBase\Completely Removing a Posted SOP Invoice From Dynamics GP.html
