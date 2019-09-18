@@ -5,8 +5,8 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="COLOMBIAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'COL10.dbo.vwCfdiClienteDestinatario' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiClienteDestinatario' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="vwCfdiClienteDestinatario">
           <Key>
             <PropertyRef Name="custnmbr" />
@@ -17,8 +17,8 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiClienteDestinatario' does not have
           <Property Name="cliente_canalEntrega" Type="varchar" MaxLength="8000" Nullable="false" />
           <Property Name="cliente_email" Type="varchar" MaxLength="81" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'COL10.dbo.vwCfdiClienteObligaciones' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiClienteObligaciones' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="vwCfdiClienteObligaciones">
           <Key>
             <PropertyRef Name="custnmbr" />
@@ -29,8 +29,8 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiClienteObligaciones' does not have
           <Property Name="cliente_regimen" Type="varchar" MaxLength="8000" Nullable="false" />
           <Property Name="cliente_obligaciones" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'COL10.dbo.vwCfdiConceptos' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiConceptos' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="vwCfdiConceptos">
           <Key>
             <PropertyRef Name="soptype" />
@@ -78,13 +78,16 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiConceptos' does not have a primary
           <Property Name="facturadetalle_precioVentaUnitario" Type="numeric" Precision="19" Scale="5" Nullable="false" />
           <Property Name="facturadetalle_unidadMedida" Type="varchar" MaxLength="255" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'COL10.dbo.vwCfdiFacturaImpuestosCabecera' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiFacturaImpuestosCabecera' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="vwCfdiFacturaImpuestosCabecera">
           <Key>
             <PropertyRef Name="soptype" />
             <PropertyRef Name="sopnumbe" />
             <PropertyRef Name="porcentajeTotalImp" />
+            
+            
+            
             
             <PropertyRef Name="codigoTotalImp" />
           </Key>
@@ -96,13 +99,13 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiFacturaImpuestosCabecera' does not
           <Property Name="valorTotalImp" Type="numeric" Precision="38" Scale="5" />
           <Property Name="tdttxsls" Type="numeric" Precision="38" Scale="5" />
           <Property Name="baseImponibleTotalImp" Type="numeric" Precision="38" Scale="5" />
-          <Property Name="controlInterno" Type="int" />
+          <Property Name="controlInterno" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="unidadMedida" Type="varchar" MaxLength="3" Nullable="false" />
-          <Property Name="unidadMedidaTributo" Type="int" />
-          <Property Name="valorTributoUnidad" Type="int" />
+          <Property Name="unidadMedidaTributo" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="valorTributoUnidad" Type="varchar" MaxLength="1" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'COL10.dbo.vwCfdiFacturaImpuestosDetalles' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiFacturaImpuestosDetalles' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="vwCfdiFacturaImpuestosDetalles">
           <Key>
             <PropertyRef Name="soptype" />
@@ -133,8 +136,8 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiFacturaImpuestosDetalles' does not
           <Property Name="unidadMedidaTributo" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="valorTributoUnidad" Type="varchar" MaxLength="1" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="vwCfdiGeneraDocumentoDeVenta">
           <Key>
             <PropertyRef Name="soptype" />
@@ -200,8 +203,8 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' does not h
           <Property Name="totalMonto" Type="numeric" Precision="38" Scale="5" />
           <Property Name="totalProductos" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'COL10.dbo.vwCfdiMediosDePago' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiMediosDePago' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="vwCfdiMediosDePago">
           <Key>
             <PropertyRef Name="APTODCTY" />
@@ -220,8 +223,8 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiMediosDePago' does not have a prim
           <Property Name="metodopago" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="numeroreferencia" Type="varchar" MaxLength="2" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'COL10.dbo.vwCfdiRelacionados' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="vwCfdiRelacionados">
           <Key>
             
@@ -507,10 +510,10 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           <Property Name="valorTotalImp" Type="Decimal" Precision="38" Scale="5" />
           <Property Name="tdttxsls" Type="Decimal" Precision="38" Scale="5" />
           <Property Name="baseImponibleTotalImp" Type="Decimal" Precision="38" Scale="5" />
-          <Property Name="controlInterno" Type="Int32" />
+          <Property Name="controlInterno" Type="String" Nullable="false" />
           <Property Name="unidadMedida" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="unidadMedidaTributo" Type="Int32" />
-          <Property Name="valorTributoUnidad" Type="Int32" />
+          <Property Name="unidadMedidaTributo" Type="String" Nullable="false" />
+          <Property Name="valorTributoUnidad" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="vwCfdiFacturaImpuestosDetalles">
           <Key>
