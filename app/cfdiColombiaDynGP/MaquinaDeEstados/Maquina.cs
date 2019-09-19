@@ -22,6 +22,7 @@ namespace MaquinaDeEstados
         public const int eventoObtienePDF = 60;
         public const int eventoAnulaFolioEnDIAN = 70;
 
+        public const int idxEstadoNoEmitido = 7;
         public const String estadoBaseEmisor = "emitido";
         public const String estadoBaseReceptor = "publicado";
         public const String binStatusBaseEmisor   = "000000010";
@@ -129,7 +130,7 @@ namespace MaquinaDeEstados
                 new Estado("aceptado DIAN", 4, -1),
                 new Estado("rechazado DIAN", 5, -1),
                 new Estado("emitido", 6, -1),
-                new Estado("no emitido", 7, -1),
+                new Estado("no emitido", idxEstadoNoEmitido, -1),
                 new Estado("error", 8, -1),
                 };
 

@@ -28,6 +28,7 @@ namespace cfdiColombia
         DateTime fechaIni = DateTime.Now;
         DateTime fechaFin = DateTime.Now;
         string ultimoMensaje = "";
+        int idxEstadoCompletadoCia = 1;
         int estadoCompletadoCia = 0;
         int estadoCompletadoResumen = 0;
         short idxChkBox = 0;                    //columna check box del grid
@@ -36,17 +37,13 @@ namespace cfdiColombia
         short idxSopnumbe = 3;                  //columna sopnumbe del grid
         short idxEstado = 8;                    //columna estado (en letras) del grid
         short idxMensaje = 9;                   //columna mensaje del grid
-        short idxEstadoContab = 10;             //columna estado contabilizado del grid
         short idxAnulado = 11;                  //columna anulado del grid
-        short idxEstadoDoc = 13;                //columna estado del documento (en números) del grid
+        short idxEstadoDoc = 14;                //columna estado del documento (en números) del grid
         List<CfdiDocumentoId> LDocsNoSeleccionados = new List<CfdiDocumentoId>();   //Docs no marcados del grid
         private ConexionDB DatosConexionDB = new ConexionDB();  //Lee la configuración del archivo xml y obtiene los datos de conexión.
 
         ICfdiMetodosWebService ServiciosOse;
         
-        //cfdiColombiaOperadorServiciosElectronicos.WebServicesOSE ServicesOSE;
-        //ICfdiPeruDocumento EstructuraDocsOse;
-
         public winformGeneraFE()
         {
             InitializeComponent();
@@ -72,10 +69,10 @@ namespace cfdiColombia
                     dGridActivo = dgridTrxFacturas;
                     vistaActiva = "vwCfdiTransaccionesDeVenta";
                     break;
-                case "tabResumen":
-                    dGridActivo = dgridTrxResumen;
-                    vistaActiva = "vwCfdiListaResumenDiario";
-                    break;
+                //case "tabResumen":
+                //    dGridActivo = dgridTrxResumen;
+                //    vistaActiva = "vwCfdiListaResumenDiario";
+                //    break;
                 default:
                     dGridActivo = dgridTrxFacturas;
                     vistaActiva = "vwCfdiTransaccionesDeVenta";
@@ -510,78 +507,6 @@ namespace cfdiColombia
         {
         }
 
-        private void GenerarReportePdf()
-        {
-            //string prmFolioDesde = "";
-            //string prmFolioHasta = "";
-            //string prmTabla = "SOP30200";
-            //int prmSopType = 0;
-            //Parametros configCfd = new Parametros(DatosConexionDB.Elemento.Intercompany);   //Carga configuración desde xml
-            //configCfd.ExtDefault = this.tabCfdi.SelectedTab.Name;
-
-            //txtbxMensajes.Text = "";
-            //txtbxMensajes.Refresh();
-            //configCfd.ImprimeEnImpresora = false;
-            //if (tsComboDestinoRep.Text.Equals("Impresora"))
-            //    configCfd.ImprimeEnImpresora = true;
-
-            //if (dgridTrxFacturas.CurrentRow != null)
-            //{
-            //    if (dgridTrxFacturas.CurrentCell.Selected)
-            //    {
-            //        prmFolioDesde = dgridTrxFacturas.CurrentRow.Cells[idxSopnumbe].Value.ToString();
-            //        prmFolioHasta = dgridTrxFacturas.CurrentRow.Cells[idxSopnumbe].Value.ToString();
-            //        prmSopType = Convert.ToInt16(dgridTrxFacturas.CurrentRow.Cells[idxSoptype].Value.ToString());
-
-            //        //En el caso de una compañía que debe emitir xml, controlar que la factura ha sido emitida antes de imprimir.
-            //        if(configCfd.emite)
-            //        {
-            //            if (!dgridTrxFacturas.CurrentRow.Cells[idxEstado].Value.Equals("emitido"))      //estado FE
-            //            {
-            //                txtbxMensajes.Text = "La factura " + prmFolioDesde + " no fue emitida. Emita la factura y vuelva a intentar.\r\n";
-            //                return;
-            //            }
-            //        }
-            //        else
-            //        {
-            //            if (dgridTrxFacturas.CurrentRow.Cells[idxAnulado].Value.ToString().Equals("1")) //factura anulada en GP
-            //            {
-            //                txtbxMensajes.Text = "La factura " + prmFolioDesde + " no se puede imprimir porque está anulada. \r\n";
-            //                return;
-            //            }
-            //            if (dgridTrxFacturas.CurrentRow.Cells[idxEstadoContab].Value.Equals("en lote")) //estado contabilizado en GP
-            //                prmTabla = "SOP10100";
-            //        }
-
-            //        if (FrmVisorDeReporte == null)
-            //        {
-            //            try
-            //            {
-            //                FrmVisorDeReporte = new winVisorDeReportes(DatosConexionDB.Elemento, configCfd, prmFolioDesde, prmFolioHasta, prmTabla, prmSopType);
-            //            }
-            //            catch (Exception ex)
-            //            {
-            //                MessageBox.Show(ex.Message);
-            //            }
-            //        }
-            //        else
-            //        {
-            //            if (FrmVisorDeReporte.Created == false)
-            //            {
-            //                FrmVisorDeReporte = new winVisorDeReportes(DatosConexionDB.Elemento, configCfd, prmFolioDesde, prmFolioHasta, prmTabla, prmSopType);
-            //            }
-            //        }
-
-            //        // Always show and activate the WinForm
-            //        FrmVisorDeReporte.Show();
-            //        FrmVisorDeReporte.Activate();
-            //        txtbxMensajes.Text = FrmVisorDeReporte.mensajeErr;
-            //    }
-            //    else
-            //        txtbxMensajes.Text = "No seleccionó ninguna factura. Debe marcar la factura que desea imprimir y luego presionar el botón de impresión.";
-            //}
-        }
-
         /// <summary>
         /// Imprimir en pantalla
         /// </summary>
@@ -914,7 +839,7 @@ namespace cfdiColombia
 
         private void cBoxMarcCobros_CheckedChanged(object sender, EventArgs e)
         {
-            InicializaCheckBoxDelGrid(dGridActivo, idxChkBox, cBoxMarcCobros.Checked);
+            //InicializaCheckBoxDelGrid(dGridActivo, idxChkBox, cBoxMarcCobros.Checked);
 
         }
 
@@ -978,28 +903,7 @@ namespace cfdiColombia
             }
         }
 
-        /// <summary>
-        /// Barre el grid para indicar los colores que corresponden a cada fila.
-        /// </summary>
-        private void dgridTrxResumen_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                //Está completo
-                int estadoDoc = Convert.ToInt32(dGridActivo.Rows[e.RowIndex].Cells[idxEstadoDoc].Value.ToString(), 2);
-                if (estadoDoc == estadoCompletadoResumen)
-                {
-                    dGridActivo.Rows[e.RowIndex].Cells[idxIdDoc].Style.BackColor = Color.YellowGreen;
-                }
 
-                //Está en proceso
-                if (estadoDoc > 0 && estadoDoc != estadoCompletadoResumen)
-                {
-                    dGridActivo.Rows[e.RowIndex].Cells[idxIdDoc].Style.BackColor = Color.Orange;
-                }
-            }
-
-        }
         /// <summary>
         /// Barre el grid para indicar los colores que corresponden a cada fila.
         /// </summary>
@@ -1009,18 +913,16 @@ namespace cfdiColombia
         {
             if (e.RowIndex >= 0)
             {
-                //Está completo
-                int estadoDoc = Convert.ToInt32(dGridActivo.Rows[e.RowIndex].Cells[idxEstadoDoc].Value.ToString(), 2);
-                if (estadoDoc == estadoCompletadoCia)
+                var x = dGridActivo.Rows[e.RowIndex].Cells[idxEstadoDoc].Value;
+                int estadoDoc = Convert.ToInt32(x);
+                if (estadoDoc != Maquina.idxEstadoNoEmitido) 
                 {
-                    dGridActivo.Rows[e.RowIndex].Cells[idxIdDoc].Style.BackColor = Color.YellowGreen;
+                    if(estadoDoc == idxEstadoCompletadoCia)
+                        dGridActivo.Rows[e.RowIndex].Cells[idxIdDoc].Style.BackColor = Color.YellowGreen;
+                    else
+                        dGridActivo.Rows[e.RowIndex].Cells[idxIdDoc].Style.BackColor = Color.Orange;
                 }
 
-                //Está en proceso
-                if (estadoDoc > 0 && estadoDoc != estadoCompletadoCia)
-                {
-                    dGridActivo.Rows[e.RowIndex].Cells[idxIdDoc].Style.BackColor = Color.Orange;
-                }
             }
         }
 

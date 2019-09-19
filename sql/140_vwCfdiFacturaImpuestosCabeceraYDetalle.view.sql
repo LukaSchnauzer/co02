@@ -16,10 +16,10 @@ as
 			sum(abs(imp.orslstax))	valorTotalImp, 
 			sum(imp.tdttxsls)	tdttxsls, 
 			sum(imp.ortxsls)	baseImponibleTotalImp,
-			null				controlInterno,
+			''					controlInterno,
 			'WSD'				unidadMedida,
-			null				unidadMedidaTributo,
-			null				valorTributoUnidad
+			''					unidadMedidaTributo,
+			''					valorTributoUnidad
 	from sop30200 sop
 	cross apply dbo.fnCfdiImpuestosSop(sop.SOPNUMBE, sop.soptype , 0, '%', '%') imp
 	group by sop.soptype, sop.sopnumbe, imp.cntcprsn, imp.TXDTLPCT

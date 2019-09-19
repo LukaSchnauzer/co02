@@ -58,7 +58,7 @@ namespace cfd.FacturaElectronica
         }
 
         /// <summary>
-        /// Genera documentos xml: factura, boleta, nc, nd
+        /// Genera documentos xml: factura, nc, nd
         /// </summary>
         public async Task GeneraDocumentoXmlAsync(ICfdiMetodosWebService servicioTimbre)
         {
@@ -86,9 +86,8 @@ namespace cfd.FacturaElectronica
                             string nombreArchivo = Utiles.FormatoNombreArchivo(trxVenta.Sopnumbe + "_" + trxVenta.s_CUSTNMBR, trxVenta.s_NombreCliente, 20) + "_" + Maquina.eventoGeneraYEnviaXml.ToString();
                             msj = ValidaDatosComprobante();
 
-                            string extension = ".xml";
-
-                            rutaYNombreArchivo = await EjecutaEventoEmiteAsync(servicioTimbre, LogComprobante, nombreArchivo, extension, 1);
+                            if (msj.ToLower().Equals("ok"))
+                                rutaYNombreArchivo = await EjecutaEventoEmiteAsync(servicioTimbre, LogComprobante, nombreArchivo, ".xml", 1);
 
                         }
                         //if (trxVenta.Voidstts == 1)  //documento anulado
@@ -148,10 +147,10 @@ namespace cfd.FacturaElectronica
 
         private string ValidaDatosComprobante()
         {
-            string msj;
+            string msj = "ok";
             switch (trxVenta.DocGP.DocVenta.tipoDocumento)
             {
-                //case "07":
+                case "91": //Nota de crédito
                 //if (trxVenta.DocGP.LDocVentaRelacionados.Count() == 0)
                 //{
                 //msj = "La nota de crédito no está aplicada.";
@@ -175,15 +174,12 @@ namespace cfd.FacturaElectronica
                     continue;
                 }
                 */
-                //break;
-                case "08":
-                    msj = "ok";
                     break;
-                case "01":
-                    msj = "ok";
+                case "92":  //Nota de débito
                     break;
-                case "03":
-                    msj = "ok";
+                case "01":  //Factura
+                    if (trxVenta.DocGP.DocVenta.cargosdescuentos_monto != 0 && (string.IsNullOrEmpty(trxVenta.DocGP.DocVenta.cargosdescuentos_codigo) || string.IsNullOrEmpty(trxVenta.DocGP.DocVenta.cargosdescuentos_descripcion)))
+                        msj = "Debe ingresar un código y razón del descuento.";
                     break;
                 default:
                     msj = "No se puede emitir porque el tipo de documento: " + trxVenta.DocGP.DocVenta.tipoDocumento + " no está configurado.";
@@ -196,7 +192,8 @@ namespace cfd.FacturaElectronica
         private async Task<string> EjecutaEventoEmiteAsync(ICfdiMetodosWebService servicioTimbre, cfdReglasFacturaXml LogComprobante, string nombreArchivo, string extension, int usuarioConAcceso)
         {
             string xmlFactura = string.Empty;
-            string rutaYNombreArchivo = string.Empty;
+            string rutaYNombreArchivo = Path.Combine(trxVenta.RutaXml.Trim(), nombreArchivo + extension);
+
             try
             {
                 xmlFactura = await servicioTimbre.TimbraYEnviaServicioDeImpuestoAsync(trxVenta.DocGP.DocVenta.cliente_numeroIdentificacion, trxVenta.Ruta_certificadoPac, trxVenta.Ruta_clavePac, trxVenta.DocGP);
@@ -217,12 +214,12 @@ namespace cfd.FacturaElectronica
             {
                 string msj = "[EjecutaEventoEmiteAsync] " + lo.Message + Environment.NewLine + lo.StackTrace;
                 String[] mensajeWs = lo.Message.Split(new char[] { '-' });
-                switch (mensajeWs[0])
+                switch (mensajeWs[0].Trim())
                 {
-                    case "Z99": //Caso de error interno de Ws
+                    case "101": //Caso de error interno de Ws
                         xmlFactura = await servicioTimbre.ObtieneXMLdelOSEAsync(trxVenta.DocGP.DocVenta.cliente_numeroIdentificacion, trxVenta.Ruta_certificadoPac, trxVenta.Ruta_clavePac, trxVenta.DocGP.DocVenta.tipoDocumento, trxVenta.DocGP.DocVenta.prefijo, trxVenta.DocGP.DocVenta.consecutivoDocumento);
 
-                        LogComprobante.RegistraLogDeArchivoXML(trxVenta.Soptype, trxVenta.Sopnumbe, rutaYNombreArchivo, trxVenta.CicloDeVida.idxTargetSingleStatus.ToString(), _Conex.Usuario, xmlFactura.Replace("encoding=\"utf-8\"", "").Replace("encoding=\"iso-8859-1\"", ""),
+                        LogComprobante.RegistraLogDeArchivoXML(trxVenta.Soptype, trxVenta.Sopnumbe, rutaYNombreArchivo, trxVenta.CicloDeVida.idxTargetSingleStatus.ToString(), _Conex.Usuario, xmlFactura.Replace("encoding=\"utf-8\"", "").Replace("encoding=\"UTF-8\"", "").Replace("encoding=\"iso-8859-1\"", ""),
                                                             trxVenta.CicloDeVida.targetSingleStatus, trxVenta.CicloDeVida.targetBinStatus, trxVenta.CicloDeVida.EstadoEnPalabras(trxVenta.CicloDeVida.targetBinStatus));
 
                         if (!string.IsNullOrEmpty(xmlFactura))
@@ -250,7 +247,7 @@ namespace cfd.FacturaElectronica
         {
             if (trxVenta.CicloDeVida.Transiciona(Maquina.eventoDIANRechaza, 1))
             {
-                LogComprobante.RegistraLogDeArchivoXML(trxVenta.Soptype, trxVenta.Sopnumbe, string.Empty, trxVenta.CicloDeVida.idxTargetSingleStatus.ToString(), _Conex.Usuario, string.Empty,
+                LogComprobante.RegistraLogDeArchivoXML(trxVenta.Soptype, trxVenta.Sopnumbe, Maquina.eventoDIANRechaza.ToString(), trxVenta.CicloDeVida.idxTargetSingleStatus.ToString(), _Conex.Usuario, string.Empty,
                                                     trxVenta.CicloDeVida.targetSingleStatus, trxVenta.CicloDeVida.targetBinStatus, trxVenta.CicloDeVida.EstadoEnPalabras(trxVenta.CicloDeVida.targetBinStatus));
                 LogComprobante.ActualizaFacturaEmitida(trxVenta.Soptype, trxVenta.Sopnumbe, _Conex.Usuario, Maquina.estadoBaseEmisor, Maquina.estadoBaseEmisor, trxVenta.CicloDeVida.targetBinStatus, trxVenta.CicloDeVida.EstadoEnPalabras(trxVenta.CicloDeVida.targetBinStatus), trxVenta.CicloDeVida.idxTargetSingleStatus.ToString());
             }
@@ -260,7 +257,7 @@ namespace cfd.FacturaElectronica
         {
             if (trxVenta.CicloDeVida.Transiciona(Maquina.eventoDIANAcepta, usuarioConAcceso))
             {
-                LogComprobante.RegistraLogDeArchivoXML(trxVenta.Soptype, trxVenta.Sopnumbe, rutaYNombreArchivo, trxVenta.CicloDeVida.idxTargetSingleStatus.ToString(), _Conex.Usuario, string.Empty,
+                LogComprobante.RegistraLogDeArchivoXML(trxVenta.Soptype, trxVenta.Sopnumbe, Maquina.eventoDIANAcepta.ToString(), trxVenta.CicloDeVida.idxTargetSingleStatus.ToString(), _Conex.Usuario, string.Empty,
                                                     trxVenta.CicloDeVida.targetSingleStatus, trxVenta.CicloDeVida.targetBinStatus, trxVenta.CicloDeVida.EstadoEnPalabras(trxVenta.CicloDeVida.targetBinStatus));
                 LogComprobante.ActualizaFacturaEmitida(trxVenta.Soptype, trxVenta.Sopnumbe, _Conex.Usuario, Maquina.estadoBaseEmisor, Maquina.estadoBaseEmisor, trxVenta.CicloDeVida.targetBinStatus, trxVenta.CicloDeVida.EstadoEnPalabras(trxVenta.CicloDeVida.targetBinStatus), trxVenta.CicloDeVida.idxTargetSingleStatus.ToString());
             }
@@ -283,7 +280,7 @@ namespace cfd.FacturaElectronica
         {
             if (trxVenta.CicloDeVida.Transiciona(Evento, usuarioConAcceso))
             {
-                LogComprobante.RegistraLogDeArchivoXML(trxVenta.Soptype, trxVenta.Sopnumbe, string.Empty, trxVenta.CicloDeVida.idxTargetSingleStatus.ToString(), _Conex.Usuario, string.Empty,
+                LogComprobante.RegistraLogDeArchivoXML(trxVenta.Soptype, trxVenta.Sopnumbe, Evento.ToString(), trxVenta.CicloDeVida.idxTargetSingleStatus.ToString(), _Conex.Usuario, string.Empty,
                                                     trxVenta.CicloDeVida.targetSingleStatus, trxVenta.CicloDeVida.targetBinStatus, trxVenta.CicloDeVida.EstadoEnPalabras(trxVenta.CicloDeVida.targetBinStatus));
                 LogComprobante.ActualizaFacturaEmitida(trxVenta.Soptype, trxVenta.Sopnumbe, _Conex.Usuario, Maquina.estadoBaseEmisor, Maquina.estadoBaseEmisor, trxVenta.CicloDeVida.targetBinStatus, trxVenta.CicloDeVida.EstadoEnPalabras(trxVenta.CicloDeVida.targetBinStatus), trxVenta.CicloDeVida.idxTargetSingleStatus.ToString());
             }
