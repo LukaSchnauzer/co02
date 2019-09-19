@@ -245,8 +245,7 @@ as
 
 		--isnull(sumaImpuestos.ortxsls, 0)	totalBaseImponible,
 		tv.ORSUBTOT - tv.ORTDISAM		totalBaseImponible,
-		tv.ORSUBTOT						totalSinImpuestos,
-		--tv.ORSUBTOT - tv.ORTDISAM		totalSinImpuestos,
+		tv.ORSUBTOT - tv.ORTDISAM		totalSinImpuestos,
 		tv.total + abs(isnull(sumaImpuestosNeg.staxamnt, 0))	totalBrutoconImpuestos,
 		tv.total + abs(isnull(sumaImpuestosNeg.staxamnt, 0))	totalMonto,
 

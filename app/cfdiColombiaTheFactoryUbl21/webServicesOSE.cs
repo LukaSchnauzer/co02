@@ -149,6 +149,8 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                 cargosdescuentos1.porcentaje = Math.Round(Convert.ToDouble(documentoGP.DocVenta.cargodescuentos_porcentaje),2).ToString();
                 cargosdescuentos1.secuencia = documentoGP.DocVenta.cargosdescuentos_secuencia.ToString();
                 DocEnviarWS.cargosDescuentos[0] = cargosdescuentos1;
+                DocEnviarWS.totalDescuentos = Math.Round(Convert.ToDecimal(documentoGP.DocVenta.cargosdescuentos_monto), 2).ToString();
+
             }
 
             //SECCION CONCEPTOS O DETALLES DE LA FACTURA
