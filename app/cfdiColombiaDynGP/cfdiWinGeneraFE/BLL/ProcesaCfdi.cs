@@ -72,7 +72,6 @@ namespace cfd.FacturaElectronica
                 int i = 0;
                 cfdReglasFacturaXml LogComprobante = new cfdReglasFacturaXml(_Conex, _Param);     //log de facturas xml emitidas y anuladas
                 string tipoMEstados = "DOCVENTA-" + trxVenta.EstadoContabilizado;
-                trxVenta.CicloDeVida = new Maquina(trxVenta.EstadoActual, trxVenta.Regimen, trxVenta.Voidstts, "emisor", tipoMEstados);
 
                 OnProgreso(1, "INICIANDO EMISION DE COMPROBANTES DE VENTA...");
                 do
@@ -80,6 +79,7 @@ namespace cfd.FacturaElectronica
                     msj = String.Empty;
                     try
                     {
+                        trxVenta.CicloDeVida = new Maquina(trxVenta.EstadoActual, trxVenta.Regimen, trxVenta.Voidstts, "emisor", tipoMEstados);
                         if (trxVenta.CicloDeVida.Transiciona(Maquina.eventoGeneraYEnviaXml, 1))
                         {
                             trxVenta.ArmarDocElectronico(leyendas);

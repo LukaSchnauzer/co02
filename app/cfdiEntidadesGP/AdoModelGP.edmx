@@ -48,6 +48,8 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiConceptos' does not have a primary
             
             
             
+            
+            
           </Key>
           <Property Name="facturadetalle_secuencia" Type="bigint" />
           <Property Name="soptype" Type="smallint" Nullable="false" />
@@ -59,13 +61,13 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiConceptos' does not have a primary
           <Property Name="facturadetalle_cantidadreal" Type="numeric" Precision="19" Scale="5" Nullable="false" />
           <Property Name="facturadetalle_cantidadrealunidadmedida" Type="varchar" MaxLength="255" />
           <Property Name="facturadetalle_cantidadunidades" Type="numeric" Precision="19" Scale="5" Nullable="false" />
-          <Property Name="facturadetalle_cantidadporempaque" Type="int" />
-          <Property Name="cargosdescuentos_codigo" Type="int" />
+          <Property Name="facturadetalle_cantidadporempaque" Type="int" Nullable="false" />
+          <Property Name="cargosdescuentos_codigo" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="cargosdescuentos_descripcion" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="cargosdescuentos_indicador" Type="int" Nullable="false" />
-          <Property Name="cargosdescuentos_monto" Type="int" Nullable="false" />
-          <Property Name="cargosdescuentos_montobase" Type="int" Nullable="false" />
-          <Property Name="cargodescuentos_porcentaje" Type="int" Nullable="false" />
+          <Property Name="cargosdescuentos_indicador" Type="numeric" Precision="2" Scale="2" Nullable="false" />
+          <Property Name="cargosdescuentos_monto" Type="numeric" Precision="2" Scale="2" Nullable="false" />
+          <Property Name="cargosdescuentos_montobase" Type="numeric" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="cargodescuentos_porcentaje" Type="numeric" Precision="2" Scale="2" Nullable="false" />
           <Property Name="cargosdescuentos_secuencia" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="facturadetalle_codigoproducto" Type="varchar" MaxLength="31" />
           <Property Name="facturadetalle_descripcion" Type="nvarchar(max)" />
@@ -162,7 +164,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' does not h
           <Property Name="consecutivoDocumento" Type="varchar" MaxLength="20" />
           <Property Name="prefijo" Type="varchar" MaxLength="21" />
           <Property Name="cargosdescuentos_codigo" Type="varchar" MaxLength="2" />
-          <Property Name="cargosdescuentos_descripcion" Type="char" MaxLength="51" />
+          <Property Name="cargosdescuentos_descripcion" Type="varchar" MaxLength="51" />
           <Property Name="cargosdescuentos_indicador" Type="varchar" MaxLength="1" />
           <Property Name="cargosdescuentos_monto" Type="numeric" Precision="19" Scale="5" Nullable="false" />
           <Property Name="cargosdescuentos_montobase" Type="numeric" Precision="19" Scale="5" Nullable="false" />
@@ -476,13 +478,13 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           <Property Name="facturadetalle_cantidadreal" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
           <Property Name="facturadetalle_cantidadrealunidadmedida" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="facturadetalle_cantidadunidades" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
-          <Property Name="facturadetalle_cantidadporempaque" Type="Int32" />
-          <Property Name="cargosdescuentos_codigo" Type="Int32" />
+          <Property Name="facturadetalle_cantidadporempaque" Type="Int32" Nullable="false" />
+          <Property Name="cargosdescuentos_codigo" Type="String" Nullable="false" />
           <Property Name="cargosdescuentos_descripcion" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cargosdescuentos_indicador" Type="Int32" Nullable="false" />
-          <Property Name="cargosdescuentos_monto" Type="Int32" Nullable="false" />
-          <Property Name="cargosdescuentos_montobase" Type="Int32" Nullable="false" />
-          <Property Name="cargodescuentos_porcentaje" Type="Int32" Nullable="false" />
+          <Property Name="cargosdescuentos_monto" Type="Decimal" Nullable="false" Precision="2" Scale="2" />
+          <Property Name="cargosdescuentos_montobase" Type="Decimal" Nullable="false" Precision="19" Scale="5" />
+          <Property Name="cargodescuentos_porcentaje" Type="Decimal" Nullable="false" />
           <Property Name="cargosdescuentos_secuencia" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="facturadetalle_codigoproducto" Type="String" MaxLength="31" FixedLength="false" Unicode="false" />
           <Property Name="facturadetalle_descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -550,7 +552,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           <Property Name="cantidadDecimales" Type="Int32" />
           <Property Name="consecutivoDocumento" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="cargosdescuentos_codigo" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="cargosdescuentos_descripcion" Type="String" MaxLength="51" FixedLength="true" Unicode="false" />
+          <Property Name="cargosdescuentos_descripcion" Type="String" MaxLength="51" FixedLength="false" Unicode="false" />
           <Property Name="cargosdescuentos_indicador" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="cargosdescuentos_monto" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
           <Property Name="cargosdescuentos_montobase" Type="Decimal" Precision="19" Scale="5" Nullable="false" />

@@ -24,12 +24,16 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             ServicioWS.Endpoint.Address = new System.ServiceModel.EndpointAddress(URLwebServPAC);
         }
 
+        /// <summary>
+        /// Arma el objeto FacturaGeneral que luego se debe enviar el web service
+        /// </summary>
+        /// <param name="documentoGP"></param>
+        /// <returns></returns>
         private FacturaGeneral ArmaDocumentoEnviarWS(DocumentoVentaGP documentoGP)
         {
             //DocEnviarWS es el objeto del servicio web que se arma a traves del  objeto documentoGP
             DocEnviarWS = new FacturaGeneral();
             int i = 0; // Variable para loopear                       
-            int correlativo = 1; // Variable para corre de productos;            
 
             //FACTURA GENERAL
             DocEnviarWS.cantidadDecimales = documentoGP.DocVenta.cantidadDecimales.ToString();
@@ -53,7 +57,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             direccion1.municipio = documentoGP.DocVenta.cliente_difmunicipio;// "11001";
             direccion1.pais = documentoGP.DocVenta.cliente_difpais;// "CO";
             direccion1.zonaPostal = documentoGP.DocVenta.cliente_difzonapostal;//"110211";
-            DocEnviarWS.cliente.direccionFiscal = direccion1;
+            DocEnviarWS.cliente.direccionCliente = direccion1;
             //FIN DIRECCION DEL CLIENTE
             DocEnviarWS.cliente.numeroIdentificacionDV = documentoGP.DocVenta.cliente_numeroIdentificacionDV;
             if (!string.IsNullOrEmpty( documentoGP.DocVenta.cliente_nombreComercial))
@@ -136,26 +140,26 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             }
             //FIN OBLIGACIONES DE LA VISTA vwCfdiClienteObligaciones            
 
-            //CARGOS DESCUENTOS
-            if (documentoGP.DocVenta.cargosdescuentos_monto != 0)
-            {
-                DocEnviarWS.cargosDescuentos = new CargosDescuentos[1];
-                CargosDescuentos cargosdescuentos1 = new CargosDescuentos();
-                cargosdescuentos1.codigo = documentoGP.DocVenta.cargosdescuentos_codigo.ToString();
-                cargosdescuentos1.descripcion = documentoGP.DocVenta.cargosdescuentos_descripcion.ToString();
-                cargosdescuentos1.indicador = documentoGP.DocVenta.cargosdescuentos_indicador.ToString();
-                cargosdescuentos1.monto = Math.Round(documentoGP.DocVenta.cargosdescuentos_monto,2).ToString();
-                cargosdescuentos1.montoBase = Math.Round(documentoGP.DocVenta.cargosdescuentos_montobase,2).ToString();
-                cargosdescuentos1.porcentaje = Math.Round(Convert.ToDouble(documentoGP.DocVenta.cargodescuentos_porcentaje),2).ToString();
-                cargosdescuentos1.secuencia = documentoGP.DocVenta.cargosdescuentos_secuencia.ToString();
-                DocEnviarWS.cargosDescuentos[0] = cargosdescuentos1;
-                DocEnviarWS.totalDescuentos = Math.Round(Convert.ToDecimal(documentoGP.DocVenta.cargosdescuentos_monto), 2).ToString();
+            //CARGOS DESCUENTOS se debería hacer después de impuestos
+            //if (documentoGP.DocVenta.cargosdescuentos_monto != 0)
+            //{
+            //    DocEnviarWS.cargosDescuentos = new CargosDescuentos[1];
+            //    CargosDescuentos cargosdescuentos1 = new CargosDescuentos();
+            //    cargosdescuentos1.codigo = documentoGP.DocVenta.cargosdescuentos_codigo.ToString();
+            //    cargosdescuentos1.descripcion = documentoGP.DocVenta.cargosdescuentos_descripcion.ToString();
+            //    cargosdescuentos1.indicador = documentoGP.DocVenta.cargosdescuentos_indicador.ToString();
+            //    cargosdescuentos1.monto = Math.Round(documentoGP.DocVenta.cargosdescuentos_monto,2).ToString();
+            //    cargosdescuentos1.montoBase = Math.Round(documentoGP.DocVenta.cargosdescuentos_montobase,2).ToString();
+            //    cargosdescuentos1.porcentaje = Math.Round(Convert.ToDouble(documentoGP.DocVenta.cargodescuentos_porcentaje),2).ToString();
+            //    cargosdescuentos1.secuencia = documentoGP.DocVenta.cargosdescuentos_secuencia.ToString();
+            //    DocEnviarWS.cargosDescuentos[0] = cargosdescuentos1;
+            //    DocEnviarWS.totalDescuentos = Math.Round(Convert.ToDecimal(documentoGP.DocVenta.cargosdescuentos_monto), 2).ToString();
 
-            }
+            //}
 
             //SECCION CONCEPTOS O DETALLES DE LA FACTURA
             DocEnviarWS.detalleDeFactura = new FacturaDetalle[documentoGP.LDocVentaConceptos.Count()];
-            i = 0; correlativo = 1;
+            i = 0; //correlativo = 1;
             int toi = 0;
             decimal tsi = 0;
             foreach(vwCfdiConceptos detalleDeFactura_gp in documentoGP.LDocVentaConceptos)
@@ -170,8 +174,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                 detalle1.cantidadReal = Math.Round(detalleDeFactura_gp.facturadetalle_cantidadreal,0).ToString();
                 detalle1.cantidadRealUnidadMedida = detalleDeFactura_gp.facturadetalle_cantidadrealunidadmedida;
                 detalle1.cantidadUnidades = Math.Round(detalleDeFactura_gp.facturadetalle_cantidadunidades,0).ToString();
-                detalle1.secuencia = detalleDeFactura_gp.facturadetalle_secuencia.ToString();                
-                detalle1.cantidadPorEmpaque = detalleDeFactura_gp.facturadetalle_cantidadporempaque.ToString();
+                detalle1.secuencia = detalleDeFactura_gp.facturadetalle_secuencia.ToString();
                 detalle1.precioVentaUnitario = Math.Round(detalleDeFactura_gp.facturadetalle_precioVentaUnitario,2).ToString();// "00000000000000.00");
                 detalle1.precioTotalSinImpuestos = Math.Round(detalleDeFactura_gp.facturadetalle_precioTotalSinImpuestos,2).ToString();//("00000000000000.00");
                 detalle1.precioTotal = Math.Round(Convert.ToDecimal(detalleDeFactura_gp.facturadetalle_precioTotal),2).ToString();
@@ -180,7 +183,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
 
                 var impuestosDelConcepto = documentoGP.facimpdet.Where(x => x.LNITMSEQ == detalleDeFactura_gp.LNITMSEQ);
 
-                //IMPUESTOS DETALLES DE FACTURA DETALLES 
+                #region IMPUESTOS DETALLES DE FACTURA DETALLES 
                 int imp3 = impuestosDelConcepto.Count();
                 detalle1.impuestosDetalles = new FacturaImpuestos[imp3];
                 int j = 0;
@@ -198,8 +201,9 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                     detalle1.impuestosDetalles[j] = facturaImpuestosDet;
                     j++;
                 }
+                #endregion
 
-                //IMPUESTOS TOTALES DE FACTURA DETALLES
+                #region IMPUESTOS TOTALES DE FACTURA DETALLES
                 var impTotalesDelConcepto = impuestosDelConcepto.GroupBy(ic => new { ic.codigoTotalImp })
                                             .Select(impuTotales => new
                                                 {
@@ -218,12 +222,45 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                     detalle1.impuestosTotales[j] = impuestosTotales1;
                     j++;
                 }
-                //FIN IMPUESTOS TOTALES DE FACTURA DETALLE  
-                
+                #endregion FIN IMPUESTOS TOTALES DE FACTURA DETALLE  
+
+                #region DESCUENTOS
+                //Descuento por línea
+                if (detalleDeFactura_gp.cargosdescuentos_monto != 0)
+                {
+                    detalle1.cargosDescuentos = new CargosDescuentos[1];
+                    CargosDescuentos cargosdescuentos1 = new CargosDescuentos();
+                    cargosdescuentos1.codigo = documentoGP.DocVenta.cargosdescuentos_codigo.ToString();
+                    cargosdescuentos1.descripcion = documentoGP.DocVenta.cargosdescuentos_descripcion.ToString();
+                    cargosdescuentos1.indicador = documentoGP.DocVenta.cargosdescuentos_indicador.ToString();
+                    cargosdescuentos1.monto = Math.Round(detalleDeFactura_gp.cargosdescuentos_monto, 2).ToString();
+                    cargosdescuentos1.montoBase = Math.Round(detalleDeFactura_gp.cargosdescuentos_montobase, 2).ToString();
+                    cargosdescuentos1.porcentaje = Math.Round(detalleDeFactura_gp.cargodescuentos_porcentaje, 2).ToString();
+                    cargosdescuentos1.secuencia = detalleDeFactura_gp.cargosdescuentos_secuencia;
+                    detalle1.cargosDescuentos[0] = cargosdescuentos1;
+                }
+                //Descuento al primer item
+                else if (toi==0 && documentoGP.DocVenta.cargosdescuentos_monto != 0)
+                    {
+                        detalle1.cargosDescuentos = new CargosDescuentos[1];
+                        CargosDescuentos cargosdescuentos1 = new CargosDescuentos();
+                        cargosdescuentos1.codigo = documentoGP.DocVenta.cargosdescuentos_codigo.ToString();
+                        cargosdescuentos1.descripcion = documentoGP.DocVenta.cargosdescuentos_descripcion.ToString();
+                        cargosdescuentos1.indicador = documentoGP.DocVenta.cargosdescuentos_indicador.ToString();
+                        cargosdescuentos1.monto = Math.Round(documentoGP.DocVenta.cargosdescuentos_monto, 2).ToString();
+                        cargosdescuentos1.montoBase = Math.Round(detalleDeFactura_gp.cargosdescuentos_montobase, 2).ToString();
+                        cargosdescuentos1.porcentaje = Math.Round(documentoGP.DocVenta.cargosdescuentos_monto / detalleDeFactura_gp.cargosdescuentos_montobase, 2).ToString();
+                        cargosdescuentos1.secuencia = documentoGP.DocVenta.cargosdescuentos_secuencia.ToString();
+                        detalle1.cargosDescuentos[0] = cargosdescuentos1;
+
+                        detalle1.precioTotalSinImpuestos = Math.Round(detalleDeFactura_gp.facturadetalle_precioTotalSinImpuestos - documentoGP.DocVenta.cargosdescuentos_monto, 2).ToString();
+                        detalle1.precioTotal = Math.Round(Convert.ToDecimal(detalleDeFactura_gp.facturadetalle_precioTotal - documentoGP.DocVenta.cargosdescuentos_monto), 2).ToString();
+                    }
+                #endregion
+
                 DocEnviarWS.detalleDeFactura[i] = detalle1;           
                 //Aumenta contadoresDocEnviarWS.producto[i].
                 i++;
-                correlativo++;
                 toi = toi + 1;
             }
             //FIN SECCION DETALLES DE LA FACTURA            
