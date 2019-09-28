@@ -19,7 +19,7 @@ namespace cfdiEntidadesGP
         public string sopnumbeFrom { get; set; }
         public int soptypeTo { get; set; }
         public string sopnumbeTo { get; set; }
-        public Nullable<int> codigoInterno { get; set; }
+        public string codigoInterno { get; set; }
         public int discrepancyResponse { get; set; }
         public int billingReference { get; set; }
         public string cufeDocReferenciado { get; set; }
@@ -27,7 +27,7 @@ namespace cfdiEntidadesGP
         public string cufeDescripcion { get; set; }
         public Nullable<System.DateTime> fecha { get; set; }
         public string numeroDocumento { get; set; }
-        public Nullable<int> tipoDocumento { get; set; }
+        public string tipoDocumento { get; set; }
         public string tipoCufe { get; set; }
     }
 }

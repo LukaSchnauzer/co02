@@ -12,17 +12,20 @@ AS
 	sop.SOPNUMBE		sopnumbeFrom,
 	rel.doctype			soptypeTo,
 	rel.docnumbr		sopnumbeTo,
-	null				codigoInterno,
+	''					codigoInterno,
 	4					discrepancyResponse,
 	5					billingReference,
 	rel.UUID			cufeDocReferenciado,
-	substring(sop.commntid, 2, 2)	codigoEstatusDocumento, 
+	case when isnumeric(substring(sop.commntid, 2, 2)) = 1 then
+		convert(varchar(5), convert(int, substring(sop.commntid, 2, 2)))
+	else substring(sop.commntid, 2, 2)
+	end					codigoEstatusDocumento, 
 	sop.comment_1		cufeDescripcion,
 	rel.docdate			fecha,
 	upper(left(ltrim(rel.docnumbr), convert(int, pr.param1)-1)) 
 	+ convert(varchar(20), convert(int, substring(ltrim(rel.docnumbr), convert(int, pr.param1), 20))) numeroDocumento,	--serie + número sin ceros a la izquierda
-	null				tipoDocumento,
-	case when rel.doctype = 3 then 'CUFE-SHA384' else 'CUDE-SHA384' end  tipoCufe  
+	''					tipoDocumento,
+	case when rel.doctype = 3 then 'CUFE-SHA384' else 'CUDE-SHA384' end  tipoCufe
 	from dbo.vwCfdiSopTransaccionesVenta sop
 	 cross apply dbo.fnCfdiRelacionados(sop.soptype, sop.sopnumbe) rel
 	 outer apply dbo.fCfdiParametros('V_ININUMEROFAC', 'NA', 'NA', 'NA', 'na', 'na', 'FECOL') pr	--posición donde inicia el número de la factura

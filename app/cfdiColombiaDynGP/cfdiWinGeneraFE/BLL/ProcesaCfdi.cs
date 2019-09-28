@@ -151,31 +151,24 @@ namespace cfd.FacturaElectronica
             switch (trxVenta.DocGP.DocVenta.tipoDocumento)
             {
                 case "91": //Nota de crédito
-                //if (trxVenta.DocGP.LDocVentaRelacionados.Count() == 0)
-                //{
-                //msj = "La nota de crédito no está aplicada.";
-                //continue;
-                //}
-                //else
-                //// {
-                //if (trxVenta.DocGP.LDocVentaRelacionados
-                //.Where(f => f.sopnumbeTo.Substring(0, 1) == trxVenta.DocGP.DocVenta.consecutivoDocumento.Substring(0, 1))
-                //.Count() 
-                //!= trxVenta.DocGP.LDocVentaRelacionados.Count())
-                //{
-                //msj = "La serie de la nota de crédito y de la factura aplicada deben empezar con la misma letra: F o B.";
-                //continue;
-                // }
-                // }
-                /*
-                if (string.IsNullOrEmpty(trxVenta.DocGP.DocVenta.infoRelNotasCodigoTipoNota))
-                {
-                    msj = "No ha informado la causa de la discrepancia en la nota de crédito.";
-                    continue;
-                }
-                */
+                    if (trxVenta.DocGP.LDocVentaRelacionados.Count() == 0)
+                    {
+                        msj = "La nota de crédito no está aplicada." + Environment.NewLine;
+                    }
+                    if (string.IsNullOrEmpty(trxVenta.DocGP.LDocVentaRelacionados.FirstOrDefault()?.codigoEstatusDocumento) || string.IsNullOrEmpty(trxVenta.DocGP.LDocVentaRelacionados.FirstOrDefault()?.cufeDescripcion))
+                    {
+                        msj = "No ha informado el motivo de la nota de crédito.";
+                    }
                     break;
                 case "92":  //Nota de débito
+                    if (trxVenta.DocGP.LDocVentaRelacionados.Count() == 0)
+                    {
+                        msj = "La nota de débito no hace referencia a una factura." + Environment.NewLine;
+                    }
+                    if (string.IsNullOrEmpty(trxVenta.DocGP.LDocVentaRelacionados.FirstOrDefault()?.codigoEstatusDocumento) || string.IsNullOrEmpty(trxVenta.DocGP.LDocVentaRelacionados.FirstOrDefault()?.cufeDescripcion))
+                    {
+                        msj = "No ha informado el motivo de la nota de débito.";
+                    }
                     break;
                 case "01":  //Factura
                     if (trxVenta.DocGP.DocVenta.cargosdescuentos_monto != 0 && (string.IsNullOrEmpty(trxVenta.DocGP.DocVenta.cargosdescuentos_codigo) || string.IsNullOrEmpty(trxVenta.DocGP.DocVenta.cargosdescuentos_descripcion)))

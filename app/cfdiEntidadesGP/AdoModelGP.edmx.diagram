@@ -12,7 +12,7 @@
         <EntityTypeShape EntityType="COLOMBIAModel.vwCfdiFacturaImpuestosDetalles" Width="2.25" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="COLOMBIAModel.vwCfdiGeneraDocumentoDeVenta" Width="2" PointX="4.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="COLOMBIAModel.vwCfdiMediosDePago" Width="1.875" PointX="7.5" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="COLOMBIAModel.vwCfdiRelacionados" Width="2" PointX="7" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="COLOMBIAModel.vwCfdiRelacionados" Width="1.5" PointX="7.5" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

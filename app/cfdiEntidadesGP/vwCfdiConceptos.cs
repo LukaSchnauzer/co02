@@ -28,9 +28,9 @@ namespace cfdiEntidadesGP
         public string cargosdescuentos_codigo { get; set; }
         public string cargosdescuentos_descripcion { get; set; }
         public int cargosdescuentos_indicador { get; set; }
-        public decimal cargosdescuentos_monto { get; set; }
+        public Nullable<decimal> cargosdescuentos_monto { get; set; }
         public decimal cargosdescuentos_montobase { get; set; }
-        public decimal cargodescuentos_porcentaje { get; set; }
+        public Nullable<decimal> cargodescuentos_porcentaje { get; set; }
         public string cargosdescuentos_secuencia { get; set; }
         public string facturadetalle_codigoproducto { get; set; }
         public string facturadetalle_descripcion { get; set; }

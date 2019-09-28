@@ -6,17 +6,17 @@ values (3, '03-ERR DESCRIPC', '')
 
 SELECT TOP 100 *
 FROM dbo.vwCfdiGeneraDocumentoDeVenta tv
-where sopnumbe = 'F001-00000012'
+where sopnumbe = 'TISC00000011'
 
 select *
 from vwCfdiTransaccionesDeVenta
 where sopnumbe IN (
-'F001-00000012'
+'TISC00000011'
 )
 
 select *
 from vwCfdiRelacionados
-where sopnumbeFrom = 'F001-00000012'
+where sopnumbeFrom = 'TISC00000011'
 
 SELECT *
 from dbo.fCfdiCertificadoVigente('7/30/18') fv
@@ -26,7 +26,7 @@ select *
 --delete c
 from cfdlogfacturaxml c
 where 
---c.sopnumbe like '%F001-00000012'
+--c.sopnumbe like '%TISC00000011'
 --estado = 'emitido'
  c.sopnumbe in (
  'F001-00000060'
@@ -34,7 +34,7 @@ where
 -- 'F001-00000011',
 --,'F001-00000008'
 )
---like 'F001-00000012%'
+--like 'TISC00000011%'
 --and secuencia = 1187
 --and c.soptype = 3
 --and estado = 'emitido'
@@ -52,7 +52,7 @@ select *
 from dbo.fLcLvParametros('V_PREFEXONERADO', 'V_PREFEXENTO', 'V_PREFIVA', 'V_GRATIS', 'na', 'na') pr	--Parámetros. prefijo inafectos, prefijo exento, prefijo iva
 
 select *
-from dbo.fCfdiImpuestosSop( 'F001-00000012        ', 3, 0, 'V-GRATIS', '02') gra	--gratuito
+from dbo.fCfdiImpuestosSop( 'TISC00000011        ', 3, 0, 'V-GRATIS', '02') gra	--gratuito
 
 select *
 from dbo.fnCfdiSumaImpuestosSop('TISF00000003', 3, 0, '%', '%', '%') sumaImpuestos
@@ -60,12 +60,12 @@ from dbo.fnCfdiSumaImpuestosSop('TISF00000003', 3, 0, '%', '%', '%') sumaImpuest
 
 select *
 from vwCfdiConceptos
-where sopnumbe = 'F001-00000012        '
+where sopnumbe = 'TISC00000011        '
 
 
 select *
 from vwCfdiSopTransaccionesVenta
-where sopnumbe like 'F001%'	--'F001-00000012'
+where sopnumbe like 'F001%'	--'TISC00000011'
 ORDER BY SOPNUMBE
 
 select *
@@ -114,20 +114,20 @@ WHERE
 DOCTYPE = 3 AND SERIES = 1 
 AND DOCNUMBR in --= 'BNC1-0000005'
 (
-'F001-00000012'
+'TISC00000011'
 --'BNC1-00000007',
 --'BNC1-00000008',
---'F001-00000012'
+--'TISC00000011'
 )
 
 select *
 from sop30200
 where sopnumbe in
 (
-'F001-00000012',
+'TISC00000011',
 'BNC1-00000007',
 'BNC1-00000008',
-'F001-00000012'
+'TISC00000011'
 )
 
 
@@ -135,10 +135,10 @@ select *
 from rm20101
 where docnumbr in
 (
-'F001-00000012',
+'TISC00000011',
 'BNC1-00000007',
 'BNC1-00000008',
-'F001-00000012'
+'TISC00000011'
 )
 ----------------------------------------------------------------------------------------------
 --agregar parámetros de compañía
