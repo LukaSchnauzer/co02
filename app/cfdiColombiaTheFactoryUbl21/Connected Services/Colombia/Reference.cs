@@ -5890,6 +5890,9 @@ namespace cfdiColombiaOperadorServiciosElectronicos.Colombia {
         private string cufeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool esValidoDianField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string fechaRespuestaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -5903,6 +5906,12 @@ namespace cfdiColombiaOperadorServiciosElectronicos.Colombia {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string nombreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string qrField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string[] reglasNotificacionDIANField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string[] reglasValidacionDIANField;
@@ -5961,6 +5970,19 @@ namespace cfdiColombiaOperadorServiciosElectronicos.Colombia {
                 if ((object.ReferenceEquals(this.cufeField, value) != true)) {
                     this.cufeField = value;
                     this.RaisePropertyChanged("cufe");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool esValidoDian {
+            get {
+                return this.esValidoDianField;
+            }
+            set {
+                if ((this.esValidoDianField.Equals(value) != true)) {
+                    this.esValidoDianField = value;
+                    this.RaisePropertyChanged("esValidoDian");
                 }
             }
         }
@@ -6026,6 +6048,32 @@ namespace cfdiColombiaOperadorServiciosElectronicos.Colombia {
                 if ((object.ReferenceEquals(this.nombreField, value) != true)) {
                     this.nombreField = value;
                     this.RaisePropertyChanged("nombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string qr {
+            get {
+                return this.qrField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.qrField, value) != true)) {
+                    this.qrField = value;
+                    this.RaisePropertyChanged("qr");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string[] reglasNotificacionDIAN {
+            get {
+                return this.reglasNotificacionDIANField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.reglasNotificacionDIANField, value) != true)) {
+                    this.reglasNotificacionDIANField = value;
+                    this.RaisePropertyChanged("reglasNotificacionDIAN");
                 }
             }
         }
@@ -7309,6 +7357,12 @@ namespace cfdiColombiaOperadorServiciosElectronicos.Colombia {
         private int codigoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string correoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string documentoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string mensajeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -7333,6 +7387,32 @@ namespace cfdiColombiaOperadorServiciosElectronicos.Colombia {
                 if ((this.codigoField.Equals(value) != true)) {
                     this.codigoField = value;
                     this.RaisePropertyChanged("codigo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string correo {
+            get {
+                return this.correoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.correoField, value) != true)) {
+                    this.correoField = value;
+                    this.RaisePropertyChanged("correo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string documento {
+            get {
+                return this.documentoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.documentoField, value) != true)) {
+                    this.documentoField = value;
+                    this.RaisePropertyChanged("documento");
                 }
             }
         }

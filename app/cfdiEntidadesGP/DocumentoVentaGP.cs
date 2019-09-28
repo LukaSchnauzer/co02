@@ -152,9 +152,9 @@ namespace cfdiEntidadesGP
                 _LDocVentaConceptos = dv.vwCfdiConceptos
                                     .Where(v => v.sopnumbe == Sopnumbe && v.soptype == Soptype)
                                     .ToList();
-                //_LDocVentaRelacionados = dv.vwCfdiRelacionados
-                //.Where(v => v.sopnumbeFrom == Sopnumbe && v.soptypeFrom == Soptype)
-                //.ToList();
+                _LDocVentaRelacionados = dv.vwCfdiRelacionados
+                                    .Where(v => v.sopnumbeFrom == Sopnumbe && v.soptypeFrom == Soptype)
+                                    .ToList();
                 _facimpcab = dv.vwCfdiFacturaImpuestosCabecera
                                    .Where(v => v.sopnumbe == Sopnumbe && v.soptype == Soptype)
                                    .ToList();

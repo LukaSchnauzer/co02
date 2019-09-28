@@ -45,17 +45,7 @@ namespace cfdiColombia
                 docGP = new DocumentoVentaGP();
                 docGP.GetDatosDocumentoVenta(this.Sopnumbe, this.Soptype);
 
-                //if (!string.IsNullOrEmpty(leyendas) && !string.IsNullOrEmpty(docGP.DocVenta.leyendaPorFactura))
-                if (!string.IsNullOrEmpty(leyendas))
-                {
-                    XElement leyendasX = XElement.Parse(leyendas);
-                    //XElement nuevaSeccion = new XElement("SECCION", new XAttribute("S", 1), new XAttribute("T", "Adicional"), new XAttribute("V", docGP.DocVenta.leyendaPorFactura));
-                    XElement nuevaSeccion = new XElement("SECCION", new XAttribute("S", 1), new XAttribute("T", "Adicional"));
-                    leyendasX.Add(nuevaSeccion);
-                    leyendaConjunta = leyendasX.ToString();
-                }
-                docGP.LeyendasXml = leyendaConjunta;
-
+                docGP.LeyendasXml = ObtieneLeyendaConjunta(leyendas, string.Empty, docGP.DocVenta.leyendaPorFactura2);
 
             }
             catch (Exception)
@@ -63,6 +53,30 @@ namespace cfdiColombia
 
                 throw;
             }
+        }
+
+        private string ObtieneLeyendaConjunta(string leyendas, string leyendaPorFactura, string leyendaPorFactura2)
+        {
+            string leyendaConjunta = leyendas;
+            if (!string.IsNullOrEmpty(leyendas))
+            {
+                XElement leyendasX = XElement.Parse(leyendas);
+                XElement nuevaSeccion;
+                if (!string.IsNullOrEmpty(leyendaPorFactura))
+                {
+                    nuevaSeccion = new XElement("SECCION", new XAttribute("S", 1), new XAttribute("T", "Adicional"), new XAttribute("V", leyendaPorFactura));
+                    leyendasX.Add(nuevaSeccion);
+                }
+                if (!string.IsNullOrEmpty(leyendaPorFactura2))
+                {
+                    nuevaSeccion = new XElement("SECCION", new XAttribute("S", 2), new XAttribute("T", "Adicionales"), new XAttribute("V", leyendaPorFactura2));
+                    leyendasX.Add(nuevaSeccion);
+                }
+
+                leyendaConjunta = leyendasX.ToString();
+            }
+
+            return leyendaConjunta;
         }
 
         public void ArmarBaja(String motivoBaja)

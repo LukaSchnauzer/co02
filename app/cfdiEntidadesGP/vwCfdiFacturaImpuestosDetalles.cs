@@ -29,5 +29,6 @@ namespace cfdiEntidadesGP
         public string unidadMedida { get; set; }
         public string unidadMedidaTributo { get; set; }
         public string valorTributoUnidad { get; set; }
+        public Nullable<decimal> porcentajeTotalImpAjustado { get; set; }
     }
 }

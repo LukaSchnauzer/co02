@@ -53,13 +53,13 @@ return(
 	select cm.chekbkid, 
 			case when left(UPPER(cm.locatnid), 2) = 'CB' then	--ch representa una cuenta bancaria
  				case @CSHRCTYP  
- 					when 0 then '23'				--cheque
- 					when 1 then '10'				--efectivo
+ 					when 0 then '23'	--cheque
+ 					when 1 then '10'	--efectivo
  					when 2 then left(@FRTSCHID, @longCodigoFormaPago)
 					else null 
 				end
-				else									--representa un medio de pago
- 					left(Rtrim(cm.locatnid), @longCodigoFormaPago)
+			else												--representa un medio de pago
+				left(Rtrim(cm.locatnid), @longCodigoFormaPago)
 			end	FormaPago	
 	from CM00100 cm
 	where cm.chekbkid = @chekbkid

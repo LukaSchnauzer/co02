@@ -61,5 +61,6 @@ namespace cfdiEntidadesGP
         public Nullable<decimal> totalMonto { get; set; }
         public int totalProductos { get; set; }
         public string prefijo { get; set; }
+        public string leyendaPorFactura2 { get; set; }
     }
 }

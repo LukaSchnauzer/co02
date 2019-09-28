@@ -59,13 +59,13 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiConceptos' does not have a primary
           <Property Name="facturadetalle_cantidadreal" Type="numeric" Precision="19" Scale="5" Nullable="false" />
           <Property Name="facturadetalle_cantidadrealunidadmedida" Type="varchar" MaxLength="255" />
           <Property Name="facturadetalle_cantidadunidades" Type="numeric" Precision="19" Scale="5" Nullable="false" />
-          <Property Name="facturadetalle_cantidadporempaque" Type="int" />
-          <Property Name="cargosdescuentos_codigo" Type="int" />
+          <Property Name="facturadetalle_cantidadporempaque" Type="int" Nullable="false" />
+          <Property Name="cargosdescuentos_codigo" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="cargosdescuentos_descripcion" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="cargosdescuentos_indicador" Type="int" Nullable="false" />
-          <Property Name="cargosdescuentos_monto" Type="int" Nullable="false" />
-          <Property Name="cargosdescuentos_montobase" Type="int" Nullable="false" />
-          <Property Name="cargodescuentos_porcentaje" Type="int" Nullable="false" />
+          <Property Name="cargosdescuentos_monto" Type="numeric" Precision="38" Scale="9" />
+          <Property Name="cargosdescuentos_montobase" Type="numeric" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="cargodescuentos_porcentaje" Type="numeric" Precision="38" Scale="6" />
           <Property Name="cargosdescuentos_secuencia" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="facturadetalle_codigoproducto" Type="varchar" MaxLength="31" />
           <Property Name="facturadetalle_descripcion" Type="nvarchar(max)" />
@@ -95,6 +95,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiFacturaImpuestosCabecera' does not
           <Property Name="sopnumbe" Type="char" MaxLength="21" Nullable="false" />
           <Property Name="codigoTotalImp" Type="varchar" MaxLength="61" Nullable="false" />
           <Property Name="porcentajeTotalImp" Type="numeric" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="porcentajeTotalImpAjustado" Type="numeric" Precision="22" Scale="5" />
           <Property Name="staxamnt" Type="numeric" Precision="38" Scale="5" />
           <Property Name="valorTotalImp" Type="numeric" Precision="38" Scale="5" />
           <Property Name="tdttxsls" Type="numeric" Precision="38" Scale="5" />
@@ -127,6 +128,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiFacturaImpuestosDetalles' does not
           <Property Name="cmpntseq" Type="int" Nullable="false" />
           <Property Name="codigoTotalImp" Type="varchar" MaxLength="61" Nullable="false" />
           <Property Name="porcentajeTotalImp" Type="numeric" Precision="19" Scale="5" Nullable="false" />
+          <Property Name="porcentajeTotalImpAjustado" Type="numeric" Precision="22" Scale="5" />
           <Property Name="staxamnt" Type="numeric" Precision="38" Scale="5" />
           <Property Name="valorTotalImp" Type="numeric" Precision="38" Scale="5" />
           <Property Name="tdttxsls" Type="numeric" Precision="38" Scale="5" />
@@ -162,7 +164,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' does not h
           <Property Name="consecutivoDocumento" Type="varchar" MaxLength="20" />
           <Property Name="prefijo" Type="varchar" MaxLength="21" />
           <Property Name="cargosdescuentos_codigo" Type="varchar" MaxLength="2" />
-          <Property Name="cargosdescuentos_descripcion" Type="char" MaxLength="51" />
+          <Property Name="cargosdescuentos_descripcion" Type="varchar" MaxLength="51" />
           <Property Name="cargosdescuentos_indicador" Type="varchar" MaxLength="1" />
           <Property Name="cargosdescuentos_monto" Type="numeric" Precision="19" Scale="5" Nullable="false" />
           <Property Name="cargosdescuentos_montobase" Type="numeric" Precision="19" Scale="5" Nullable="false" />
@@ -202,6 +204,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' does not h
           <Property Name="totalBrutoconImpuestos" Type="numeric" Precision="38" Scale="5" />
           <Property Name="totalMonto" Type="numeric" Precision="38" Scale="5" />
           <Property Name="totalProductos" Type="int" Nullable="false" />
+          <Property Name="leyendaPorFactura2" Type="varchar" MaxLength="255" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'COL10.dbo.vwCfdiMediosDePago' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -220,8 +223,8 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiMediosDePago' does not have a prim
           <Property Name="APFRDCTY" Type="smallint" Nullable="false" />
           <Property Name="APFRDCNM" Type="char" MaxLength="21" Nullable="false" />
           <Property Name="mediopago" Type="varchar" MaxLength="21" />
-          <Property Name="metodopago" Type="varchar" MaxLength="2" Nullable="false" />
-          <Property Name="numeroreferencia" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="metodopago" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="numeroreferencia" Type="varchar" MaxLength="21" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -234,6 +237,8 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
             
             
             
+            
+            
             <PropertyRef Name="sopnumbeFrom" />
             <PropertyRef Name="soptypeTo" />
           </Key>
@@ -242,15 +247,15 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           <Property Name="sopnumbeFrom" Type="varchar" MaxLength="21" Nullable="false" />
           <Property Name="soptypeTo" Type="int" Nullable="false" />
           <Property Name="sopnumbeTo" Type="char" MaxLength="41" Nullable="false" />
-          <Property Name="codigoInterno" Type="int" />
+          <Property Name="codigoInterno" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="discrepancyResponse" Type="int" Nullable="false" />
           <Property Name="billingReference" Type="int" Nullable="false" />
           <Property Name="cufeDocReferenciado" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="codigoEstatusDocumento" Type="varchar" MaxLength="2" />
-          <Property Name="cufeDescripcion" Type="char" MaxLength="51" />
+          <Property Name="codigoEstatusDocumento" Type="varchar" MaxLength="5" />
+          <Property Name="cufeDescripcion" Type="varchar" MaxLength="51" />
           <Property Name="fecha" Type="datetime" />
           <Property Name="numeroDocumento" Type="varchar" MaxLength="61" />
-          <Property Name="tipoDocumento" Type="int" />
+          <Property Name="tipoDocumento" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="tipoCufe" Type="varchar" MaxLength="11" Nullable="false" />
         </EntityType>
         <Function Name="fCfdiParametrosTipoLeyenda" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -319,6 +324,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
     [vwCfdiFacturaImpuestosCabecera].[sopnumbe] AS [sopnumbe], 
     [vwCfdiFacturaImpuestosCabecera].[codigoTotalImp] AS [codigoTotalImp], 
     [vwCfdiFacturaImpuestosCabecera].[porcentajeTotalImp] AS [porcentajeTotalImp], 
+    [vwCfdiFacturaImpuestosCabecera].[porcentajeTotalImpAjustado] AS [porcentajeTotalImpAjustado], 
     [vwCfdiFacturaImpuestosCabecera].[staxamnt] AS [staxamnt], 
     [vwCfdiFacturaImpuestosCabecera].[valorTotalImp] AS [valorTotalImp], 
     [vwCfdiFacturaImpuestosCabecera].[tdttxsls] AS [tdttxsls], 
@@ -338,6 +344,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
     [vwCfdiFacturaImpuestosDetalles].[cmpntseq] AS [cmpntseq], 
     [vwCfdiFacturaImpuestosDetalles].[codigoTotalImp] AS [codigoTotalImp], 
     [vwCfdiFacturaImpuestosDetalles].[porcentajeTotalImp] AS [porcentajeTotalImp], 
+    [vwCfdiFacturaImpuestosDetalles].[porcentajeTotalImpAjustado] AS [porcentajeTotalImpAjustado], 
     [vwCfdiFacturaImpuestosDetalles].[staxamnt] AS [staxamnt], 
     [vwCfdiFacturaImpuestosDetalles].[valorTotalImp] AS [valorTotalImp], 
     [vwCfdiFacturaImpuestosDetalles].[tdttxsls] AS [tdttxsls], 
@@ -396,7 +403,8 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
     [vwCfdiGeneraDocumentoDeVenta].[totalSinImpuestos] AS [totalSinImpuestos], 
     [vwCfdiGeneraDocumentoDeVenta].[totalBrutoconImpuestos] AS [totalBrutoconImpuestos], 
     [vwCfdiGeneraDocumentoDeVenta].[totalMonto] AS [totalMonto], 
-    [vwCfdiGeneraDocumentoDeVenta].[totalProductos] AS [totalProductos]
+    [vwCfdiGeneraDocumentoDeVenta].[totalProductos] AS [totalProductos], 
+    [vwCfdiGeneraDocumentoDeVenta].[leyendaPorFactura2] AS [leyendaPorFactura2]
     FROM [dbo].[vwCfdiGeneraDocumentoDeVenta] AS [vwCfdiGeneraDocumentoDeVenta]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vwCfdiMediosDePago" EntityType="Self.vwCfdiMediosDePago" store:Type="Views" store:Schema="dbo">
@@ -476,13 +484,13 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           <Property Name="facturadetalle_cantidadreal" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
           <Property Name="facturadetalle_cantidadrealunidadmedida" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="facturadetalle_cantidadunidades" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
-          <Property Name="facturadetalle_cantidadporempaque" Type="Int32" />
-          <Property Name="cargosdescuentos_codigo" Type="Int32" />
+          <Property Name="facturadetalle_cantidadporempaque" Type="Int32" Nullable="false" />
+          <Property Name="cargosdescuentos_codigo" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="false" />
           <Property Name="cargosdescuentos_descripcion" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="cargosdescuentos_indicador" Type="Int32" Nullable="false" />
-          <Property Name="cargosdescuentos_monto" Type="Int32" Nullable="false" />
-          <Property Name="cargosdescuentos_montobase" Type="Int32" Nullable="false" />
-          <Property Name="cargodescuentos_porcentaje" Type="Int32" Nullable="false" />
+          <Property Name="cargosdescuentos_monto" Type="Decimal" Precision="38" Scale="9" />
+          <Property Name="cargosdescuentos_montobase" Type="Decimal" Nullable="false" Precision="19" Scale="5" />
+          <Property Name="cargodescuentos_porcentaje" Type="Decimal" Precision="38" Scale="6" />
           <Property Name="cargosdescuentos_secuencia" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="facturadetalle_codigoproducto" Type="String" MaxLength="31" FixedLength="false" Unicode="false" />
           <Property Name="facturadetalle_descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -514,6 +522,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           <Property Name="unidadMedida" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="unidadMedidaTributo" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="false" />
           <Property Name="valorTributoUnidad" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="false" />
+          <Property Name="porcentajeTotalImpAjustado" Type="Decimal" Precision="22" Scale="5" />
         </EntityType>
         <EntityType Name="vwCfdiFacturaImpuestosDetalles">
           <Key>
@@ -538,6 +547,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           <Property Name="unidadMedida" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="unidadMedidaTributo" Type="String" MaxLength="1" Nullable="false" Unicode="false" FixedLength="false" />
           <Property Name="valorTributoUnidad" Type="String" MaxLength="1" Nullable="false" Unicode="false" FixedLength="false" />
+          <Property Name="porcentajeTotalImpAjustado" Type="Decimal" Precision="22" Scale="5" />
         </EntityType>
         <EntityType Name="vwCfdiGeneraDocumentoDeVenta">
           <Key>
@@ -550,7 +560,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           <Property Name="cantidadDecimales" Type="Int32" />
           <Property Name="consecutivoDocumento" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="cargosdescuentos_codigo" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="cargosdescuentos_descripcion" Type="String" MaxLength="51" FixedLength="true" Unicode="false" />
+          <Property Name="cargosdescuentos_descripcion" Type="String" MaxLength="51" FixedLength="false" Unicode="false" />
           <Property Name="cargosdescuentos_indicador" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="cargosdescuentos_monto" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
           <Property Name="cargosdescuentos_montobase" Type="Decimal" Precision="19" Scale="5" Nullable="false" />
@@ -591,6 +601,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           <Property Name="totalMonto" Type="Decimal" Precision="38" Scale="5" />
           <Property Name="totalProductos" Type="Int32" Nullable="false" />
           <Property Name="prefijo" Type="String" MaxLength="21" FixedLength="false" Unicode="false" />
+          <Property Name="leyendaPorFactura2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="vwCfdiMediosDePago">
           <Key>
@@ -607,9 +618,23 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           <Property Name="APFRDCTY" Type="Int16" Nullable="false" />
           <Property Name="APFRDCNM" Type="String" MaxLength="21" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="mediopago" Type="String" MaxLength="21" FixedLength="false" Unicode="false" />
-          <Property Name="metodopago" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="numeroreferencia" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="metodopago" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numeroreferencia" Type="String" MaxLength="21" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
+        <EntityContainer Name="COLEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="vwCfdiClienteDestinatario" EntityType="Self.vwCfdiClienteDestinatario" />
+          <EntitySet Name="vwCfdiClienteObligaciones" EntityType="Self.vwCfdiClienteObligaciones" />
+          <EntitySet Name="vwCfdiConceptos" EntityType="Self.vwCfdiConceptos" />
+          <EntitySet Name="vwCfdiFacturaImpuestosCabecera" EntityType="Self.vwCfdiFacturaImpuestosCabecera" />
+          <EntitySet Name="vwCfdiFacturaImpuestosDetalles" EntityType="Self.vwCfdiFacturaImpuestosDetalles" />
+          <EntitySet Name="vwCfdiGeneraDocumentoDeVenta" EntityType="Self.vwCfdiGeneraDocumentoDeVenta" />
+          <EntitySet Name="vwCfdiMediosDePago" EntityType="Self.vwCfdiMediosDePago" />
+          <FunctionImport Name="fCfdiParametrosTipoLeyenda" IsComposable="true" ReturnType="Collection(COLOMBIAModel.fCfdiParametrosTipoLeyenda_Result)">
+            <Parameter Name="ADRSCODE" Mode="In" Type="String" />
+            <Parameter Name="Master_Type" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="vwCfdiRelacionados" EntityType="COLOMBIAModel.vwCfdiRelacionados" />
+        </EntityContainer>
         <EntityType Name="vwCfdiRelacionados">
           <Key>
             <PropertyRef Name="soptypeFrom" />
@@ -621,32 +646,18 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           <Property Name="soptypeFrom" Type="Int16" Nullable="false" />
           <Property Name="sopnumbeFrom" Type="String" MaxLength="21" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="soptypeTo" Type="Int32" Nullable="false" />
-          <Property Name="sopnumbeTo" Type="String" MaxLength="41" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="codigoInterno" Type="Int32" />
+          <Property Name="sopnumbeTo" Type="String" Nullable="false" MaxLength="41" FixedLength="true" Unicode="false" />
+          <Property Name="codigoInterno" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="discrepancyResponse" Type="Int32" Nullable="false" />
           <Property Name="billingReference" Type="Int32" Nullable="false" />
-          <Property Name="cufeDocReferenciado" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="codigoEstatusDocumento" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="cufeDescripcion" Type="String" MaxLength="51" FixedLength="true" Unicode="false" />
+          <Property Name="cufeDocReferenciado" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="codigoEstatusDocumento" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="cufeDescripcion" Type="String" MaxLength="51" FixedLength="false" Unicode="false" />
           <Property Name="fecha" Type="DateTime" Precision="3" />
           <Property Name="numeroDocumento" Type="String" MaxLength="61" FixedLength="false" Unicode="false" />
-          <Property Name="tipoDocumento" Type="Int32" />
-          <Property Name="tipoCufe" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tipoDocumento" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="tipoCufe" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityContainer Name="COLEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="vwCfdiClienteDestinatario" EntityType="Self.vwCfdiClienteDestinatario" />
-          <EntitySet Name="vwCfdiClienteObligaciones" EntityType="Self.vwCfdiClienteObligaciones" />
-          <EntitySet Name="vwCfdiConceptos" EntityType="Self.vwCfdiConceptos" />
-          <EntitySet Name="vwCfdiFacturaImpuestosCabecera" EntityType="Self.vwCfdiFacturaImpuestosCabecera" />
-          <EntitySet Name="vwCfdiFacturaImpuestosDetalles" EntityType="Self.vwCfdiFacturaImpuestosDetalles" />
-          <EntitySet Name="vwCfdiGeneraDocumentoDeVenta" EntityType="Self.vwCfdiGeneraDocumentoDeVenta" />
-          <EntitySet Name="vwCfdiMediosDePago" EntityType="Self.vwCfdiMediosDePago" />
-          <EntitySet Name="vwCfdiRelacionados" EntityType="Self.vwCfdiRelacionados" />
-          <FunctionImport Name="fCfdiParametrosTipoLeyenda" IsComposable="true" ReturnType="Collection(COLOMBIAModel.fCfdiParametrosTipoLeyenda_Result)">
-            <Parameter Name="ADRSCODE" Mode="In" Type="String" />
-            <Parameter Name="Master_Type" Mode="In" Type="String" />
-          </FunctionImport>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -708,6 +719,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           <EntitySetMapping Name="vwCfdiFacturaImpuestosCabecera">
             <EntityTypeMapping TypeName="COLOMBIAModel.vwCfdiFacturaImpuestosCabecera">
               <MappingFragment StoreEntitySet="vwCfdiFacturaImpuestosCabecera">
+                <ScalarProperty Name="porcentajeTotalImpAjustado" ColumnName="porcentajeTotalImpAjustado" />
                 <ScalarProperty Name="soptype" ColumnName="soptype" />
                 <ScalarProperty Name="sopnumbe" ColumnName="sopnumbe" />
                 <ScalarProperty Name="codigoTotalImp" ColumnName="codigoTotalImp" />
@@ -726,6 +738,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           <EntitySetMapping Name="vwCfdiFacturaImpuestosDetalles">
             <EntityTypeMapping TypeName="COLOMBIAModel.vwCfdiFacturaImpuestosDetalles">
               <MappingFragment StoreEntitySet="vwCfdiFacturaImpuestosDetalles">
+                <ScalarProperty Name="porcentajeTotalImpAjustado" ColumnName="porcentajeTotalImpAjustado" />
                 <ScalarProperty Name="soptype" ColumnName="soptype" />
                 <ScalarProperty Name="sopnumbe" ColumnName="sopnumbe" />
                 <ScalarProperty Name="LNITMSEQ" ColumnName="LNITMSEQ" />
@@ -747,6 +760,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           <EntitySetMapping Name="vwCfdiGeneraDocumentoDeVenta">
             <EntityTypeMapping TypeName="COLOMBIAModel.vwCfdiGeneraDocumentoDeVenta">
               <MappingFragment StoreEntitySet="vwCfdiGeneraDocumentoDeVenta">
+                <ScalarProperty Name="leyendaPorFactura2" ColumnName="leyendaPorFactura2" />
                 <ScalarProperty Name="prefijo" ColumnName="prefijo" />
                 <ScalarProperty Name="soptype" ColumnName="soptype" />
                 <ScalarProperty Name="sopnumbe" ColumnName="sopnumbe" />
@@ -811,27 +825,6 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="vwCfdiRelacionados">
-            <EntityTypeMapping TypeName="COLOMBIAModel.vwCfdiRelacionados">
-              <MappingFragment StoreEntitySet="vwCfdiRelacionados">
-                <ScalarProperty Name="orden" ColumnName="orden" />
-                <ScalarProperty Name="soptypeFrom" ColumnName="soptypeFrom" />
-                <ScalarProperty Name="sopnumbeFrom" ColumnName="sopnumbeFrom" />
-                <ScalarProperty Name="soptypeTo" ColumnName="soptypeTo" />
-                <ScalarProperty Name="sopnumbeTo" ColumnName="sopnumbeTo" />
-                <ScalarProperty Name="codigoInterno" ColumnName="codigoInterno" />
-                <ScalarProperty Name="discrepancyResponse" ColumnName="discrepancyResponse" />
-                <ScalarProperty Name="billingReference" ColumnName="billingReference" />
-                <ScalarProperty Name="cufeDocReferenciado" ColumnName="cufeDocReferenciado" />
-                <ScalarProperty Name="codigoEstatusDocumento" ColumnName="codigoEstatusDocumento" />
-                <ScalarProperty Name="cufeDescripcion" ColumnName="cufeDescripcion" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="numeroDocumento" ColumnName="numeroDocumento" />
-                <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
-                <ScalarProperty Name="tipoCufe" ColumnName="tipoCufe" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionName="COLOMBIAModel.Store.fCfdiParametrosTipoLeyenda" FunctionImportName="fCfdiParametrosTipoLeyenda">
             <ResultMapping>
               <ComplexTypeMapping TypeName="COLOMBIAModel.fCfdiParametrosTipoLeyenda_Result">
@@ -841,6 +834,27 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="vwCfdiRelacionados">
+            <EntityTypeMapping TypeName="COLOMBIAModel.vwCfdiRelacionados">
+              <MappingFragment StoreEntitySet="vwCfdiRelacionados">
+                <ScalarProperty Name="tipoCufe" ColumnName="tipoCufe" />
+                <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
+                <ScalarProperty Name="numeroDocumento" ColumnName="numeroDocumento" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="cufeDescripcion" ColumnName="cufeDescripcion" />
+                <ScalarProperty Name="codigoEstatusDocumento" ColumnName="codigoEstatusDocumento" />
+                <ScalarProperty Name="cufeDocReferenciado" ColumnName="cufeDocReferenciado" />
+                <ScalarProperty Name="billingReference" ColumnName="billingReference" />
+                <ScalarProperty Name="discrepancyResponse" ColumnName="discrepancyResponse" />
+                <ScalarProperty Name="codigoInterno" ColumnName="codigoInterno" />
+                <ScalarProperty Name="sopnumbeTo" ColumnName="sopnumbeTo" />
+                <ScalarProperty Name="soptypeTo" ColumnName="soptypeTo" />
+                <ScalarProperty Name="sopnumbeFrom" ColumnName="sopnumbeFrom" />
+                <ScalarProperty Name="soptypeFrom" ColumnName="soptypeFrom" />
+                <ScalarProperty Name="orden" ColumnName="orden" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -129,14 +129,14 @@ as
 			Concepto.QUANTITY		facturadetalle_cantidadreal, 
 			rtrim(Concepto.UOFMsat) facturadetalle_cantidadrealunidadmedida,
 			Concepto.QUANTITY		facturadetalle_cantidadunidades,
-			null					facturadetalle_cantidadporempaque,
+			0						facturadetalle_cantidadporempaque,
 
-			null					cargosdescuentos_codigo,
+			''						cargosdescuentos_codigo,
 			'-'						cargosdescuentos_descripcion,
 			0						cargosdescuentos_indicador,
-			0						cargosdescuentos_monto,
-			0						cargosdescuentos_montobase,
-			0						cargodescuentos_porcentaje,
+			Concepto.descuento		cargosdescuentos_monto,
+			Concepto.OXTNDPRC		cargosdescuentos_montobase,
+			Concepto.descuento/Concepto.OXTNDPRC	cargodescuentos_porcentaje,
 			'1'						cargosdescuentos_secuencia,
 
 			rtrim(Concepto.ITEMNMBR) facturadetalle_codigoproducto,
@@ -185,9 +185,21 @@ as
 		convert(varchar(20), convert(int, substring(tv.sopnumbe, convert(int, parametros.param5), 20))) consecutivoDocumento,
 		upper(left(tv.sopnumbe, convert(int, parametros.param5)-1)) prefijo,
 		--Clase CargosDescuentos:
-		substring(tv.commntid, 2, 2)	cargosdescuentos_codigo, 
-		tv.comment_1					cargosdescuentos_descripcion,
-		left(tv.commntid, 1)			cargosdescuentos_indicador,
+		case when parametros.param3 in ('91', '92') then	--nc, nd
+			docReferenciado.cargosdescuentos_codigo
+		else
+			substring(tv.commntid, 2, 2)	
+		end cargosdescuentos_codigo, 
+		case when parametros.param3 in ('91', '92') then	--nc, nd
+			docReferenciado.cargosdescuentos_descripcion
+		else
+			tv.comment_1					
+		end cargosdescuentos_descripcion,
+		case when parametros.param3 in ('91', '92') then	--nc, nd
+			docReferenciado.cargosdescuentos_indicador
+		else
+			left(tv.commntid, 1)			
+		end cargosdescuentos_indicador,
 		tv.ORTDISAM						cargosdescuentos_monto,
 		tv.ORSUBTOT						cargosdescuentos_montobase,
 		tv.ORTDISAM / 
@@ -243,13 +255,13 @@ as
 		parametros.param3				tipoDocumento,
 		parametros.param4				tipoOperacion,
 
-		--isnull(sumaImpuestos.ortxsls, 0)	totalBaseImponible,
 		tv.ORSUBTOT - tv.ORTDISAM		totalBaseImponible,
 		tv.ORSUBTOT - tv.ORTDISAM		totalSinImpuestos,
-		tv.total + abs(isnull(sumaImpuestosNeg.staxamnt, 0))	totalBrutoconImpuestos,
-		tv.total + abs(isnull(sumaImpuestosNeg.staxamnt, 0))	totalMonto,
+		tv.total + abs(isnull(sumaImpuestos.staxamntNegativo, 0))	totalBrutoconImpuestos,
+		tv.total + abs(isnull(sumaImpuestos.staxamntNegativo, 0))	totalMonto,
 
-		0								totalProductos		--calcular en la app
+		0								totalProductos,		--calcular en la app
+		case when upper(parametros.param6) = 'SI' then rtrim(lfa.memo) else '' end leyendaPorFactura2		--va en la sección del adquiriente en la impresión de factura
 
 	from dbo.vwCfdiSopTransaccionesVenta tv
 		outer apply (select top 1 rtrim(nsaIF_Type_Nit) nsaIF_Type_Nit, nsaIFNit, 
@@ -259,11 +271,11 @@ as
 					) nitTercero
 		outer apply dbo.fCfdiCatalogoGetDescripcion('CITY', tv.cityCode) catCiudad
 		outer apply dbo.fCfdiCatalogoGetDescripcion('DPTO', tv.stateCode) catDepartamento
-		outer apply dbo.fCfdiParametros('V_CANTDECIMALES', 'I_'+tv.docid, 'D_'+tv.docid, 'O_'+tv.docid, 'V_ININUMEROFAC', 'na', 'FECOL') parametros	--Parámetros. Cantidad decimales
-		outer apply dbo.fnCfdiSumaImpuestosNegativosSop(tv.sopnumbe, tv.soptype, 0, '%', '%', '%') sumaImpuestosNeg
+		outer apply dbo.fCfdiParametros('V_CANTDECIMALES', 'I_'+tv.docid, 'D_'+tv.docid, 'O_'+tv.docid, 'V_ININUMEROFAC', 'V_LEYENDAPORFAC', 'FECOL') parametros	--Parámetros. Cantidad decimales
+		outer apply dbo.fnCfdiSumaImpuestosSop(tv.sopnumbe, tv.soptype, 0, '%', '%', '%') sumaImpuestos
 		outer apply (select top 1 Email_Recipient from dbo.rm00106 where CUSTNMBR = tv.custnmbr and Email_Type = 1) unEmail 
-		--outer apply dbo.fnCfdGetDireccionesCorreo(tv.custnmbr) mail
-		--outer apply dbo.fCfdiGetLeyendaDeFactura(tv.SOPNUMBE, tv.soptype, '01') lfa
+		outer apply (select top 1 cargosdescuentos_codigo, cargosdescuentos_descripcion, cargosdescuentos_indicador from dbo.fnCfdiRelacionados(tv.soptype, tv.sopnumbe)) docReferenciado
+		outer apply dbo.fCfdiGetLeyendaDeFactura(tv.SOPNUMBE, tv.soptype, '01') lfa
 
 go
 

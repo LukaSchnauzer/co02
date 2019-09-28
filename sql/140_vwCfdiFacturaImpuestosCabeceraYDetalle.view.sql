@@ -12,6 +12,11 @@ as
 	select sop.soptype, sop.sopnumbe, 
 			rtrim(imp.cntcprsn)	codigoTotalImp, 
 			imp.TXDTLPCT		porcentajeTotalImp, 
+			case when rtrim(imp.cntcprsn) = '07' then --rete ica
+				100*imp.TXDTLPCT
+			else
+				imp.TXDTLPCT
+			end					porcentajeTotalImpAjustado, 
 			sum(imp.staxamnt)	staxamnt, 
 			sum(abs(imp.orslstax))	valorTotalImp, 
 			sum(imp.tdttxsls)	tdttxsls, 
@@ -45,6 +50,11 @@ as
 			sop.itemnmbr, sop.cmpntseq,
 			rtrim(imp.cntcprsn)	codigoTotalImp, 
 			imp.TXDTLPCT		porcentajeTotalImp, 
+			case when rtrim(imp.cntcprsn) = '07' then --rete ica
+				100*imp.TXDTLPCT
+			else
+				imp.TXDTLPCT
+			end					porcentajeTotalImpAjustado, 
 
 			sum(imp.staxamnt)	staxamnt, 
 			sum(abs(imp.orslstax))	valorTotalImp, 

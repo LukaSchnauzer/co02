@@ -24,13 +24,13 @@ namespace cfdiEntidadesGP
         public decimal facturadetalle_cantidadreal { get; set; }
         public string facturadetalle_cantidadrealunidadmedida { get; set; }
         public decimal facturadetalle_cantidadunidades { get; set; }
-        public Nullable<int> facturadetalle_cantidadporempaque { get; set; }
-        public Nullable<int> cargosdescuentos_codigo { get; set; }
+        public int facturadetalle_cantidadporempaque { get; set; }
+        public string cargosdescuentos_codigo { get; set; }
         public string cargosdescuentos_descripcion { get; set; }
         public int cargosdescuentos_indicador { get; set; }
-        public int cargosdescuentos_monto { get; set; }
-        public int cargosdescuentos_montobase { get; set; }
-        public int cargodescuentos_porcentaje { get; set; }
+        public Nullable<decimal> cargosdescuentos_monto { get; set; }
+        public decimal cargosdescuentos_montobase { get; set; }
+        public Nullable<decimal> cargodescuentos_porcentaje { get; set; }
         public string cargosdescuentos_secuencia { get; set; }
         public string facturadetalle_codigoproducto { get; set; }
         public string facturadetalle_descripcion { get; set; }
