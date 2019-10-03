@@ -71,11 +71,11 @@ namespace cfd.FacturaElectronica
                 int errores = 0;
                 int i = 0;
                 cfdReglasFacturaXml LogComprobante = new cfdReglasFacturaXml(_Conex, _Param);     //log de facturas xml emitidas y anuladas
-                string tipoMEstados = "DOCVENTA-" + trxVenta.EstadoContabilizado;
 
                 OnProgreso(1, "INICIANDO EMISION DE COMPROBANTES DE VENTA...");
                 do
                 {
+                    string tipoMEstados = "DOCVENTA-" + trxVenta.EstadoContabilizado;
                     msj = String.Empty;
                     try
                     {
@@ -154,8 +154,7 @@ namespace cfd.FacturaElectronica
                     if (trxVenta.DocGP.LDocVentaRelacionados.Count() == 0)
                     {
                         msj = "La nota de crédito no está aplicada." + Environment.NewLine;
-                    }
-                    if (string.IsNullOrEmpty(trxVenta.DocGP.LDocVentaRelacionados.FirstOrDefault()?.codigoEstatusDocumento) || string.IsNullOrEmpty(trxVenta.DocGP.LDocVentaRelacionados.FirstOrDefault()?.cufeDescripcion))
+                    }else if (string.IsNullOrEmpty(trxVenta.DocGP.LDocVentaRelacionados.FirstOrDefault()?.codigoEstatusDocumento) || string.IsNullOrEmpty(trxVenta.DocGP.LDocVentaRelacionados.FirstOrDefault()?.cufeDescripcion))
                     {
                         msj = "No ha informado el motivo de la nota de crédito.";
                     }
@@ -165,7 +164,7 @@ namespace cfd.FacturaElectronica
                     {
                         msj = "La nota de débito no hace referencia a una factura." + Environment.NewLine;
                     }
-                    if (string.IsNullOrEmpty(trxVenta.DocGP.LDocVentaRelacionados.FirstOrDefault()?.codigoEstatusDocumento) || string.IsNullOrEmpty(trxVenta.DocGP.LDocVentaRelacionados.FirstOrDefault()?.cufeDescripcion))
+                    else if (string.IsNullOrEmpty(trxVenta.DocGP.LDocVentaRelacionados.FirstOrDefault()?.codigoEstatusDocumento) || string.IsNullOrEmpty(trxVenta.DocGP.LDocVentaRelacionados.FirstOrDefault()?.cufeDescripcion))
                     {
                         msj = "No ha informado el motivo de la nota de débito.";
                     }
@@ -290,12 +289,12 @@ namespace cfd.FacturaElectronica
                 int errores = 0;
                 int i = 0;
                 cfdReglasFacturaXml LogComprobante = new cfdReglasFacturaXml(_Conex, _Param);     //log de facturas xml emitidas y anuladas
-                string tipoMEstados = "DOCVENTA-" + trxVenta.EstadoContabilizado;
-                trxVenta.CicloDeVida = new Maquina(trxVenta.EstadoActual, trxVenta.Regimen, trxVenta.Voidstts, "emisor", tipoMEstados);
 
                 OnProgreso(1, "INICIANDO CONSULTA DE STATUS...");              //Notifica al suscriptor
                 do
                 {
+                    string tipoMEstados = "DOCVENTA-" + trxVenta.EstadoContabilizado;
+                    trxVenta.CicloDeVida = new Maquina(trxVenta.EstadoActual, trxVenta.Regimen, trxVenta.Voidstts, "emisor", tipoMEstados);
                     msj = String.Empty;
                     try
                     {
@@ -357,12 +356,11 @@ namespace cfd.FacturaElectronica
                 int errores = 0;
                 int i = 1;
                 cfdReglasFacturaXml LogComprobante = new cfdReglasFacturaXml(_Conex, _Param);     //log de facturas xml emitidas y anuladas
-                string tipoMEstados = "DOCVENTA-" + trxVenta.EstadoContabilizado;
-                trxVenta.CicloDeVida = new Maquina(trxVenta.EstadoActual, trxVenta.Regimen, trxVenta.Voidstts, "emisor", tipoMEstados);
-
                 OnProgreso(1, "INICIANDO CONSULTA DE PDFs...");              //Notifica al suscriptor
                 do
                 {
+                    string tipoMEstados = "DOCVENTA-" + trxVenta.EstadoContabilizado;
+                    trxVenta.CicloDeVida = new Maquina(trxVenta.EstadoActual, trxVenta.Regimen, trxVenta.Voidstts, "emisor", tipoMEstados);
                     msj = String.Empty;
                     String rutaNombrePDF = String.Empty;
                     try
