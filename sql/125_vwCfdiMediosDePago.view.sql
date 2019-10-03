@@ -9,8 +9,12 @@ alter VIEW [dbo].[vwCfdiMediosDePago]
 AS
 SELECT  apl.APTODCTY, apl.APTODCTY +2 soptype, apl.APTODCNM sopnumbe,
 		apl.APFRDCTY, apl.APFRDCNM,
-		pago.medioDePago mediopago, '1' metodopago, --contado
-		case when rtrim(isnull(rmx.cheknmbr, '')) = '' then 'na' else rmx.cheknmbr end numeroreferencia
+		case when ISNUMERIC(pago.medioDePago) <> 1 then
+			pago.medioDePago
+		else convert(varchar(10), convert(int, pago.medioDePago))
+		end mediopago, 
+		'1' metodopago, --contado
+		case when rtrim(isnull(rmx.cheknmbr, '')) = '' then 'na' else rtrim(rmx.cheknmbr) end numeroreferencia
 FROM    dbo.vwCfdiRmTrxAplicadas apl
 		cross apply [dbo].fnCfdiDocumentoDePago (apl.APFRDCTY, apl.APFRDCNM) pago
 		left outer join vwRmTransaccionesTodas rmx

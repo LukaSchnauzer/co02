@@ -154,10 +154,10 @@ namespace MaquinaDeEstados
                                     };
             };
 
-            if (maquina.Equals("DOCVENTA-en lote"))
-            {
-                throw new NotImplementedException();
-            };
+            //if (maquina.Equals("DOCVENTA-en lote"))
+            //{
+            //    throw new NotImplementedException();
+            //};
 
         }
 
