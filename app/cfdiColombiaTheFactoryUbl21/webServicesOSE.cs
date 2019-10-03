@@ -311,16 +311,16 @@ namespace cfdiColombiaOperadorServiciosElectronicos
 
                     cargosdescuentos1.montoBase = Math.Round(detalleDeFactura_gp.cargosdescuentos_montobase, 2).ToString();
 
-                    var porcentajeDescuento = Math.Round(documentoGP.DocVenta.cargosdescuentos_monto / detalleDeFactura_gp.cargosdescuentos_montobase, 2);
+                    var porcentajeDescuento = Math.Round(documentoGP.DocVenta.cargosdescuentos_monto / documentoGP.DocVenta.cargosdescuentos_montobase, 2);
                     var descuentoProrrateado = Math.Round(Convert.ToDecimal(detalleDeFactura_gp.cargosdescuentos_montobase * porcentajeDescuento), 2);
-                    cargosdescuentos1.porcentaje = porcentajeDescuento.ToString();
+                    cargosdescuentos1.porcentaje = (100*porcentajeDescuento).ToString();
                     cargosdescuentos1.monto = descuentoProrrateado.ToString();
                     descuProrrateadoAcumulado += descuentoProrrateado;
                     if (i + 1 == documentoGP.LDocVentaConceptos.Count())
                     {
                         descuentoProrrateado = documentoGP.DocVenta.cargosdescuentos_monto - (descuProrrateadoAcumulado - descuentoProrrateado);
-                        cargosdescuentos1.porcentaje = Math.Round(descuentoProrrateado / detalleDeFactura_gp.cargosdescuentos_montobase, 2).ToString();
-                        cargosdescuentos1.monto = descuentoProrrateado.ToString();
+                        cargosdescuentos1.porcentaje = Math.Round(100 * descuentoProrrateado / detalleDeFactura_gp.cargosdescuentos_montobase, 2).ToString();
+                        cargosdescuentos1.monto = Math.Round(descuentoProrrateado, 2).ToString();
                     }
 
                     cargosdescuentos1.secuencia = detalleDeFactura_gp.cargosdescuentos_secuencia;
@@ -382,7 +382,10 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                 FacturaImpuestos impuestosg1 = new FacturaImpuestos();
                 impuestosg1.baseImponibleTOTALImp = Math.Round(Convert.ToDecimal(documentoGP.facimpcab[j].baseImponibleTotalImp),2).ToString();
                 impuestosg1.codigoTOTALImp = documentoGP.facimpcab[j].codigoTotalImp.ToString();
-                impuestosg1.porcentajeTOTALImp = Math.Abs(Math.Round(Convert.ToDecimal(documentoGP.facimpcab[j].porcentajeTotalImpAjustado),2)).ToString();
+                if (impuestosg1.codigoTOTALImp.Equals("07"))    //rete ica
+                    impuestosg1.porcentajeTOTALImp = Math.Abs(Convert.ToDecimal(documentoGP.facimpcab[j].porcentajeTotalImpAjustado)).ToString();
+                else
+                    impuestosg1.porcentajeTOTALImp = Math.Abs(Math.Round(Convert.ToDecimal(documentoGP.facimpcab[j].porcentajeTotalImpAjustado),2)).ToString();
                 impuestosg1.valorTOTALImp = Math.Round(Convert.ToDecimal(documentoGP.facimpcab[j].valorTotalImp),2).ToString();
                 impuestosg1.unidadMedida = documentoGP.facimpcab[j].unidadMedida;
                 DocEnviarWS.impuestosGenerales[j] = impuestosg1;
