@@ -136,7 +136,7 @@ as
 			0						cargosdescuentos_indicador,
 			Concepto.descuento		cargosdescuentos_monto,
 			Concepto.OXTNDPRC		cargosdescuentos_montobase,
-			Concepto.descuento/Concepto.OXTNDPRC	cargodescuentos_porcentaje,
+			100 * Concepto.descuento/Concepto.OXTNDPRC	cargodescuentos_porcentaje,
 			'1'						cargosdescuentos_secuencia,
 
 			rtrim(Concepto.ITEMNMBR) facturadetalle_codigoproducto,
@@ -299,7 +299,7 @@ alter view dbo.vwCfdiTransaccionesDeVenta as
 
 select tv.estadoContabilizado, tv.soptype, tv.docid, tv.sopnumbe, 
 	cast(cast(tv.docdate as date) as datetime) + cast(cast(tv.fechahora as time) as datetime) fechahora, 
-	tv.CUSTNMBR, tv.nombreCliente, tv.idImpuestoCliente, cast(tv.total as numeric(19,2)) total, tv.montoActualOriginal, tv.voidstts, 
+	tv.CUSTNMBR, replace(tv.nombreCliente, ':', ' ') nombreCliente, tv.idImpuestoCliente, cast(tv.total as numeric(19,2)) total, tv.montoActualOriginal, tv.voidstts, 
 
 	isnull(lf.estado, isnull(fv.estado, 'inconsistente')) estado,
 	case when isnull(lf.estado, isnull(fv.estado, 'inconsistente')) = 'inconsistente' 

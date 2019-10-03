@@ -12,11 +12,12 @@ as
 	select sop.soptype, sop.sopnumbe, 
 			rtrim(imp.cntcprsn)	codigoTotalImp, 
 			imp.TXDTLPCT		porcentajeTotalImp, 
-			case when rtrim(imp.cntcprsn) = '07' then --rete ica
-				100*imp.TXDTLPCT
-			else
-				imp.TXDTLPCT
-			end					porcentajeTotalImpAjustado, 
+			--case when rtrim(imp.cntcprsn) = '07' then --rete ica
+			--	100*imp.TXDTLPCT
+			--else
+			--	imp.TXDTLPCT
+			--end
+			imp.TXDTLPCT		porcentajeTotalImpAjustado, 
 			sum(imp.staxamnt)	staxamnt, 
 			sum(abs(imp.orslstax))	valorTotalImp, 
 			sum(imp.tdttxsls)	tdttxsls, 
@@ -50,12 +51,12 @@ as
 			sop.itemnmbr, sop.cmpntseq,
 			rtrim(imp.cntcprsn)	codigoTotalImp, 
 			imp.TXDTLPCT		porcentajeTotalImp, 
-			case when rtrim(imp.cntcprsn) = '07' then --rete ica
-				100*imp.TXDTLPCT
-			else
-				imp.TXDTLPCT
-			end					porcentajeTotalImpAjustado, 
-
+			--case when rtrim(imp.cntcprsn) = '07' then --rete ica
+			--	100*imp.TXDTLPCT
+			--else
+			--	imp.TXDTLPCT
+			--end					
+			imp.TXDTLPCT		porcentajeTotalImpAjustado, 
 			sum(imp.staxamnt)	staxamnt, 
 			sum(abs(imp.orslstax))	valorTotalImp, 
 			sum(imp.tdttxsls)	tdttxsls, 
@@ -67,8 +68,9 @@ as
 			''					valorTributoUnidad
 	from sop30300 sop
 	cross apply dbo.fnCfdiImpuestosSop(sop.SOPNUMBE, sop.soptype , sop.LNITMSEQ, '%', '%') imp
+	where imp.orslstax > 0
 	group by sop.soptype, sop.sopnumbe, sop.LNITMSEQ, sop.itemnmbr, sop.cmpntseq, imp.cntcprsn, imp.TXDTLPCT
-	having sum(abs(imp.orslstax)) != 0
+	--having sum(abs(imp.orslstax)) != 0
 
 go
 
