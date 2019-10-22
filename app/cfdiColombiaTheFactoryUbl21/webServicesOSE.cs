@@ -63,12 +63,19 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             #region DIRECCION DEL CLIENTE
             DocEnviarWS.cliente.direccionCliente = new Direccion();
             Direccion direccion1 = new Direccion();
-            direccion1.ciudad = documentoGP.DocVenta.cliente_difCiudad;
-            direccion1.codigoDepartamento = documentoGP.DocVenta.cliente_difcodigoDepartamento;//"11";
-            direccion1.departamento = documentoGP.DocVenta.cliente_difdepartamento;
+
+            if (!string.IsNullOrEmpty(documentoGP.DocVenta.cliente_difCiudad))
+            {
+                direccion1.municipio = documentoGP.DocVenta.cliente_difmunicipio;// "11001";
+                direccion1.ciudad = documentoGP.DocVenta.cliente_difCiudad;
+            }
+            if (!string.IsNullOrEmpty(documentoGP.DocVenta.cliente_difdepartamento))
+            {
+                direccion1.codigoDepartamento = documentoGP.DocVenta.cliente_difcodigoDepartamento;//"11";
+                direccion1.departamento = documentoGP.DocVenta.cliente_difdepartamento;
+            }
             direccion1.direccion = documentoGP.DocVenta.cliente_difdireccion;//"Direccion";
             direccion1.lenguaje = documentoGP.DocVenta.cliente_diflenguaje;//"es";
-            direccion1.municipio = documentoGP.DocVenta.cliente_difmunicipio;// "11001";
             direccion1.pais = documentoGP.DocVenta.cliente_difpais;// "CO";
             direccion1.zonaPostal = documentoGP.DocVenta.cliente_difzonapostal;//"110211";
             DocEnviarWS.cliente.direccionCliente = direccion1;
@@ -171,12 +178,18 @@ namespace cfdiColombiaOperadorServiciosElectronicos
 
             #region DIRECCION FISCAL DEL CLIENTE
             Direccion direccionFiscal = new Direccion();
-            direccionFiscal.ciudad = documentoGP.DocVenta.cliente_difCiudad;
-            direccionFiscal.codigoDepartamento = documentoGP.DocVenta.cliente_difcodigoDepartamento;//"11";
-            direccionFiscal.departamento = documentoGP.DocVenta.cliente_difdepartamento;
+            if (!string.IsNullOrEmpty(documentoGP.DocVenta.cliente_difCiudad))
+            {
+                direccionFiscal.municipio = documentoGP.DocVenta.cliente_difmunicipio;// "11001";
+                direccionFiscal.ciudad = documentoGP.DocVenta.cliente_difCiudad;
+            }
+            if (!string.IsNullOrEmpty(documentoGP.DocVenta.cliente_difdepartamento))
+            {
+                direccionFiscal.codigoDepartamento = documentoGP.DocVenta.cliente_difcodigoDepartamento;//"11";
+                direccionFiscal.departamento = documentoGP.DocVenta.cliente_difdepartamento;
+            }
             direccionFiscal.direccion = documentoGP.DocVenta.cliente_difdireccion;//"Direccion";
             direccionFiscal.lenguaje = documentoGP.DocVenta.cliente_diflenguaje;//"es";
-            direccionFiscal.municipio = documentoGP.DocVenta.cliente_difmunicipio;// "11001";
             direccionFiscal.pais = documentoGP.DocVenta.cliente_difpais;// "CO";
             direccionFiscal.zonaPostal = documentoGP.DocVenta.cliente_difzonapostal;//"110211";
             DocEnviarWS.cliente.direccionFiscal = direccionFiscal;
