@@ -9,13 +9,21 @@ create function dbo.fnCfdiDatosDelXml(@archivoXml xml)
 --14/08/19 jcf Creación
 --
 returns table
-return(
+--return(
+--	WITH XMLNAMESPACES('http://www.dian.gov.co/contratos/facturaelectronica/v1' as "fe", 
+--						'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2' as "cbc")
+--	select 
+--	@archivoXml.value('(//cbc:UUID)[1]', 'varchar(120)') UUID,
+--	)
+
+	return(
 	WITH XMLNAMESPACES('http://www.dian.gov.co/contratos/facturaelectronica/v1' as "fe", 
 						'urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2' as "cbc")
 	select 
-	@archivoXml.value('(//cbc:UUID)[1]', 'varchar(100)') UUID
-
+	@archivoXml.value('(//cbc:UUID)[1]', 'varchar(120)') UUID,
+	@archivoXml.value('(//cbc:UUID/@schemeName)[1]', 'varchar(15)') schemeName
 	)
+
 	go
 
 IF (@@Error = 0) PRINT 'Creación exitosa de: [fnCfdiDatosDelXml]()'
@@ -23,3 +31,4 @@ ELSE PRINT 'Error en la creación de: [fnCfdiDatosDelXml]()'
 GO
 
 --------------------------------------------------------------------------------------
+

@@ -262,6 +262,8 @@ as
 		tv.total + abs(isnull(sumaImpuestos.staxamntNegativo, 0))	totalMonto,
 
 		0								totalProductos,		--calcular en la app
+		'2'								metodoPago,			--crédito. Tabla 6.3.4.1
+		'1'								medioPago,			--instrumento no definido. Tabla 6.3.4.2
 		case when upper(parametros.param6) = 'SI' then rtrim(lfa.memo) else '' end leyendaPorFactura2		--va en la sección del adquiriente en la impresión de factura
 
 	from dbo.vwCfdiSopTransaccionesVenta tv

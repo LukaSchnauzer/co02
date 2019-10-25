@@ -8,7 +8,8 @@ alter view dbo.vwCfdiDatosDelXml as
 --
 select lf.soptype, lf.sopnumbe, lf.secuencia, lf.estado, lf.mensaje, lf.estadoActual, lf.mensajeEA, 
 	--Datos del xml sellado por el PAC:
-	isnull(dx.UUID, '') UUID
+	isnull(dx.UUID, '') UUID,
+	isnull(dx.schemeName, '') schemeName
 
 from dbo.cfdlogfacturaxml lf
 	outer apply dbo.fnCfdiDatosDelXml(lf.archivoXML) dx

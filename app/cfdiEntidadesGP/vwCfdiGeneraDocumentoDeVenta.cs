@@ -62,5 +62,7 @@ namespace cfdiEntidadesGP
         public int totalProductos { get; set; }
         public string prefijo { get; set; }
         public string leyendaPorFactura2 { get; set; }
+        public string metodoPago { get; set; }
+        public string medioPago { get; set; }
     }
 }

@@ -381,6 +381,17 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                     DocEnviarWS.mediosDePago[j] = mediopago1;
                 }
             }
+            else
+            {
+                MediosDePago mediopago1 = new MediosDePago();
+                mediopago1.medioPago = documentoGP.DocVenta.medioPago;
+                mediopago1.metodoDePago = documentoGP.DocVenta.metodoPago;
+                mediopago1.fechaDeVencimiento = Convert.ToDateTime(documentoGP.DocVenta.fechaVencimiento).ToString("yyyy-MM-dd");
+                mediopago1.numeroDeReferencia = "0";
+
+                DocEnviarWS.mediosDePago = new MediosDePago[1];
+                DocEnviarWS.mediosDePago[0] = mediopago1;
+            }
             #endregion MEDIOS DE PAGO          
 
             DocEnviarWS.fechaEmision = Convert.ToDateTime(documentoGP.DocVenta.fechaEmision).ToString("yyyy-MM-dd 00:00:00");
@@ -395,10 +406,12 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                 FacturaImpuestos impuestosg1 = new FacturaImpuestos();
                 impuestosg1.baseImponibleTOTALImp = Math.Round(Convert.ToDecimal(documentoGP.facimpcab[j].baseImponibleTotalImp),2).ToString();
                 impuestosg1.codigoTOTALImp = documentoGP.facimpcab[j].codigoTotalImp.ToString();
-                if (impuestosg1.codigoTOTALImp.Equals("07"))    //rete ica
-                    impuestosg1.porcentajeTOTALImp = Math.Abs(Convert.ToDecimal(documentoGP.facimpcab[j].porcentajeTotalImpAjustado)).ToString();
-                else
-                    impuestosg1.porcentajeTOTALImp = Math.Abs(Math.Round(Convert.ToDecimal(documentoGP.facimpcab[j].porcentajeTotalImpAjustado),2)).ToString();
+                impuestosg1.porcentajeTOTALImp = Math.Abs(Convert.ToDecimal(documentoGP.facimpcab[j].porcentajeTotalImpAjustado)).ToString("###0.00####");
+
+                //if (impuestosg1.codigoTOTALImp.Equals("07") || impuestosg1.codigoTOTALImp.Equals("03"))    //rete ica
+                //    impuestosg1.porcentajeTOTALImp = Math.Abs(Convert.ToDecimal(documentoGP.facimpcab[j].porcentajeTotalImpAjustado)).ToString("####.####");
+                //else
+                //    impuestosg1.porcentajeTOTALImp = Math.Abs(Math.Round(Convert.ToDecimal(documentoGP.facimpcab[j].porcentajeTotalImpAjustado),2)).ToString();
                 impuestosg1.valorTOTALImp = Math.Round(Convert.ToDecimal(documentoGP.facimpcab[j].valorTotalImp),2).ToString();
                 impuestosg1.unidadMedida = documentoGP.facimpcab[j].unidadMedida;
                 DocEnviarWS.impuestosGenerales[j] = impuestosg1;
@@ -521,6 +534,10 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                 byte[] converbyte = Convert.FromBase64String(response.xml.ToString());
                 return System.Text.Encoding.UTF8.GetString(converbyte);
             }
+            else if (response.codigo == 201)
+            {
+                return string.Concat(response.codigo.ToString() , " - " , response.mensaje);
+            }
             else
             {
                 XmlSerializer xml = new XmlSerializer(typeof(FacturaGeneral));
@@ -562,7 +579,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             }
             else
             {
-                throw new InvalidOperationException(response_descarga.codigo.ToString() + " - " + response_descarga.mensaje + " " + response_descarga.cufe + " Excepción al descargar el PDF del servicio web. [ObtienePDFdelOSEAsync] " );
+                throw new InvalidOperationException(response_descarga.codigo.ToString() + " - " + response_descarga.mensaje + " " + serie + correlativo + " Excepción al descargar el PDF del servicio web. [ObtienePDFdelOSEAsync] " );
             }
         }
         
@@ -699,7 +716,8 @@ namespace cfdiColombiaOperadorServiciosElectronicos
         public async Task<string> ConsultaStatusAlOSEAsync(string ruc, string usuario, string usuarioPassword, string tipoDoc, string serie, string correlativo)
         {
             var response_descarga = await ServicioWS.EstadoDocumentoAsync(usuario, usuarioPassword, serie+correlativo);
-            return string.Concat(response_descarga.codigo.ToString(), "-", response_descarga.mensaje);
+            string validez = response_descarga.esValidoDIAN ? "Es válido DIAN" : "No es válido DIAN";
+            return string.Concat(response_descarga.codigo.ToString(), "-", response_descarga.mensaje, ". ", response_descarga?.resultado, ". ", response_descarga?.descripcionEstatusDocumento, ". ", validez);
 
         }
 

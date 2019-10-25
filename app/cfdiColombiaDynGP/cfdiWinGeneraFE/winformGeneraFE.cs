@@ -377,7 +377,7 @@ namespace cfdiColombia
                 ProcesaCfdi proc = new ProcesaCfdi(DatosConexionDB.Elemento, Param);
                 proc.TrxVenta = regla.CfdiTransacciones;
                 proc.Progreso += new ProcesaCfdi.LogHandler(reportaProgreso);
-                pBarProcesoActivo.Visible = true;
+                tsPbProcesoActivo.Style = ProgressBarStyle.Marquee;
 
                 //    await proc.GeneraResumenXmlAsync(ServiciosOse, EstructuraDocsOse);
                 //else
@@ -389,7 +389,7 @@ namespace cfdiColombia
             HabilitarVentana(Param.emite, Param.anula, Param.imprime, Param.publica, Param.envia, true);
             AplicaFiltroYActualizaPantalla(this.tabCfdi.SelectedTab.Name);
             progressBar1.Value = 0;
-            pBarProcesoActivo.Visible = false;
+            tsPbProcesoActivo.Style = ProgressBarStyle.Blocks;
         }
 
         void bw_Progress(object sender, ProgressChangedEventArgs e)
@@ -421,7 +421,7 @@ namespace cfdiColombia
             HabilitarVentana(Cia.emite, Cia.anula, Cia.imprime, Cia.publica, Cia.envia, true);
             AplicaFiltroYActualizaPantalla(this.tabCfdi.SelectedTab.Name);
             progressBar1.Value = 0;
-            pBarProcesoActivo.Visible = false;
+            tsPbProcesoActivo.Style = ProgressBarStyle.Blocks;
 
             }
             catch (Exception eCm)
@@ -614,12 +614,11 @@ namespace cfdiColombia
             }
             if (errores == 0)
             {
-                pBarProcesoActivo.Visible = true;
+                tsPbProcesoActivo.Style = ProgressBarStyle.Marquee;
                 HabilitarVentana(false, false, false, false, false, false);
                 ProcesaCfdi proc = new ProcesaCfdi(DatosConexionDB.Elemento, Param);
                 proc.TrxVenta = regla.CfdiTransacciones;
                 proc.Progreso += new ProcesaCfdi.LogHandler(reportaProgreso);
-                pBarProcesoActivo.Visible = true;
 
                 if (!this.tabCfdi.SelectedTab.Name.Equals("tabResumen"))
                     await proc.ProcesaObtienePDFAsync(ServiciosOse);
@@ -627,7 +626,7 @@ namespace cfdiColombia
                 HabilitarVentana(Param.emite, Param.anula, Param.imprime, Param.publica, Param.envia, true);
                 AplicaFiltroYActualizaPantalla(this.tabCfdi.SelectedTab.Name);
                 progressBar1.Value = 0;
-                pBarProcesoActivo.Visible = false;
+                tsPbProcesoActivo.Style = ProgressBarStyle.Blocks;
             }
         }
 
@@ -660,12 +659,13 @@ namespace cfdiColombia
             if (errores == 0)
             {
                 cfdEmailWorker _bw = new cfdEmailWorker(DatosConexionDB.Elemento, Param);
-                pBarProcesoActivo.Visible = true;
+                tsPbProcesoActivo.Style = ProgressBarStyle.Marquee;
                 HabilitarVentana(false, false, false, false, false, false);
                 _bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_Completed);
                 _bw.ProgressChanged += new ProgressChangedEventHandler(bw_Progress);
                 object[] arguments = { regla.CfdiTransacciones };
                 _bw.RunWorkerAsync(arguments);
+
             }
         }
 
@@ -716,8 +716,7 @@ namespace cfdiColombia
                 proc.TrxVenta = regla.CfdiTransacciones;
 
                 proc.Progreso += new ProcesaCfdi.LogHandler(reportaProgreso);
-
-                pBarProcesoActivo.Visible = true;
+                tsPbProcesoActivo.Style = ProgressBarStyle.Marquee;
 
                 if (this.tabCfdi.SelectedTab.Name.Equals("tabFacturas"))
                     await proc.ProcesaConsultaStatusAsync(ServiciosOse);
@@ -729,7 +728,7 @@ namespace cfdiColombia
                 HabilitarVentana(Cia.emite, Cia.anula, Cia.imprime, Cia.publica, Cia.envia, true);
                 AplicaFiltroYActualizaPantalla(this.tabCfdi.SelectedTab.Name);
                 progressBar1.Value = 0;
-                pBarProcesoActivo.Visible = false;
+                tsPbProcesoActivo.Style = ProgressBarStyle.Blocks;
             }
 
         }
@@ -884,8 +883,7 @@ namespace cfdiColombia
                 proc.TrxVenta = regla.CfdiTransacciones;
 
                 proc.Progreso += new ProcesaCfdi.LogHandler(reportaProgreso);
-
-                pBarProcesoActivo.Visible = true;
+                tsPbProcesoActivo.Style = ProgressBarStyle.Marquee;
 
                 if (this.tabCfdi.SelectedTab.Name.Equals("tabFacturas"))
                     await proc.ProcesaBajaComprobanteAsync(tsTextBoxMotivoRechazo.Text, ServiciosOse);
@@ -898,7 +896,7 @@ namespace cfdiColombia
                 HabilitarVentana(_param.emite, _param.anula, _param.imprime, _param.publica, _param.envia, true);
                 AplicaFiltroYActualizaPantalla(this.tabCfdi.SelectedTab.Name);
                 progressBar1.Value = 0;
-                pBarProcesoActivo.Visible = false;
+                tsPbProcesoActivo.Style = ProgressBarStyle.Blocks;
                 toolStripAuxRechazar.Visible = false;
             }
         }

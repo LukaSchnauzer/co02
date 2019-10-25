@@ -17,6 +17,7 @@ return(
 				ap.aptodcty+2 doctype, ap.aptodcnm docnumbr,
 				ap.APTODCDT docdate,
 				isnull(isnull(isnull(u.UUID, rtrim(nt.uuid)), rtrim(usop.uuid)), 'No existe uuid') UUID, 
+				isnull(u.schemeName, 'CUFE-SHA384') schemeName,
 				isnull(u.voidstts, nt.voidstts) voidstts,
 				crds.cargosdescuentos_codigo, crds.cargosdescuentos_descripcion, crds.cargosdescuentos_indicador
 			from dbo.vwRmTrxAplicadas  ap
@@ -41,6 +42,7 @@ return(
 				da.soptype doctype, da.tracking_number docnumbr, 
 				u.docdate,
 				isnull(u.UUID, 'no existe uuid') UUID, 
+				isnull(u.schemeName, 'CUDE-SHA384' ) schemeName,
 				u.voidstts,
 				'', '', ''
 			from sop10107 da	--

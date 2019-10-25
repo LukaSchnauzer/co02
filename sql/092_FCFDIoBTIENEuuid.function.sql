@@ -11,12 +11,12 @@ as
 --
 return
 (
-	select tv.docid, tv.docdate, dx.uuid, tv.voidstts
+	select tv.docid, tv.docdate, dx.uuid, dx.schemeName, tv.voidstts
 	from dbo.vwCfdiSopTransaccionesVenta tv
 		left join dbo.vwCfdiDatosDelXml dx
 		on dx.soptype = tv.SOPTYPE
 		and dx.sopnumbe = tv.sopnumbe
-		and dx.estado = 'emitido'
+		and dx.estado = 'aceptado DIAN'
 	where tv.soptype = @soptype
 	and tv.sopnumbe = @sopnumbe
 )
