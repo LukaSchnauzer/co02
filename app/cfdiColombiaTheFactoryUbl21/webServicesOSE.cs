@@ -63,12 +63,19 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             #region DIRECCION DEL CLIENTE
             DocEnviarWS.cliente.direccionCliente = new Direccion();
             Direccion direccion1 = new Direccion();
-            direccion1.ciudad = documentoGP.DocVenta.cliente_difCiudad;
-            direccion1.codigoDepartamento = documentoGP.DocVenta.cliente_difcodigoDepartamento;//"11";
-            direccion1.departamento = documentoGP.DocVenta.cliente_difdepartamento;
+
+            if (!string.IsNullOrEmpty(documentoGP.DocVenta.cliente_difCiudad))
+            {
+                direccion1.municipio = documentoGP.DocVenta.cliente_difmunicipio;// "11001";
+                direccion1.ciudad = documentoGP.DocVenta.cliente_difCiudad;
+            }
+            if (!string.IsNullOrEmpty(documentoGP.DocVenta.cliente_difdepartamento))
+            {
+                direccion1.codigoDepartamento = documentoGP.DocVenta.cliente_difcodigoDepartamento;//"11";
+                direccion1.departamento = documentoGP.DocVenta.cliente_difdepartamento;
+            }
             direccion1.direccion = documentoGP.DocVenta.cliente_difdireccion;//"Direccion";
             direccion1.lenguaje = documentoGP.DocVenta.cliente_diflenguaje;//"es";
-            direccion1.municipio = documentoGP.DocVenta.cliente_difmunicipio;// "11001";
             direccion1.pais = documentoGP.DocVenta.cliente_difpais;// "CO";
             direccion1.zonaPostal = documentoGP.DocVenta.cliente_difzonapostal;//"110211";
             DocEnviarWS.cliente.direccionCliente = direccion1;
@@ -171,12 +178,18 @@ namespace cfdiColombiaOperadorServiciosElectronicos
 
             #region DIRECCION FISCAL DEL CLIENTE
             Direccion direccionFiscal = new Direccion();
-            direccionFiscal.ciudad = documentoGP.DocVenta.cliente_difCiudad;
-            direccionFiscal.codigoDepartamento = documentoGP.DocVenta.cliente_difcodigoDepartamento;//"11";
-            direccionFiscal.departamento = documentoGP.DocVenta.cliente_difdepartamento;
+            if (!string.IsNullOrEmpty(documentoGP.DocVenta.cliente_difCiudad))
+            {
+                direccionFiscal.municipio = documentoGP.DocVenta.cliente_difmunicipio;// "11001";
+                direccionFiscal.ciudad = documentoGP.DocVenta.cliente_difCiudad;
+            }
+            if (!string.IsNullOrEmpty(documentoGP.DocVenta.cliente_difdepartamento))
+            {
+                direccionFiscal.codigoDepartamento = documentoGP.DocVenta.cliente_difcodigoDepartamento;//"11";
+                direccionFiscal.departamento = documentoGP.DocVenta.cliente_difdepartamento;
+            }
             direccionFiscal.direccion = documentoGP.DocVenta.cliente_difdireccion;//"Direccion";
             direccionFiscal.lenguaje = documentoGP.DocVenta.cliente_diflenguaje;//"es";
-            direccionFiscal.municipio = documentoGP.DocVenta.cliente_difmunicipio;// "11001";
             direccionFiscal.pais = documentoGP.DocVenta.cliente_difpais;// "CO";
             direccionFiscal.zonaPostal = documentoGP.DocVenta.cliente_difzonapostal;//"110211";
             DocEnviarWS.cliente.direccionFiscal = direccionFiscal;
@@ -368,6 +381,17 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                     DocEnviarWS.mediosDePago[j] = mediopago1;
                 }
             }
+            else
+            {
+                MediosDePago mediopago1 = new MediosDePago();
+                mediopago1.medioPago = documentoGP.DocVenta.medioPago;
+                mediopago1.metodoDePago = documentoGP.DocVenta.metodoPago;
+                mediopago1.fechaDeVencimiento = Convert.ToDateTime(documentoGP.DocVenta.fechaVencimiento).ToString("yyyy-MM-dd");
+                mediopago1.numeroDeReferencia = "0";
+
+                DocEnviarWS.mediosDePago = new MediosDePago[1];
+                DocEnviarWS.mediosDePago[0] = mediopago1;
+            }
             #endregion MEDIOS DE PAGO          
 
             DocEnviarWS.fechaEmision = Convert.ToDateTime(documentoGP.DocVenta.fechaEmision).ToString("yyyy-MM-dd 00:00:00");
@@ -382,10 +406,12 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                 FacturaImpuestos impuestosg1 = new FacturaImpuestos();
                 impuestosg1.baseImponibleTOTALImp = Math.Round(Convert.ToDecimal(documentoGP.facimpcab[j].baseImponibleTotalImp),2).ToString();
                 impuestosg1.codigoTOTALImp = documentoGP.facimpcab[j].codigoTotalImp.ToString();
-                if (impuestosg1.codigoTOTALImp.Equals("07"))    //rete ica
-                    impuestosg1.porcentajeTOTALImp = Math.Abs(Convert.ToDecimal(documentoGP.facimpcab[j].porcentajeTotalImpAjustado)).ToString();
-                else
-                    impuestosg1.porcentajeTOTALImp = Math.Abs(Math.Round(Convert.ToDecimal(documentoGP.facimpcab[j].porcentajeTotalImpAjustado),2)).ToString();
+                impuestosg1.porcentajeTOTALImp = Math.Abs(Convert.ToDecimal(documentoGP.facimpcab[j].porcentajeTotalImpAjustado)).ToString("###0.00####");
+
+                //if (impuestosg1.codigoTOTALImp.Equals("07") || impuestosg1.codigoTOTALImp.Equals("03"))    //rete ica
+                //    impuestosg1.porcentajeTOTALImp = Math.Abs(Convert.ToDecimal(documentoGP.facimpcab[j].porcentajeTotalImpAjustado)).ToString("####.####");
+                //else
+                //    impuestosg1.porcentajeTOTALImp = Math.Abs(Math.Round(Convert.ToDecimal(documentoGP.facimpcab[j].porcentajeTotalImpAjustado),2)).ToString();
                 impuestosg1.valorTOTALImp = Math.Round(Convert.ToDecimal(documentoGP.facimpcab[j].valorTotalImp),2).ToString();
                 impuestosg1.unidadMedida = documentoGP.facimpcab[j].unidadMedida;
                 DocEnviarWS.impuestosGenerales[j] = impuestosg1;
@@ -508,6 +534,10 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                 byte[] converbyte = Convert.FromBase64String(response.xml.ToString());
                 return System.Text.Encoding.UTF8.GetString(converbyte);
             }
+            else if (response.codigo == 201)
+            {
+                return string.Concat(response.codigo.ToString() , " - " , response.mensaje);
+            }
             else
             {
                 XmlSerializer xml = new XmlSerializer(typeof(FacturaGeneral));
@@ -549,7 +579,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             }
             else
             {
-                throw new InvalidOperationException(response_descarga.codigo.ToString() + " - " + response_descarga.mensaje + " " + response_descarga.cufe + " Excepción al descargar el PDF del servicio web. [ObtienePDFdelOSEAsync] " );
+                throw new InvalidOperationException(response_descarga.codigo.ToString() + " - " + response_descarga.mensaje + " " + serie + correlativo + " Excepción al descargar el PDF del servicio web. [ObtienePDFdelOSEAsync] " );
             }
         }
         
@@ -686,7 +716,8 @@ namespace cfdiColombiaOperadorServiciosElectronicos
         public async Task<string> ConsultaStatusAlOSEAsync(string ruc, string usuario, string usuarioPassword, string tipoDoc, string serie, string correlativo)
         {
             var response_descarga = await ServicioWS.EstadoDocumentoAsync(usuario, usuarioPassword, serie+correlativo);
-            return string.Concat(response_descarga.codigo.ToString(), "-", response_descarga.mensaje);
+            string validez = response_descarga.esValidoDIAN ? "Es válido DIAN" : "No es válido DIAN";
+            return string.Concat(response_descarga.codigo.ToString(), "-", response_descarga.mensaje, ". ", response_descarga?.resultado, ". ", response_descarga?.descripcionEstatusDocumento, ". ", validez);
 
         }
 

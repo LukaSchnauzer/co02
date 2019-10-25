@@ -6,17 +6,17 @@ values (3, '03-ERR DESCRIPC', '')
 
 SELECT TOP 100 *
 FROM dbo.vwCfdiGeneraDocumentoDeVenta tv
-where sopnumbe = 'TISF00000050'
+where sopnumbe = 'SETT00000003'
 
 select *
 from vwCfdiTransaccionesDeVenta
 where sopnumbe IN (
-'TISF00000050'
+'SETT00000003'
 )
 
 select *
 from vwCfdiRelacionados
-where sopnumbeFrom = 'TISF00000050'
+where sopnumbeFrom = 'SETT00000003'
 
 SELECT *
 from dbo.fCfdiCertificadoVigente('7/30/18') fv
@@ -26,7 +26,7 @@ select *
 --delete c
 from cfdlogfacturaxml c
 where 
---c.sopnumbe like '%TISF00000050'
+--c.sopnumbe like '%SETT00000003'
 --estado = 'emitido'
  c.sopnumbe in (
  'F001-00000060'
@@ -34,7 +34,7 @@ where
 -- 'F001-00000011',
 --,'F001-00000008'
 )
---like 'TISF00000050%'
+--like 'SETT00000003%'
 --and secuencia = 1187
 --and c.soptype = 3
 --and estado = 'emitido'
@@ -52,7 +52,7 @@ select *
 from dbo.fLcLvParametros('V_PREFEXONERADO', 'V_PREFEXENTO', 'V_PREFIVA', 'V_GRATIS', 'na', 'na') pr	--Parámetros. prefijo inafectos, prefijo exento, prefijo iva
 
 select *
-from dbo.fCfdiImpuestosSop( 'TISF00000050        ', 3, 0, 'V-GRATIS', '02') gra	--gratuito
+from dbo.fCfdiImpuestosSop( 'SETT00000003        ', 3, 0, 'V-GRATIS', '02') gra	--gratuito
 
 select *
 from dbo.fnCfdiSumaImpuestosSop('TISF00000003', 3, 0, '%', '%', '%') sumaImpuestos
@@ -60,12 +60,12 @@ from dbo.fnCfdiSumaImpuestosSop('TISF00000003', 3, 0, '%', '%', '%') sumaImpuest
 
 select *
 from vwCfdiConceptos
-where sopnumbe = 'TISF00000050        '
+where sopnumbe = 'SETT00000003        '
 
 
 select *
 from vwCfdiSopTransaccionesVenta
-where sopnumbe like 'F001%'	--'TISF00000050'
+where sopnumbe like 'F001%'	--'SETT00000003'
 ORDER BY SOPNUMBE
 
 select *
@@ -87,7 +87,7 @@ from dbo.fCfdiPagoSimultaneoMayor(3, 'FV 00000247', 1) pg
 
 select *
 from dbo.sop10106
-where sopnumbe LIKE 'TISF00000050'
+where sopnumbe LIKE 'SETT00000003'
 
 select docncorr, *
 --update s set docncorr = '10:23:10:060'
@@ -96,14 +96,14 @@ where s.sopnumbe like 'B%'
 
 --ingresar la causa de la nc
 select docncorr, commntid,  *
---update s set commntid = '009'	--'01ANULA OPER', refrence = 'x'	-- docncorr = '10:23:10:060'
+--update s set city = '11001', [state]='11'	-- ccode = 'CO'	--commntid = '009'	--'01ANULA OPER', refrence = 'x'	-- docncorr = '10:23:10:060'
 from sop30200 s
 where s.soptype = 3
-and s.sopnumbe like 'TISF00000050'
+and s.sopnumbe like 'SETT00000003'
 
 --ingresar la causa de la nc
 insert into sop10106 (SOPTYPE,SOPNUMBE,USRDAT01,USRDAT02,USRTAB01,USRTAB09,USRTAB03,USERDEF1,USERDEF2,USRDEF03,USRDEF04,USRDEF05,COMMENT_1,COMMENT_2,COMMENT_3,COMMENT_4,CMMTTEXT)
-values (3, 'TISF00000050', 0, 0, '', '', '', '', '', '', '', '', 'Descuento General', '', '', '', 'Descuento General')
+values (3, 'SETT00000003', 0, 0, '', '', '', '', '', '', '', '', 'Descuento General', '', '', '', 'Descuento General')
 
 --------------------------------------------------------------------------------
 --Para eliminar un número que se pueda reusar seguir el procedimiento: C:\jcTii\SW\SWDynamicsGP\KnowledgeBase\Completely Removing a Posted SOP Invoice From Dynamics GP.html
@@ -114,20 +114,20 @@ WHERE
 DOCTYPE = 3 AND SERIES = 1 
 AND DOCNUMBR in --= 'BNC1-0000005'
 (
-'TISF00000050'
+'SETT00000003'
 --'BNC1-00000007',
 --'BNC1-00000008',
---'TISF00000050'
+--'SETT00000003'
 )
 
 select *
 from sop30200
 where sopnumbe in
 (
-'TISF00000050',
+'SETT00000003',
 'BNC1-00000007',
 'BNC1-00000008',
-'TISF00000050'
+'SETT00000003'
 )
 
 
@@ -135,10 +135,10 @@ select *
 from rm20101
 where docnumbr in
 (
-'TISF00000050',
+'SETT00000003',
 'BNC1-00000007',
 'BNC1-00000008',
-'TISF00000050'
+'SETT00000003'
 )
 ----------------------------------------------------------------------------------------------
 --agregar parámetros de compañía

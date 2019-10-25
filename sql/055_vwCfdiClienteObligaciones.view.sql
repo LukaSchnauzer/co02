@@ -10,7 +10,10 @@ as
 --14/08/19 jcf Creación cfdi Colombia ubl 2.1
 --
 SELECT cliXml.custnmbr,  isnull(cliXml.param2, '') cliente_regimen,
-     isnull(Cliente.obligacion.value('.', 'VARCHAR(100)'), '') AS cliente_obligaciones  
+    case when isnull(Cliente.obligacion.value('.', 'VARCHAR(100)'), '') like 'no existe tag%' then 
+		'' 
+	else upper(isnull(Cliente.obligacion.value('.', 'VARCHAR(100)'), ''))
+	end cliente_obligaciones  
  FROM  
  (
  	select cli.custnmbr, 
