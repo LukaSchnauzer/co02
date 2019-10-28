@@ -25,9 +25,10 @@ namespace cfdiEntidadesGP
         public string cufeDocReferenciado { get; set; }
         public string codigoEstatusDocumento { get; set; }
         public string cufeDescripcion { get; set; }
-        public Nullable<System.DateTime> fecha { get; set; }
+        public System.DateTime fecha { get; set; }
         public string numeroDocumento { get; set; }
         public string tipoDocumento { get; set; }
         public string tipoCufe { get; set; }
+        public string commntid { get; set; }
     }
 }

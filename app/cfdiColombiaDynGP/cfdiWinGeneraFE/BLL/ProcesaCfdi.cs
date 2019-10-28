@@ -155,17 +155,23 @@ namespace cfd.FacturaElectronica
             switch (trxVenta.DocGP.DocVenta.tipoDocumento)
             {
                 case "91": //Nota de crédito
-                    if (trxVenta.DocGP.LDocVentaRelacionados.Count() == 0)
+                    if (trxVenta.DocGP.LDocVentaRelacionados.Where(x => x.sopnumbeTo.Equals(string.Empty)).Count() > 0)
                     {
                         msj += "La nota de crédito no está aplicada." + Environment.NewLine;
                     }
-                    if (string.IsNullOrEmpty(trxVenta.DocGP.LDocVentaRelacionados.FirstOrDefault()?.codigoEstatusDocumento) || string.IsNullOrEmpty(trxVenta.DocGP.LDocVentaRelacionados.FirstOrDefault()?.cufeDescripcion))
+                    if (string.IsNullOrEmpty(trxVenta.DocGP.LDocVentaRelacionados.FirstOrDefault()?.codigoEstatusDocumento) 
+                        || string.IsNullOrEmpty(trxVenta.DocGP.LDocVentaRelacionados.FirstOrDefault()?.cufeDescripcion))
                     {
                         msj += "No ha informado el motivo de la nota de crédito." + Environment.NewLine;
                     }
-
-                    if (string.IsNullOrEmpty(TrxVenta.DocGP.DocVenta.cliente_difpais.Trim()))
+                    if (!trxVenta.DocGP.LDocVentaRelacionados.FirstOrDefault().commntid.Substring(0, 1).Equals("C"))
+                    {
+                        msj += "El código del motivo de la nota de crédito es incorrecto." + Environment.NewLine;
+                    }
+                    if (string.IsNullOrEmpty(TrxVenta.DocGP.DocVenta.cliente_difpais.Trim())
+                        || trxVenta.DocGP.DocVenta.cliente_difpais.Trim().Equals("-"))
                         msj += "Debe ingresar el código de país del cliente." + Environment.NewLine;
+
                     if (trxVenta.DocGP.DocVenta.cliente_difpais.Trim().Equals("CO"))
                     {
                         if (string.IsNullOrEmpty(trxVenta.DocGP.DocVenta.cliente_difCiudad))
@@ -179,17 +185,24 @@ namespace cfd.FacturaElectronica
 
                     break;
                 case "92":  //Nota de débito
-                    if (trxVenta.DocGP.LDocVentaRelacionados.Count() == 0)
+                    if (trxVenta.DocGP.LDocVentaRelacionados.Where(x => x.sopnumbeTo.Equals(string.Empty)).Count() > 0)
                     {
                         msj += "La nota de débito no hace referencia a una factura." + Environment.NewLine;
                     }
-                    if (string.IsNullOrEmpty(trxVenta.DocGP.LDocVentaRelacionados.FirstOrDefault()?.codigoEstatusDocumento) || string.IsNullOrEmpty(trxVenta.DocGP.LDocVentaRelacionados.FirstOrDefault()?.cufeDescripcion))
+                    if (string.IsNullOrEmpty(trxVenta.DocGP.LDocVentaRelacionados.FirstOrDefault()?.codigoEstatusDocumento) 
+                        || string.IsNullOrEmpty(trxVenta.DocGP.LDocVentaRelacionados.FirstOrDefault()?.cufeDescripcion))
                     {
                         msj += "No ha informado el motivo de la nota de débito." + Environment.NewLine;
                     }
+                    if (!trxVenta.DocGP.LDocVentaRelacionados.FirstOrDefault().commntid.Substring(0, 1).Equals("D"))
+                    {
+                        msj += "El código del motivo de la nota de débito es incorrecto." + Environment.NewLine;
+                    }
 
-                    if (string.IsNullOrEmpty(TrxVenta.DocGP.DocVenta.cliente_difpais.Trim()))
+                    if (string.IsNullOrEmpty(TrxVenta.DocGP.DocVenta.cliente_difpais.Trim())
+                        || trxVenta.DocGP.DocVenta.cliente_difpais.Trim().Equals("-"))
                         msj += "Debe ingresar el código de país del cliente." + Environment.NewLine;
+
                     if (trxVenta.DocGP.DocVenta.cliente_difpais.Trim().Equals("CO"))
                     {
                         if (string.IsNullOrEmpty(trxVenta.DocGP.DocVenta.cliente_difCiudad))
@@ -206,8 +219,10 @@ namespace cfd.FacturaElectronica
                     if (trxVenta.DocGP.DocVenta.cargosdescuentos_monto != 0 && (string.IsNullOrEmpty(trxVenta.DocGP.DocVenta.cargosdescuentos_codigo) || string.IsNullOrEmpty(trxVenta.DocGP.DocVenta.cargosdescuentos_descripcion)))
                         msj += "Debe ingresar un código y razón del descuento." + Environment.NewLine;
 
-                    if (string.IsNullOrEmpty(TrxVenta.DocGP.DocVenta.cliente_difpais.Trim()))
+                    if (string.IsNullOrEmpty(TrxVenta.DocGP.DocVenta.cliente_difpais.Trim())
+                        || trxVenta.DocGP.DocVenta.cliente_difpais.Trim().Equals("-"))
                         msj += "Debe ingresar el código de país del cliente." + Environment.NewLine;
+
                     if (trxVenta.DocGP.DocVenta.cliente_difpais.Trim().Equals("CO"))
                     {
                         if (string.IsNullOrEmpty(trxVenta.DocGP.DocVenta.cliente_difCiudad))
@@ -350,6 +365,27 @@ namespace cfd.FacturaElectronica
             return rutaYNombreArchivo;
         }
 
+        private async Task<string> EjecutaEventoEnviaCorreoAsync(ICfdiMetodosWebService servicioTimbre, cfdReglasFacturaXml LogComprobante, cfdReglasEmail dirCorreos, int usuarioConAcceso)
+        {
+            string resultado = string.Empty;
+            if (trxVenta.CicloDeVida.Transiciona(Maquina.eventoEnviaCorreo, usuarioConAcceso))
+            {
+                DireccionesEmail dir = dirCorreos.ObtieneDirecciones(trxVenta.CUSTNMBR);
+                string correos = string.Concat(Utiles.Derecha(dir.mailTo, dir.mailTo.Length - 1), dir.mailCC, dir.mailCCO);
+                String[] acorreos = correos.Split(new char[] { ',' });
+                if (acorreos.Count() > 0)
+                {
+                    resultado = await servicioTimbre.EnviaCorreoAsync(trxVenta.DocGP.DocVenta.cliente_numeroIdentificacion, trxVenta.Ruta_certificadoPac, trxVenta.Ruta_clavePac, trxVenta.DocGP.DocVenta.prefijo, trxVenta.DocGP.DocVenta.consecutivoDocumento, acorreos[0]);
+                    LogComprobante.RegistraLogDeArchivoXML(trxVenta.Soptype, trxVenta.Sopnumbe, resultado, trxVenta.CicloDeVida.idxTargetSingleStatus.ToString(), _Conex.Usuario, string.Empty,
+                                                        trxVenta.CicloDeVida.targetSingleStatus, trxVenta.CicloDeVida.targetBinStatus, trxVenta.CicloDeVida.EstadoEnPalabras(trxVenta.CicloDeVida.targetBinStatus));
+                    LogComprobante.ActualizaFacturaEmitida(trxVenta.Soptype, trxVenta.Sopnumbe, _Conex.Usuario, Maquina.estadoBaseEmisor, Maquina.estadoBaseEmisor, trxVenta.CicloDeVida.targetBinStatus, trxVenta.CicloDeVida.EstadoEnPalabras(trxVenta.CicloDeVida.targetBinStatus), trxVenta.CicloDeVida.idxTargetSingleStatus.ToString());
+                }
+                else
+                    resultado = "El cliente no tiene una dirección de correo configurada.";
+            }
+            return resultado;
+        }
+
         private void EjecutaEvento(int Evento, ICfdiMetodosWebService servicioTimbre, cfdReglasFacturaXml LogComprobante, int usuarioConAcceso)
         {
             if (trxVenta.CicloDeVida.Transiciona(Evento, usuarioConAcceso))
@@ -380,6 +416,8 @@ namespace cfd.FacturaElectronica
                     string tipoMEstados = "DOCVENTA-" + trxVenta.EstadoContabilizado;
                     trxVenta.CicloDeVida = new Maquina(trxVenta.EstadoActual, trxVenta.Regimen, trxVenta.Voidstts, "emisor", tipoMEstados);
                     msj = String.Empty;
+                    cfdReglasEmail dirCorreos = new cfdReglasEmail(_Conex, _Param);
+
                     try
                     {
                         trxVenta.ArmarDocElectronico(string.Empty);
@@ -407,6 +445,9 @@ namespace cfd.FacturaElectronica
 
                                 if (!string.IsNullOrEmpty(xmlFactura))
                                     rutaYNombreArchivo = await EjecutaEventoObtienePDFAsync(servicioTimbre, LogComprobante, nombreArchivo, usuarioConAcceso);
+
+                                if (!string.IsNullOrEmpty( rutaYNombreArchivo))
+                                    msj = await EjecutaEventoEnviaCorreoAsync(servicioTimbre, LogComprobante, dirCorreos, usuarioConAcceso);
 
                                 break;
                             default:
@@ -477,6 +518,55 @@ namespace cfd.FacturaElectronica
                     {
                         msj = "Excepción al verificar acceso a la carpeta/archivo: " + trxVenta.Ruta_clave + " Verifique su existencia y privilegios." + Environment.NewLine + io.Message + Environment.NewLine;
                         errores++;
+                    }
+                    catch (Exception lo)
+                    {
+                        string imsj = lo.InnerException == null ? "" : lo.InnerException.ToString();
+                        msj = lo.Message + " " + imsj + Environment.NewLine + lo.StackTrace;
+                        errores++;
+                    }
+                    finally
+                    {
+                        i++;
+                        OnProgreso(100 * i / numRegistros, "Doc:" + trxVenta.Sopnumbe + " " + msj.Trim() + Environment.NewLine);              //Notifica al suscriptor
+                    }
+                } while (trxVenta.MoveNext() && errores < 10);
+            }
+            catch (Exception xw)
+            {
+                string imsj = xw.InnerException == null ? "" : xw.InnerException.ToString();
+                this.ultimoMensaje = xw.Message + " " + imsj + Environment.NewLine + xw.StackTrace;
+            }
+            finally
+            {
+                OnProgreso(100, ultimoMensaje);
+            }
+            OnProgreso(100, "PROCESO FINALIZADO!");
+        }
+
+        public async Task ProcesaEnviaCorreoAsync(ICfdiMetodosWebService servicioTimbre)
+        {
+            try
+            {
+                String msj = String.Empty;
+                String eBinario = String.Empty;
+                trxVenta.Rewind();                                                          //move to first record
+                int numRegistros = trxVenta.RowCount;
+                int usuarioConAcceso = 1;
+                int errores = 0;
+                int i = 0;
+                cfdReglasFacturaXml LogComprobante = new cfdReglasFacturaXml(_Conex, _Param);     //log de facturas xml emitidas y anuladas
+                cfdReglasEmail dirCorreos = new cfdReglasEmail(_Conex, _Param);
+                OnProgreso(1, "INICIANDO ENVIO DE CORREOS...");              //Notifica al suscriptor
+                do
+                {
+                    string tipoMEstados = "DOCVENTA-" + trxVenta.EstadoContabilizado;
+                    trxVenta.CicloDeVida = new Maquina(trxVenta.EstadoActual, trxVenta.Regimen, trxVenta.Voidstts, "emisor", tipoMEstados);
+                    msj = String.Empty;
+                    try
+                    {
+                        trxVenta.ArmarDocElectronico(string.Empty);
+                        msj = await EjecutaEventoEnviaCorreoAsync(servicioTimbre, LogComprobante, dirCorreos, usuarioConAcceso);
                     }
                     catch (Exception lo)
                     {

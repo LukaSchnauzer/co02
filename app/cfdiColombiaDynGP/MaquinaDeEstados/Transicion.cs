@@ -73,13 +73,14 @@ namespace MaquinaDeEstados
         public bool CondicionDeGuarda(int evento, int anulado, int conAcceso)
         {
             bool ok = false;
-
+            bool existeEvento = false;
             if (anulado == 1)
                 throw new ArgumentException("El documento está anulado en GP. [Transicion.CondicionDeGuarda]");
             else
             {
                 if (evento == Maquina.eventoGeneraYEnviaXml)   //ensambla archivo txt
                 {
+                    existeEvento = true;
                     if (conAcceso == 1)
                         ok = true;
 
@@ -88,6 +89,7 @@ namespace MaquinaDeEstados
                 }
                 if (evento == Maquina.eventoDIANAcepta)   //Aceptado
                 {
+                    existeEvento = true;
                     if (conAcceso == 1)
                         ok = true;
 
@@ -96,14 +98,26 @@ namespace MaquinaDeEstados
                 }
                 if (evento == Maquina.eventoObtienePDF)   //Aceptado
                 {
+                    existeEvento = true;
                     if (conAcceso == 1)
                         ok = true;
 
                     if (conAcceso == 0)
-                        throw new ArgumentException("No tiene permisos para emitir factura electrónica.");
+                        throw new ArgumentException("No tiene permisos para obtener pdf de factura electrónica.");
+                }
+                if (evento == Maquina.eventoEnviaCorreo)   //Aceptado
+                {
+                    existeEvento = true;
+                    if (conAcceso == 1)
+                        ok = true;
+
+                    if (conAcceso == 0)
+                        throw new ArgumentException("No tiene permisos para enviar correo.");
                 }
 
             }
+            if (!existeEvento)
+                throw new ArgumentException("No existe el evento " + evento.ToString());
 
             return ok;
         }

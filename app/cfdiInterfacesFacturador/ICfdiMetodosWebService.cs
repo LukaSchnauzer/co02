@@ -25,6 +25,7 @@ namespace cfdiColombiaInterfaces
         //string ObtieneCDRdelOSE(string ruc, string tipoDoc, string serie, string correlativo);
         //Tuple<string, string> Baja(string ruc, string usuario, string usuarioPassword, string nroDocumento);
         Task<string> ConsultaStatusAlOSEAsync(string ruc, string usuario, string usuarioPassword, string tipoDoc, string serie, string correlativo);
+        Task<string> EnviaCorreoAsync(string ruc, string usuario, string usuarioPassword, string serie, string correlativo, string correo);
 
         //Tuple<string, string> ResumenDiario(string ruc, string usuario, string usuarioPassword, string texto);
 
