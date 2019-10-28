@@ -83,16 +83,15 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             #endregion
 
             #region DOCUMENTO REFERENCIADO
-            int nre = documentoGP._LDocVentaRelacionados.Count();
+            var docsReferenciados = documentoGP._LDocVentaRelacionados.Where(x => x.sopnumbeTo != string.Empty);
+            int nre = docsReferenciados.Count();
             if (nre != 0)
             {
-                //if (documentoGP.DocVenta.tipoDocumento == "91" || documentoGP.DocVenta.tipoDocumento == "92")
-                //{
-                    DocEnviarWS.documentosReferenciados = new DocumentoReferenciado[nre * 2];
-                    int cor = 0;
-                    int cor2 = 0;
-                    foreach (vwCfdiRelacionados relacionados in documentoGP._LDocVentaRelacionados)
-                    {
+                DocEnviarWS.documentosReferenciados = new DocumentoReferenciado[nre * 2];
+                int cor = 0;
+                int cor2 = 0;
+                foreach (vwCfdiRelacionados relacionados in docsReferenciados)
+                {
                         DocumentoReferenciado referencia1 = new DocumentoReferenciado();
                         referencia1.codigoInterno = documentoGP.LDocVentaRelacionados[cor].discrepancyResponse.ToString();//ver
 
@@ -119,9 +118,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
                         DocEnviarWS.documentosReferenciados[cor2] = referencia2;
                         cor2++;
                         cor++;
-                    }
-
-                //}
+                }
 
                 //if (documentoGP.DocVenta.tipoDocumento == "03")
                 //{
@@ -721,6 +718,17 @@ namespace cfdiColombiaOperadorServiciosElectronicos
 
         }
 
+        public async Task<string> EnviaCorreoAsync(string ruc, string usuario, string usuarioPassword, string serie, string correlativo, string correo)
+        {
+            var response = await ServicioWS.EnvioCorreoAsync(usuario, usuarioPassword, serie + correlativo, correo);
+
+            if (response.codigo == 200)
+                return string.Concat(response.codigo.ToString(), "-", response.mensaje, ". ", response?.resultado);
+            else
+                throw new InvalidOperationException(response.codigo.ToString() + " - " + response.mensaje + " " + correo + " Excepción al enviar el e-mail. [EnviaCorreoAsync] ");
+
+        }
+
         //public string ObtieneCDRdelOSE(string ruc, string tipoDoc, string serie, string correlativo)
         //{
         //    throw new NotImplementedException();
@@ -733,9 +741,9 @@ namespace cfdiColombiaOperadorServiciosElectronicos
         //{
         //    throw new NotImplementedException();
         //}
-    
+
     }
-    
+
 }
 
 

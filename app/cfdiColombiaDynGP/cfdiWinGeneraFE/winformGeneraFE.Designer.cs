@@ -33,11 +33,20 @@
             this.dgridTrxFacturas = new System.Windows.Forms.DataGridView();
             this.Mark = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Docid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EstadoContabilizado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Voidstts = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MensajeEA = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.eBinAct = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Regimen = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vwCfdTransaccionesDeVentaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cmbBIdDoc = new System.Windows.Forms.ComboBox();
             this.cmbBEstado = new System.Windows.Forms.ComboBox();
             this.checkBoxEstado = new System.Windows.Forms.CheckBox();
@@ -98,7 +107,6 @@
             this.tsTextBoxMotivoRechazo = new System.Windows.Forms.ToolStripTextBox();
             this.tsBtnMotivoRechazo = new System.Windows.Forms.ToolStripButton();
             this.toolStripEmailMas = new System.Windows.Forms.ToolStrip();
-            this.tsBtnConfiguraMsj = new System.Windows.Forms.ToolStripButton();
             this.toolStripEmail = new System.Windows.Forms.ToolStrip();
             this.tsBtnEnviaEmail = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -114,16 +122,8 @@
             this.tabCfdi = new System.Windows.Forms.TabControl();
             this.tabFacturas = new System.Windows.Forms.TabPage();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.vwCfdTransaccionesDeVentaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgridTrxFacturas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vwCfdTransaccionesDeVentaBindingSource)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.toolStripAccionesXML.SuspendLayout();
             this.toolStripImpresion.SuspendLayout();
@@ -134,7 +134,6 @@
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
             this.toolStripAuxRechazar.SuspendLayout();
-            this.toolStripEmailMas.SuspendLayout();
             this.toolStripEmail.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.toolStripPDF.SuspendLayout();
@@ -142,7 +141,6 @@
             this.panel3.SuspendLayout();
             this.tabCfdi.SuspendLayout();
             this.tabFacturas.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.vwCfdTransaccionesDeVentaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // dgridTrxFacturas
@@ -203,6 +201,65 @@
             this.Docid.ReadOnly = true;
             this.Docid.Width = 50;
             // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Soptype";
+            this.dataGridViewTextBoxColumn3.Frozen = true;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Tipo";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Width = 45;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "Sopnumbe";
+            this.dataGridViewTextBoxColumn4.Frozen = true;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Número Doc.";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "Fechahora";
+            this.dataGridViewTextBoxColumn5.Frozen = true;
+            this.dataGridViewTextBoxColumn5.HeaderText = "Fecha";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "NombreCliente";
+            this.dataGridViewTextBoxColumn6.Frozen = true;
+            this.dataGridViewTextBoxColumn6.HeaderText = "Nombre Cliente";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.Width = 150;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "IdImpuestoCliente";
+            this.dataGridViewTextBoxColumn7.Frozen = true;
+            this.dataGridViewTextBoxColumn7.HeaderText = "Id. de Impuesto";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "Total";
+            this.dataGridViewTextBoxColumn8.Frozen = true;
+            this.dataGridViewTextBoxColumn8.HeaderText = "Total";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.DataPropertyName = "Estado";
+            this.dataGridViewTextBoxColumn9.Frozen = true;
+            this.dataGridViewTextBoxColumn9.HeaderText = "Estado";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.DataPropertyName = "Mensaje";
+            this.dataGridViewTextBoxColumn10.Frozen = true;
+            this.dataGridViewTextBoxColumn10.HeaderText = "Mensaje";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            // 
             // EstadoContabilizado
             // 
             this.EstadoContabilizado.DataPropertyName = "EstadoContabilizado";
@@ -246,6 +303,10 @@
             this.Regimen.HeaderText = "Idx Status";
             this.Regimen.Name = "Regimen";
             this.Regimen.Visible = false;
+            // 
+            // vwCfdTransaccionesDeVentaBindingSource
+            // 
+            this.vwCfdTransaccionesDeVentaBindingSource.DataSource = typeof(cfdiColombia.vwCfdTransaccionesDeVenta);
             // 
             // cmbBIdDoc
             // 
@@ -871,24 +932,12 @@
             this.toolStripEmailMas.AutoSize = false;
             this.toolStripEmailMas.Dock = System.Windows.Forms.DockStyle.None;
             this.toolStripEmailMas.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.toolStripEmailMas.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsBtnConfiguraMsj});
             this.toolStripEmailMas.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.toolStripEmailMas.Location = new System.Drawing.Point(490, 0);
             this.toolStripEmailMas.Name = "toolStripEmailMas";
             this.toolStripEmailMas.Size = new System.Drawing.Size(112, 88);
             this.toolStripEmailMas.TabIndex = 74;
             this.toolStripEmailMas.Text = "toolStrip2";
-            // 
-            // tsBtnConfiguraMsj
-            // 
-            this.tsBtnConfiguraMsj.Enabled = false;
-            this.tsBtnConfiguraMsj.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnConfiguraMsj.Image")));
-            this.tsBtnConfiguraMsj.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsBtnConfiguraMsj.Name = "tsBtnConfiguraMsj";
-            this.tsBtnConfiguraMsj.Size = new System.Drawing.Size(71, 20);
-            this.tsBtnConfiguraMsj.Text = "Mensaje";
-            this.tsBtnConfiguraMsj.Visible = false;
             // 
             // toolStripEmail
             // 
@@ -917,7 +966,6 @@
             this.tsBtnEnviaEmail.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.tsBtnEnviaEmail.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tsBtnEnviaEmail.ToolTipText = "Envío masivo de e-mails";
-            this.tsBtnEnviaEmail.Visible = false;
             this.tsBtnEnviaEmail.Click += new System.EventHandler(this.tsBtnEnviaEmail_Click);
             // 
             // toolStrip1
@@ -1084,69 +1132,6 @@
             this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton1.Text = "toolStripButton1";
             // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "Soptype";
-            this.dataGridViewTextBoxColumn3.Frozen = true;
-            this.dataGridViewTextBoxColumn3.HeaderText = "Tipo";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.Width = 45;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "Sopnumbe";
-            this.dataGridViewTextBoxColumn4.Frozen = true;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Número Doc.";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "Fechahora";
-            this.dataGridViewTextBoxColumn5.Frozen = true;
-            this.dataGridViewTextBoxColumn5.HeaderText = "Fecha";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "NombreCliente";
-            this.dataGridViewTextBoxColumn6.Frozen = true;
-            this.dataGridViewTextBoxColumn6.HeaderText = "Nombre Cliente";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.Width = 150;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "IdImpuestoCliente";
-            this.dataGridViewTextBoxColumn7.Frozen = true;
-            this.dataGridViewTextBoxColumn7.HeaderText = "Id. de Impuesto";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.DataPropertyName = "Total";
-            this.dataGridViewTextBoxColumn8.Frozen = true;
-            this.dataGridViewTextBoxColumn8.HeaderText = "Total";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.DataPropertyName = "Estado";
-            this.dataGridViewTextBoxColumn9.Frozen = true;
-            this.dataGridViewTextBoxColumn9.HeaderText = "Estado";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.DataPropertyName = "Mensaje";
-            this.dataGridViewTextBoxColumn10.Frozen = true;
-            this.dataGridViewTextBoxColumn10.HeaderText = "Mensaje";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            // 
-            // vwCfdTransaccionesDeVentaBindingSource
-            // 
-            this.vwCfdTransaccionesDeVentaBindingSource.DataSource = typeof(cfdiColombia.vwCfdTransaccionesDeVenta);
-            // 
             // winformGeneraFE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1165,6 +1150,7 @@
             this.Text = "GP Factura Electrónica";
             this.Load += new System.EventHandler(this.winformGeneraFE_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgridTrxFacturas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.vwCfdTransaccionesDeVentaBindingSource)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStripAccionesXML.ResumeLayout(false);
@@ -1183,8 +1169,6 @@
             this.panel5.ResumeLayout(false);
             this.toolStripAuxRechazar.ResumeLayout(false);
             this.toolStripAuxRechazar.PerformLayout();
-            this.toolStripEmailMas.ResumeLayout(false);
-            this.toolStripEmailMas.PerformLayout();
             this.toolStripEmail.ResumeLayout(false);
             this.toolStripEmail.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
@@ -1197,7 +1181,6 @@
             this.panel3.PerformLayout();
             this.tabCfdi.ResumeLayout(false);
             this.tabFacturas.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.vwCfdTransaccionesDeVentaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1267,7 +1250,6 @@
         private System.Windows.Forms.ToolStrip toolStripEmail;
         private System.Windows.Forms.ToolStripButton tsBtnEnviaEmail;
         private System.Windows.Forms.ToolStrip toolStripEmailMas;
-        private System.Windows.Forms.ToolStripButton tsBtnConfiguraMsj;
         private System.Windows.Forms.CheckBox checkBoxMark;
         //        private System.Windows.Forms.DataGridViewTextBoxColumn cadenaOriginalDataGridViewTextBoxColumn;
         private System.Windows.Forms.CheckBox checkBoxCliente;

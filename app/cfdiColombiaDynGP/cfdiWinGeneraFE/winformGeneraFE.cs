@@ -620,7 +620,7 @@ namespace cfdiColombia
                 proc.TrxVenta = regla.CfdiTransacciones;
                 proc.Progreso += new ProcesaCfdi.LogHandler(reportaProgreso);
 
-                if (!this.tabCfdi.SelectedTab.Name.Equals("tabResumen"))
+                if (this.tabCfdi.SelectedTab.Name.Equals("tabFacturas"))
                     await proc.ProcesaObtienePDFAsync(ServiciosOse);
 
                 HabilitarVentana(Param.emite, Param.anula, Param.imprime, Param.publica, Param.envia, true);
@@ -635,12 +635,14 @@ namespace cfdiColombia
             ReActualizaDatosDeVentana();
         }
 
-        private void tsBtnEnviaEmail_Click(object sender, EventArgs e)
+        private async void tsBtnEnviaEmail_Click(object sender, EventArgs e)
         {
             int errores = 0;
             txtbxMensajes.Text = "";
 
             Parametros Param = new Parametros(DatosConexionDB.Elemento.Intercompany);
+            Param.ExtDefault = this.tabCfdi.SelectedTab.Name;
+            ServiciosOse = new WebServicesOSE(Param.URLwebServPAC);
             if (!Param.ultimoMensaje.Equals(string.Empty))
             {
                 txtbxMensajes.Text = Param.ultimoMensaje;
@@ -648,7 +650,7 @@ namespace cfdiColombia
             }
             if (regla.CfdiTransacciones.RowCount == 0)
             {
-                txtbxMensajes.Text = "No hay documentos para generar. Verifique los criterios de búsqueda.";
+                txtbxMensajes.Text = "No hay documentos para enviar. Verifique los criterios de búsqueda.";
                 errores++;
             }
             if (!filtraListaSeleccionada()) //Filtra cfdiTransacciones sólo con docs marcados
@@ -658,13 +660,19 @@ namespace cfdiColombia
             }
             if (errores == 0)
             {
-                cfdEmailWorker _bw = new cfdEmailWorker(DatosConexionDB.Elemento, Param);
                 tsPbProcesoActivo.Style = ProgressBarStyle.Marquee;
                 HabilitarVentana(false, false, false, false, false, false);
-                _bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_Completed);
-                _bw.ProgressChanged += new ProgressChangedEventHandler(bw_Progress);
-                object[] arguments = { regla.CfdiTransacciones };
-                _bw.RunWorkerAsync(arguments);
+                ProcesaCfdi proc = new ProcesaCfdi(DatosConexionDB.Elemento, Param);
+                proc.TrxVenta = regla.CfdiTransacciones;
+                proc.Progreso += new ProcesaCfdi.LogHandler(reportaProgreso);
+
+                if (this.tabCfdi.SelectedTab.Name.Equals("tabFacturas"))
+                    await proc.ProcesaEnviaCorreoAsync(ServiciosOse);
+
+                HabilitarVentana(Param.emite, Param.anula, Param.imprime, Param.publica, Param.envia, true);
+                AplicaFiltroYActualizaPantalla(this.tabCfdi.SelectedTab.Name);
+                progressBar1.Value = 0;
+                tsPbProcesoActivo.Style = ProgressBarStyle.Blocks;
 
             }
         }
@@ -948,6 +956,7 @@ namespace cfdiColombia
         {
 
         }
+
 
     }
 }

@@ -20,7 +20,9 @@ namespace MaquinaDeEstados
         public const int eventoAcuseAceptado = 40;
         public const int eventoAcuseRechazado = 50;
         public const int eventoObtienePDF = 60;
-        public const int eventoAnulaFolioEnDIAN = 70;
+//        public const int eventoAnulaFolioEnDIAN = 70;
+        public const int eventoEnviaCorreo = 75;
+        public const int eventoCorrigeError = 80;
 
         public const int idxEstadoNoEmitido = 7;
         public const String estadoBaseEmisor = "emitido";
@@ -123,7 +125,7 @@ namespace MaquinaDeEstados
             if (maquina.Equals("DOCVENTA-contabilizado"))
             {
                 _Estados = new Estado[]{ 
-                new Estado("anulado", 0, -1),
+                new Estado("enviado", 0, -1),
                 new Estado("aceptado Cliente", 1, -1),
                 new Estado("rechazado Cliente", 2, -1),
                 new Estado("impreso", 3, -1),
@@ -139,19 +141,33 @@ namespace MaquinaDeEstados
                                     new Transicion(eventoGeneraYEnviaXml, "Genera y envia xml al Proveedor Tecnológico", "std", _Estados.Where(x=>x.Nombre.Equals("no emitido")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("emitido")).First().Idx),
                                     new Transicion(eventoDIANAcepta, "DIAN acepta el comprobante", "std",                       _Estados.Where(x=>x.Nombre.Equals("emitido")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("aceptado DIAN")).First().Idx),
                                     new Transicion(eventoDIANRechaza, "DIAN rechaza el comprobante", "std",                     _Estados.Where(x=>x.Nombre.Equals("emitido")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("rechazado DIAN")).First().Idx),
-                                    new Transicion(eventoGeneraYEnviaXml, "Corrige comprobante y vuelve a enviar xml al PT", "std", _Estados.Where(x=>x.Nombre.Equals("rechazado DIAN")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("emitido")).First().Idx),
-                                    new Transicion(eventoAnulaFolioEnDIAN, "Anular folio en DIAN", "std",                       _Estados.Where(x=>x.Nombre.Equals("no emitido")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("anulado")).First().Idx),
-                                    new Transicion(eventoAnulaFolioEnDIAN, "Anular folio en DIAN", "std",                       _Estados.Where(x=>x.Nombre.Equals("rechazado DIAN")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("anulado")).First().Idx),
+                                    new Transicion(eventoCorrigeError, "Corrige comprobante y vuelve a enviar xml al PT", "std", _Estados.Where(x=>x.Nombre.Equals("rechazado DIAN")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("no emitido")).First().Idx),
                                     new Transicion(eventoObtienePDF, "Obtiene PDF del PT", "std",                               _Estados.Where(x=>x.Nombre.Equals("aceptado DIAN")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("impreso")).First().Idx),
-                                    new Transicion(eventoObtienePDF, "Obtiene PDF del PT", "std",                               _Estados.Where(x=>x.Nombre.Equals("aceptado Cliente")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("impreso")).First().Idx),
                                     new Transicion(eventoObtienePDF, "Obtiene PDF del PT", "std",                               _Estados.Where(x=>x.Nombre.Equals("impreso")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("impreso")).First().Idx),
-                                    new Transicion(eventoAcuseAceptado, "Cliente acepta acuse de recibo", "std",                _Estados.Where(x=>x.Nombre.Equals("impreso")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("aceptado Cliente")).First().Idx),
-                                    new Transicion(eventoAcuseAceptado, "Cliente acepta acuse de recibo", "std",                _Estados.Where(x=>x.Nombre.Equals("aceptado DIAN")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("aceptado Cliente")).First().Idx),
-                                    new Transicion(eventoAcuseRechazado, "Cliente rechaza acuse de recibo", "std",              _Estados.Where(x=>x.Nombre.Equals("aceptado DIAN")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("rechazado Cliente")).First().Idx),
-                                    new Transicion(eventoAcuseRechazado, "Cliente rechaza acuse de recibo", "std",              _Estados.Where(x=>x.Nombre.Equals("impreso")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("rechazado Cliente")).First().Idx),
-                                    new Transicion(eventoDarDeBaja, "Dar de baja en la DIAN", "std",                            _Estados.Where(x=>x.Nombre.Equals("aceptado DIAN")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("anulado")).First().Idx),
-                                    new Transicion(eventoDarDeBaja, "Dar de baja en la DIAN", "std",                            _Estados.Where(x=>x.Nombre.Equals("impreso")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("anulado")).First().Idx),
+                                    new Transicion(eventoEnviaCorreo, "Envía correo al cliente", "std",                         _Estados.Where(x=>x.Nombre.Equals("impreso")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("enviado")).First().Idx),
+                                    new Transicion(eventoEnviaCorreo, "Envía correo al cliente", "std",                         _Estados.Where(x=>x.Nombre.Equals("enviado")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("enviado")).First().Idx),
+                                    new Transicion(eventoAcuseAceptado, "Cliente acepta acuse de recibo", "std",                _Estados.Where(x=>x.Nombre.Equals("enviado")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("aceptado Cliente")).First().Idx),
+                                    new Transicion(eventoAcuseRechazado, "Cliente rechaza acuse de recibo", "std",              _Estados.Where(x=>x.Nombre.Equals("enviado")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("rechazado Cliente")).First().Idx),
                                     };
+
+                //_matrizTransiciones = new Transicion[] {
+                //                    //Eventos de factura electrónica
+                //                    new Transicion(eventoGeneraYEnviaXml, "Genera y envia xml al Proveedor Tecnológico", "std", _Estados.Where(x=>x.Nombre.Equals("no emitido")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("emitido")).First().Idx),
+                //                    new Transicion(eventoDIANAcepta, "DIAN acepta el comprobante", "std",                       _Estados.Where(x=>x.Nombre.Equals("emitido")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("aceptado DIAN")).First().Idx),
+                //                    new Transicion(eventoDIANRechaza, "DIAN rechaza el comprobante", "std",                     _Estados.Where(x=>x.Nombre.Equals("emitido")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("rechazado DIAN")).First().Idx),
+                //                    new Transicion(eventoGeneraYEnviaXml, "Corrige comprobante y vuelve a enviar xml al PT", "std", _Estados.Where(x=>x.Nombre.Equals("rechazado DIAN")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("emitido")).First().Idx),
+                //                    new Transicion(eventoAnulaFolioEnDIAN, "Anular folio en DIAN", "std",                       _Estados.Where(x=>x.Nombre.Equals("no emitido")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("anulado")).First().Idx),
+                //                    new Transicion(eventoAnulaFolioEnDIAN, "Anular folio en DIAN", "std",                       _Estados.Where(x=>x.Nombre.Equals("rechazado DIAN")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("anulado")).First().Idx),
+                //                    new Transicion(eventoObtienePDF, "Obtiene PDF del PT", "std",                               _Estados.Where(x=>x.Nombre.Equals("aceptado DIAN")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("impreso")).First().Idx),
+                //                    new Transicion(eventoObtienePDF, "Obtiene PDF del PT", "std",                               _Estados.Where(x=>x.Nombre.Equals("aceptado Cliente")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("impreso")).First().Idx),
+                //                    new Transicion(eventoObtienePDF, "Obtiene PDF del PT", "std",                               _Estados.Where(x=>x.Nombre.Equals("impreso")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("impreso")).First().Idx),
+                //                    new Transicion(eventoAcuseAceptado, "Cliente acepta acuse de recibo", "std",                _Estados.Where(x=>x.Nombre.Equals("impreso")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("aceptado Cliente")).First().Idx),
+                //                    new Transicion(eventoAcuseAceptado, "Cliente acepta acuse de recibo", "std",                _Estados.Where(x=>x.Nombre.Equals("aceptado DIAN")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("aceptado Cliente")).First().Idx),
+                //                    new Transicion(eventoAcuseRechazado, "Cliente rechaza acuse de recibo", "std",              _Estados.Where(x=>x.Nombre.Equals("aceptado DIAN")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("rechazado Cliente")).First().Idx),
+                //                    new Transicion(eventoAcuseRechazado, "Cliente rechaza acuse de recibo", "std",              _Estados.Where(x=>x.Nombre.Equals("impreso")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("rechazado Cliente")).First().Idx),
+                //                    new Transicion(eventoDarDeBaja, "Dar de baja en la DIAN", "std",                            _Estados.Where(x=>x.Nombre.Equals("aceptado DIAN")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("anulado")).First().Idx),
+                //                    new Transicion(eventoDarDeBaja, "Dar de baja en la DIAN", "std",                            _Estados.Where(x=>x.Nombre.Equals("impreso")).First().Idx, _Estados.Where(x=>x.Nombre.Equals("anulado")).First().Idx),
+                //                    };
             };
 
             //if (maquina.Equals("DOCVENTA-en lote"))
@@ -168,7 +184,6 @@ namespace MaquinaDeEstados
         /// 1/10/15 jcf Agrega try/catch
         /// </summary>
         /// <param name="evento"></param>
-        /// <param name="docAnulado"></param>
         /// <param name="usuarioConAcceso"></param>
         /// <returns></returns>
         public bool Transiciona(int evento, int usuarioConAcceso)

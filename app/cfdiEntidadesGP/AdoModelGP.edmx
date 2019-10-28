@@ -145,6 +145,20 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiGeneraDocumentoDeVenta' does not h
         <EntityType Name="vwCfdiGeneraDocumentoDeVenta">
           <Key>
             <PropertyRef Name="soptype" />
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
             <PropertyRef Name="sopnumbe" />
           </Key>
           <Property Name="soptype" Type="smallint" Nullable="false" />
@@ -224,6 +238,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           <Key>
             
             <PropertyRef Name="soptypeFrom" />
+            <PropertyRef Name="soptypeTo" />
             <PropertyRef Name="sopnumbeTo" />
             
             
@@ -231,24 +246,26 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
             
             
             
+            
+            
             <PropertyRef Name="sopnumbeFrom" />
-            <PropertyRef Name="soptypeTo" />
           </Key>
           <Property Name="orden" Type="int" Nullable="false" />
           <Property Name="soptypeFrom" Type="smallint" Nullable="false" />
           <Property Name="sopnumbeFrom" Type="varchar" MaxLength="21" Nullable="false" />
           <Property Name="soptypeTo" Type="int" Nullable="false" />
-          <Property Name="sopnumbeTo" Type="char" MaxLength="41" Nullable="false" />
+          <Property Name="sopnumbeTo" Type="varchar" MaxLength="41" Nullable="false" />
           <Property Name="codigoInterno" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="discrepancyResponse" Type="int" Nullable="false" />
           <Property Name="billingReference" Type="int" Nullable="false" />
-          <Property Name="cufeDocReferenciado" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="cufeDocReferenciado" Type="varchar" MaxLength="120" Nullable="false" />
           <Property Name="codigoEstatusDocumento" Type="varchar" MaxLength="5" />
           <Property Name="cufeDescripcion" Type="varchar" MaxLength="51" />
-          <Property Name="fecha" Type="datetime" />
-          <Property Name="numeroDocumento" Type="varchar" MaxLength="61" />
+          <Property Name="commntid" Type="varchar" MaxLength="15" />
+          <Property Name="fecha" Type="datetime" Nullable="false" />
+          <Property Name="numeroDocumento" Type="varchar" MaxLength="61" Nullable="false" />
           <Property Name="tipoDocumento" Type="varchar" MaxLength="1" Nullable="false" />
-          <Property Name="tipoCufe" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="tipoCufe" Type="varchar" MaxLength="15" Nullable="false" />
         </EntityType>
         <Function Name="fCfdiParametrosTipoLeyenda" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ADRSCODE" Type="char" Mode="In" />
@@ -426,6 +443,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
     [vwCfdiRelacionados].[cufeDocReferenciado] AS [cufeDocReferenciado], 
     [vwCfdiRelacionados].[codigoEstatusDocumento] AS [codigoEstatusDocumento], 
     [vwCfdiRelacionados].[cufeDescripcion] AS [cufeDescripcion], 
+    [vwCfdiRelacionados].[commntid] AS [commntid], 
     [vwCfdiRelacionados].[fecha] AS [fecha], 
     [vwCfdiRelacionados].[numeroDocumento] AS [numeroDocumento], 
     [vwCfdiRelacionados].[tipoDocumento] AS [tipoDocumento], 
@@ -642,17 +660,18 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           <Property Name="soptypeFrom" Type="Int16" Nullable="false" />
           <Property Name="sopnumbeFrom" Type="String" MaxLength="21" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="soptypeTo" Type="Int32" Nullable="false" />
-          <Property Name="sopnumbeTo" Type="String" Nullable="false" MaxLength="41" FixedLength="true" Unicode="false" />
+          <Property Name="sopnumbeTo" Type="String" Nullable="false" MaxLength="41" FixedLength="false" Unicode="false" />
           <Property Name="codigoInterno" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Name="discrepancyResponse" Type="Int32" Nullable="false" />
           <Property Name="billingReference" Type="Int32" Nullable="false" />
-          <Property Name="cufeDocReferenciado" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="cufeDocReferenciado" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
           <Property Name="codigoEstatusDocumento" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
           <Property Name="cufeDescripcion" Type="String" MaxLength="51" FixedLength="false" Unicode="false" />
-          <Property Name="fecha" Type="DateTime" Precision="3" />
-          <Property Name="numeroDocumento" Type="String" MaxLength="61" FixedLength="false" Unicode="false" />
+          <Property Name="fecha" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="numeroDocumento" Type="String" MaxLength="61" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="tipoDocumento" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="false" />
-          <Property Name="tipoCufe" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="tipoCufe" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="commntid" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -835,6 +854,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
           <EntitySetMapping Name="vwCfdiRelacionados">
             <EntityTypeMapping TypeName="COLOMBIAModel.vwCfdiRelacionados">
               <MappingFragment StoreEntitySet="vwCfdiRelacionados">
+                <ScalarProperty Name="commntid" ColumnName="commntid" />
                 <ScalarProperty Name="tipoCufe" ColumnName="tipoCufe" />
                 <ScalarProperty Name="tipoDocumento" ColumnName="tipoDocumento" />
                 <ScalarProperty Name="numeroDocumento" ColumnName="numeroDocumento" />
