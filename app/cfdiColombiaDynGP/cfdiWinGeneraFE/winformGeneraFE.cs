@@ -743,71 +743,6 @@ namespace cfdiColombia
 
         private void tsMenuImprimir_Click(object sender, EventArgs e)
         {
-            //string prmFolioDesde = "";
-            //string prmFolioHasta = "";
-            //string prmTabla = "SOP30200";
-            //int prmSopType = 0;
-            //Parametros configCfd = new Parametros(DatosConexionDB.Elemento.Intercompany);   //Carga configuración desde xml
-            //configCfd.ExtDefault = this.tabCfdi.SelectedTab.Name;
-
-            //txtbxMensajes.Text = "";
-            //txtbxMensajes.Refresh();
-            //configCfd.ImprimeEnImpresora = false;
-            //if (tsComboDestinoRep.Text.Equals("Impresora"))
-            //    configCfd.ImprimeEnImpresora = true;
-
-            //if (dgridTrxFacturas.CurrentRow != null && dgridTrxFacturas.CurrentCell.Selected)
-            //{
-            //        prmFolioDesde = tsTextDesde.Text;
-            //        prmFolioHasta = tsTextHasta.Text;
-            //        prmSopType = Convert.ToInt16(dgridTrxFacturas.CurrentRow.Cells[idxSoptype].Value.ToString());
-
-            //        //En el caso de una compañía que debe emitir xml, controlar que la factura ha sido emitida antes de imprimir.
-            //        if (configCfd.emite)
-            //        {
-            //            if (!dgridTrxFacturas.CurrentRow.Cells[idxEstado].Value.Equals("emitido"))      //estado FE
-            //            {
-            //                txtbxMensajes.Text = "La factura " + prmFolioDesde + " no fue emitida. Emita la factura y vuelva a intentar.\r\n";
-            //                return;
-            //            }
-            //        }
-            //        else
-            //        {
-            //            if (dgridTrxFacturas.CurrentRow.Cells[idxAnulado].Value.ToString().Equals("1")) //factura anulada en GP
-            //            {
-            //                txtbxMensajes.Text = "La factura " + prmFolioDesde + " no se puede imprimir porque está anulada. \r\n";
-            //                return;
-            //            }
-            //            if (dgridTrxFacturas.CurrentRow.Cells[idxEstadoContab].Value.Equals("en lote")) //estado contabilizado en GP
-            //                prmTabla = "SOP10100";
-            //        }
-
-            //        if (FrmVisorDeReporte == null)
-            //        {
-            //            try
-            //            {
-            //                FrmVisorDeReporte = new winVisorDeReportes(DatosConexionDB.Elemento, configCfd, prmFolioDesde, prmFolioHasta, prmTabla, prmSopType);
-            //            }
-            //            catch (Exception ex)
-            //            {
-            //                MessageBox.Show(ex.Message);
-            //            }
-            //        }
-            //        else
-            //        {
-            //            if (FrmVisorDeReporte.Created == false)
-            //            {
-            //                FrmVisorDeReporte = new winVisorDeReportes(DatosConexionDB.Elemento, configCfd, prmFolioDesde, prmFolioHasta, prmTabla, prmSopType);
-            //            }
-            //        }
-
-            //        // Always show and activate the WinForm
-            //        FrmVisorDeReporte.Show();
-            //        FrmVisorDeReporte.Activate();
-            //        txtbxMensajes.Text = FrmVisorDeReporte.mensajeErr;
-            //}
-            //else
-            //    txtbxMensajes.Text = "No seleccionó ninguna factura. Debe marcar la factura que desea imprimir y luego presionar el botón de impresión.";
         }
 
         private void tsddButtonImprimir_Click(object sender, EventArgs e)
@@ -957,6 +892,51 @@ namespace cfdiColombia
 
         }
 
+        private void tsBtnCorrigeRechazo_Click(object sender, EventArgs e)
+        {
+            int errores = 0;
+            txtbxMensajes.Text = "";
 
+            Parametros Param = new Parametros(DatosConexionDB.Elemento.Intercompany);
+            Param.ExtDefault = this.tabCfdi.SelectedTab.Name;
+
+            if (!Param.ultimoMensaje.Equals(string.Empty))
+            {
+                txtbxMensajes.Text = Param.ultimoMensaje;
+                errores++;
+            }
+            if (regla.CfdiTransacciones.RowCount == 0)
+            {
+                txtbxMensajes.Text = "No hay documentos para procesar. Verifique los criterios de búsqueda.";
+                errores++;
+            }
+            if (!filtraListaSeleccionada()) //Filtra cfdiTransacciones sólo con docs marcados
+            {
+                txtbxMensajes.Text = ultimoMensaje;
+                errores++;
+            }
+            if (errores == 0)
+            {
+                HabilitarVentana(false, false, false, false, false, false);
+                ProcesaCfdi proc = new ProcesaCfdi(DatosConexionDB.Elemento, Param);
+                proc.TrxVenta = regla.CfdiTransacciones;
+
+                proc.Progreso += new ProcesaCfdi.LogHandler(reportaProgreso);
+                tsPbProcesoActivo.Style = ProgressBarStyle.Marquee;
+
+                if (this.tabCfdi.SelectedTab.Name.Equals("tabFacturas"))
+                    proc.ReiniciaStatusDeComprobanteRechazadoPorServicioImpuestos();
+                else
+                    txtbxMensajes.Text = "Presione el tab FACTURAS y luego el botón Reiniciar Status." + Environment.NewLine;
+
+                //Actualiza la pantalla
+                Parametros Cia = new Parametros(DatosConexionDB.Elemento.Intercompany);   //Carga configuración desde xml
+                HabilitarVentana(Cia.emite, Cia.anula, Cia.imprime, Cia.publica, Cia.envia, true);
+                AplicaFiltroYActualizaPantalla(this.tabCfdi.SelectedTab.Name);
+                progressBar1.Value = 0;
+                tsPbProcesoActivo.Style = ProgressBarStyle.Blocks;
+            }
+
+        }
     }
 }

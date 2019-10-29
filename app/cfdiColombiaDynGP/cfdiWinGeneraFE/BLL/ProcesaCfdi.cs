@@ -12,6 +12,7 @@ using System.Xml;
 using cfdiColombiaInterfaces;
 using System.Xml.Linq;
 using cfdiColombia;
+using System.Data.SqlClient;
 
 namespace cfd.FacturaElectronica
 {
@@ -19,10 +20,6 @@ namespace cfd.FacturaElectronica
     {
         private Parametros _Param;
         private ConexionAFuenteDatos _Conex;
-        private String nroTicket=String.Empty;
-        private String _mensajeSunat = String.Empty;
-
-        private string ultimoMensaje = "";
         vwCfdTransaccionesDeVenta trxVenta;
 
         internal vwCfdTransaccionesDeVenta TrxVenta
@@ -63,9 +60,9 @@ namespace cfd.FacturaElectronica
         public async Task GeneraDocumentoXmlAsync(ICfdiMetodosWebService servicioTimbre)
         {
             string rutaYNombreArchivo = string.Empty;
+            String msj = String.Empty;
             try
             {
-                String msj = String.Empty;
                 trxVenta.Rewind(); //move to first record
                 string leyendas = await vwCfdTransaccionesDeVenta.ObtieneLeyendasAsync();
                 int errores = 0;
@@ -135,11 +132,11 @@ namespace cfd.FacturaElectronica
             catch (Exception xw)
             {
                 string imsj = xw.InnerException == null ? "" : xw.InnerException.ToString();
-                this.ultimoMensaje = xw.Message + " " + imsj + Environment.NewLine + xw.StackTrace;
+                msj = string.Concat( xw.Message , " " , xw?.InnerException?.Message , Environment.NewLine , xw.StackTrace);
             }
             finally
             {
-                OnProgreso(100, ultimoMensaje);
+                OnProgreso(100, msj);
             }
             OnProgreso(100, "Proceso finalizado!");
         }
@@ -324,6 +321,13 @@ namespace cfd.FacturaElectronica
                 LogComprobante.ActualizaFacturaEmitida(trxVenta.Soptype, trxVenta.Sopnumbe, _Conex.Usuario, Maquina.estadoBaseEmisor, Maquina.estadoBaseEmisor, trxVenta.CicloDeVida.targetBinStatus, trxVenta.CicloDeVida.EstadoEnPalabras(trxVenta.CicloDeVida.targetBinStatus), trxVenta.CicloDeVida.idxTargetSingleStatus.ToString());
             }
         }
+        private void EjecutaEventoCorrigeError()
+        {
+            if (trxVenta.CicloDeVida.Transiciona(Maquina.eventoCorrigeError, 1))
+            {
+                trxVenta.EliminaStatusBaseDelLog();
+            }
+        }
 
         private void EjecutaEventoServicioImpuestosAcepta(ICfdiMetodosWebService servicioTimbre, cfdReglasFacturaXml LogComprobante, string rutaYNombreArchivo, string nombreArchivo, int usuarioConAcceso, string xmlFactura)
         {
@@ -399,9 +403,9 @@ namespace cfd.FacturaElectronica
         public async Task<string> ProcesaConsultaStatusAsync(ICfdiMetodosWebService servicioTimbre)
         {
             string statusActual = string.Empty;
+            String msj = String.Empty;
             try
             {
-                String msj = String.Empty;
                 trxVenta.Rewind();                                                          //move to first record
                 int usuarioConAcceso = 1;
                 int numRegistros = trxVenta.RowCount;
@@ -473,12 +477,11 @@ namespace cfd.FacturaElectronica
             }
             catch (Exception xw)
             {
-                string imsj = xw.InnerException == null ? "" : xw.InnerException.ToString();
-                this.ultimoMensaje = xw.Message + " " + imsj + Environment.NewLine + xw.StackTrace;
+                msj = string.Concat(xw.Message, " ", xw?.InnerException?.Message, Environment.NewLine, xw.StackTrace);
             }
             finally
             {
-                OnProgreso(100, ultimoMensaje);
+                OnProgreso(100, msj);
             }
             OnProgreso(100, "PROCESO FINALIZADO!");
             return statusActual;
@@ -486,9 +489,9 @@ namespace cfd.FacturaElectronica
 
         public async Task ProcesaObtienePDFAsync(ICfdiMetodosWebService servicioTimbre)
          {
+            String msj = String.Empty;
             try
             {
-                String msj = String.Empty;
                 String eBinario = String.Empty;
                 trxVenta.Rewind();                                                          //move to first record
                 int numRegistros = trxVenta.RowCount;
@@ -534,21 +537,20 @@ namespace cfd.FacturaElectronica
             }
             catch (Exception xw)
             {
-                string imsj = xw.InnerException == null ? "" : xw.InnerException.ToString();
-                this.ultimoMensaje = xw.Message + " " + imsj + Environment.NewLine + xw.StackTrace;
+                msj = string.Concat(xw.Message, " ", xw?.InnerException?.Message, Environment.NewLine, xw.StackTrace);
             }
             finally
             {
-                OnProgreso(100, ultimoMensaje);
+                OnProgreso(100, msj);
             }
             OnProgreso(100, "PROCESO FINALIZADO!");
         }
 
         public async Task ProcesaEnviaCorreoAsync(ICfdiMetodosWebService servicioTimbre)
         {
+            String msj = String.Empty;
             try
             {
-                String msj = String.Empty;
                 String eBinario = String.Empty;
                 trxVenta.Rewind();                                                          //move to first record
                 int numRegistros = trxVenta.RowCount;
@@ -583,21 +585,20 @@ namespace cfd.FacturaElectronica
             }
             catch (Exception xw)
             {
-                string imsj = xw.InnerException == null ? "" : xw.InnerException.ToString();
-                this.ultimoMensaje = xw.Message + " " + imsj + Environment.NewLine + xw.StackTrace;
+                msj = string.Concat(xw.Message, " ", xw?.InnerException?.Message, Environment.NewLine, xw.StackTrace);
             }
             finally
             {
-                OnProgreso(100, ultimoMensaje);
+                OnProgreso(100, msj);
             }
             OnProgreso(100, "PROCESO FINALIZADO!");
         }
 
         public async Task ProcesaBajaComprobanteAsync(String motivoBaja, ICfdiMetodosWebService servicioTimbre)
         {
+            String msj = String.Empty;
             try
             {
-                String msj = String.Empty;
                 String eBinario = String.Empty;
                 trxVenta.Rewind();                                                          //move to first record
 
@@ -682,16 +683,40 @@ namespace cfd.FacturaElectronica
             }
             catch (Exception xw)
             {
-                string imsj = xw.InnerException == null ? "" : xw.InnerException.ToString();
-                this.ultimoMensaje = xw.Message + " " + imsj + Environment.NewLine + xw.StackTrace;
+                msj = string.Concat(xw.Message, " ", xw?.InnerException?.Message, Environment.NewLine, xw.StackTrace);
             }
             finally
             {
-                OnProgreso(100, ultimoMensaje);
+                OnProgreso(100, msj);
             }
             OnProgreso(100, "Proceso finalizado!");
         }
 
+        public void ReiniciaStatusDeComprobanteRechazadoPorServicioImpuestos()
+        {
+            String msj = String.Empty;
+            try
+            {
+                trxVenta.Rewind();                                   //move to first record
+                OnProgreso(1, "REINICIANDO STATUS...");              //Notifica al suscriptor
+                string tipoMEstados = "DOCVENTA-" + trxVenta.EstadoContabilizado;
+                trxVenta.CicloDeVida = new Maquina(trxVenta.EstadoActual, trxVenta.Regimen, trxVenta.Voidstts, "emisor", tipoMEstados);
+                EjecutaEventoCorrigeError();
+            }
+            catch (SqlException se)
+            {
+                msj = string.Concat("Doc:" + trxVenta.Sopnumbe + " " + msj.Trim() + Environment.NewLine, se?.InnerException?.Message);
+            }
+            catch (Exception xw)
+            {
+                msj = string.Concat("Doc:", trxVenta.Sopnumbe, " ", xw.Message ," " , xw?.InnerException?.Message, Environment.NewLine, xw.StackTrace);
+            }
+            finally
+            {
+                OnProgreso(100, msj);
+            }
+            OnProgreso(100, "PROCESO FINALIZADO!");
+        }
 
     }
 }

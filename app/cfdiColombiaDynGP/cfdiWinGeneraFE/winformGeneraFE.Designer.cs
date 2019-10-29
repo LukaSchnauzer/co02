@@ -122,6 +122,7 @@
             this.tabCfdi = new System.Windows.Forms.TabControl();
             this.tabFacturas = new System.Windows.Forms.TabPage();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.tsBtnCorrigeRechazo = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgridTrxFacturas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vwCfdTransaccionesDeVentaBindingSource)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -740,6 +741,7 @@
             this.toolStripAccionesXMLOtros.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStripAccionesXMLOtros.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsButtonConsultaTimbre,
+            this.tsBtnCorrigeRechazo,
             this.tsBtnAnulaElimina,
             this.tsBtnAbrirXML});
             this.toolStripAccionesXMLOtros.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
@@ -1132,6 +1134,17 @@
             this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton1.Text = "toolStripButton1";
             // 
+            // tsBtnCorrigeRechazo
+            // 
+            this.tsBtnCorrigeRechazo.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnCorrigeRechazo.Image")));
+            this.tsBtnCorrigeRechazo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnCorrigeRechazo.Name = "tsBtnCorrigeRechazo";
+            this.tsBtnCorrigeRechazo.Size = new System.Drawing.Size(106, 20);
+            this.tsBtnCorrigeRechazo.Text = "Reiniciar status";
+            this.tsBtnCorrigeRechazo.ToolTipText = "En caso que el comprobante ha sido rechazado por la DIAN y ha corregido el inconv" +
+    "eniente.";
+            this.tsBtnCorrigeRechazo.Click += new System.EventHandler(this.tsBtnCorrigeRechazo_Click);
+            // 
             // winformGeneraFE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1297,6 +1310,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn MensajeEA;
         private System.Windows.Forms.DataGridViewTextBoxColumn eBinAct;
         private System.Windows.Forms.DataGridViewTextBoxColumn Regimen;
+        private System.Windows.Forms.ToolStripButton tsBtnCorrigeRechazo;
     }
 }
 

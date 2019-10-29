@@ -49,5 +49,22 @@ namespace cfdiEntidadesGP
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fCfdiParametrosTipoLeyenda_Result>("[COLEntities].[fCfdiParametrosTipoLeyenda](@ADRSCODE, @Master_Type)", aDRSCODEParameter, master_TypeParameter);
         }
+    
+        public virtual int sp_cfdLogFacturaXMLDeleteByStatus(Nullable<short> soptype, string sopnumbe, string status)
+        {
+            var soptypeParameter = soptype.HasValue ?
+                new ObjectParameter("soptype", soptype) :
+                new ObjectParameter("soptype", typeof(short));
+    
+            var sopnumbeParameter = sopnumbe != null ?
+                new ObjectParameter("sopnumbe", sopnumbe) :
+                new ObjectParameter("sopnumbe", typeof(string));
+    
+            var statusParameter = status != null ?
+                new ObjectParameter("status", status) :
+                new ObjectParameter("status", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_cfdLogFacturaXMLDeleteByStatus", soptypeParameter, sopnumbeParameter, statusParameter);
+        }
     }
 }

@@ -220,7 +220,6 @@ IF (@@Error = 0) PRINT 'Procedure Creation: proc_cfdLogFacturaXMLInsert Succeede
 ELSE PRINT 'Procedure Creation: proc_cfdLogFacturaXMLInsert Error on Creation'
 GO
 
-/****** Object:  StoredProcedure [proc_cfdLogFacturaXMLDelete]    Script Date: 25/01/2011 06:17:43 p.m. ******/
 IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[proc_cfdLogFacturaXMLDelete]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
     DROP PROCEDURE dbo.[proc_cfdLogFacturaXMLDelete];
 GO
@@ -253,4 +252,38 @@ GO
 -- Display the status of Proc creation
 IF (@@Error = 0) PRINT 'Procedure Creation: proc_cfdLogFacturaXMLDelete Succeeded'
 ELSE PRINT 'Procedure Creation: proc_cfdLogFacturaXMLDelete Error on Creation'
+GO
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+IF EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[sp_cfdLogFacturaXMLDeleteByStatus]') AND OBJECTPROPERTY(id,N'IsProcedure') = 1)
+    DROP PROCEDURE dbo.[sp_cfdLogFacturaXMLDeleteByStatus];
+GO
+
+create PROCEDURE dbo.[sp_cfdLogFacturaXMLDeleteByStatus]
+(
+	@soptype smallint,
+	@sopnumbe varchar(21),
+	@status varchar(20)
+)
+AS
+BEGIN
+
+	SET NOCOUNT OFF
+	DECLARE @Err int
+
+	DELETE
+	FROM [cfdLogFacturaXML]
+	WHERE
+		[soptype] = @soptype AND
+		[sopnumbe] = @sopnumbe AND
+		estado = @status
+	SET @Err = @@Error
+
+	RETURN @Err
+END
+GO
+
+
+IF (@@Error = 0) PRINT 'Procedure Creation: sp_cfdLogFacturaXMLDeleteByStatus Succeeded'
+ELSE PRINT 'Procedure Creation: sp_cfdLogFacturaXMLDeleteByStatus Error on Creation'
 GO
