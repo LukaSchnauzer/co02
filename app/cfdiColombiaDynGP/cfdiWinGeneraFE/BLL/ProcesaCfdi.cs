@@ -265,9 +265,12 @@ namespace cfd.FacturaElectronica
                     if (!string.IsNullOrEmpty(xmlFactura))
                         rutaYNombreArchivo = await LogComprobante.GuardaArchivoAsync(trxVenta, xmlFactura, nombreArchivo, extension, false);
 
-                    EjecutaEventoServicioImpuestosAcepta(servicioTimbre, LogComprobante, rutaYNombreArchivo, nombreArchivo, usuarioConAcceso, xmlFactura);
+                    //EjecutaEventoServicioImpuestosAcepta(servicioTimbre, LogComprobante, usuarioConAcceso, xmlFactura);
+                    EjecutaEvento(Maquina.eventoDIANAcepta, servicioTimbre, LogComprobante, usuarioConAcceso, xmlFactura.Replace("encoding=\"utf-8\"", "").Replace("encoding=\"UTF-8\"", "").Replace("encoding=\"iso-8859-1\"", ""));
 
                     rutaYNombreArchivo = await EjecutaEventoObtienePDFAsync(servicioTimbre, LogComprobante, nombreArchivo, usuarioConAcceso);
+
+                    EjecutaEvento(Maquina.eventoEnviaCorreo, servicioTimbre, LogComprobante, usuarioConAcceso, string.Empty);
                 }
                 return (resultado);
             }
@@ -283,8 +286,9 @@ namespace cfd.FacturaElectronica
 
                         xmlFactura = await EjecutaEventoServicioImpuestosAceptaAsync(servicioTimbre, LogComprobante, nombreArchivo, extension, usuarioConAcceso);
 
-                        if (!string.IsNullOrEmpty(xmlFactura))
-                            rutaYNombreArchivo = await EjecutaEventoObtienePDFAsync(servicioTimbre, LogComprobante, nombreArchivo, usuarioConAcceso);
+                        rutaYNombreArchivo = await EjecutaEventoObtienePDFAsync(servicioTimbre, LogComprobante, nombreArchivo, usuarioConAcceso);
+
+                        EjecutaEvento(Maquina.eventoEnviaCorreo, servicioTimbre, LogComprobante, usuarioConAcceso, string.Empty);
                         break;
                     //case "Z98": //Rechazo de la DIAN.
                     //    LogComprobante.RegistraLogDeArchivoXML(trxVenta.Soptype, trxVenta.Sopnumbe, rutaYNombreArchivo, trxVenta.CicloDeVida.idxTargetSingleStatus.ToString(), _Conex.Usuario, string.Empty,
@@ -329,7 +333,7 @@ namespace cfd.FacturaElectronica
             }
         }
 
-        private void EjecutaEventoServicioImpuestosAcepta(ICfdiMetodosWebService servicioTimbre, cfdReglasFacturaXml LogComprobante, string rutaYNombreArchivo, string nombreArchivo, int usuarioConAcceso, string xmlFactura)
+        private void EjecutaEventoServicioImpuestosAcepta(ICfdiMetodosWebService servicioTimbre, cfdReglasFacturaXml LogComprobante, int usuarioConAcceso, string xmlFactura)
         {
             if (trxVenta.CicloDeVida.Transiciona(Maquina.eventoDIANAcepta, usuarioConAcceso))
             {
@@ -390,11 +394,11 @@ namespace cfd.FacturaElectronica
             return resultado;
         }
 
-        private void EjecutaEvento(int Evento, ICfdiMetodosWebService servicioTimbre, cfdReglasFacturaXml LogComprobante, int usuarioConAcceso)
+        private void EjecutaEvento(int Evento, ICfdiMetodosWebService servicioTimbre, cfdReglasFacturaXml LogComprobante, int usuarioConAcceso, string docXml)
         {
             if (trxVenta.CicloDeVida.Transiciona(Evento, usuarioConAcceso))
             {
-                LogComprobante.RegistraLogDeArchivoXML(trxVenta.Soptype, trxVenta.Sopnumbe, Evento.ToString(), trxVenta.CicloDeVida.idxTargetSingleStatus.ToString(), _Conex.Usuario, string.Empty,
+                LogComprobante.RegistraLogDeArchivoXML(trxVenta.Soptype, trxVenta.Sopnumbe, Evento.ToString(), trxVenta.CicloDeVida.idxTargetSingleStatus.ToString(), _Conex.Usuario, docXml,
                                                     trxVenta.CicloDeVida.targetSingleStatus, trxVenta.CicloDeVida.targetBinStatus, trxVenta.CicloDeVida.EstadoEnPalabras(trxVenta.CicloDeVida.targetBinStatus));
                 LogComprobante.ActualizaFacturaEmitida(trxVenta.Soptype, trxVenta.Sopnumbe, _Conex.Usuario, Maquina.estadoBaseEmisor, Maquina.estadoBaseEmisor, trxVenta.CicloDeVida.targetBinStatus, trxVenta.CicloDeVida.EstadoEnPalabras(trxVenta.CicloDeVida.targetBinStatus), trxVenta.CicloDeVida.idxTargetSingleStatus.ToString());
             }
@@ -447,16 +451,15 @@ namespace cfd.FacturaElectronica
 
                                 string xmlFactura = await EjecutaEventoServicioImpuestosAceptaAsync (servicioTimbre, LogComprobante, nombreArchivo, extension, usuarioConAcceso);
 
-                                if (!string.IsNullOrEmpty(xmlFactura))
-                                    rutaYNombreArchivo = await EjecutaEventoObtienePDFAsync(servicioTimbre, LogComprobante, nombreArchivo, usuarioConAcceso);
+                                rutaYNombreArchivo = await EjecutaEventoObtienePDFAsync(servicioTimbre, LogComprobante, nombreArchivo, usuarioConAcceso);
 
-                                if (!string.IsNullOrEmpty( rutaYNombreArchivo))
-                                    msj = await EjecutaEventoEnviaCorreoAsync(servicioTimbre, LogComprobante, dirCorreos, usuarioConAcceso);
+                                EjecutaEvento(Maquina.eventoEnviaCorreo, servicioTimbre, LogComprobante, usuarioConAcceso, string.Empty);
+                                //    msj = await EjecutaEventoEnviaCorreoAsync(servicioTimbre, LogComprobante, dirCorreos, usuarioConAcceso);
 
                                 break;
                             default:
                                 evento = Maquina.eventoNoHaceNada;
-                                EjecutaEvento(evento, servicioTimbre, LogComprobante, 1);
+                                EjecutaEvento(evento, servicioTimbre, LogComprobante, 1, string.Empty);
                                 break;
                         }
 
