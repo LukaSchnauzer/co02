@@ -128,6 +128,7 @@ namespace cfd.FacturaElectronica
                         OnProgreso(100 * i / trxVenta.RowCount, "Doc:" + trxVenta.Sopnumbe + " " + msj.Trim() + Environment.NewLine);              //Notifica al suscriptor
                     }
                 } while (trxVenta.MoveNext() && errores < 10);
+                msj = string.Empty;
             }
             catch (Exception xw)
             {
@@ -265,7 +266,6 @@ namespace cfd.FacturaElectronica
                     if (!string.IsNullOrEmpty(xmlFactura))
                         rutaYNombreArchivo = await LogComprobante.GuardaArchivoAsync(trxVenta, xmlFactura, nombreArchivo, extension, false);
 
-                    //EjecutaEventoServicioImpuestosAcepta(servicioTimbre, LogComprobante, usuarioConAcceso, xmlFactura);
                     EjecutaEvento(Maquina.eventoDIANAcepta, servicioTimbre, LogComprobante, usuarioConAcceso, xmlFactura.Replace("encoding=\"utf-8\"", "").Replace("encoding=\"UTF-8\"", "").Replace("encoding=\"iso-8859-1\"", ""));
 
                     rutaYNombreArchivo = await EjecutaEventoObtienePDFAsync(servicioTimbre, LogComprobante, nombreArchivo, usuarioConAcceso);
@@ -289,6 +289,8 @@ namespace cfd.FacturaElectronica
                         rutaYNombreArchivo = await EjecutaEventoObtienePDFAsync(servicioTimbre, LogComprobante, nombreArchivo, usuarioConAcceso);
 
                         EjecutaEvento(Maquina.eventoEnviaCorreo, servicioTimbre, LogComprobante, usuarioConAcceso, string.Empty);
+
+                        resultado = rutaYNombreArchivo;
                         break;
                     //case "Z98": //Rechazo de la DIAN.
                     //    LogComprobante.RegistraLogDeArchivoXML(trxVenta.Soptype, trxVenta.Sopnumbe, rutaYNombreArchivo, trxVenta.CicloDeVida.idxTargetSingleStatus.ToString(), _Conex.Usuario, string.Empty,
@@ -297,9 +299,10 @@ namespace cfd.FacturaElectronica
                     //    break;
                     default:
                         LogComprobante.RegistraLogDeArchivoXML(trxVenta.Soptype, trxVenta.Sopnumbe, "EjecutaEventoEmiteAsync " + lo.Message, "errTheFactory", _Conex.Usuario, string.Empty, Maquina.estadoBaseError, trxVenta.CicloDeVida.binStatus, lo.StackTrace);
-                        throw new InvalidOperationException(msj);
+                        resultado = msj;
+                        break;
                 }
-                return (rutaYNombreArchivo);
+                return (resultado);
             }
 
         }
