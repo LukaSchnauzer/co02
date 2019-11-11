@@ -114,12 +114,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLL\cfdEmailWorker.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="BLL\cfdFacturaPdfWorker.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="BLL\ProcesaCfdi.cs" />
     <Compile Include="BLL\cfdLogFacturaXML.cs" />
     <Compile Include="BLL\cfdReglasEmail.cs" />

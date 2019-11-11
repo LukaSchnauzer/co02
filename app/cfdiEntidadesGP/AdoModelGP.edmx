@@ -280,6 +280,11 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
             </CollectionType>
           </ReturnType>
         </Function>
+        <Function Name="sp_cfdLogFacturaXMLDeleteByStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="soptype" Type="smallint" Mode="In" />
+          <Parameter Name="sopnumbe" Type="varchar" Mode="In" />
+          <Parameter Name="status" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="COLOMBIAModelStoreContainer">
           <EntitySet Name="vwCfdiClienteDestinatario" EntityType="Self.vwCfdiClienteDestinatario" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -648,6 +653,11 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
             <Parameter Name="Master_Type" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="vwCfdiRelacionados" EntityType="COLOMBIAModel.vwCfdiRelacionados" />
+          <FunctionImport Name="sp_cfdLogFacturaXMLDeleteByStatus">
+            <Parameter Name="soptype" Mode="In" Type="Int16" />
+            <Parameter Name="sopnumbe" Mode="In" Type="String" />
+            <Parameter Name="status" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="vwCfdiRelacionados">
           <Key>
@@ -873,6 +883,7 @@ warning 6002: The table/view 'COL10.dbo.vwCfdiRelacionados' does not have a prim
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_cfdLogFacturaXMLDeleteByStatus" FunctionName="COLOMBIAModel.Store.sp_cfdLogFacturaXMLDeleteByStatus" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -193,5 +193,15 @@ namespace cfdiEntidadesGP
             }
 
         }
+
+        public void EliminaStatusDelLog(short soptype, string sopnumbe, string status)
+        {
+            using (COLEntities db = new COLEntities())
+            {
+                db.sp_cfdLogFacturaXMLDeleteByStatus(soptype, sopnumbe, status);
+
+            }
+        }
+
     }
 }

@@ -40,19 +40,15 @@ namespace cfdiColombia
         public void ArmarDocElectronico(string leyendas)
         {
             string leyendaConjunta = leyendas;
-            try
-            {
-                docGP = new DocumentoVentaGP();
-                docGP.GetDatosDocumentoVenta(this.Sopnumbe, this.Soptype);
+            docGP = new DocumentoVentaGP();
+            docGP.GetDatosDocumentoVenta(this.Sopnumbe, this.Soptype);
+            docGP.LeyendasXml = ObtieneLeyendaConjunta(leyendas, string.Empty, docGP.DocVenta.leyendaPorFactura2);
+        }
 
-                docGP.LeyendasXml = ObtieneLeyendaConjunta(leyendas, string.Empty, docGP.DocVenta.leyendaPorFactura2);
-
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
+        public void EliminaStatusBaseDelLog()
+        {
+            docGP = new DocumentoVentaGP();
+            docGP.EliminaStatusDelLog(this.Soptype, this.Sopnumbe, "emitido");
         }
 
         private string ObtieneLeyendaConjunta(string leyendas, string leyendaPorFactura, string leyendaPorFactura2)
