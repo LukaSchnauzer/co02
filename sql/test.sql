@@ -160,3 +160,6 @@ select *
 from sop10107 s
 where s.tracking_number = 'TISF7                                    '
 
+select *
+from tx00201
+order by 1

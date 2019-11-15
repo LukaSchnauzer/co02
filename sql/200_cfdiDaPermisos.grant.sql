@@ -5,7 +5,6 @@
 --15/05/19 JCF Creación
 --
 -----------------------------------------------------------------------------------
---use arg10
 
 IF DATABASE_PRINCIPAL_ID('rol_cfdiColombia') IS NULL
 	create role rol_cfdiColombia;
@@ -23,11 +22,11 @@ grant select on dbo.vwCfdiTransaccionesDeVenta to rol_cfdiColombia, dyngrp;
 grant select on dbo.vwCfdIdDocumentos  to rol_cfdiColombia, dyngrp;
 grant select on dbo.vwCfdClienteDireccionesCorreo to rol_cfdiColombia, dyngrp;
 grant select on dbo.vwCfdCartasReclamacionDeuda to rol_cfdiColombia, dyngrp;
-grant select on dbo.vwCfdiListaResumenDiario to rol_cfdiColombia, dyngrp;
+--grant select on dbo.vwCfdiListaResumenDiario to rol_cfdiColombia, dyngrp;
 grant select on dbo.fCfdiParametros to rol_cfdiColombia;
 grant select on dbo.fCfdiParametrosTipoLeyenda to rol_cfdiColombia;
 
 grant select on dbo.vwCfdiConceptos to rol_cfdiColombia;
 grant select on dbo.vwCfdiGeneraDocumentoDeVenta to rol_cfdiColombia;
 grant select on dbo.vwCfdiRelacionados to rol_cfdiColombia;
-grant select on dbo.vwCfdiGeneraResumenDiario to rol_cfdiColombia;
+--grant select on dbo.vwCfdiGeneraResumenDiario to rol_cfdiColombia;

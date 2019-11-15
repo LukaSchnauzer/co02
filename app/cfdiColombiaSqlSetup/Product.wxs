@@ -73,8 +73,7 @@
           <sql:SqlScript Id="CreateObj130" BinaryKey="CreateObj130" ExecuteOnInstall="yes" Sequence="130" ExecuteOnReinstall="yes"/>
           <sql:SqlScript Id="CreateObj140" BinaryKey="CreateObj140" ExecuteOnInstall="yes" Sequence="140" ExecuteOnReinstall="yes"/>
           <sql:SqlScript Id="CreateObj150" BinaryKey="CreateObj150" ExecuteOnInstall="yes" Sequence="150" ExecuteOnReinstall="yes"/>
-          <sql:SqlScript Id="CreateObj160" BinaryKey="CreateObj160" ExecuteOnInstall="yes" Sequence="160" ExecuteOnReinstall="yes"/>
-          <sql:SqlScript Id="CreateObj170" BinaryKey="CreateObj170" ExecuteOnInstall="yes" Sequence="170" ExecuteOnReinstall="yes"/>
+          <!--<sql:SqlScript Id="CreateObj160" BinaryKey="CreateObj160" ExecuteOnInstall="yes" Sequence="160" ExecuteOnReinstall="yes"/>-->
           <sql:SqlScript Id="CreateObj200" BinaryKey="CreateObj200" ExecuteOnInstall="yes" Sequence="200" ExecuteOnReinstall="yes"/>
         </sql:SqlDatabase>
       </Component>
@@ -135,8 +134,7 @@
     <Binary Id="CreateObj130" SourceFile="C:\jcTii\Desarrollo\COL_FacturaElectronica\co02\sql\130_fnCfdiImpuestos.function.sql"/>
     <Binary Id="CreateObj140" SourceFile="C:\jcTii\Desarrollo\COL_FacturaElectronica\co02\sql\140_vwCfdiFacturaImpuestosCabeceraYDetalle.view.sql"/>
     <Binary Id="CreateObj150" SourceFile="C:\jcTii\Desarrollo\COL_FacturaElectronica\co02\sql\150_ObtieneDocumentosXml.view.sql"/>
-    <Binary Id="CreateObj160" SourceFile="C:\jcTii\Desarrollo\COL_FacturaElectronica\co02\sql\160_fCfdiObtieneNumResumenDiario.function.sql"/>
-    <Binary Id="CreateObj170" SourceFile="C:\jcTii\Desarrollo\COL_FacturaElectronica\co02\sql\170_ObtieneResumenDiario.view.sql"/>
+    <!--<Binary Id="CreateObj160" SourceFile="C:\jcTii\Desarrollo\COL_FacturaElectronica\co02\sql\160_fCfdiObtieneNumResumenDiario.function.sql"/>-->
     <Binary Id="CreateObj200" SourceFile="C:\jcTii\Desarrollo\COL_FacturaElectronica\co02\sql\200_cfdiDaPermisos.grant.sql"/>
 
 
