@@ -32,7 +32,7 @@ begin
 end
 go
 
-alter table dbo.cfdLogFacturaXML add constraint chk_estado check(estado in ('enviado', 'aceptado Cliente', 'rechazado Cliente', 'impreso', 'aceptado DIAN', 'rechazado DIAN', 'emitido', 'no emitido', 'error'));
+alter table dbo.cfdLogFacturaXML add constraint chk_estado check(estado in ('enviado', 'aceptado Cliente', 'rechazado Cliente', 'impreso', 'aceptado DIAN', 'rechazado DIAN', 'emitido', 'no emitido', 'error', 'anulado'));
 
 
 go
