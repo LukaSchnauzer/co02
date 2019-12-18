@@ -17,6 +17,12 @@ grant execute on proc_cfdLogFacturaXMLUpdate to rol_cfdiColombia, dyngrp;
 grant execute on proc_cfdLogFacturaXMLInsert to rol_cfdiColombia, dyngrp;
 grant execute on proc_cfdLogFacturaXMLDelete to rol_cfdiColombia, dyngrp;
 
+grant select on dbo.vwCfdiFacturaImpuestosCabecera to rol_cfdiColombia, dyngrp;
+grant select on dbo.vwCfdiFacturaImpuestosDetalles to rol_cfdiColombia, dyngrp;
+grant select on dbo.vwCfdiMediosDePago to  rol_cfdiColombia, dyngrp;
+grant select on dbo.vwCfdiClienteDestinatario to  rol_cfdiColombia, dyngrp;
+grant select on dbo.vwCfdiClienteObligaciones to  rol_cfdiColombia, dyngrp;
+
 grant select on dbo.vwCfdiTransaccionesDeVenta to rol_cfdiColombia, dyngrp;
 --grant select on dbo.vwCfdiDocumentosAImprimir to rol_cfdiColombia, dyngrp;
 grant select on dbo.vwCfdIdDocumentos  to rol_cfdiColombia, dyngrp;
