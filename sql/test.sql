@@ -6,17 +6,17 @@ values (3, '03-ERR DESCRIPC', '')
 
 SELECT TOP 100 *
 FROM dbo.vwCfdiGeneraDocumentoDeVenta tv
-where sopnumbe = 'SETT00000017'
+where sopnumbe = 'CENC00000002'
 
 select *
 from vwCfdiTransaccionesDeVenta
 where sopnumbe IN (
-'SETT00000017'
+'CENC00000002'
 )
 
 select *
 from vwCfdiRelacionados
-where sopnumbeFrom = 'SETT00000017'
+where sopnumbeFrom = 'CENC00000002'
 
 SELECT *
 from dbo.fCfdiCertificadoVigente('7/30/18') fv
@@ -26,7 +26,7 @@ select *
 --delete c
 from cfdlogfacturaxml c
 where 
---c.sopnumbe like '%SETT00000017'
+--c.sopnumbe like '%CENC00000002'
 --estado = 'emitido'
  c.sopnumbe in (
  'F001-00000060'
@@ -34,7 +34,7 @@ where
 -- 'F001-00000011',
 --,'F001-00000008'
 )
---like 'SETT00000017%'
+--like 'CENC00000002%'
 --and secuencia = 1187
 --and c.soptype = 3
 --and estado = 'emitido'
@@ -52,7 +52,7 @@ select *
 from dbo.fLcLvParametros('V_PREFEXONERADO', 'V_PREFEXENTO', 'V_PREFIVA', 'V_GRATIS', 'na', 'na') pr	--Parámetros. prefijo inafectos, prefijo exento, prefijo iva
 
 select *
-from dbo.fCfdiImpuestosSop( 'SETT00000017        ', 3, 0, 'V-GRATIS', '02') gra	--gratuito
+from dbo.fCfdiImpuestosSop( 'CENC00000002        ', 3, 0, 'V-GRATIS', '02') gra	--gratuito
 
 select *
 from dbo.fnCfdiSumaImpuestosSop('TISF00000003', 3, 0, '%', '%', '%') sumaImpuestos
@@ -60,12 +60,12 @@ from dbo.fnCfdiSumaImpuestosSop('TISF00000003', 3, 0, '%', '%', '%') sumaImpuest
 
 select *
 from vwCfdiConceptos
-where sopnumbe = 'SETT00000017        '
+where sopnumbe = 'CENC00000002        '
 
 
 select *
 from vwCfdiSopTransaccionesVenta
-where sopnumbe like 'F001%'	--'SETT00000017'
+where sopnumbe like 'F001%'	--'CENC00000002'
 ORDER BY SOPNUMBE
 
 select *
@@ -87,7 +87,7 @@ from dbo.fCfdiPagoSimultaneoMayor(3, 'FV 00000247', 1) pg
 
 select *
 from dbo.sop10106
-where sopnumbe LIKE 'SETT00000017'
+where sopnumbe LIKE 'CENC00000002'
 
 select docncorr, *
 --update s set docncorr = '10:23:10:060'
@@ -100,17 +100,17 @@ update s set ccode = 'CO'	--city = '11001', [state]='11'	--
 --update s set commntid = '009'	--'01ANULA OPER', refrence = 'x'	-- docncorr = '10:23:10:060'
 from sop30200 s
 where s.soptype = 3
-and s.sopnumbe like 'SETT00000017'
+and s.sopnumbe like 'CENC00000002'
 
 --ingresar la causa de la nc
 insert into sop10106 (SOPTYPE,SOPNUMBE,USRDAT01,USRDAT02,USRTAB01,USRTAB09,USRTAB03,USERDEF1,USERDEF2,USRDEF03,USRDEF04,USRDEF05,COMMENT_1,COMMENT_2,COMMENT_3,COMMENT_4,CMMTTEXT)
-values (3, 'SETT00000017', 0, 0, '', '', '', '', '', '', '', '', 'Descuento General', '', '', '', 'Descuento General')
+values (3, 'CENC00000002', 0, 0, '', '', '', '', '', '', '', '', 'Descuento General', '', '', '', 'Descuento General')
 
 select *
 --update s set COMMENT_1 = 'Descuento General'
 from sop10106 s
 where s.soptype = 3
-and s.sopnumbe like 'SETT00000017'
+and s.sopnumbe like 'CENC00000002'
 
 --------------------------------------------------------------------------------
 --Para eliminar un número que se pueda reusar seguir el procedimiento: C:\jcTii\SW\SWDynamicsGP\KnowledgeBase\Completely Removing a Posted SOP Invoice From Dynamics GP.html
@@ -121,20 +121,20 @@ WHERE
 DOCTYPE = 3 AND SERIES = 1 
 AND DOCNUMBR in --= 'BNC1-0000005'
 (
-'SETT00000017'
+'CENC00000002'
 --'BNC1-00000007',
 --'BNC1-00000008',
---'SETT00000017'
+--'CENC00000002'
 )
 
 select *
 from sop30200
 where sopnumbe in
 (
-'SETT00000017',
+'CENC00000002',
 'BNC1-00000007',
 'BNC1-00000008',
-'SETT00000017'
+'CENC00000002'
 )
 
 
@@ -142,10 +142,10 @@ select *
 from rm20101
 where docnumbr in
 (
-'SETT00000017',
+'CENC00000002',
 'BNC1-00000007',
 'BNC1-00000008',
-'SETT00000017'
+'CENC00000002'
 )
 ----------------------------------------------------------------------------------------------
 --agregar parámetros de compañía
