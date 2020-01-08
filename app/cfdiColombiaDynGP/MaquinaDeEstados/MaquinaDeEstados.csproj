@@ -53,10 +53,6 @@
       <Project>{d43004bd-e235-41be-b272-a05fc4fb9a96}</Project>
       <Name>Comun</Name>
     </ProjectReference>
-    <ProjectReference Include="..\InterfacesIntegracionGP\InterfacesDeIntegracionGP.csproj">
-      <Project>{926e41ef-73a4-448d-b8cf-3ecc478df49e}</Project>
-      <Name>InterfacesDeIntegracionGP</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

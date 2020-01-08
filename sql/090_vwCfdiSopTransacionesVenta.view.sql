@@ -7,13 +7,14 @@ alter view dbo.vwCfdiSopTransaccionesVenta
 --Utiliza:	vwRmTransaccionesTodas
 --Requisitos. No muestra facturas registradas en cuentas por cobrar. 
 --09/08/19 jcf Creación cfdi Colombia
+--08/01/20 jcf Ajusta IdImpuestoCliente
 --
 AS
 
 SELECT	'contabilizado' estadoContabilizado,
 		case when cn.TXRGNNUM = '' 
 			then rtrim(dbo.fCfdReemplazaCaracteresNI(replace(cab.custnmbr, '-', '')))
-			else rtrim(dbo.fCfdReemplazaCaracteresNI(rtrim(left(replace(cn.TXRGNNUM, '-', ''), 23))))	--loc argentina usa los 23 caracteres de la izquierda
+			else rtrim(dbo.fCfdReemplazaCaracteresNI(replace(cn.TXRGNNUM, '-', '')))	
 		end idImpuestoCliente,
 		cn.TXRGNNUM,
 		cab.CUSTNMBR,

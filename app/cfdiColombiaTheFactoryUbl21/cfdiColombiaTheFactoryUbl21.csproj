@@ -32,9 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="cfdiEntidadesGP">
-      <HintPath>..\cfdiEntidadesGP\bin\Debug\cfdiEntidadesGP.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -126,6 +123,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\cfdiEntidadesGP\cfdiEntidadesGP.csproj">
+      <Project>{4954c962-f4d6-4c0c-91dd-18a690e326cd}</Project>
+      <Name>cfdiEntidadesGP</Name>
+    </ProjectReference>
     <ProjectReference Include="..\cfdiInterfacesFacturador\cfdiColombiaInterfaces.csproj">
       <Project>{32e2bbb0-c891-4b06-8dec-7075d00cac71}</Project>
       <Name>cfdiColombiaInterfaces</Name>

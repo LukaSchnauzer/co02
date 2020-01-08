@@ -25,7 +25,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
         }
 
         /// <summary>
-        /// Arma el objeto FacturaGeneral que luego se debe enviar el web service
+        /// Arma el objeto FacturaGeneral para el web service
         /// </summary>
         /// <param name="documentoGP"></param>
         /// <returns></returns>
@@ -39,7 +39,8 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             DocEnviarWS.cantidadDecimales = documentoGP.DocVenta.cantidadDecimales.ToString();
             DocEnviarWS.consecutivoDocumento = documentoGP.DocVenta.consecutivoDocumento;
 
-            #region DATOS PRINCIPALES DEL CLIENTE
+            #region DATOS PRINCIPALES DEL CLIENTE ****************************
+
             DocEnviarWS.cliente = new Cliente();
             DocEnviarWS.cliente.nombreRazonSocial = documentoGP.DocVenta.cliente_nombreRazonSocial;
             DocEnviarWS.cliente.numeroDocumento = documentoGP.DocVenta.cliente_numeroDocumento;
@@ -48,7 +49,9 @@ namespace cfdiColombiaOperadorServiciosElectronicos
             DocEnviarWS.cliente.notificar = documentoGP.DocVenta.cliente_notificar;
             //DocEnviarWS.cliente.telefono = documentoGP.DocVenta.cliente_telefono;
             DocEnviarWS.cliente.email = documentoGP.DocVenta.cliente_email;
-            DocEnviarWS.cliente.numeroIdentificacionDV = documentoGP.DocVenta.cliente_numeroIdentificacionDV;
+            if (!string.IsNullOrEmpty(documentoGP.DocVenta.cliente_numeroIdentificacionDV))
+                DocEnviarWS.cliente.numeroIdentificacionDV = documentoGP.DocVenta.cliente_numeroIdentificacionDV;
+
             if (!string.IsNullOrEmpty(documentoGP.DocVenta.cliente_nombreComercial))
             {
                 DocEnviarWS.cliente.nombreComercial = documentoGP.DocVenta.cliente_nombreComercial;
@@ -173,7 +176,7 @@ namespace cfdiColombiaOperadorServiciosElectronicos
 
             #endregion
 
-            #region DIRECCION FISCAL DEL CLIENTE
+            #region DIRECCION FISCAL DEL CLIENTE 
             Direccion direccionFiscal = new Direccion();
             if (!string.IsNullOrEmpty(documentoGP.DocVenta.cliente_difCiudad))
             {
@@ -194,12 +197,14 @@ namespace cfdiColombiaOperadorServiciosElectronicos
 
             #endregion
 
-            #region INFORMACION LEGAL DEL CLIENTE
+            #region INFORMACION LEGAL DEL CLIENTE **********************************************************
             DocEnviarWS.cliente.informacionLegalCliente = new InformacionLegal();
             InformacionLegal informacionlegal1 = new InformacionLegal();
             informacionlegal1.nombreRegistroRUT = documentoGP.DocVenta.cliente_nombreRegistroRUT;
             informacionlegal1.numeroIdentificacion = documentoGP.DocVenta.cliente_numeroIdentificacion;
-            informacionlegal1.numeroIdentificacionDV = documentoGP.DocVenta.cliente_numeroIdentificacionDV;
+            if (!string.IsNullOrEmpty(documentoGP.DocVenta.cliente_numeroIdentificacionDV))
+                informacionlegal1.numeroIdentificacionDV = documentoGP.DocVenta.cliente_numeroIdentificacionDV;
+
             informacionlegal1.tipoIdentificacion = documentoGP.DocVenta.cliente_tipoIdentificacion.ToString();
             DocEnviarWS.cliente.informacionLegalCliente = informacionlegal1;
             //FIN INFORMACION LEGAL DEL CLIENTE
