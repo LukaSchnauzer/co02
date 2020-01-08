@@ -176,6 +176,7 @@ as
 --Propósito. Obtiene los datos para la clase FacturaGeneral del web service de The Factory Colombia
 --Requisitos.  Instalar localización Colombia co01
 --08/08/19 jcf Creación cfdi Colombia
+--08/01/20 jcf cliente_numeroDocumento debe ser igual a cliente_numeroIdentificacion. cliente_numeroIdentificacionDV es válido sólo si el tipo es 31
 --
 	select 
 		tv.soptype,
@@ -230,14 +231,17 @@ as
 			tercero.nsaIfNitSinDV
 		else reverse(substring(reverse(tv.idImpuestoCliente), 2, 50))	
 		end								cliente_numeroIdentificacion,
-		reverse(
-			substring(
-				reverse(tv.idImpuestoCliente)
-				, 2, 50))				cliente_numeroDocumento,
-
 		case when tv.TXRGNNUM = '' then
-			tercero.digitoVerificador
-		else left(reverse(tv.idImpuestoCliente), 1) 
+			tercero.nsaIfNitSinDV
+		else reverse(substring(reverse(tv.idImpuestoCliente), 2, 50))	
+		end								cliente_numeroDocumento,
+
+		case when isnull(tercero.nsaif_type_nit, 'no existe') = '31' then
+				case when tv.TXRGNNUM = '' then
+					tercero.digitoVerificador
+				else left(reverse(tv.idImpuestoCliente), 1) 
+				end
+			else ''
 		end								cliente_numeroIdentificacionDV,
 
 		tercero.nsaif_type_nit			cliente_tipoIdentificacion,

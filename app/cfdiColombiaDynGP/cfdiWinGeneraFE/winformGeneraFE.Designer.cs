@@ -92,6 +92,7 @@
             this.mesActualToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripAccionesXMLOtros = new System.Windows.Forms.ToolStrip();
             this.tsButtonConsultaTimbre = new System.Windows.Forms.ToolStripButton();
+            this.tsBtnCorrigeRechazo = new System.Windows.Forms.ToolStripButton();
             this.tsBtnAnulaElimina = new System.Windows.Forms.ToolStripButton();
             this.tsBtnAbrirXML = new System.Windows.Forms.ToolStripButton();
             this.tsConfirmaAnulaXml = new System.Windows.Forms.ToolStrip();
@@ -122,7 +123,6 @@
             this.tabCfdi = new System.Windows.Forms.TabControl();
             this.tabFacturas = new System.Windows.Forms.TabPage();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.tsBtnCorrigeRechazo = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.dgridTrxFacturas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.vwCfdTransaccionesDeVentaBindingSource)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -498,7 +498,7 @@
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip1.Size = new System.Drawing.Size(152, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(272, 24);
             this.menuStrip1.TabIndex = 14;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -530,7 +530,7 @@
             // 
             this.genFacturaElectrónicaV10ToolStripMenuItem.Name = "genFacturaElectrónicaV10ToolStripMenuItem";
             this.genFacturaElectrónicaV10ToolStripMenuItem.Size = new System.Drawing.Size(429, 22);
-            this.genFacturaElectrónicaV10ToolStripMenuItem.Text = "Factura Electrónica COLOMBIA UBL21 v13.0.0-release+GP2013.co02";
+            this.genFacturaElectrónicaV10ToolStripMenuItem.Text = "Factura Electrónica COLOMBIA UBL21 v13.0.1-release+GP2013.co02";
             // 
             // toolStripMenuItem2
             // 
@@ -759,6 +759,17 @@
             this.tsButtonConsultaTimbre.Size = new System.Drawing.Size(113, 20);
             this.tsButtonConsultaTimbre.Text = "Consultar Status";
             this.tsButtonConsultaTimbre.Click += new System.EventHandler(this.tsButtonConsultaTimbre_Click);
+            // 
+            // tsBtnCorrigeRechazo
+            // 
+            this.tsBtnCorrigeRechazo.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnCorrigeRechazo.Image")));
+            this.tsBtnCorrigeRechazo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsBtnCorrigeRechazo.Name = "tsBtnCorrigeRechazo";
+            this.tsBtnCorrigeRechazo.Size = new System.Drawing.Size(106, 20);
+            this.tsBtnCorrigeRechazo.Text = "Reiniciar status";
+            this.tsBtnCorrigeRechazo.ToolTipText = "En caso que el comprobante ha sido rechazado por la DIAN y ha corregido el inconv" +
+    "eniente.";
+            this.tsBtnCorrigeRechazo.Click += new System.EventHandler(this.tsBtnCorrigeRechazo_Click);
             // 
             // tsBtnAnulaElimina
             // 
@@ -1133,17 +1144,6 @@
             this.toolStripButton1.Name = "toolStripButton1";
             this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
             this.toolStripButton1.Text = "toolStripButton1";
-            // 
-            // tsBtnCorrigeRechazo
-            // 
-            this.tsBtnCorrigeRechazo.Image = ((System.Drawing.Image)(resources.GetObject("tsBtnCorrigeRechazo.Image")));
-            this.tsBtnCorrigeRechazo.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsBtnCorrigeRechazo.Name = "tsBtnCorrigeRechazo";
-            this.tsBtnCorrigeRechazo.Size = new System.Drawing.Size(106, 20);
-            this.tsBtnCorrigeRechazo.Text = "Reiniciar status";
-            this.tsBtnCorrigeRechazo.ToolTipText = "En caso que el comprobante ha sido rechazado por la DIAN y ha corregido el inconv" +
-    "eniente.";
-            this.tsBtnCorrigeRechazo.Click += new System.EventHandler(this.tsBtnCorrigeRechazo_Click);
             // 
             // winformGeneraFE
             // 
